@@ -1,0 +1,13 @@
+{
+    "name": "a3-dmccarthy11",
+    "version": "1.0.0",
+    "description": "Assignment #3 for Webware 2022",
+    "author": "Dillon McCarthy",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.16.4"
+    }
+  }
