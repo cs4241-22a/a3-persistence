@@ -1,15 +1,15 @@
 const express    = require('express'),
       app        = express(),
-      dreams     = []
+      workouts   = []
 
 app.use( express.static( 'public' ) )
 app.use( express.static( 'views'  ) )
 app.use( express.json() )
 
 app.post( '/submit', (req, res) => {
-  dreams.push( req.body.newdream )
+  workouts.push( req.body.newLift )
   res.writeHead( 200, { 'Content-Type': 'application/json' })
-  res.end( JSON.stringify( dreams ) )
+  res.end( JSON.stringify( workouts ) )
 })
 
-app.listen( process.env.PORT )
+app.listen( process.env.PORT || 3000)

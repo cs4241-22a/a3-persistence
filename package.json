@@ -5,9 +5,9 @@
     "author": "Dillon McCarthy",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+        "start": "node server.js"
     },
     "dependencies": {
-      "express": "^4.16.4"
+        "express": "^4.18.1"
     }
-  }
+}
