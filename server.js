@@ -1,9 +1,7 @@
 require('dotenv').config()
 const express = require('express'), path = require('path'), passport = require('passport'),
     session = require('express-session')
-
 require('./passport')
-const {collection, mongodb} = require("./mongodb");
 
 const app = express()
 app.use(session({secret: 'secret?', resave: false, saveUninitialized: false}))
@@ -34,6 +32,19 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/login')
 }
+
+// DATABASE INITIALIZATION
+let collection = undefined;
+const mongodb = require('mongodb')
+const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}/?retryWrites=true&w=majority`
+const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true})
+
+client.connect().then(() => {
+    return client.db('data').collection('todos')
+}).then(_collection => {
+    collection = _collection
+    return collection.find({}).toArray()
+}).then(console.log)
 
 // AUTHENTICATION
 
