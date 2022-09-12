@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
 require("dotenv").config();
 const routes = require("./routes");
 
@@ -18,7 +17,6 @@ const port = 3000;
 })();
 
 // Middleware
-app.use(morgan("tiny"));
 app.use(routes);
 app.use(express.static("public"));
 
