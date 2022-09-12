@@ -1,30 +1,41 @@
 require('dotenv').config()
-const express = require('express'),
-    path = require('path'),
-    passport = require('passport'),
+const express = require('express'), path = require('path'), passport = require('passport'),
     session = require('express-session')
-require('./passport') // Initialize passport
+
+require('./passport')
+const {collection, mongodb} = require("./mongodb");
 
 const app = express()
 app.use(session({secret: 'secret?', resave: false, saveUninitialized: false}))
 app.use(passport.initialize({}))
 app.use(passport.session({}))
 app.use(logger)
+app.use(connectionChecker)
 app.use(ensureAuthenticated)
+app.use(express.json())
 app.use(express.static(__dirname + '/public'))
-
-const allowed = ['/login', '/auth/github', '/auth/github/callback']
 
 function logger(req, res, next) {
     console.log('URL:', req.path)
     return next()
 }
 
+function connectionChecker(req, res, next) {
+    if (collection !== undefined) return next()
+    else res.status(503).send()
+}
+
 // Allow the user to continue if they are going to an allowed page OR if they are authenticated
+const allowed = ['/login', '/auth/github', '/auth/github/callback']
+
 function ensureAuthenticated(req, res, next) {
-    if (allowed.includes(req.path) || req.isAuthenticated()) { return next(); }
+    if (allowed.includes(req.path) || req.isAuthenticated()) {
+        return next();
+    }
     res.redirect('/login')
 }
+
+// AUTHENTICATION
 
 // Login page
 app.get('/login', (req, res) => {
@@ -41,11 +52,35 @@ app.get('/auth/github/callback', passport.authenticate('github', {failureRedirec
     res.redirect('/')
 })
 
-app.get('/logout', (req, res, next) => {
+app.post('/logout', (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err)
         res.redirect('/')
     })
+})
+
+
+// DB ACTIONS
+
+app.get('/todos', ensureAuthenticated, (req, res) => {
+    // TODO make sure it only gets ones for that given user
+    collection.find({}).toArray().then(result => res.json(result))
+})
+
+app.put('/submit', ensureAuthenticated, (req, res) => { // TODO update path
+    collection.insertOne(req.body).then(result => res.json(result))
+})
+
+app.delete('/delete', ensureAuthenticated, (req, res) => { // TODO update path
+    collection
+        .deleteOne({_id: mongodb.ObjectId(req.body._id)})
+        .then(result => res.json(result))
+})
+
+app.patch('/update', ensureAuthenticated, (req, res) => { // TODO update path
+    collection
+        .updateOne({_id: mongodb.ObjectId(req.body._id)}, {$set: {name: req.body.name}})
+        .then(result => res.json(result))
 })
 
 app.listen(process.env.PORT || 3000)

@@ -10,7 +10,7 @@ passport.deserializeUser((user, done) => {
 })
 
 // noinspection JSCheckFunctionSignatures
-passport.use( new GitHubStrategy({
+passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: `http://localhost:${process.env.PORT}/auth/github/callback`
