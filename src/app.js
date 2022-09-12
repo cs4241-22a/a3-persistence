@@ -7,4 +7,6 @@ const port = 3000;
 
 app.use(bodyParser.json());
 app.use(routes);
+app.use(express.static("public"));
+
 app.listen(port, () => console.log(`Server listening on port ${port}`));
