@@ -48,7 +48,6 @@ client.connect().then(() => {
 
 // AUTHENTICATION
 
-// Login page
 app.get('/login', (req, res) => {
     res.sendFile('login.html', {user: req.user, root: path.join(__dirname, 'public')})
 })
