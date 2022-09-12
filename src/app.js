@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
 require("dotenv").config();
 const routes = require("./routes");
 
 const app = express();
 const port = 3000;
 
+// Connect to database
 (async () => {
   mongoose.connection.on("open", () =>
     console.log("Connected to MongoDB instance")
@@ -15,6 +17,8 @@ const port = 3000;
   );
 })();
 
+// Middleware
+app.use(morgan("tiny"));
 app.use(routes);
 app.use(express.static("public"));
 
