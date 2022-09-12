@@ -1,0 +1,13 @@
+{
+  "name": "a3-persistence",
+  "description": "Assignment 3 for CS4241: Webware",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
