@@ -18,7 +18,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.ENV == "prd" ? "http://baseball.axbolduc.com" : "http://127.0.0.1:3000/login/github/callback",
+      callbackURL: process.env.ENV == "prd" ? "http://baseball.axbolduc.com/login/github/callback" : "http://127.0.0.1:3000/login/github/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOne({ githubId: profile.id }, (err, user) => {
