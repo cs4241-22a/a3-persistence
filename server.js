@@ -59,6 +59,12 @@ app.get('/todo', ensureAuthenticated, (req, res) => {
     })
 })
 
+app.get('/todo/:id', ensureAuthenticated, (req, res) => {
+    collection.findOne({_id: mongodb.ObjectId(req.params.id)}).then(result => {
+        res.json(result)
+    })
+})
+
 // Put in a new task but set GitHub ID first
 app.put('/todo', ensureAuthenticated, (req, res) => {
     let task = req.body
