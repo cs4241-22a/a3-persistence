@@ -1,27 +1,25 @@
 require('dotenv').config();
 const express = require('express'), app = express();
+const session = require('express-session');
 const mongoose = require("mongoose");
-const game = require('./schemas/game');
-const gameSchema = require("./schemas/game");
-const userSchema = require("./schemas/user");
+const passport = require('passport');
 
-mongoose.connect(`mongodb+srv://axbolduc:${process.env.MONGO_DB_PASS}@cluster0.3vkednf.mongodb.net/bb-stats?retryWrites=true&w=majority`);
+const {Game, User} = require("./models");
+const authRouter = require("./routes/auth");
 
-const Game = mongoose.model("Game", gameSchema);
-const User = mongoose.model("User", userSchema);
+mongoose.connect(`mongodb+srv://axbolduc:${process.env.MONGO_DB_PASS}@cluster0.3vkednf.mongodb.net/bb-stats?retryWrites=true&w=majority`).then(
+    () => {console.log("Connected to MongoDB")},
+)
 
-const tempGame = new Game({
-    date: Date.now(),
-    hits: 1,
-    atBats: 2,
-    avg: 1/2
-})
-
-// tempGame.save().then(game => {
-//     console.log(game);
-// })
-
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+    }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/", express.static("public"));
+app.use("/", authRouter);
 
 app.get("/games", async (req, res) => {
     const games = await Game.find({});
@@ -49,12 +47,17 @@ app.put("/games", express.json(), async (req, res) => {
     }else{
         res.status(200).send(JSON.stringify(requestData))
     }
-
 })
 
 app.delete("/games", express.json(), async (req, res)=> {
-
+    const query = await Game.findOneAndDelete({_id: req.body._id});
+    if(!query){
+        res.status(404).send("error");
+    }else{
+        res.status(200).send("DELETED");
+    }
 })
+
 
 app.listen(3000);
 
