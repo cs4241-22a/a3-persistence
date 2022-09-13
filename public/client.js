@@ -40,7 +40,7 @@ workoutForm.onsubmit = function(event) {
   // stop our form submission from refreshing the page
   event.preventDefault();
 
-  const value = exercise.value + ": " + sets.value + " x " + reps.value + " - " + weight.value
+  const value = exercise.value + ": " + sets.value + " x " + reps.value + " at " + weight.value
   // get dream value and add it to the list
   workouts.push( value )
   appendNewLift( value )
