@@ -1,23 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Logged in!</title>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
     <script src="./js/client.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<p>Hello World! You are logged in!</p>
-
-<form id="submit">
-    <input type="text" id="taskId"/>
-    <button id="getBtn">GET</button>
-    <button id="putBtn">PUT</button>
-    <button id="patchBtn">PATCH</button>
-    <button id="deleteBtn">DELETE</button>
-</form>
-
-<form id="logout" method="post" action="/logout">
-    <button type="submit">Log Out</button>
-</form>
+<div id="submission">
+    <form id="addTask">
+        <fieldset>
+            <legend id="legend">Add a TODO</legend>
+            <label for="task">Task:</label><textarea id="task" placeholder="Write your task here"></textarea>
+            <label for="due-date">Due Date:</label><input type="datetime-local" id="due-date">
+            <button id="cancel" type="button">Cancel</button>
+            <button id="todoSubmit" disabled="disabled" type="submit">Submit</button>
+        </fieldset>
+    </form>
+</div>
+<div id="todolist">
+    <table id="todoTable">
+        <tr>
+            <th><strong>Task</strong></th>
+            <th><strong>Creation Date</strong></th>
+            <th><strong>Due Date</strong></th>
+            <th><strong>Priority</strong></th>
+            <th><strong>Edit</strong></th>
+            <th><strong>Delete</strong></th>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
