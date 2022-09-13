@@ -44,7 +44,7 @@ passport.use(
 );
 
 router.get("/login", (req, res) => {
-  res.send(`<a href='${process.env.ENV == "prd" ? "http://baseball.axbolduc.com" : "http://127.0.0.1:3000"}'>login</a>`);
+  res.send(`<a href='${process.env.ENV == "prd" ? "http://baseball.axbolduc.com/login/github" : "http://127.0.0.1:3000/login/github"}'>login</a>`);
 });
 
 router.get(
