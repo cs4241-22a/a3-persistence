@@ -1,0 +1,55 @@
+/*Style your own assignment! This is fun! */
+body {
+    background: #AC2B37;
+    font-family: Ubuntu;
+}
+.buttons{
+    display:block;
+    font-size: 25px;
+}
+.inputs{
+    display:block;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#assignmentTable {
+    text-decoration: underline;
+}
+h1 {
+    text-align: center;
+    color: white;
+}
+
+textarea {
+    width: 10%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+
+}
+.form {
+    background-color: #A9B0B7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    line-height: 4;
+    font-weight: 200;
+    cursor: pointer;
+    transition: all .3s ease;
+}
