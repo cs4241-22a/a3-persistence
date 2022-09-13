@@ -51,7 +51,7 @@ const sendGameToModify = (event) => {
     const modifyHitsField = modifySection.querySelector("#modifyHitsField")
     const modifyAtBatsField = modifySection.querySelector("#modifyAtBatsField")
 
-    modifyIdField.value = selectedGame.id;
+    modifyIdField.value = selectedGame._id;
     modifyDatePicker.value = selectedGame.date;
     modifyHitsField.value = selectedGame.hits;
     modifyAtBatsField.value = selectedGame.atBats;
@@ -76,9 +76,9 @@ export const updateGameInTable = (gameObject) => {
     for(let i = 0; i<tableRows.length; i++){
         const row = tableRows.item(i);
         const rowGameID = row.children.item(0).innerHTML;
-        if(rowGameID === gameObject.id) {
+        if(rowGameID === gameObject._id) {
             row.outerHTML = generateRow(gameObject);
-            document.querySelector(`#game_${gameObject.id}`).addEventListener("click", sendGameToModify);
+            document.querySelector(`#game_${gameObject._id}`).addEventListener("click", sendGameToModify);
         }
     }
 }

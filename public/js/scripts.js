@@ -19,7 +19,7 @@ window.onload = async function () {
 
 /**
  * @typedef {Object} GameObject
- * @property {Number} id
+ * @property {Number} _id
  * @property {String} date
  * @property {Number} hits
  * @property {Number} atBats

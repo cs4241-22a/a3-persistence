@@ -5,7 +5,7 @@
  */
 export const parseRowToGameObject = (trElement) => {
     return {
-        id: trElement.children[0].innerHTML,
+        _id: trElement.children[0].innerHTML,
         date: trElement.children[1].innerHTML,
         hits: trElement.children[2].innerHTML,
         atBats: trElement.children[3].innerHTML,
@@ -38,7 +38,7 @@ export const getFormValues = (sectionID) => {
  * @returns html for a single game to be added to the table
  */
 export const generateRow = (statsData) => {
-    return `<tr id="game_${statsData.id}">
+    return `<tr id="game_${statsData._id}">
         <td class="hidden">${statsData._id}</td>
         <td>${statsData.date}</td>
         <td>${statsData.hits}</td>

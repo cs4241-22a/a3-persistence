@@ -80,13 +80,13 @@ export const deleteGame = async (evt) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            id: selectedGameData.id
+            _id: selectedGameData._id
         })
     })
 
 
     if(deleteRequestResponse.status === 200){
-        removeGameFromTable(selectedGameData.id);
+        removeGameFromTable(selectedGameData._id);
     }else{
         console.error("DELETE request to server failed")
     }

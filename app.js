@@ -5,10 +5,7 @@ const game = require('./schemas/game');
 const gameSchema = require("./schemas/game");
 const userSchema = require("./schemas/user");
 
-mongoose.connect(`mongodb+srv://axbolduc:${process.env.MONGO_DB_PASS}@cluster0.3vkednf.mongodb.net/bb-stats?retryWrites=true&w=majority`)
-    .then(status => {
-        console.log("Connected to mongodb");
-    })
+mongoose.connect(`mongodb+srv://axbolduc:${process.env.MONGO_DB_PASS}@cluster0.3vkednf.mongodb.net/bb-stats?retryWrites=true&w=majority`);
 
 const Game = mongoose.model("Game", gameSchema);
 const User = mongoose.model("User", userSchema);
@@ -44,7 +41,6 @@ app.post("/games", express.json(), async (req, res) => {
 app.put("/games", express.json(), async (req, res) => {
     const requestData = {
         ...req.body,
-        date: req.body.date.toLocaleDateString,
         avg: req.body.hits/req.body.atBats
     }
     const query = await Game.findOneAndReplace({_id: requestData._id}, requestData)
