@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Logged in!</title>
+    <script src="./js/client.js" defer></script>
 </head>
 <body>
 <p>Hello World! You are logged in!</p>
+
+<form id="submit">
+    <input type="text" id="taskId"/>
+    <button id="getBtn">GET</button>
+    <button id="putBtn">PUT</button>
+    <button id="patchBtn">PATCH</button>
+    <button id="deleteBtn">DELETE</button>
+</form>
+
 <form id="logout" method="post" action="/logout">
     <button type="submit">Log Out</button>
 </form>
