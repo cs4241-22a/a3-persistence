@@ -5,6 +5,8 @@ console.log("Welcome to assignment 2!")
 function buildListing(json) {
     // Get a reference to the table
     let tableRef = document.getElementById("my-table");
+    tableRef.classList.add("table")
+    tableRef.classList.add("table-striped")
 
     document.getElementById("todo-listing").innerHTML = ""; // reset table
 
@@ -57,6 +59,8 @@ function buildListing(json) {
         let buttonElement = document.createElement("button");
         buttonElement.textContent = "X";
         buttonElement.classList.add("delete-button");
+        buttonElement.classList.add("btn");
+        buttonElement.classList.add("btn-danger");
         deleteButtonCell.appendChild(buttonElement);
     });
 }
