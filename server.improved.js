@@ -1,30 +1,36 @@
-const http = require("http"),
-  fs = require("fs"),
-  // IMPORTANT: you must run `npm install` in the directory for this assignment
-  // to install the mime library used in the following line of code
-  mime = require("mime"),
-  dir = "public/",
-  port = 3000;
+const express = require( 'express' ),
+    app = express()
 
 let appdata = [];
 
-const server = http.createServer(function (request, response) {
-  if (request.method === "GET") {
-    handleGet(request, response);
-  } else if (request.method === "POST") {
-    handlePost(request, response);
-  }
-});
 
-const handleGet = function (request, response) {
-  const filename = dir + request.url.slice(1);
+// ---
+// Middleware
+// ---
+app.use( (req,res,next) => {
+  console.log( 'url:', req.url )
+  next()
+})
+app.use( express.static( 'public' ) )
+app.use( express.static( 'views'  ) )
+app.use( express.json() )
 
-  if (request.url === "/") {
-    sendFile(response, "public/index.html");
-  } else {
-    sendFile(response, filename);
-  }
-};
+
+// ---
+// ROUTES
+// ---
+
+// todo handle GET?
+// app.get( '/', ( req, res ) => res.send( 'Hello World!' ) )
+
+// handle POST
+// todo, make definitive routes for /submit and /edit
+app.post( '/*', (req, res) => {
+  handlePost(req, res)
+})
+
+
+app.listen( process.env.PORT || 3000 )
 
 const handlePost = function (request, response) {
   let dataString = "";
@@ -87,26 +93,7 @@ const handlePost = function (request, response) {
     console.warn("current appdata:");
     console.warn(appdata);
 
-    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+    response.writeHead( 200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify(appdata));
   });
 };
-
-const sendFile = function (response, filename) {
-  const type = mime.getType(filename);
-
-  fs.readFile(filename, function (err, content) {
-    // if the error = null, then we've loaded the file successfully
-    if (err === null) {
-      // status code: https://httpstatuses.com
-      response.writeHeader(200, { "Content-Type": type });
-      response.end(content);
-    } else {
-      // file not found, error code 404
-      response.writeHeader(404);
-      response.end("404 Error: File Not Found");
-    }
-  });
-};
-
-server.listen(process.env.PORT || port);
