@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>CS4241 Assignment 3</title>
+  <link rel="stylesheet" href="css/output.css">
+  <script type="module" src="js/util.js"></script>
+  <script type="module" src="js/table.js"></script>
+  <script type="module" src="js/requests.js"></script>
+  <script type="module" src="js/scripts.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <header>
+    <h1>Simple Baseball Batting Average Tracker</h1>
+  </header>
+
+  <main id="container">
+    <section id="resultsTable">
+      <h2>Game Log</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <td class="hidden">Game ID</td>
+            <td>Date</td>
+            <td>Hits</td>
+            <td>At Bats</td>
+            <td>Batting Average</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="submissionForm" class="visible">
+      <h2>
+        Add a game report
+      </h2>
+
+      <form>
+        <label for="submitDatePicker">Date:</label>
+        <input class="inputField" id="submitDatePicker" type="date">
+
+        <label for="submitHitsField">Hits:</label>
+        <input class="inputField" id="submitHitsField" type="text">
+
+        <label for="submitAtBatsField">At Bats:</label>
+        <input class="inputField" id="submitAtBatsField" type="text">
+
+        <button id="submitBtnSubmit" class="btnSubmit">Add Game</button>
+      </form>
+    </section>
+    <section id="modifyForm" class="hidden">
+      <h2>
+        Modify a game report
+      </h2>
+
+      <form>
+        <label for="idField">ID:</label>
+        <input class="inputField" id="idField" type="text" disabled>
+
+        <label for="modifyDatePicker">Date:</label>
+        <input class="inputField" id="modifyDatePicker" type="date">
+
+        <label for="modifyHitsField">Hits:</label>
+        <input class="inputField" id="modifyHitsField" type="text">
+
+        <label for="modifyAtBatsField">At Bats:</label>
+        <input class="inputField" id="modifyAtBatsField" type="text">
+
+        <div class="btnContainer">
+          <button id="modifyBtnDelete" class="btnDelete">Delete</button>
+          <button id="modifyBtnSubmit" class="btnSubmit">Modify Game</button>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
