@@ -44,7 +44,7 @@ passport.use(
 );
 
 router.get("/login", (req, res) => {
-  res.send("login");
+  res.send("<a href='http://127.0.0.1:3000/login/github'>login</a>");
 });
 
 router.get(
@@ -62,4 +62,12 @@ router.get(
   }
 );
 
-module.exports = router;
+const requireAuth = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+
+
+module.exports = {router, requireAuth};

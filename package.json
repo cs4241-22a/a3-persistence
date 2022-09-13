@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/axbolduc/a3-persistence#readme",
   "dependencies": {
+    "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
