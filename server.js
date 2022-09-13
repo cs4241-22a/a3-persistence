@@ -111,8 +111,6 @@ const determinePriority = function (due_date) {
     const now = Date.now();
     const timeDifference = (end - now) / 1000;
 
-    console.log('Time Difference:', timeDifference)
-
     if (end < now) // If already past due date, then mark as late
         return 'Late'
     else if (timeDifference < seconds_in_day * 3) // Less than 3 days
