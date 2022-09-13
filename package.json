@@ -1,0 +1,13 @@
+{
+    "name": "Assignment 3 - Persistence",
+    "version": "0.1.0",
+    "description": "Assignment 3 for CS4241",
+    "author": "Sean McMillan",
+    "scripts": {
+      "start": "node server.improved.js"
+    },
+    "dependencies": {
+      "mime": "^2.4.4",
+      "package.json": "^2.0.1"
+    }
+  }
