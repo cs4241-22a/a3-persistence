@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <script src="js/scripts.js"></script>
+  </head>
+  <body>
+    <div class="header-container">
+      <h1>Simple Todo App</h1>
+      <form action="#">
+        <label for="newtask-input">Task: </label><input type="text" id="newtask-input" value="your task here" onClick="this.select();" />
+        <select id="priority" name="priority">
+          <option value="30">!</option>
+          <option value="7">!!</option>
+          <option value="1">!!!</option>
+        </select>
+        <button id="add-task-button">submit</button>
+      </form>
+    </div>
+
+    <table id="my-table">
+      <tbody id="todo-listing"></tbody>
+    </table>
+  </body>
+  <script>
+
+  </script>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "simple-todo",
+  "version": "",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "mime": "^2.4.4",
+    "prettier": "^2.7.1"
+  }
+}
