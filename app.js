@@ -25,6 +25,6 @@ app.use("/", authRouter);
 app.use("/games", requireAuth, gamesRouter);
 app.use("/", requireAuth, express.static("public"));
 
-app.listen(3000);
+app.listen(process.env.PORT);
 
 
