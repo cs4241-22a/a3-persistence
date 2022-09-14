@@ -14,7 +14,7 @@
   <meta charset="utf-8">
 </head>
 
-<body>
+<body class="bg-gray-800">
 
   <header>
     <h1>Simple Baseball Batting Average Tracker</h1>
@@ -24,17 +24,18 @@
     <section id="resultsTable">
       <h2>Game Log</h2>
 
-      <table>
+      <!--table with 5 columns styled with tailwindcss-->
+      <table class="table-auto border-collapse rounded-sm bg-white">
         <thead>
-          <tr>
-            <td class="hidden">Game ID</td>
-            <td>Date</td>
-            <td>Hits</td>
-            <td>At Bats</td>
-            <td>Batting Average</td>
+          <tr class="bg-gray-100">
+            <th class="px-4 py-2 hidden">Game ID</th>
+            <th class="px-4 py-2 border border-gray-500 border-opacity-30">Date</th>
+            <th class="px-4 py-2 border border-gray-500 border-opacity-30">Hits</th>
+            <th class="px-4 py-2 border border-gray-500 border-opacity-30">At Bats</th>
+            <th class="px-4 py-2 border border-gray-500 border-opacity-30">Batting Average</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tableBody">
         </tbody>
       </table>
     </section>

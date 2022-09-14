@@ -38,12 +38,12 @@ export const getFormValues = (sectionID) => {
  * @returns html for a single game to be added to the table
  */
 export const generateRow = (statsData) => {
-    return `<tr id="game_${statsData._id}">
+    return `<tr id="game_${statsData._id}" class="text-center hover:bg-sky-200">
         <td class="hidden">${statsData._id}</td>
-        <td>${statsData.date}</td>
-        <td>${statsData.hits}</td>
-        <td>${statsData.atBats}</td>
-        <td>${statsData.avg.toFixed(3)}</td>
+        <td class="border border-gray-500 border-opacity-30 py-2 px-4">${statsData.date}</td>
+        <td class="border border-gray-500 border-opacity-30 py-2 px-4">${statsData.hits}</td>
+        <td class="border border-gray-500 border-opacity-30 py-2 px-4">${statsData.atBats}</td>
+        <td class="border border-gray-500 border-opacity-30 py-2 px-4">${statsData.avg.toFixed(3)}</td>
     </tr>`
 }
 
