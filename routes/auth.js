@@ -43,16 +43,12 @@ passport.use(
   )
 );
 
-router.get("/login", (req, res) => {
-  res.send(`<a href='${process.env.ENV == "prd" ? "https://baseball.axbolduc.com/login/github" : "http://127.0.0.1:3000/login/github"}'>login</a>`);
-});
-
 router.get(
-  "/login/github",
+  "/github",
   passport.authenticate("github", { scope: ["read:user"] })
 );
 router.get(
-  "/login/github/callback",
+  "/github/callback",
   passport.authenticate("github", {
     failureRedirect: "/login",
     failWithError: true,
@@ -61,6 +57,8 @@ router.get(
     res.redirect("/");
   }
 );
+
+router.use("/", express.static("public/login"));
 
 const requireAuth = (req, res, next) => {
     if (req.isAuthenticated()) {
