@@ -11,8 +11,8 @@ const port = 3000;
   mongoose.connection.on("open", () =>
     console.log("Connected to MongoDB instance")
   );
-  const connection = await mongoose.connect(
-    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASSWORD}@cs4241-a3.e1sejut.mongodb.net/?retryWrites=true&w=majority`
+  await mongoose.connect(
+    `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cs4241-a3.e1sejut.mongodb.net/?retryWrites=true&w=majority`
   );
 })();
 
