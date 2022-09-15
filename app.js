@@ -4,6 +4,7 @@ const session = require('express-session');
 const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const helmet = require('helmet');
 
 const {router: authRouter, requireAuth} = require("./routes/auth");
 const gamesRouter = require("./routes/games");
@@ -12,6 +13,7 @@ mongoose.connect(process.env.MONGO_DB_URL).then(
     () => {console.log("Connected to MongoDB")},
 )
 
+app.use(helmet());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,

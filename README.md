@@ -95,22 +95,27 @@ Write a paragraph of at least 125 words *for each of four principles* (four para
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Simple Baseball Batting Average Tracker
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+[Link to app hosted on personal VPS - Vultr](https://baseball.axbolduc.com)
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+For this project I decided to build on top of the baseball batting average tracker that I created in assignment 2. 
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+The goal was to have a website that would allow you to log in with github, report game totals and have the website calculate and store your batting average for that game. The site would then display only your game totals back to you.
 
+One of the biggest challenges with realizing this goal was implemeting OAuth with github as OAuth is a very intricate and finicky process. However I was able to implement it with the help of passport.js and the github2 strategy. I decided on passport.js because I have used it in the past for a personal project and found it greatly simplified the implementation of OAuth authentication.
+
+For styling I went with the CSS framework tailwindcss. Tailwind is a utility class based framework that I also have experience with. It afforded me great flexibility with the wide range of classes it provided while also minimizing the amount of low level styling decisions that had to be made.
+
+Express Middleware:
+- `express-session`: A third-party middleware package that enables express to work with session-based authentication
+- `express.static`: Middleware for serving static files like html, css, and js 
+- `helmet`: A middleware package that automatically sets various http headers to help secure the express application. 
+- `passport`: Authentication middleware that allowed for easy implementation of OAuth with github
+- `requireAuth`: Custom middleware function that requires authentication for a route. If the request is not authenticated the user is redirected to the login route.
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **OAuth with Gihub**: I used passport.js to implement OAuth with github allowing users to login via their github accounts.
+- **Alternative Hosting site**: This website is hosted on my personal VPS hosted by Vultr and is also served by a custom subdomain.
+- **Perfect 100 lighthouse score**: In desktop lighthouse tests all of the scores reach the perfect 100 rating as seeen below.
 
-### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+![lighthouse](assetts/lighthouse.png)
