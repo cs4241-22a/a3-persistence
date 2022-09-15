@@ -26,6 +26,7 @@ app.use(passport.session());
 app.use("/login", authRouter);
 app.use("/games", requireAuth, gamesRouter);
 app.use("/css", express.static("public/css"));
+app.use("/robots.txt", express.static("public/robots.txt"));
 app.use("/", requireAuth, express.static("public"));
 
 app.listen(process.env.PORT);
