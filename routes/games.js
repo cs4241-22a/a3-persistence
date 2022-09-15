@@ -30,6 +30,7 @@ router.post("/", express.json(), async (req, res) => {
 router.put("/", express.json(), async (req, res) => {
     const requestData = {
         ...req.body,
+        owner: req.user._id,
         avg: req.body.hits/req.body.atBats
     }
     const query = await Game.findOneAndReplace({_id: requestData._id}, requestData)
