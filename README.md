@@ -118,4 +118,8 @@ Express Middleware:
 - **Alternative Hosting site**: This website is hosted on my personal VPS hosted by Vultr and is also served by a custom subdomain.
 - **Perfect 100 lighthouse score**: In desktop lighthouse tests all of the scores reach the perfect 100 rating as seeen below.
 
-![lighthouse](assetts/lighthouse.png)
+![Lighthouse results for authenticated user with data](assetts/lighthouse.png)
+Lighthouse results for authenticated user with data
+
+![Lighthouse results on the login page for unauthenticated user](assetts/lighthouse-login.png)
+Lighthouse results on the login page for unauthenticated user
