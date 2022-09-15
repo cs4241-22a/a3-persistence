@@ -45,46 +45,80 @@
           >
             <h2 class="font-bold text-3xl mb-4">Add a game report</h2>
 
-            <form class="flex flex-col justify-around items-start" autocomplete="off">
+            <form
+              class="flex flex-col justify-around items-start"
+              autocomplete="off"
+            >
               <div class="w-full my-2">
                 <label for="submitDatePicker">Date:</label>
-                <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="submitDatePicker" type="date" />
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitDatePicker"
+                  type="date"
+                />
               </div>
 
               <div class="w-full my-2">
-              <label for="submitHitsField">Hits:</label>
-              <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="submitHitsField" type="text" />
+                <label for="submitHitsField">Hits:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitHitsField"
+                  type="text"
+                />
               </div>
 
               <div class="w-full my-2">
-              <label for="submitAtBatsField">At Bats:</label>
-              <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="submitAtBatsField" type="text" />
+                <label for="submitAtBatsField">At Bats:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitAtBatsField"
+                  type="text"
+                />
               </div>
 
               <div class="flex justify-end w-full my-2">
-                <button id="submitBtnSubmit" class="bg-blue-500 hover:bg-blue-600 py-2 px-4 text-center font-bold text-white rounded-md">Add Game</button>
+                <button
+                  id="submitBtnSubmit"
+                  class="bg-blue-700 hover:bg-blue-800 py-2 px-4 text-center font-bold text-white rounded-md"
+                >
+                  Add Game
+                </button>
               </div>
             </form>
           </section>
-          <section id="modifyForm" class="hidden">
-            <h2>Modify a game report</h2>
+          <section
+            id="modifyForm"
+            class="hidden rounded-md shadow-xl bg-white px-4 py-2"
+          >
+            <h2 class="font-bold text-3xl mb-4">Modify a game report</h2>
 
-            <form>
-              <label for="idField">ID:</label>
-              <input class="inputField" id="idField" type="text" disabled />
+            <form
+              class="flex flex-col justify-around items-start"
+              autocomplete="off"
+            >
+              <div class="w-full my-2">
+                <label for="idField">ID:</label>
+                <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="idField" type="text" disabled />
+              </div>
 
-              <label for="modifyDatePicker">Date:</label>
-              <input class="inputField" id="modifyDatePicker" type="date" />
+              <div class="w-full my-2">
+                <label for="modifyDatePicker">Date:</label>
+                <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="modifyDatePicker" type="date" />
+              </div>
 
-              <label for="modifyHitsField">Hits:</label>
-              <input class="inputField" id="modifyHitsField" type="text" />
+              <div class="w-full my-2">
+                <label for="modifyHitsField">Hits:</label>
+                <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="modifyHitsField" type="text" />
+              </div>
 
-              <label for="modifyAtBatsField">At Bats:</label>
-              <input class="inputField" id="modifyAtBatsField" type="text" />
+              <div class="w-full my-2">
+                <label for="modifyAtBatsField">At Bats:</label>
+                <input class="bg-gray-200 rounded-md w-full px-4 py-2" id="modifyAtBatsField" type="text" />
+              </div>
 
-              <div class="btnContainer">
-                <button id="modifyBtnDelete" class="btnDelete">Delete</button>
-                <button id="modifyBtnSubmit" class="btnSubmit">
+              <div class="flex w-full justify-end">
+                <button id="modifyBtnDelete" class="bg-red-700 hover:bg-red-800 py-2 px-4 text-center font-bold text-white rounded-md mr-1">Delete</button>
+                <button id="modifyBtnSubmit" class="bg-blue-700 hover:bg-blue-800 py-2 px-4 text-center font-bold text-white rounded-md ml-1">
                   Modify Game
                 </button>
               </div>
