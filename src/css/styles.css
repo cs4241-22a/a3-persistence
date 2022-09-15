@@ -1,0 +1,139 @@
+/*fonts*/
+@import
+url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Global fonts*/
+h1 {
+    font-size: 60pt;
+}
+
+h1, h2, h3 {
+    font-weight: 100;
+}
+
+/*Body*/
+html, body {
+    height: 100vh;
+    overflow: visible;
+}
+
+body {
+    margin: 0;
+    background-color: #ABCADE;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Animate a fade-in entry for every site element*/
+:not(body, div, section, html) {
+    animation: loadin 1s ease forwards;
+}
+
+@keyframes loadin {
+    from {
+        opacity: 0;
+        transform: translateY(10pt);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0pt);
+    }
+}
+
+/*Section Styling*/
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section:nth-child(odd) {
+    background-color: #A0BED1;
+    padding: 20pt 0pt 20pt 0pt;
+}
+
+section:nth-child(even) {
+    background-color: #ABCADE;
+    padding: 20pt 0pt 20pt 0pt;
+}
+
+/*Organizational*/
+.content {
+    width: clamp(400px, 67%, 1280px);
+}
+
+.hbox {
+    display: flex;
+    flex-direction: row;
+}
+
+.vbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    display: flex;
+    align-content: center;
+    justify-items: center;
+}
+
+hr {
+    margin: 40pt auto;
+}
+
+/*Message styles*/
+.message {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px 0;
+    justify-content: space-between;
+}
+
+.message > p {
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.delete-button {
+    border-radius: 50%;
+    border-color: transparent;
+    background-color: red;
+    margin-left: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#messages-section {
+    overflow-y: scroll;
+    height: 65vh;
+}
+
+/*Form styles*/
+#input-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+#new-note-form > * {
+    margin: 0 5px;
+}
+
+#message-input {
+    flex-grow: 1;
+}
+
+#submit {
+    width: auto;
+    padding: 2px 20px;
+    margin-left: 10%;
+}
