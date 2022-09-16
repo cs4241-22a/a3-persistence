@@ -3,10 +3,10 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 router.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "../public/html/index.html"))
+  res.sendFile(path.join(__dirname, "../public/index.html"))
 );
 router.get("/login", (req, res) =>
-  res.sendFile(path.join(__dirname, "../public/html/login.html"))
+  res.sendFile(path.join(__dirname, "../public/login.html"))
 );
 router.use("/api", bodyParser.json(), require("./api"));
 
