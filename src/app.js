@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config({ path: __dirname + "/../.env" });
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 const routes = require("./routes");
 
 const app = express();
@@ -18,6 +19,6 @@ const port = 3000;
 
 // Middleware
 app.use(routes);
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
