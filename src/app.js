@@ -18,6 +18,6 @@ const port = 3000;
 
 // Middleware
 app.use(routes);
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
