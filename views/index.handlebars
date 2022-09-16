@@ -1,0 +1,45 @@
+<!doctype handlebars>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <link href="/public/pico.min.css" rel = "stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Samara's To Do List</h1>
+    <p>Welcome to Samara's minimalistic to-do list. <br> Enter a task, the amount of days (points) you think it will take, along with the due date. Based on the current date, this application will show you the estimated day of completion.</p>
+    <h3>Task Entry</h3>
+    <form action="">
+      <label for="task">Task:</label>
+      <input type='text' id='task' placeholder="Enter task here" required><br>
+      <label for="points">Points:</label>
+      <input type='number' id='points' min = "1" value="1" required><br>
+      <label for="dueDate">Due Date:</label>
+      <input type='date' id='dueDate' placeholder="" min="1997-01-01" max="2050-12-31" required><br>
+      <button type="submit" id = "addTask">Add Task</button>
+    </form>
+    <hr />
+    <h3>To-Do List</h3>
+    <table id="to-do-list">
+      <thead id = "table-header">
+      </thead>
+      <tbody id = "table-body">
+        <!-- put stuff here -->
+      </tbody>
+    </table>
+    <hr />
+    <button id = "completedTasks">View Completed Tasks</button>
+    <button id = "hideCompletedTasks">Hide Completed Tasks</button>
+    <h3 id = "completed-task-header">Completed Tasks</h3>
+    <table id="completed-to-do-list">
+      <thead id = "completed-table-header">
+      </thead>
+      <tbody id = "completed-table-body">
+        <!-- put stuff here -->
+      </tbody>
+    </table>
+    <script src = "/public/client.js"></script>
+  </body>
+</html>

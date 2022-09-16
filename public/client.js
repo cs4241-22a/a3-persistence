@@ -3,45 +3,47 @@
 
 console.log('hello world :o');
 
-// our default array of dreams
-const dreams = []
+// our default arrays of tasks
+const taskArray = []
+const completedTaskArray = []
 
 // define variables that reference elements on our page
-const dreamsList = document.getElementById('dreams');
-const dreamsForm = document.forms[0];
-const dreamInput = dreamsForm.elements['dream'];
+const taskList = document.getElementById('table-body');
+const taskForm = document.forms[0];
+const taskInput = taskForm.elements['task'];
 
 // a helper function that creates a list item for a given dream
-const appendNewDream = function(dream) {
+const appendNewTask = function(item) {
   const newListItem = document.createElement('li');
-  newListItem.innerHTML = dream;
-  dreamsList.appendChild(newListItem);
+  newListItem.innerHTML = item;
+  taskList.appendChild(newListItem);
 }
 
-// iterate through every dream and add it to our page
-dreams.forEach( function(dream) {
-  appendNewDream(dream);
+// iterate through every task and add it to our page
+taskArray.forEach( function(item) {
+  appendNewTask(item);
 });
 
-// listen for the form to be submitted and add a new dream when it is
-dreamsForm.onsubmit = function(event) {
+// listen for the form to be submitted and add a new task when it is
+taskForm.onsubmit = function(event) {
   // stop our form submission from refreshing the page
   event.preventDefault();
 
-  const value = dreamInput.value
+  const value = taskInput.value
   // get dream value and add it to the list
-  dreams.push( value )
-  appendNewDream( value )
+  taskArray.push( value )
+  appendNewTask( value )
 
   // reset form 
-  dreamInput.value = '';
-  dreamInput.focus();
+  taskInput.value = '';
+  taskInput.focus();
   
   fetch( '/submit', {
     method:'POST',
     headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({ "newdream":value })
+    body:JSON.stringify({ "newtask":value })
   })
   .then( response => response.json() )
   .then( json => console.log( json ) )
 };
+
