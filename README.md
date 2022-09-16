@@ -1,7 +1,7 @@
 ## Birthday Tracker
 =>v2.0
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+your glitch (or alternative server) link e.g. {tbd}
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
