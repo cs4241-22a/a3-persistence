@@ -2,12 +2,13 @@ const router = require("express").Router();
 const path = require("path");
 const bodyParser = require("body-parser");
 
-router.get("/", (req, res) =>
+router.get("/", require("../middleware/is-logged-in"), (req, res) =>
   res.sendFile(path.join(__dirname, "../public/index.html"))
 );
-router.get("/login", (req, res) =>
+router.get("/login", require("../middleware/is-not-logged-in"), (req, res) =>
   res.sendFile(path.join(__dirname, "../public/login.html"))
 );
 router.use("/api", bodyParser.json(), require("./api"));
+router.use("/auth", require("./auth"));
 
 module.exports = router;
