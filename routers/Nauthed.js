@@ -1,14 +1,6 @@
-if (process.env.NODE_ENV !== "production") {
-	require("dotenv").config();
-}
-
-const express = require("express");
-const app = express();
-const cookie = require("cookie-session");
-const nAuthedRouter = require("./routers/Nauthed");
-const AuthedRouter = require("./routers/authed")
-/** 
-const bcrypt = require("bcrypt");
+const express = require("express")
+const bcrypt = require("bcrypt")
+const router = express.Router()
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`;
 const client = new MongoClient(uri, {
@@ -30,38 +22,20 @@ async function getUserByID(id) {
 	let user = await Users.findOne({ _id: `${id}` });
 	return user;
 }
-*/
 
 async function matchPassword (enteredPW, storedHash) {
 	return await bcrypt.compare(enteredPW, storedHash)
 }
 
-app.set("view-engine", "ejs");
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
-app.use(cookie({
-	secret: process.env.SESSION_SECRET
-}))
+router.get("/", (req, res) => {
+    res.render("login.ejs");
+})
 
-function routeDecider (req, res, next) {
-	debugger;
-	if (req.session.login === true) {
-		app.use(AuthedRouter)
-		next();
-	} else {
-		app.use(nAuthedRouter)
-		next();
-	}
-}
-app.use(routeDecider)
-
-
-/**
-app.get("/login", (req, res) => {
+router.get("/login", (req, res) => {
 	res.render("login.ejs");
 });
 
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
 	// Authenticate user and store session cookie 
 	let newLogin = await getUserByEmail(req.body.email);
 	//Check if email is assosciated with a user
@@ -82,11 +56,11 @@ app.post("/login", async (req, res) => {
 	}	
 })
 
-app.get("/register", (req, res) => {
+router.get("/register", (req, res) => {
 	res.render("register.ejs");
 });
 
-app.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
 	let user = await getUserByEmail(req.body.email)
 	//Check to make sure a user with that email adress doesn't already exist
 	if (user === null) {
@@ -110,15 +84,4 @@ app.post("/register", async (req, res) => {
 	}
 })
 
-
-app.get("/", (req, res) => {
-	res.render("index.ejs");
-});
-
-app.post("/logout", (req, res) => {
-	req.session = null;
-	res.redirect("/login")
-})
-
-*/
-app.listen(3000);
+module.exports = router

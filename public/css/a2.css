@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+body {
+	display: block;
+	margin: 8px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	background-image: url("images/background.png");
+	color: #4e4e4e;
+}
+
+main {
+	padding: 1em;
+	height: fit-content;
+	max-width: 50em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: rgba(255, 255, 204, 0.9);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+form > td {
+	width: 50%;
+}
+.resultsContainer {
+	display: flow-root;
+	max-width: 50em;
+}
+
+table.results {
+	border: 6px solid;
+	border-collapse: collapse;
+}
+
+tr.results > th {
+	border: 4px solid;
+	padding: 0em 1em;
+}
+
+tr.results > td {
+	border: 2px solid;
+	margin: 0.5em;
+	padding: 0.5em;
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+	font-size: 2.5em;
+}
+
+h2 {
+	text-align: center;
+	font-size: 1.75em;
+	margin: 0.5em;
+	padding: 0.5em;
+}
+
+h3 {
+	text-align: center;
+	font-size: 1.25em;
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+
+input {
+	max-width: 50%;
+	margin-left: 25%;
+	font-size: 1em;
+	padding: 0 0.5em 0 0.5em;
+}
+
+button {
+	margin: 1em 1em 0em 1em;
+	padding: 0.5em;
+}
+
+p {
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	padding-right: 1.5em;
+	text-align: center;
+}
+
+/* Mobile specific rules */
+@media (max-width: 868px) {
+	.resultsContainer {
+		overflow-x: scroll;
+	}
+
+	table.results {
+		position: sticky;
+		top: 0;
+		width: inherit;
+		overflow-x: scroll;
+	}
+}
+
+/* To handle centering the table between 692 and 869px. Without, the table is left justified after 692 until the 869 breakpoint */
+@media (min-width: 692px) {
+	.resultsContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+/* Desktop rules */
+@media (min-width: 869px) {
+	body {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.resultsContainer {
+		overflow-x: hidden;
+	}
+
+	table.results {
+		overflow: auto;
+	}
+}
