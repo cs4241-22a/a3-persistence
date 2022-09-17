@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <link rel="stylesheet" href="css/output.css" />
+    <script type="module" src="js/util.js"></script>
+    <script type="module" src="js/table.js"></script>
+    <script type="module" src="js/requests.js"></script>
+    <script type="module" src="js/scripts.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple website that can be used to track batting average for multiple baseball games. Completed for CS4241"
+    />
+    <meta charset="utf-8" />
+  </head>
+
+  <body class="bg-gray-800">
+    <header class="flex justify-center py-2 px-4 mb-16">
+      <h1 class="text-white font-bold text-6xl">
+        Simple Baseball Batting Average Tracker
+      </h1>
+    </header>
+
+    <main class="flex flex-col items-center py-2 text-2xl">
+      <section>
+        <table class="table-auto bg-white shadow-2xl w-full">
+          <thead>
+            <tr class="bg-gray-200 text-left">
+              <th class="px-4 py-2 hidden">Game ID</th>
+              <th class="px-4 py-2">Date</th>
+              <th class="px-4 py-2">Hits</th>
+              <th class="px-4 py-2">At Bats</th>
+              <th class="px-4 py-2">Batting Average</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="overflow-hidden"></tbody>
+        </table>
+
+        <section id="forms" class="my-6">
+          <section
+            id="submissionForm"
+            class="visible rounded-md shadow-xl bg-white px-4 py-2"
+          >
+            <h2 class="font-bold text-3xl mb-4">Add a game report</h2>
+
+            <form
+              class="flex flex-col justify-around items-start"
+              autocomplete="off"
+            >
+              <div class="w-full my-2">
+                <label for="submitDatePicker">Date:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitDatePicker"
+                  type="date"
+                />
+              </div>
+
+              <div class="w-full my-2">
+                <label for="submitHitsField">Hits:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitHitsField"
+                  type="text"
+                />
+              </div>
+
+              <div class="w-full my-2">
+                <label for="submitAtBatsField">At Bats:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="submitAtBatsField"
+                  type="text"
+                />
+              </div>
+
+              <div class="flex justify-end w-full my-2">
+                <button
+                  id="submitBtnSubmit"
+                  class="bg-blue-700 hover:bg-blue-800 py-2 px-4 text-center font-bold text-white rounded-md"
+                >
+                  Add Game
+                </button>
+              </div>
+            </form>
+          </section>
+          <section
+            id="modifyForm"
+            class="hidden rounded-md shadow-xl bg-white px-4 py-2"
+          >
+            <h2 class="font-bold text-3xl mb-4">Modify a game report</h2>
+
+            <form
+              class="flex flex-col justify-around items-start"
+              autocomplete="off"
+            >
+              <div class="w-full my-2">
+                <label for="idField">ID:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="idField"
+                  type="text"
+                  disabled
+                />
+              </div>
+
+              <div class="w-full my-2">
+                <label for="modifyDatePicker">Date:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="modifyDatePicker"
+                  type="date"
+                />
+              </div>
+
+              <div class="w-full my-2">
+                <label for="modifyHitsField">Hits:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="modifyHitsField"
+                  type="text"
+                />
+              </div>
+
+              <div class="w-full my-2">
+                <label for="modifyAtBatsField">At Bats:</label>
+                <input
+                  class="bg-gray-200 rounded-md w-full px-4 py-2"
+                  id="modifyAtBatsField"
+                  type="text"
+                />
+              </div>
+
+              <div class="flex w-full justify-end">
+                <button
+                  id="modifyBtnDelete"
+                  class="bg-red-700 hover:bg-red-800 py-2 px-4 text-center font-bold text-white rounded-md mr-1"
+                >
+                  Delete
+                </button>
+                <button
+                  id="modifyBtnSubmit"
+                  class="bg-blue-700 hover:bg-blue-800 py-2 px-4 text-center font-bold text-white rounded-md ml-1"
+                >
+                  Modify Game
+                </button>
+              </div>
+            </form>
+          </section>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
