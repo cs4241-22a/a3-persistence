@@ -1,18 +1,26 @@
-// const addCollection = (e) =>{
-//     // prevent default form action from being carried out
-//     e.preventDefault();
+const addCollection = (e) =>{
+    // prevent default form action from being carried out
+    e.preventDefault();
 
-//     const collectionName = document.getElementById('addcollectionname'),
-//         json = {name: collectionName},
-//         body = JSON.stringify(json);
+    const collectionName = document.getElementById('addcollectionname'),
+        json = {collectionName: collectionName.value},
+        body = JSON.stringify(json);
+    
+    if(collectionName === "") {
+        return false;
+    }
 
-//     fetch('/addcollection', {
-//         method: 'POST',
-//         body
-//     })
+    fetch('/addCollection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+    })
 
-//     return false
-// }
+    document.getElementById("addcollectionname").value = "";
+    loadCollectionChoices();
+
+    return false
+}
 
 /**
  * Gets items of a collection from the database.
@@ -59,17 +67,12 @@ function showCRUDOptions() {
     deleteDrop.style.visibility = 'visible';
     updateDrop.style.visibility = 'visible';
 
-    if(addDrop.disabled === true) {
-        addDrop.disabled = false;
-        addDrop.click();
-    } else if(deleteDrop.disabled === true) {
-        deleteDrop.disabled = false;
-        deleteDrop.click();
-    } else if(updateDrop.disabled === true) {
-        updateDrop.disabled = false;
-        updateDrop.click();
-    }
+    document.getElementById("crudspace").innerHTML = "";
+    document.getElementById("additemdrop").disabled = false;
+    document.getElementById("deleteitemdrop").disabled = false;
+    document.getElementById("updateitemdrop").disabled = false;
 }
+
 document.getElementById("additemdrop").onclick = () => {
     document.getElementById("crudspace").innerHTML = 
     `<form id="additem" class="">
@@ -129,13 +132,56 @@ document.getElementById("deleteitemdrop").onclick = () => {
     document.getElementById("updateitemdrop").disabled = false;
 }
 document.getElementById("updateitemdrop").onclick = () => {
-    document.getElementById("additem").style.visibility = "hidden";
-    // document.getElementById("deleteitem").style.visibility = "hidden";
-    // document.getElementById("updateitem").style.visibility = "visible";
+    document.getElementById("crudspace").innerHTML = 
+    `<form id="updateitem">
+        <div class="">
+            <label for="updateitemselect">Pick item to update:</label>
+            <select type="text" id="updateitemselect" onchange="updateFieldsFill(); document.getElementById('updatenone').style.display = 'none'">
+                <option value="none" id="updatenone">---</option>
+            </select>
+        </div>
+        <div id="updatefields">
+        </div>
+    </form>`
+
+    fetch( '/items', {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "collectionName":document.getElementById("collectionchoice").value})
+    })
+    .then( response => response.json() )
+    .then( json => {
+        json.sort((item1, item2) => compareAlphabetical(item1.name, item2.name));
+        for (let item of json) {
+            const option = document.createElement("option");
+            option.text = item.name;
+            option.value = JSON.stringify(item);
+            document.getElementById("updateitemselect").appendChild(option);
+        }
+    });
 
     document.getElementById("additemdrop").disabled = false;
     document.getElementById("deleteitemdrop").disabled = false;
     document.getElementById("updateitemdrop").disabled = true;
+}
+function updateFieldsFill() {
+    document.getElementById("updatefields").innerHTML = 
+    `<div class="">
+        <label for="nameupdate">Edit Name:</label>
+        <input type="text" id="nameupdate" value="${JSON.parse(document.getElementById("updateitemselect").value).name}">
+    </div>
+    <div class="">
+        <label for="datecolupdate">Edit Date Collected:</label>
+        <input type="date" id="datecolupdate" value="${JSON.parse(document.getElementById("updateitemselect").value).dateCol}">
+    </div>
+    <div class="">
+        <label for="linkupdate">Edit link:</label>
+        <input type="url" id="linkupdate" value="${JSON.parse(document.getElementById("updateitemselect").value).link}">
+    </div>
+    <button type="submit" id="updateitembtn">submit</button>`
+
+    const updateItemBtn = document.getElementById("updateitembtn");
+    updateItemBtn.onclick = updateItem;
 }
 
 const addItem = e => {
@@ -158,6 +204,8 @@ const addItem = e => {
 
     // refresh items on client side
     getItems();
+    document.getElementById("crudspace").innerHTML = "";
+    document.getElementById("additemdrop").disabled = false;
 
     return false;
 }
@@ -172,18 +220,59 @@ const deleteItem = e => {
         headers: { 'Content-Type': 'application/json' },
         body
     })
-    .then( response => response.json() )
-    .then( json => document.getElementById("crudspace").innerHTML += JSON.stringify(json) );
 
     // refresh items on client side
     getItems();
+    document.getElementById("crudspace").innerHTML = "";
+    document.getElementById("deleteitemdrop").disabled = false;
+
+    return false;
+}
+const updateItem = e => {
+    e.preventDefault();
+    const itemID = JSON.parse(document.getElementById("updateitemselect").value)._id,
+        itemName = document.getElementById('nameupdate'),
+        itemDateCol = document.getElementById('datecolupdate'),
+        itemLink = document.getElementById('linkupdate'),
+        json = {_id: itemID, name: itemName.value, dateCol: itemDateCol.value, link: itemLink.value},
+        body = JSON.stringify(json);
+
+    fetch('/updateitem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+    })
+
+    // refresh items on client side
+    getItems();
+    document.getElementById("crudspace").innerHTML = "";
+    document.getElementById("updateitemdrop").disabled = false;
 
     return false;
 }
 
-// window.onload = function () {
-//     // const addCollectionBtn = document.getElementById('addcollectionbtn')
-//     // addCollectionBtn.onclick = addCollection
-//     const addItemBtn = document.getElementById("additembtn");
-//     addItemBtn.onclick = addItem;
-// }
+function loadCollectionChoices() {
+    document.getElementById("collectionchoice").innerHTML = `<option value="none" id="collectionnone">---</option>`;
+
+    fetch( '/collNames', {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then( response => response.json() )
+    .then( json => {
+        json.sort((coll1, coll2) => compareAlphabetical(coll1.name, coll2.name));
+        for (let coll of json) {
+            const option = document.createElement("option");
+            option.text = coll.name;
+            option.value = coll.name;
+            document.getElementById("collectionchoice").appendChild(option);
+        }
+    });
+}
+
+window.onload = function () {
+    const addCollectionBtn = document.getElementById('addcollectionbtn')
+    addCollectionBtn.onclick = addCollection;
+    document.getElementById("collectionchoice").value = "none";
+    loadCollectionChoices();
+}

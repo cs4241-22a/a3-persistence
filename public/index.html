@@ -14,16 +14,11 @@
         <button type="submit" id="addcollectionbtn">submit</button>
       </form>
       <label for="collectionchoice">Select a collection</label>
-      <select name="collectionchoice" id="collectionchoice" onchange="getItems(); showCRUDOptions();">
-        <option value="none">---</option>
-        <option value="soda">Soda</option>
-        <option value="sillybandz">Silly Bandz</option>
-      </select>
+      <select name="collectionchoice" id="collectionchoice" onchange="getItems(); showCRUDOptions(); document.getElementById('collectionnone').style.display = 'none';"></select>
       <button type="button" id="additemdrop" style="visibility: hidden;">Add Item</button>
       <button type="button" id="deleteitemdrop" style="visibility: hidden;">Delete Item</button>
       <button type="button" id="updateitemdrop" style="visibility: hidden;">Update Item</button>
-      <div id="crudspace">
-      </div>
+      <div id="crudspace"></div>
       <table id="shownItems"></table>
     </main>
     <script src="./js/script.js"></script>

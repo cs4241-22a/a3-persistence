@@ -29,6 +29,18 @@ app.use( (req,res,next) => {
     }
 })
 
+app.post( '/addCollection', (req,res) => {
+  if( db !== null ) {
+    db.createCollection(req.body.collectionName);
+  }
+});
+
+app.post( '/collNames', (req,res) => {
+  if( db !== null ) {
+    db.listCollections().toArray().then(result => res.json(result));
+  }
+})
+
 app.post( '/items', (req,res) => {
     if( db !== null ) {
       currCollection = db.collection(req.body.collectionName);
@@ -41,9 +53,20 @@ app.post( '/additem', (req,res) => {
   // assumes only one object to insert
   currCollection.insertOne( req.body ).then( result => res.json( result ) )
 })
+
 app.post( '/deleteitem', (req,res) => {
   currCollection
     .deleteOne({ _id: ObjectId(req.body._id) })
     .then( result => res.json( result ) )
 })
+
+app.post( '/updateitem', (req,res) => {
+  currCollection
+    .updateOne(
+      { _id: ObjectId( req.body._id ) },
+      { $set:{ name:req.body.name, dateCol:req.body.dateCol, link:req.body.link } }
+    )
+    .then( result => res.json( result ) )
+})
+
 app.listen( process.env.PORT || 3000 )
