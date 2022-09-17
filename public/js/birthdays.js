@@ -1,14 +1,7 @@
 window.onload = function () {
-	const button = document.querySelector("#newBirthday");
-	button.onclick = newBithday;
 	renderTable();
 };
 
-function newBithday () {
-	fetch("/newBirthday", {
-		method: "POST",
-	})
-}
 
 function renderTable() {
 	fetch("/birthdays", {
@@ -16,19 +9,17 @@ function renderTable() {
 	})
 		.then((res) => res.json())
 		.then((birthdays) => {
-			if (birthdays === []) {
+			if (JSON.stringify(birthdays) === "[]") {
 				console.log("No data to display :(");
 				let resultsTable = document.querySelector("table.results");
 				resultsTable.innerHTML = " ";
-				let message = document.createElement("p");
-				message.innerHTML =
-					"There are no saved birthdays. Add a new birthday using the form above!";
-				document.querySelector("main").appendChild(message);
+				let message = document.getElementById("nobirthdays");
+				message.innerHTML = 'There are no saved birthdays. Add a new birthday using the form above!'
 			} else {
 				//Remove no birthdays message if it exists
-				if (document.querySelector("p") != null) {
-					let message = document.querySelector("p");
-					document.querySelector("main").removeChild(message);
+				if (document.getElementById("nobirthdays").innerHTML != null) {
+					let message = document.getElementById("nobirthdays");
+					message.innerHTML = " "
 				}
 				let resultsTable = document.querySelector("table.results");
 				resultsTable.innerHTML = " ";
@@ -58,12 +49,17 @@ function renderTable() {
 					cell3.innerHTML = `${birthdays[entries].relationship}`;
 					cell4.innerHTML = `${birthdays[entries].birthday}`;
 					cell5.innerHTML = `${birthdays[entries].giftidea}`;
-					let delBtn = cell6.appendChild(document.createElement("button"));
-					delBtn.className = `${birthdays[entries].submitTime} delete`;
+					let delForm =cell6.appendChild(document.createElement("form"))
+					delForm.action = "/removeBirthday";
+					delForm.method = "POST";
+					let submitTime = delForm.appendChild(document.createElement("input"))
+					submitTime.type = "hidden"
+					submitTime.name = "submitTime"
+					submitTime.value = `${birthdays[entries].submitTime}`;
+					let delBtn = delForm.appendChild(document.createElement("button"));
+					delBtn.className = `delete`;
+					delBtn.type =  "submit"
 					delBtn.innerHTML = "Delete";
-					delBtn.onclick = function () {
-						remove(delBtn.className);
-					};
 				}
 			}
 		});

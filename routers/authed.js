@@ -50,4 +50,10 @@ router.get("/birthdays", async (req, res) => {
 	res.json (birthdays)
 })
 
+router.post("/removeBirthday", async (req, res) => {
+	let timeID = Number(req.body.submitTime)
+	let deleteResult = await birthdayDB.collection(req.session.user).deleteOne({submitTime: timeID})
+	res.redirect("/")
+})
+
 module.exports = router
