@@ -28,12 +28,13 @@ button.edit {
 
 .resultsContainer {
 	max-width: 50em;
-    
+    display: flow-root;
 }
 
 table.results {
 	border: 6px solid;
 	border-collapse: collapse;
+    
 }
 
 tr.results > th {
@@ -60,13 +61,13 @@ hr.delete {
 @media (max-width: 868px) {
 	.resultsContainer {
 		overflow-x: scroll;
-        overflow-y: scroll;
+        max-width: 95vw;
 	}
 
 	table.results {
 		position: sticky;
 		top: 0;
-		width: inherit;
+        width: inherit;
 		overflow-x: scroll;
 	}
 }
@@ -91,11 +92,9 @@ hr.delete {
 
 	.resultsContainer {
 		overflow-x: hidden;
-        overflow-y: scroll;
 	}
 
 	table.results {
 		overflow-x: auto;
-        
 	}
 }
