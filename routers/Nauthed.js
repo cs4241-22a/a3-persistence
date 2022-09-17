@@ -11,7 +11,6 @@ const client = new MongoClient(uri, {
 
 client.connect();
 const Users = client.db("Users").collection("Users");
-const bithdayDB = client.db("Birthdays");
 
 async function getUserByEmail(email) {
 	let user = await Users.findOne({ email: `${email}` });
@@ -23,41 +22,47 @@ async function getUserByID(id) {
 	return user;
 }
 
-async function matchPassword (enteredPW, storedHash) {
-	return await bcrypt.compare(enteredPW, storedHash)
-}
-
 router.get("/", (req, res) => {
-    res.render("login.ejs");
+	if (req.session.login === true) {
+		res.render("index.ejs")
+	} else {
+		res.render("login.ejs", {error: ""});
+	}
+    
 })
 
 router.get("/login", (req, res) => {
-	res.render("login.ejs");
+	res.render("login.ejs", {error: ""});
 });
 
 router.post("/login", async (req, res) => {
 	// Authenticate user and store session cookie 
-	let newLogin = await getUserByEmail(req.body.email);
+	let email = String(req.body.email)
+	let lowEmail = email.toLowerCase();
+	let newLogin = await getUserByEmail(lowEmail);
 	//Check if email is assosciated with a user
 	if (newLogin === null) {
 		//Need to reload page with warning if no account found with email
 		//Render with error works but then you can't GET the page if error is undefined
-		res.render("login.ejs", {error: "The username or password is incorrect"})
+		res.render("login.ejs", {error: "The username or password is incorrect, please try again"})
 	} else {
-		if ( matchPassword(req.body.password, newLogin.password) ) {
-			req.session.login = true
-			res.redirect("/")
-		} else {
-			//Need to reload page with warning if no account found with email
-			//Render with error works but then you can't GET the page if error is undefined
-			req.session = null;
-			res.render("login.ejs", {error: "The username or password is incorrect"})
-		}
+		bcrypt.compare(req.body.password, newLogin.password, (err, data) => {
+			if (err) {
+				throw err
+			} if (data) {
+				req.session.login = true
+				req.session.user = lowEmail
+				res.redirect("/")
+			} else {
+				req.session = null;
+				res.render("login.ejs", {error: "The username or password is incorrect, please try again"})
+			}
+		})
 	}	
 })
 
 router.get("/register", (req, res) => {
-	res.render("register.ejs");
+	res.render("register.ejs", {error: ""});
 });
 
 router.post("/register", async (req, res) => {
@@ -67,9 +72,11 @@ router.post("/register", async (req, res) => {
 		//Try creating new user if none exist
 		try {
 			const hashedPassword = await bcrypt.hash(req.body.password, 10);
+			let email = String(req.body.email)
+			let lowEmail = email.toLowerCase();
 			const newUser = {
 				name: req.body.name,
-				email: req.body.email,
+				email: lowEmail,
 				password: hashedPassword,
 			};
 			Users.insertOne(newUser);
@@ -78,9 +85,7 @@ router.post("/register", async (req, res) => {
 			res.redirect("register");
 		}
 	} else {
-		//Need to reload page with warning that email is already in use for an account
-		//Render with error works but then you can't GET the page if error is undefined 
-		res.render("register.ejs", {error: "There is already an account assosciated with this email adress"})
+		res.render("register.ejs", {error: "There is already an account assosciated with this email adress, please try again using a different adress."})
 	}
 })
 

@@ -5,21 +5,61 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="description" content="Birthday Tracker">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link
 			rel="stylesheet"
 			href="https://unpkg.com/modern-css-reset/dist/reset.min.css"
 		/>
 		<link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/app.css" />
 	</head>
 	<body>
 		<main>
       <!--Ideally {Name}'s Birthday Tracker'-->
-			<h1>
+			<h1>  
         Birthday Tracker
       </h1>
+      <hr />
+      <form action="/newBirthday" method="POST">
+        <div class="formGrid">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" required placeholder="First Name"/>
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname" required placeholder="Last Name"/>
+            <label for="relationship">Relationship Type</label> 
+            <input type="text" id="relationship" name="relationship" required placeholder="Family" list="types"/>
+              <datalist id="types">
+                <option value="Family"></option>
+                <option value="Friend"></option>
+                <option value="Coworker"></option>
+                <option value="Acquaitance"></option>
+              </datalist>
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required>
+            <label for="giftidea">Gift Idea</label>
+            <input type="text" id="giftidea" name="giftidea" required placeholder="Gift Idea"/>
+        </div>
+        <button type="submit" id="newBirthday">Add new Birthday</button></td>
+      </form>
+
+      <h2>Your List of Saved Birthdays</h2>
+			<div class="resultsContainer">
+				<table class="results">
+					<tr class="results">
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Birthday</th>
+						<th>Days Until Next Birthday</th>
+						<th>Gift Idea</th>
+						<th style="background-color: black;"></th>
+					</tr>
+				</table>
+			</div>
+
 			<form action="/logout" method="POST">
 				<button type="submit">Log Out</button>
 			</form>
 		</main>
+    <script src="js/birthdays.js"></script>
 	</body>
 </html>

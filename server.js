@@ -5,6 +5,8 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const app = express();
 const cookie = require("cookie-session");
+const favicon = require("serve-favicon");
+const path = require("path");
 const nAuthedRouter = require("./routers/Nauthed");
 const AuthedRouter = require("./routers/authed")
 /** 
@@ -37,14 +39,15 @@ async function matchPassword (enteredPW, storedHash) {
 }
 
 app.set("view-engine", "ejs");
+//app.use(favicon(path.join(__dirname, 'favicon', 'favicon.ico')))
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 app.use(cookie({
 	secret: process.env.SESSION_SECRET
 }))
 
 function routeDecider (req, res, next) {
-	debugger;
 	if (req.session.login === true) {
 		app.use(AuthedRouter)
 		next();
