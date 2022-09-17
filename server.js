@@ -39,7 +39,7 @@ async function matchPassword (enteredPW, storedHash) {
 }
 
 app.set("view-engine", "ejs");
-//app.use(favicon(path.join(__dirname, 'favicon', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, 'favicon', 'favicon.ico')))
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())

@@ -21,6 +21,11 @@ button.delete {
     min-width: 0;
 }
 
+button.edit {
+    max-width: 5em;
+    min-width: 0;
+}
+
 .resultsContainer {
 	display: flow-root;
 	max-width: 50em;
@@ -55,7 +60,7 @@ hr.delete {
 @media (max-width: 868px) {
 	.resultsContainer {
 		overflow-x: scroll;
-        max-width: 95vw;
+        max-width: 100%;
 	}
 
 	table.results {

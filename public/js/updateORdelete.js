@@ -1,5 +1,6 @@
 window.onload = function () {
 	renderTable();
+    document.querySelector("table").scrollIntoView();
 };
 
 
