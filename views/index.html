@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="sakura.css" type="text/css">
+
+    <script>
+        window.onload = function () {
+            const button = document.getElementById("submit");
+            button.onclick = submit;
+        };
+
+        const submit = function (e) {
+            e.preventDefault();
+
+            document.getElementById("error").innerHTML = "";
+
+            const username = document.querySelector("#username"),
+                password = document.querySelector("#password");
+
+            const body = {
+                username: username.value,
+                password: password.value,
+            };
+
+            const stringified_body = JSON.stringify(body);
+
+            if (username.value === "" || password.value === "") {
+                document.getElementById("error").innerText = "Invalid form values";
+                return;
+            }
+
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: stringified_body,
+
+            }).then(function (response) {
+                res = response.json();
+                console.log(res);
+                const checkPromise = () => {
+                    res.then((result) => {
+                        console.log("Result received");
+                        console.log(result);
+                    }).catch((err) => {
+                        console.error("Error: " + err);
+                    });
+                };
+                checkPromise();
+            });
+            return false;
+        };
+    </script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <form enctype="application/x-www-form-urlencoded">
+                <h1>Login Here</h1>
+                <fieldset>
+                    <span class="formLabel">Username</span>
+                    <input type="text" id="username" /><br />
+
+                    <span class="formLabel">Password</span>
+                    <input type="password" id="password" /><br />
+                    <button id="submit">Submit</button>
+                </fieldset>
+            </form>
+            <div id="error"></div>
+        </div>
+    </div>
+</body>
+
+</html>
