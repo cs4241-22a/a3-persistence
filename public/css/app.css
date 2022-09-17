@@ -27,8 +27,8 @@ button.edit {
 }
 
 .resultsContainer {
-	display: flow-root;
 	max-width: 50em;
+    
 }
 
 table.results {
@@ -60,21 +60,7 @@ hr.delete {
 @media (max-width: 868px) {
 	.resultsContainer {
 		overflow-x: scroll;
-        max-width: 100%;
-	}
-
-	table.results {
-		position: sticky;
-		top: 0;
-		width: inherit;
-		overflow-x: scroll;
-	}
-}
-
-/* Mobile specific rules */
-@media (max-width: 868px) {
-	.resultsContainer {
-		overflow-x: scroll;
+        overflow-y: scroll;
 	}
 
 	table.results {
@@ -105,9 +91,11 @@ hr.delete {
 
 	.resultsContainer {
 		overflow-x: hidden;
+        overflow-y: scroll;
 	}
 
 	table.results {
-		overflow: auto;
+		overflow-x: auto;
+        
 	}
 }

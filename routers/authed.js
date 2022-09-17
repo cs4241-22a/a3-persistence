@@ -1,4 +1,3 @@
-const { application } = require("express");
 const express = require("express")
 const router = express.Router()
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -33,9 +32,6 @@ router.post("/logout", (req, res) => {
 	res.redirect("/login")
 })
 
-router.get("//newBirthday", (req, res) => {
-	res.render("updateORdelete.ejs")
-})
 
 router.post("/newBirthday", (req, res) => {
 	let newBirthday = {
@@ -47,7 +43,7 @@ router.post("/newBirthday", (req, res) => {
 		submitTime: Date.now(),
 	};
 	birthdayDB.collection(req.session.user).insertOne(newBirthday)
-	res.render("updateORdelete.ejs")
+	res.redirect("/")
 })
 
 router.get("/birthdays", async (req, res) => {
@@ -55,14 +51,11 @@ router.get("/birthdays", async (req, res) => {
 	res.json (birthdays)
 })
 
-router.get("/removeBirthday", (req, res) => {
-	res.render("updateORdelete.ejs")
-})
 
 router.post("/removeBirthday", async (req, res) => {
 	let timeID = Number(req.body.submitTime)
 	birthdayDB.collection(req.session.user).deleteOne({submitTime: timeID})
-	res.render("updateORdelete.ejs")
+	res.redirect("/")
 })
 
 router.post("/editBirthday", async (req, res) => {
@@ -73,9 +66,6 @@ router.post("/editBirthday", async (req, res) => {
 	res.json(birthToEdit)
 })
 
-router.get("/updateBirthday", (req, res) => {
-	res.render("updateORdelete.ejs")
-})
 
 router.post("/updateBirthday", async (req, res) => {
 	let updateBirthday = {
@@ -94,7 +84,7 @@ router.post("/updateBirthday", async (req, res) => {
 		$set: diff
 	}
 	await birthdayDB.collection(req.session.user).updateOne(filter, update);
-	res.render("updateORdelete.ejs")
+	res.redirect("/")
 })
 
 function compareBirthdays (dbBirthday, newUpdate) {
