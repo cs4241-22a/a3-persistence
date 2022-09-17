@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/pico.classless.min.css">
+    <title>AllYourStuff</title>
+  </head>
+  <body>
+    <main>
+      <h1>AllYourStuff</h1>
+      <form id="addcollection">
+        <input name="addcollectionname" id="addcollectionname" placeholder="Start a new collection">
+        <button type="submit" id="addcollectionbtn">submit</button>
+      </form>
+      <label for="collectionchoice">Select a collection</label>
+      <select name="collectionchoice" id="collectionchoice" onchange="getItems(); showCRUDOptions();">
+        <option value="none">---</option>
+        <option value="soda">Soda</option>
+        <option value="sillybandz">Silly Bandz</option>
+      </select>
+      <button type="button" id="additemdrop" style="visibility: hidden;">Add Item</button>
+      <button type="button" id="deleteitemdrop" style="visibility: hidden;">Delete Item</button>
+      <button type="button" id="updateitemdrop" style="visibility: hidden;">Update Item</button>
+      <div id="crudspace">
+      </div>
+      <table id="shownItems"></table>
+    </main>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
