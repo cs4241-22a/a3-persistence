@@ -1,0 +1,81 @@
+/*Style your own assignment! This is fun! */
+html {
+    min-width: 600px;
+}
+.container {
+    display: flex;
+    margin: auto;
+    background-color: gainsboro;
+    font-family: 'Catamaran', sans-serif;
+    justify-content: left;
+    flex-direction: column;
+    width: 1200px;
+    margin-left: 20px;
+}
+.button {
+    font-family: 'Catamaran', sans-serif;
+    font-size: 1.2rem;
+    border: 1px;
+}
+
+.button:hover {
+    color:rgb(219, 21, 90);
+}
+.add_div{
+    border-radius: 5px;
+    /*background-color: white;*/
+}
+.outT{
+    border-radius: 5px;
+    /*background-color: white;*/
+}
+.main{
+    border-radius: 5px;
+    /*background-color: white;*/
+}
+div{
+    border-radius: 5px;
+    /*background-color: white;*/
+}
+form {
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+input {
+    height: 30px;
+    font-family: "Catamaran", sans-serif;
+    font-size: 1rem;
+
+}
+table{
+    border-style:dotted;
+    align-items: center;
+    border-color: firebrick;
+    border: 4px;
+    padding:20px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:13px;
+}
+
+img{
+    border: 2px  
+    dotted firebrick; 
+    width: 300px; 
+    align-items: center;
+}
+h1{
+    color:navy;
+    font-family: 'Catamaran', sans-serif;
+ }
+h2{
+    font-size: smaller;
+    font-family: 'Catamaran', sans-serif;
+}
+button{
+    font-family: 'Catamaran', sans-serif;
+    font-size: 1.2rem;
+    border: 0;
+}
