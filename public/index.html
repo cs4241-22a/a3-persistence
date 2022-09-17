@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Sofia|Rubik"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/scripts.js"></script>
+  </head>
+  <body>
+    <div id="main-header" class="autoMargin">
+      <h1>What's your favorite fruit?</h1>
+    </div>
+    
+    
+
+      <p id="information">
+        Fruits are an excellent source of essential <b>vitamins</b> and <b>minerals</b>, and they are high in <b>fiber</b>. 
+        Fruits also provide a wide range of health-boosting antioxidants, including flavonoids.
+        Eating a diet high in fruits and vegetables can reduce a person’s risk of developing <i>heart disease</i>, <i>cancer</i>, <i>inflammation</i>, and <i>diabetes</i>. 
+        <br><br>
+        Citrus fruits and berries may be especially powerful for preventing disease.
+A <a href="https://www.cdc.gov/pcd/issues/2014/13_0390.htm">2014 studyTrusted Source</a> ranked “powerhouse” fruit and vegetables by high nutrient density and low calories. 
+        Lemons came out top of the list, followed by strawberry, orange, lime, and pink and red grapefruit.<sup><a href="#articleRef">1</a></sup>
+      </p>
+      
+    
+    <div id="Buttons">
+      <a href="#addResponseBlock" class="button centerText"
+        >Add Your Response</a
+      >
+      <a href="#resultTable" class="button centerText">See Survey Result</a>
+      
+    </div>
+
+    <div id="addResponseBlock" class="addRating centerText autoMargin">
+      <br />
+      <h3 class="centerText">Add A Response:</h3>
+
+      <form onsubmit="return false;">
+        <label for="name" class="surveyQuestion">What is your name?</label>
+        <input type="text" id="name" value="" />
+      </form>
+
+      <label for="year" class="surveyQuestion"
+        >What year are you?</label
+      >
+
+      <select id="year">
+        <option value="Freshman">Freshman</option>
+        <option value="Sophomore">Sophomore</option>
+        <option value="Junior">Junior</option>
+        <option value="Senior">Senior</option>
+        <option value="Graduate">Master</option>
+        <option value="PHD">PHD</option>
+      </select>
+
+      <br />
+
+      <label for="sex" class="surveyQuestion">What is your sex?</label>
+
+      <select id="sex">
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Non-binary">Non-binary</option>
+      </select>
+
+      <form onsubmit="return false;">
+        <label for="calories" class="surveyQuestion">How much calories do you consume daily?</label>
+        <input class= "responseAnswer" type="text" id="calories" value="" />
+      </form>
+
+      <form onsubmit="return false;">
+        <label for="favoritefruit" class="surveyQuestion"
+          >What is your favorite fruit?</label
+        >
+        <input type="text" id="favoritefruit" value="" />
+      </form>
+      <br />
+      <button class="addResponseButton centerText" onclick="update()">
+        Add Your Response
+      </button>
+      <br />
+      <br />
+    </div>
+    <div id="resultTable">
+      <br />
+      <h2 class="centerText">Survey Result:</h2>
+      <table id="responses" class="centerText autoMargin">
+      </table>
+      <br />
+      <br />
+    </div>
+    
+          <br />
+
+    <div>
+      <p id="articleRef" class="centerText">
+        <sup>1</sup> Article Excerpts From <a href="https://www.medicalnewstoday.com/articles/324431">MedicalNewsToday</a>
+      </p>
+      <p id="fiberinfo" class="centerText">
+        <sup>2</sup> It is recommended that adults and children should eat 14 grams of fiber for each 1,000 calories they consume.
+      </p>
+    </div>
+  </body>
+</html>
