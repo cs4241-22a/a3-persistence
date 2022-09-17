@@ -1,5 +1,5 @@
 let ids = [{}]
-let id_edited = undefined
+let idx_edited = undefined
 
 function initialize(e) {
     // After getting a response, ask for HTML of tasks to add
@@ -59,14 +59,14 @@ function updateTask(e) {
         input_date = document.getElementById('due-date'),
         body = JSON.stringify({task: input_task.value, due_date: input_date.value})
 
-    fetch('/todo/' + id_edited, {
+    fetch('/todo/' + ids[idx_edited], {
         method: 'PATCH',
         headers: {"Content-Type": "application/json"},
         body
     }).then(async response => {
         let obj = await response.json()
         if (obj.acknowledged) {
-            fetch('/todo/' + id_edited, {
+            fetch('/todo/' + ids[idx_edited], {
                 method: 'GET'
             }).then(async response => {
                 let task = await response.json()
@@ -106,6 +106,7 @@ function addRow(task) {
 
     let table = document.getElementById('todoTable')
     let row = table.insertRow()
+    row.onclick = fillForm
 
     let taskColumn = row.insertCell(0)
     taskColumn.innerHTML = task.task
@@ -135,15 +136,7 @@ function addRow(task) {
         priorityColumn.style.color = 'white'
     }
 
-    let editColumn = row.insertCell(4)
-    let editBtn = document.createElement('button')
-    editBtn.id = 'edit' + row.rowIndex
-    editBtn.onclick = fillForm
-    editBtn.className = 'editTask'
-    editBtn.innerText = 'Edit'
-    editColumn.appendChild(editBtn)
-
-    let deleteColumn = row.insertCell(5)
+    let deleteColumn = row.insertCell(4)
     let deleteBtn = document.createElement('button')
     deleteBtn.id = 'delete' + row.rowIndex
     deleteBtn.onclick = deleteTask
@@ -184,10 +177,8 @@ function fillForm(e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    let idx = parseInt(e.target.id.substring(4))
-    let id = ids[idx]
-    id_edited = id
-    fetch('/todo/' + id, {
+    idx_edited = e.target.parentNode.rowIndex
+    fetch('/todo/' + ids[idx_edited], {
         method: 'GET'
     }).then(async response => {
         let json = await response.json()
@@ -202,13 +193,23 @@ function changeToModifyForm(data) {
     document.getElementById('due-date').value = data.due_date
     document.getElementById('legend').textContent = 'Modify a TODO'
     document.getElementById('todoSubmit').onclick = updateTask
+
+    // If clicking on this row again, reset the form
+    let table = document.getElementById('todoTable')
+    console.log(idx_edited)
+    let row = table.rows.item(idx_edited - 1)
+    row.onclick = resetForm
 }
 
 function resetForm() {
     document.getElementById('addTask').reset()
     document.getElementById('legend').textContent = 'Add a TODO'
     document.getElementById('todoSubmit').onclick = submit
-    id_edited = undefined
+
+    // When resetting the form, make sure clicking on the row will now fill the form
+    let table = document.getElementById('todoTable')
+    let row = table.rows.item(idx_edited - 1)
+    row.onclick = fillForm
 }
 
 window.onload = function () {
