@@ -1,5 +1,6 @@
-let ids = [{}]
-let idx_edited = undefined
+let ids = []
+let idx_edited = -1
+let deleting = false
 
 function initialize(e) {
     // After getting a response, ask for HTML of tasks to add
@@ -82,21 +83,23 @@ function updateTask(e) {
 }
 
 function deleteTask(e) {
+    deleting = true // Hack because clicking on a button in a table still counts as focusing the row
     e.preventDefault()
     resetForm(e)
-    let idx = parseInt(e.target.id.substring(6))
-    let id = ids[idx]
 
-    fetch('/todo/' + id, {
+    idx_edited = e.target.parentNode.parentNode.rowIndex - 1
+    fetch('/todo/' + ids[idx_edited], {
         method: 'DELETE',
     }).then(async response => {
         let obj = await response.json()
         if (obj.acknowledged) {
-            document.getElementById('todoTable').deleteRow(idx)
-            ids.splice(idx, 1)
+            document.getElementById('todoTable').deleteRow(idx_edited)
+            ids.splice(idx_edited, 1)
         }
+        deleting = false
     }).catch((reason) => {
         console.error(reason)
+        deleting = false
     })
     return false
 }
@@ -177,15 +180,19 @@ function fillForm(e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    idx_edited = e.target.parentNode.rowIndex
-    fetch('/todo/' + ids[idx_edited], {
-        method: 'GET'
-    }).then(async response => {
-        let json = await response.json()
-        changeToModifyForm(json)
-    }).catch((reason) => {
-        console.error(reason)
-    })
+    if (!deleting) {
+        idx_edited = e.target.parentNode.rowIndex - 1
+        fetch('/todo/' + ids[idx_edited], {
+            method: 'GET'
+        }).then(async response => {
+            let json = await response.json()
+            changeToModifyForm(json)
+        }).catch((reason) => {
+            console.error(reason)
+        })
+    }
+
+    return false
 }
 
 function changeToModifyForm(data) {
@@ -196,20 +203,23 @@ function changeToModifyForm(data) {
 
     // If clicking on this row again, reset the form
     let table = document.getElementById('todoTable')
-    console.log(idx_edited)
-    let row = table.rows.item(idx_edited - 1)
-    row.onclick = resetForm
+    for (let row of table.rows) {
+        row.onclick = fillForm
+    }
+    table.rows.item(idx_edited).onclick = resetForm
 }
 
 function resetForm() {
     document.getElementById('addTask').reset()
     document.getElementById('legend').textContent = 'Add a TODO'
+    document.getElementById('todoSubmit').disabled = true
     document.getElementById('todoSubmit').onclick = submit
 
     // When resetting the form, make sure clicking on the row will now fill the form
     let table = document.getElementById('todoTable')
-    let row = table.rows.item(idx_edited - 1)
-    row.onclick = fillForm
+    for (let row of table.rows) {
+        row.onclick = fillForm
+    }
 }
 
 window.onload = function () {
