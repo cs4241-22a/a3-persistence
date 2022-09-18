@@ -7,8 +7,10 @@
     "start": "node server.improved.js"
   },
   "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.16.4",
     "mime": "^2.4.4",
-    "prettier": "^2.7.1",
-    "express": "^4.16.4"
+    "mongodb": "^4.9.1",
+    "prettier": "^2.7.1"
   }
 }

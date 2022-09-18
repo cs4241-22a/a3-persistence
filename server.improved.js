@@ -1,6 +1,8 @@
 const express = require( 'express' ),
     app = express()
 
+require('dotenv').config()
+
 let appdata = [];
 
 
@@ -28,6 +30,30 @@ app.use( express.json() )
 app.post( '/*', (req, res) => {
   handlePost(req, res)
 })
+
+
+// todo DB stuff
+const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://rvrx:<password>@cluster0.6tugoyu.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
+console.log("SERVER.IMPROVED.JS Connecting to DB")
+client.connect()
+    .then( () => {
+      // will only create collection if it doesn't exist
+      return client.db( 'db0' ).collection( 'collection0' )
+    })
+    .then( collection => {
+      // blank query returns all documents
+      return collection.find({ }).toArray()
+    })
+    .then( console.log )
 
 
 app.listen( process.env.PORT || 3000 )
