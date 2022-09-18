@@ -139,7 +139,7 @@ function connectionChecker(req, res, next) {
 }
 
 // Allow the user to continue if they are going to an allowed page OR if they are authenticated
-const allowed = ['/resources/background.jpg', '/login', '/auth/github', '/auth/github/callback']
+const allowed = ['/resources/background.jpg', '/robots.txt', '/login', '/auth/github', '/auth/github/callback']
 
 function ensureAuthenticated(req, res, next) {
     if (allowed.includes(req.path) || req.isAuthenticated()) {
