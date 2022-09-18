@@ -1,13 +1,17 @@
 require('dotenv').config()
 const express = require('express'), path = require('path'), passport = require('passport'),
-    session = require('express-session')
+    session = require('express-session'), helmet = require('helmet'), morgan = require('morgan'), cors = require('cors')
 require('./passport')
 
 const app = express()
 app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false}))
 app.use(passport.initialize({}))
 app.use(passport.session({}))
-app.use(logger)
+app.use(helmet({
+    contentSecurityPolicy: false,
+}))
+app.use(cors())
+app.use(morgan('tiny'))
 app.use(connectionChecker)
 app.use(ensureAuthenticated)
 app.use(express.json())
@@ -125,11 +129,6 @@ const determinePriority = function (due_date) {
         return 'Medium'
     else
         return 'Low'
-}
-
-function logger(req, res, next) {
-    console.log(req.method, req.path)
-    return next()
 }
 
 function connectionChecker(req, res, next) {
