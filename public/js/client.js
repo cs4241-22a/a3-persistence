@@ -36,7 +36,6 @@ function submit(e) {
     }).then(async response => { // Only put the row in the table once the database responds
         let obj = await response.json()
         if (obj.acknowledged) {
-            ids.push(obj.insertedId)
             fetch('/todo/' + obj.insertedId, {
                 method: 'GET'
             }).then(async response => {
