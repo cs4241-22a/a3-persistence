@@ -143,7 +143,7 @@ function addRow(task) {
     let deleteBtn = document.createElement('button')
     deleteBtn.id = 'delete' + row.rowIndex
     deleteBtn.onclick = deleteTask
-    deleteBtn.className = 'deleteTask'
+    deleteBtn.className = 'btn btn-danger'
     deleteBtn.innerText = 'X'
     deleteColumn.appendChild(deleteBtn)
 }
