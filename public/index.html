@@ -12,14 +12,15 @@
         height: 100%
     } </style>
 </head>
-<body class="container-fluid h-100 d-flex flex-column justify-content-start align-items-center m-0 p-0 overflow-hidden bg-light">
-<header class="row">
+<body class="container-fluid w-100 h-100 d-flex flex-column justify-content-start align-items-center m-0 p-0 overflow-hidden bg-light bg-image"
+      style="background-image: url('./resources/background.jpg'); background-size: cover; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px)">
+<header class="row w-100 text-center bg-dark text-light" style="padding-top: 10px; padding-bottom: 10px">
     <h1 class="font-bold">
         Todo List
     </h1>
 </header>
-<div id="submission" class="container row w-50">
-    <form id="addTask" class="m-10 w-100 h-100 m-0 p-10 row form-group border border-dark rounded py-sm-3">
+<div id="submission" class="container row w-50" style="margin: 50px">
+    <form id="addTask" class="m-10 w-100 h-100 m-0 p-10 row form-group border border-dark rounded py-sm-3 bg-light">
         <fieldset>
             <legend id="legend">Add a TODO</legend>
             <label for="task">Task:</label><textarea id="task" class="form-control my-2"
@@ -35,7 +36,7 @@
     </form>
 </div>
 <div id="todolist" class="row w-50">
-    <table class="table table-bordered table-hover table-responsive text-center">
+    <table class="table table-bordered table-hover table-responsive text-center align-middle bg-light">
         <thead class="thead-light">
         <tr>
             <th><strong>Task</strong></th>
