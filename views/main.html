@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <img
+            alt="background"
+            src="https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/clock_in.png?v=1662180150892"
+    >
+
+<br />
+<h1>Activity Logger</h1>
+
+<form action="adding_time">
+    <div class="grid_container">
+        <label class="grid_item" for="activity">Type of Activity Done</label>
+        <select id="activity" name="Type of activity done">
+            <option value="Sleep">Sleep</option>
+            <option value="Food">Food</option>
+            <option value="School">School</option>
+            <option value="Work">Work</option>
+            <option value="Fun">Fun</option>
+        </select>
+
+        <!--         <br /> -->
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" />
+
+        <label for="time_started">Time Started</label>
+        <input type="time" id="time_started" name="time_started" />
+
+
+        <label for="time_ended">Time Ended</label>
+        <input type="time" id="time_ended" name="time_ended" />
+
+        <!--         <br /> -->
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" />
+    </div>
+    <br /><button>submit</button>
+
+</form>
+
+<h1>Activities Logged</h1>
+<br />
+<table id="table">
+    <tr>
+        <th>Activity Done</th>
+        <th>Date</th>
+        <th>Time Started</th>
+        <th>Time Ended</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Delete?</th>
+    </tr>
+</table>
+<script src="/scripts.js"></script>
+</body>
+</html>

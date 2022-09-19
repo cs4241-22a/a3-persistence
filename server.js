@@ -12,16 +12,40 @@ app.use(express.json())
 app.post( '/submit', (req, res) => {
     console.log(req.body);
     logs.push(req.body)
+    console.log(collection);
     collection.insertOne(req.body).then(result => res.json(result))
     // res.writeHead(200, {"Content-Type": "application/json"})
     //
     // res.end(JSON.stringify(logs))
 })
 
-// app.get('/', (req, res) => {
-//     const cursor = db.collection('Activity Logs').find()
-//
-// })
+app.post('/login', (req, res) => {
+    // console.log(collection);
+    // collection.insertOne(req.body).then(result => res.json(result));
+
+    let query = (req.body);
+    collection.find(query).toArray(function(err, result) {
+        if (err) throw err;
+        if (result.length > 0){
+            // window.location.href = "main.html";
+            res.writeHead(200, "OK", { "Content-Type": "text/plain" });
+            res.end(JSON.stringify(["True"]));
+            // res.send("test");
+        }
+        else{
+            res.writeHead(200, "OK", { "Content-Type": "text/plain" });
+            res.end(JSON.stringify(["False"]));
+            // res.send("False");
+        }
+        console.log(result);
+    });
+    // console.log(query);
+    // if (collection.find(user === req.body.user) !== null){
+    //     console.log(collection.find(user === req.body.user));
+    // }
+
+
+})
 
 
 
@@ -39,6 +63,9 @@ client.connect()
         // will only create collection if it doesn't exist
         return client.db( 'A3' ).collection( 'Activity Logs' )
     })
+    .then( () => {
+        return client.db('A3').collection('accounts');
+    })
     .then( __collection => {
         collection = __collection;
         // blank query returns all documents
@@ -51,7 +78,6 @@ app.get( '/', (req, res) => {
         collection.find({ }).toArray().then(result => res.json(result))
     }
 })
-
 
 // client.connect(err => {
 //     const collection = client.db("test").collection("devices");
