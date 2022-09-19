@@ -4,7 +4,7 @@ let numResponse = 1;
 window.onload = function () {
   const button = document.getElementById("add_btn");
   button.onclick = addResponseWindow;
-  update();
+  getData();
 };
 
 
@@ -15,7 +15,7 @@ const addResponseWindow = function(){
 }
 
 const editResponseWindow = function(id){
-  fetch('/getItem', {
+  fetch('/getResponse', {
     method:'POST',
     body: JSON.stringify({id: id}),
     headers:{
@@ -37,7 +37,7 @@ const editResponseWindow = function(id){
     const edit_btn = document.getElementById('edit_btn')
     
     edit_btn.onclick = function() {
-      updateItem(id)
+      editResponse(id)
     }
 
     document.getElementById("popup_editResponse").classList.toggle("is-active")
@@ -67,57 +67,51 @@ const getData = function() {
     return response.json()
   })
   .then(function (data) {
-    const text = document.getElementById( 'response_id' )
-    text.innerHTML = 'Number of Responses: ' + Object.values(data).length
-    buildTable('dataTable', data);
+    buildTable('responses', data);
   })
 }
 
 const buildTable = function(tableId, data){
-  let tableRef = document.getElementById(tableId)
+  let tableRef = document.getElementById(tableId);
   for(var i = tableRef.rows.length - 1; i > 0; i--)
-      tableRef.deleteRow(i)
+      tableRef.deleteRow(i);
 
 
       let row = 1
   data.map( function (item){
-      let newRow = tableRef.insertRow(-1)
-      newRow.classList += "itemRow"
+      let newRow = tableRef.insertRow(-1);
+      newRow.classList += "itemRow";
       
       
-      let columnNum = tableRef.rows[0].cells.length
+      let columnNum = tableRef.rows[0].cells.length;
       
 
       for(let i=0; i < columnNum; i++){ 
        
-          let newCell =  document.createElement("td")
+          let newCell =  document.createElement("td");
           newCell.style.cssText += 'flex-wrap: wrap;'
-          let value = Object.values(item)
+          let value = Object.values(item);
           let newText 
          
           if(i == 0)
-            newText = document.createTextNode(row)
+            newText = document.createTextNode(row);
           else 
-            newText = document.createTextNode(value[i])
+            newText = document.createTextNode(value[i]);
 
-          newCell.appendChild(newText)
-          newRow.appendChild(newCell)
+          newCell.appendChild(newText);
+          newRow.appendChild(newCell);
       }
     newRow.onclick= function(){
-      showEditWindow(item['_id'])
+      showEditWindow(item['_id']);
     }
     
-      row++
+    row++;
 
   })
 
 } 
 
-function clear() {
-  document.getElementById("name").value = "";
-  document.getElementById("calories").value = "";
-  document.getElementById("favoritefruit").value = "";
-}
+
 const submit = function (e) {
   e.preventDefault();
 
@@ -133,7 +127,7 @@ const submit = function (e) {
   } else {
     numResponse++;
 
-    const jsonData = {
+    const json = {
       responseNum: numResponse,
       name: name,
       year: year,
@@ -142,8 +136,8 @@ const submit = function (e) {
       fiber: amountFiber(calories),
       favoritefruit: favoritefruit,
     };
-
-    let body = JSON.stringify(jsonData);
+    console.log(json);
+    let body = JSON.stringify(json);
 
     fetch("/submit", {
       method: "POST",
@@ -155,12 +149,39 @@ const submit = function (e) {
       document.getElementById("calories").value = "";
       document.getElementById("favoritefruit").value = "";
       closePopup()
-      addToTable(json, json._id)
+      addResponse(json, json._id)
     })
 
     return true;
   }
 };
+
+function addResponse(json, id){
+  const table = document.getElementById('responses');
+
+   let newRow = table.insertRow(-1)
+      newRow.classList += "itemRow"
+      
+      let columnNum = table.rows[0].cells.length
+      
+      for(let i=0; i < columnNum; i++){ 
+          let newCell = newRow.insertCell(i)
+          let value = Object.values(json)
+          let newText 
+         
+          if(i == 0)
+            newText = document.createTextNode( tabletableRef.rows.length )
+          else 
+          newText = document.createTextNode(value[i])
+
+          newCell.appendChild(newText)
+      }
+
+    newRow.onclick= function(){
+      showEditWindow(id)
+    }
+
+}
 
 function amountFiber(calories) {
   let fiber = 0;
@@ -169,19 +190,19 @@ function amountFiber(calories) {
 }
 
 function signOut() {
-  fetch( '/signOut', {
+  fetch( '/signout', {
     method:'POST',
     body: JSON.stringify({test: 1}),
     headers:{
       "Content-Type":"application/json"
     }
-  }).then( window.location.replace('/index.html') )
+  }).then( window.location.replace('/login.html') )
 }
 
 function update() {
   let table = document.getElementById("responses");
   table.innerHTML =
-    "<tr><th>Response #</th><th>Name</th><th>Academic Year</th><th>Sex</th><th>Calories Consume Daily</th><th>Amount of Fiber Recommended Daily (g)<sup><a href='#fiberinfo'>2</a></sup></th><th>Favorite Fruit?</th><th>Delete/Edit Response</th></tr>";
+    "<tr><th>Response #</th><th>Name</th><th>School Year</th><th>Gender</th><th>Daily Calories</th><th>Fiber Recommended Daily (g)<sup><a href='#fiberinfo'>2</a></sup></th><th>Favorite Fruit</th><th>Delete/Edit Response</th></tr>";
   fetch("/getResponses", {
     method: "GET",
   })
@@ -219,6 +240,7 @@ function update() {
       }
     });
 }
+
 function deleteRow(rowIndex) {
   let confirmDelete = confirm(
     "Are you sure you want to delete this response?"
@@ -233,7 +255,43 @@ function deleteRow(rowIndex) {
       method: "POST",
       body,
     }).then(function () {
-      update();
+      getData();
     });
+  }
+}
+
+function editResponse(id) {
+  const name = document.getElementById('editName')
+  const year = document.getElementById("edityear").value;
+  const gender = document.getElementById("editgender").value;
+  const calories = document.getElementById("editcalories").value;
+  const favoritefruit = document.getElementById("editfavoritefruit").value;
+  if (name.trim() === "" || calories.trim() === "" || favoritefruit.trim() === "") {
+    alert("Please complete all fields.");
+    return false;
+  } else {
+
+  const json = {
+    responseNum: numResponse,
+    name: name,
+    year: year,
+    gender: gender,
+    calories: calories,
+    fiber: amountFiber(calories),
+    favoritefruit: favoritefruit,
+  }
+  console.log(json);
+  let body = JSON.stringify(json);
+      fetch( '/update', {
+          method:'POST',
+          body,
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+        .then( function( ) {
+          getData();
+          closeEditWindow();
+        })
   }
 }

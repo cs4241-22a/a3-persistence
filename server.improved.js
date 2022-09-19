@@ -38,6 +38,58 @@ const http = require("http"),
   port = 3000;
 
 
+//post functions:
+app.post('/delete', bodyParser.json(), function(request, response) {
+  collection
+    .deleteOne({ _id:mongodb.ObjectId( request.body.id ) })
+    .then( result => response.json( result ) )
+})
+
+app.post('/update', bodyParser.json(), function(request, response) {
+  collection
+    .updateOne(
+      { _id:mongodb.ObjectId( request.body.modifyInput ) },
+      { $set:{ name:request.body.name,
+               gender:request.body.gender,
+               year:request.body.year,
+               calories:request.body.calories,
+               fiber:request.body.fiber,
+               favoritefruit:request.body.favoritefruit,
+              }}
+    )
+    .then( result => response.json( result ) )
+})
+
+app.post( '/signout', bodyParser.json(), function( request, response ) {
+  console.log("In sign out: " + request.session.login)
+  request.session.login = false
+  console.log("In sign out: " + request.session.login)
+  response.sendFile( __dirname + '/public/login.html' )
+})
+
+app.post( '/submit', bodyParser.json(), function( request, response ) {
+  console.log("In submit");
+  request.body.username = request.session.username;
+  collection.insertOne( request.body )
+    .then( insertResponse => collection.findOne( insertResponse.insertedId ) ) 
+    .then( findResponse   => response.json( findResponse ) )
+  .catch(err => console.log(err)) 
+})
+
+app.post('/getResponse',  bodyParser.json(), function(request, response) {
+  if( collection !== null ) {
+    collection.findOne( { _id:mongodb.ObjectId( request.body.id ) } )
+      .then( result => { response.json( result ) })
+  }
+})
+
+//get functions:
+app.get('/getData', function(request, response) {
+  if( collection !== null ) {
+    collection.find({ username:request.session.username }).toArray().then( result => { response.json( result ) } )
+  }
+})
+
 const appdata = [
   {
     responseNum: 1,
@@ -117,5 +169,7 @@ const sendFile = function (response, filename) {
   });
 };
 
-server.listen(process.env.PORT || port);
+const listener = app.listen(process.env.PORT || 3000, () => {
+  console.log("Your app is listening on port " + listener.address().port);
+});
 
