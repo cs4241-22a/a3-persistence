@@ -1,48 +1,63 @@
 const express = require("express"),
     app = express(),
     logs = []
-// const path = require("path")
+
+const cookie = require("cookie-session")
 
 app.use(express.static("public"))
 app.use(express.static("views"))
 app.use(express.json())
 
+app.use( cookie({
+    name: 'session',
+    keys: ['testkey1', 'testkey2']
+}))
+
 
 
 app.post( '/submit', (req, res) => {
-    console.log(req.body);
+
+    let newLog = (req.body);
+    newLog.user = req.session.user;
     logs.push(req.body)
     console.log(collection);
     client.db("A3").collection("Activity Logs").insertOne(req.body).then(result => res.json(result))
-    // res.writeHead(200, {"Content-Type": "application/json"})
-    //
-    // res.end(JSON.stringify(logs))
+
 })
 
 app.post('/login', (req, res) => {
     // console.log(collection);
     // collection.insertOne(req.body).then(result => res.json(result));
-
+    client.db("A3").collection("Activity Logs").deleteMany({});
     let query = (req.body);
     console.log(query)
     client.db("A3").collection("accounts").find(query).toArray(function(err, result) {
         if (err) throw err;
         if (result.length > 0){
-            req.session = true;
+            // req.session.login = true;
             req.session.user = req.body.user;
             res.redirect("main.html");
 
         }
         else{
+            // req.session.login = false;
             res.redirect("index.html");
 
         }
     });
+
 })
 
 app.post('/signUp', (req, res) => {
     client.db("A3").collection("accounts").insertOne(req.body)
 
+})
+
+app.get('/starting', (req, res) => {
+    // res.writeHead(200, {"Content-Type": "application/json"})
+    // res.json();
+    // console.log(JSON.stringify(client.db("A3").collection("Activity Logs").find().toArray()))
+    (client.db("A3").collection("Activity Logs").find({ }).toArray()).then(result => res.json(result)) //.then(result => res.json(result))
 })
 
 
@@ -61,9 +76,9 @@ client.connect()
         // will only create collection if it doesn't exist
         return client.db( 'A3' ).collection( 'Activity Logs' )
     })
-    .then( () => {
-        return client.db('A3').collection('accounts');
-    })
+    // .then( () => {
+    //     return client.db('A3').collection('accounts');
+    // })
     .then( __collection => {
         collection = __collection;
         // blank query returns all documents

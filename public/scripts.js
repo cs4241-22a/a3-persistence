@@ -63,12 +63,13 @@ form.onsubmit = function(event) {
         startTime: startTime.value,
         endTime: endTime.value,
         description: description.value,
+        duration: time_duration(startTime.value, endTime.value),
     }
     logs.push(input);
     appendToTable(input);
 
     const body = JSON.stringify(input);
-
+    console.log(input);
     fetch( '/submit', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -77,9 +78,6 @@ form.onsubmit = function(event) {
         .then(response => response.json())
         .then( console.log)
 }
-
-
-
 
 
 
@@ -147,4 +145,18 @@ function delete_row(id) {
         }
         newTable.push(curRow);
     }
+}
+
+window.onload = function (){
+    fetch('/starting', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => (response.json()))
+        .then((json) => {
+            // console.log(json)
+            json.forEach((item) => {
+                console.log(JSON.stringify(item));
+        })
+})
 }
