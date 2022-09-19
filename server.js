@@ -7,9 +7,13 @@ app.use(express.static("public"))
 app.use(express.static("views"))
 app.use(express.json())
 
+
+
 app.post( '/submit', (req, res) => {
-    logs.push(req.body.newLog)
-    res.write(200, {"Content-Type": "application/json"})
+    console.log(req.body);
+    logs.push(req.body)
+    res.writeHead(200, {"Content-Type": "application/json"})
+
     res.end(JSON.stringify(logs))
 })
 
