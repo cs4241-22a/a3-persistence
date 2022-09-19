@@ -5,9 +5,11 @@ serveStatic = require('serve-static'),
 bodyparser = require('body-parser'),
 cookieSession = require('cookie-session'),
 cookieParser = require('cookie-parser'),
+cookie  = require( 'cookie-session' ),
 mongoose = require('mongoose'),
 GitHubStrategy = require('passport-github2').Strategy,
-passport = require('passport');
+passport = require('passport'),
+MongoClient = mongodb.MongoClient;
 
 
 
@@ -41,6 +43,44 @@ const http = require("http"),
   mime = require("mime"),
   dir = "public/",
   port = 3000;
+
+  passport.serializeUser(function(user, done){
+    done(null, user);
+  })
+  
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
+  })
+  
+  passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+    callbackURL: "https://contact-log.herokuapp.com/github/logs"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    return done(null, profile);
+  }))
+
+  
+  app.get('/auth/error', (req, res) => res.send('Unknown Error'));
+  app.get('/github/logs',passport.authenticate('github', { failureRedirect: '/auth/error' }),
+  function(req, res) {
+    res.redirect('/route?id=' + req.user.id);
+  });
+
+
+  app.get('/route', (req, res) => {
+  
+    if(loginCollection!=null){
+      loginCollection.insertOne({username:req.query.id})
+      .catch(err => console.log(err)) 
+      .then(response => {
+        req.session.login = true;
+        req.session.username = req.query.id;
+        res.redirect("response.html");
+      });
+    }
+  })
 
 
 //post functions:
@@ -177,4 +217,5 @@ const sendFile = function (response, filename) {
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
+
 

@@ -46,7 +46,7 @@ const signup = function(){
                 document.getElementById('createName').classList.remove('is-danger')
                 document.getElementById('createPassword').value = ""
                 document.getElementById('createName').value = ""
-                closeEdit()
+                closePopupSignup()
               }
               else{
                 console.log("Unable to create account: username taken")
