@@ -1,9 +1,47 @@
 require('dotenv').config();
 const express = require( 'express' ),
-      app = express(); 
+      app = express(),
+      cookie  = require( 'cookie-session' ),
+      hbs = require( 'express-handlebars' ).engine,
+      crypto = require("crypto"); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PWD}@${process.env.HOST}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+app.use( express.urlencoded({ extended:true }) )
+//Keys from https://stackoverflow.com/a/69358886
+app.use( cookie({
+  name: 'AllYourStuff',
+  keys: [crypto.randomBytes(64).toString("hex"), crypto.randomBytes(64).toString("hex")]
+}))
+
+app.engine('handlebars', hbs());
+app.set('view engine', 'handlebars');
+app.set('views','./public')
+
+app.post( '/login', (req,res)=> {
+  console.log( req.body )
+  if( req.body.username === process.env.USER && req.body.password === process.env.PWD ) {
+    req.session.login = true;
+    res.redirect('index.html');
+  }else{
+    req.session.login = false;
+    res.render('login', { msg:'login failed, please try again', layout:false })
+  }
+})
+app.get( '/', (req,res) => {
+  res.render( 'login', { msg:'', layout:false })
+})
+app.use( function( req,res,next) {
+  if(req.session.login === true) {
+    next();
+  } else {
+    res.render('login', { msg:'login failed, please try again', layout:false })
+  }
+})
+app.get('/index.html', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+})
 
 app.use(express.static('public'));
 app.use(express.json());

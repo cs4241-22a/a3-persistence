@@ -48,7 +48,7 @@ function showItems(json) {
         const dateCol = document.createElement("td");
         dateCol.innerHTML = item.dateCol;
         const link = document.createElement("td");
-        link.innerHTML = `<a href="${item.link}">${item.link}</a>`;
+        link.innerHTML = `<a href="${item.link}">${item.link.split('/')[2]}</a>`;
         row.appendChild(name);
         row.appendChild(dateCol); 
         row.appendChild(link); 
