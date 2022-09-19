@@ -94,4 +94,5 @@ const updateTableWithData = function () {
 window.onload = function () {
   const button = document.querySelector("#addEntry");
   button.onclick = addEntry;
+  updateTableWithData();
 };
