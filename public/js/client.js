@@ -199,6 +199,7 @@ function changeToModifyForm(data) {
     document.getElementById('due-date').value = data.due_date
     document.getElementById('legend').textContent = 'Modify a TODO'
     document.getElementById('todoSubmit').onclick = updateTask
+    document.getElementById('todoSubmit').textContent = 'Modify'
 
     // If clicking on this row again, reset the form
     let table = document.getElementById('todoTable')
@@ -213,6 +214,7 @@ function resetForm() {
     document.getElementById('legend').textContent = 'Add a TODO'
     document.getElementById('todoSubmit').disabled = true
     document.getElementById('todoSubmit').onclick = submit
+    document.getElementById('todoSubmit').textContent = 'Submit'
 
     // When resetting the form, make sure clicking on the row will now fill the form
     let table = document.getElementById('todoTable')
