@@ -1,0 +1,18 @@
+{
+  "name": "cs-4241-simple-stack",
+  "version": "0.1.0",
+  "description": "CS 4241 Assignment 2",
+  "author": "Frank McShan",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.16.4",
+    "lowdb": "^1.0.0",
+    "mime": "^2.4.4",
+    "mongodb": "^4.9.1"
+  }
+}
