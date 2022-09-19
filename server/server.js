@@ -4,4 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const app = express_1.default.application;
+const app = (0, express_1.default)(), dreams = [];
+app.use(express_1.default.static('public'));
+app.use(express_1.default.json());
+app.post('/submit', (req, res) => {
+    dreams.push(req.body.newdream);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(dreams));
+});
+app.listen(process.env.PORT);
