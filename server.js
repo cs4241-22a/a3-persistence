@@ -7,7 +7,7 @@ app.use( express.static( 'views'  ) )
 app.use( express.json() )
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://CS4241:Webware@a3cluster.klzdhtp.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://CS4241:<pwd>@a3cluster.klzdhtp.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
