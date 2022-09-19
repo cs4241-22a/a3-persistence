@@ -75,7 +75,7 @@ app.get('/index', checkauthenticated, function (request, response) {
 })
 
 app.get('/logout', function (request, response) {
-  request.logOut();
+  //request.logOut()
   response.redirect('/')
 })
 
