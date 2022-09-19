@@ -38,8 +38,6 @@ client.connect(err => {
 
 const http = require("http"),
   fs = require("fs"),
-  // IMPORTANT: you must run `npm install` in the directory for this assignment
-  // to install the mime library used in the following line of code
   mime = require("mime"),
   dir = "public/",
   port = 3000;
@@ -51,7 +49,7 @@ const http = require("http"),
   passport.deserializeUser(function(user, done) {
     done(null, user);
   })
-  
+
   passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
@@ -84,6 +82,31 @@ const http = require("http"),
 
 
 //post functions:
+
+app.post('/createAccount', bodyParser.json(), function(request, response) {
+
+  if( loginCollection !== null ) {
+    loginCollection.find({ username: request.body.username }).toArray()
+    .then(result => {
+      if(result.length == 0){
+        loginCollection.insertOne( request.body )
+        .then( result => { 
+          response.json({isValid: true})
+        })
+        .catch(err => console.log(err)) 
+      }
+      else {
+        console.log("Account already exists, please login instead.")
+        response.json({isValid: false})
+      }
+    }) 
+    
+  }
+  
+})
+
+
+
 app.post('/delete', bodyParser.json(), function(request, response) {
   collection
     .deleteOne({ _id:mongodb.ObjectId( request.body.id ) })
