@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/scripts.js"></script>
+</head>
+
+<body>
+  <h1>Contacts</h1>
+  <div class="addContact">
+    <form id="add">
+      <table id="input">
+        <tr>
+          <td>First Name:</td>
+          <td>
+            <input class="textInput" type="text" id="fName" name="fName" value="" required>
+          </td>
+        </tr>
+        <tr>
+          <td>Last Name:</td>
+          <td>
+            <input class="textInput" type="text" id="lName" name="lName" value="" required>
+          </td>
+        </tr>
+        <tr>
+          <td>Phone Number:</td>
+          <td>
+            <input class="textInput" type="text" id="phoneNum" name="phoneNum" value="XXX-XXX-XXXX" required>
+          </td>
+        </tr>
+        <tr>
+          <td>Birthday:</td>
+          <td>
+            <input class="dateInput" type="date" id="DOB" name="DOB" value="mm/dd/yyyy" required>
+          </td>
+        </tr>
+      </table>
+      <div class="submit">
+        <button>Submit</button>
+      </div>
+    </form>
+  </div>
+  <br><br>
+  <div class="viewContacts" id="viewContacts">
+      <table id="heldInfo"></table>
+  </div>
+</body>
+</html>
