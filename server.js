@@ -1,6 +1,7 @@
 const express = require( 'express' ),
     cookie  = require( 'cookie-session' ),
-    app = express()
+    app = express(),
+    engine = require('express-handlebars')
 
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
@@ -10,8 +11,11 @@ app.use( express.urlencoded({ extended:true }) )
 // changed
 app.use( cookie({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['2iMAwLWcViIKX5kAXuted14Jejr5Nwd4', '8ihbYfca2GFjh3eTvL1zpaWbgY0fZGWh']
 }))
+
+app.engine('handlebars', engine.engine());
+app.set('view engine', 'handlebars');
 
 app.post( '/login', (req,res)=> {
     // express.urlencoded will put your key value pairs 
@@ -25,23 +29,27 @@ app.post( '/login', (req,res)=> {
       // define a variable that we can check in other middleware
       // the session object is added to our requests by the cookie-session middleware
       req.session.login = true
-      
-      // since login was successful, send the user to the main content
-      // use redirect to avoid authentication problems when refreshing
-      // the page or using the back button, for details see:
-      // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-      res.redirect( 'main' )
     }else{
       // password incorrect, redirect back to login page
       res.sendFile( __dirname + '/views/index.html' )
+      //maybe add a wrong password message
     }
   })
   
-// add some middleware that always sends unauthenicated users to the login page
 
 app.get( '/main', ( req, res) => {
     if( req.session.login === true )
-        res.sendFile( __dirname + '/views/main.html' )
+        
+        res.render(__dirname +"/views/layouts/main.handlebars",
+          {
+            task: [
+              "one task",
+              "two task",
+              "red task",
+              "blue task"
+            ]
+          } 
+        )
     else{
         res.sendFile( __dirname + '/views/index.html' )
     }
