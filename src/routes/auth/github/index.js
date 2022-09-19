@@ -10,12 +10,9 @@ router.get(
   }
 );
 router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
+  req.logOut(() => {
+    res.redirect("/login");
   });
-  res.redirect("/login");
 });
 
 module.exports = router;

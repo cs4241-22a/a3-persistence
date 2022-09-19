@@ -6,7 +6,7 @@ router.get("/", require("../middleware/is-logged-in"), (req, res) =>
   res.sendFile(path.join(__dirname, "../public/index.html"))
 );
 router.get("/login", require("../middleware/is-not-logged-in"), (req, res) =>
-  res.sendFile(path.join(__dirname, "../public/login.html"))
+  res.redirect("/auth/github")
 );
 router.use("/api", bodyParser.json(), require("./api"));
 router.use("/auth", require("./auth"));

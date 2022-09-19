@@ -1,5 +1,5 @@
 const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (req.user) {
     return next();
   }
   res.redirect("/login");
