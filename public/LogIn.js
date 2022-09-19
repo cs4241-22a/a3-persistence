@@ -24,13 +24,23 @@ form.onsubmit = function (event){
         headers: {'Content-Type': 'application/json'},
         body: body,
     })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json)
-            if (JSON.stringify(json) === JSON.stringify(['True'])){
-                window.location.href = "/main.html";
+        // console.log(response);
+        .then((response) => {
+            console.log(response.url)
+            if (response.url.includes("index.html")){
+                alert("No Account Exists");
             }
+            window.location.href = response.url
         })
+        // .then((json) => {
+        //     console.log(json)
+        //     if (JSON.stringify(json) === JSON.stringify(['True'])){
+        //         window.location.href = "/main.html";
+        //     }
+        // })
+
+
+
         // .then(function (response){
         //     console.log(response.json())
         //     if (response === "True"){
@@ -42,5 +52,12 @@ form.onsubmit = function (event){
 
 }
 
+const signup = function(){
+    let signUpForm = document.getElementById("signUp");
+
+    signUpForm.style.display = "block";
+
+
+}
 
 
