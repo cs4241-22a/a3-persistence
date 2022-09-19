@@ -1,15 +1,20 @@
 const express = require('express'),
-  app = express(),
-  serveStatic = require('serve-static'),
-  bodyparser = require('body-parser'),
-  cookieSession = require('cookie-session'),
-  cookieParser = require('cookie-parser'),
-  mongoose = require('mongoose'),
-  GitHubStrategy = require('passport-github2').Strategy,
-  passport = require('passport');
+mongodb = require( 'mongodb' ),
+app = express(),
+serveStatic = require('serve-static'),
+bodyparser = require('body-parser'),
+cookieSession = require('cookie-session'),
+cookieParser = require('cookie-parser'),
+mongoose = require('mongoose'),
+GitHubStrategy = require('passport-github2').Strategy,
+passport = require('passport');
 
-  require('dotenv').config();
-  
+
+
+require('dotenv').config();
+
+app.use( express.static('public') )
+app.use( express.json() )
   app.use(express.urlencoded({ extended:true }))
   app.use(cookieParser())
   app.use(passport.initialize());
@@ -21,7 +26,7 @@ const express = require('express'),
   app.use(serveStatic('public', {'index' : ['login.html']}))
 
 let loginCollection = null
-const uri = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PW+'@cluster0.vi6pcuz.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@' +process.env.HOST;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {

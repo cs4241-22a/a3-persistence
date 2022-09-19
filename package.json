@@ -1,7 +1,6 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "a3-persistence",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template ===",
   "author": "",
   "scripts": {
     "start": "node server.improved.js"
@@ -19,5 +18,18 @@
     "passport-facebook": "^3.0.0",
     "passport-github2": "^0.1.12",
     "response-time": "^2.3.2"
-  }
+  },
+  "version": "1.0.0",
+  "main": "server.improved.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cather-Zhang/a3-persistence.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cather-Zhang/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/Cather-Zhang/a3-persistence#readme",
+  "keywords": []
 }
