@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="This home page is part of my CS4241 Assigment 3 submission"
+    />
+    <title>CS4241 Assignment 3</title>
+    <link
+      href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </head>
+  <body>
+    <form class="mui-form">
+      <legend>Player Score Entry</legend>
+      <div class="mui-textfield">
+        <input id="playerName" type="text" />
+        <label for="playerName">Player Name</label>
+      </div>
+      <div class="mui-textfield">
+        <input id="playerScore" type="number" />
+        <label for="playerScore">Player Score</label>
+      </div>
+      <div class="mui-checkbox">
+        <input id="winResult" type="checkbox" />
+        <label for="winResult">Win Result</label>
+      </div>
+      <button id="addEntry" class="mui-btn mui-btn--raised">Submit</button>
+    </form>
+    <table id="resultsTable" class="mui-table mui-table--bordered">
+      <thead>
+        <tr>
+          <th>Player Name</th>
+          <th>Player Score</th>
+          <th>Win Result</th>
+          <th>Modify?</th>
+          <th>Delete?</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
+</html>
