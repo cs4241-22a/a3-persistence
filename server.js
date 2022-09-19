@@ -1,70 +1,57 @@
-const express = require("express");
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-//const cookieParser = require('cookie-parser');
-const path = require('path');
-const { response } = require("express");
+const express = require('express'),
+    cookie = require('cookie-session'),
+    hbs = require('express-handlebars').engine,
+    app = express();
 
-const app = express();
-const port = 3000;
-
-app.use(express.static("public"));
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.engine('handlebars', hbs());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
-app.listen(port, () => {
-    console.log(`Success! Your application is running on port ${port}.`);
-});
+app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
 
-let users = [
-    {
-        username: "testUser",
-        password: "password",
-    }
-];
+// app.use(function (req, res, next) { // middleware to always send unauthenticated users to the login page
+//     if (req.session && req.session.login) {
+//         console.log("user logged in!");
+//         next();
+//     } else {
+//         console.log("nope, not logged in");
+//         res.redirect('/public/index.html');
+//         return;
+//     }
+// });
 
+app.use(cookie({ // cookie middleware
+    name: 'session',
+    keys: ['key1', 'key2'] // TODO: secure these
+}));
 
-app.get('/', function (req, res, next) {
-    res.sendFile(path.join(__dirname, '/views/index.html'));
-});
-
-app.get('/welcome', function (req, res) {
-    res.send('<b><h1>Hello World!</h1></b>');
-});
-
-app.get('/register', function (req, res) {
-   res.sendFile('/views/index.html'); 
-});
-
-app.post('/register', async function (req, res) {
-
-    try {
-        console.log("Registering....");
-        const newUser = req.body.username;
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        
-        if (users.find(newUser => users.username === newUser)) {
-            console.log("User already registered");
-            return;
-        }
-
-        let json = {
-            username: newUser,
-            password: hashedPassword
-        }
-        users.push(json);
-
-        res.writeHead(200, "OK", {
-            "Content-Type": "text/plain",
-        });
-        res.end(JSON.stringify(json));
-
-        return;
-
-    } catch {
-        res.writeHead(500, "ERROR");
+app.get('/account', function (req, res) {
+    if (req.session.login) {
+        res.send('Welcome back, ' + req.session.username + '!');
+        //res.render( 'main', { msg:'success you have logged in', layout:false })
+        res.end();
+    } else {
+        res.send('Please login to view this page!');
         res.end();
     }
-    
+    return;
 });
+
+// manage login form requests
+app.post('/register', express.json(), (req, res) => {
+    if (req.body.password === "test") {
+        console.log("Correct password");
+        req.session.username = req.body.username;
+        req.session.login = true;
+        console.log(req.session);
+        res.redirect('/public/account.html');
+    } else {
+        req.session.login = false;
+        console.log("Redirecting to index.html");
+        res.redirect('/public/index.html');
+    }
+});
+
+app.listen(3000);

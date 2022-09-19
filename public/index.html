@@ -7,6 +7,30 @@
     <link rel="stylesheet" href="sakura.css" type="text/css">
 
     <script>
+        var dataTable = [
+            {
+                show: "Game of Thrones",
+                seasons: 8,
+                episodes: 10,
+                duration: 60,
+                totalTime: 80.0,
+            },
+            {
+                show: "House of the Dragon",
+                seasons: 1,
+                episodes: 10,
+                duration: 60,
+                totalTime: 10.0,
+            },
+            {
+                show: "Better Call Saul",
+                seasons: 6,
+                episodes: 10,
+                duration: 45,
+                totalTime: 45.0,
+            },
+        ];
+
         window.onload = function () {
             const button = document.getElementById("submit");
             button.onclick = submit;
@@ -41,22 +65,26 @@
                     'Content-Type': 'application/json'
                 },
                 body: stringified_body,
-
             }).then(function (response) {
-                res = response.json();
-                console.log(res);
-                const checkPromise = () => {
-                    res.then((result) => {
-                        console.log("Result received");
-                        console.log(result);
-                    }).catch((err) => {
-                        console.error("Error: " + err);
-                    });
-                };
-                checkPromise();
+                console.log(response);
+                window.location.href = "/account";
             });
-            return false;
-        };
+        }
+        //         //res = response.json();
+        //         //console.log(res);
+        //         const checkPromise = () => {
+        //             response.then((result) => {
+        //                 console.log("Result received");
+        //                 console.log(result);
+        //             }).catch((err) => {
+        //                 console.error("Error: " + err);
+        //             });
+        //         };
+        //         checkPromise();
+        //     });
+        //     return false;
+        // };
+
     </script>
 </head>
 
@@ -76,6 +104,8 @@
             </form>
             <div id="error"></div>
         </div>
+
+        <div id="results"></div>
     </div>
 </body>
 
