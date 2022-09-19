@@ -1,3 +1,34 @@
+const express = require('express'),
+  app = express(),
+  serveStatic = require('serve-static'),
+  bodyparser = require('body-parser'),
+  cookieSession = require('cookie-session'),
+  cookieParser = require('cookie-parser'),
+  mongoose = require('mongoose'),
+  GitHubStrategy = require('passport-github2').Strategy,
+  passport = require('passport');
+
+  require('dotenv').config();
+  
+  app.use(express.urlencoded({ extended:true }))
+  app.use(cookieParser())
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use( cookie({
+    name: 'session',
+    keys: [process.env.KEY1, process.env.KEY2]
+  }))
+  app.use(serveStatic('public', {'index' : ['login.html']}))
+
+let loginCollection = null
+const uri = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PW+'@cluster0.vi6pcuz.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+client.connect(err => {
+  loginCollection = client.db("a3database").collection("survey");
+});
+
+
 const http = require("http"),
   fs = require("fs"),
   // IMPORTANT: you must run `npm install` in the directory for this assignment
@@ -5,6 +36,7 @@ const http = require("http"),
   mime = require("mime"),
   dir = "public/",
   port = 3000;
+
 
 const appdata = [
   {
@@ -87,8 +119,3 @@ const sendFile = function (response, filename) {
 
 server.listen(process.env.PORT || port);
 
-function amountFiber(calories) {
-  let fiber = 0;
-  fiber = calories * 14 / 1000
-  return fiber;
-}

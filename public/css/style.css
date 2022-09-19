@@ -47,7 +47,7 @@ th {
   font-family: Rubik, sans-serif;
 }
 
-.deleteButton {
+.deleteButton, .editbutton {
   font-family: Rubik, sans-serif;
   background-color: #bedcfe;
 }
@@ -70,6 +70,7 @@ select, option {
   padding: 20px;
   line-height: 1.6;
 }
+
 #main-header {
   display: flex;
   flex-direction: column;
@@ -79,7 +80,7 @@ select, option {
   background-repeat: no-repeat;
   background-position: center;
   height: 350px;
-  background-image: url("https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4");
+  background-image: url('../picture/fruits.jpg');
 }
 
 #Buttons {
