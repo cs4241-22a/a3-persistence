@@ -1,0 +1,24 @@
+{
+  "name": "cs4241-assignment3-todo-list",
+  "version": "0.1.0",
+  "description": "WPI CS 4241 second assignment: A todo list highlighter that prioritizes tasks. Now with persistent data and user accounts!",
+  "author": "Jonathan Metcalf",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "helmet": "^6.0.0",
+    "mongodb": "^4.9.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
