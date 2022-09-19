@@ -3,11 +3,12 @@
   <head>
     <title>CS4241 Assignment 3</title>
     <meta charset="utf-8">
-    <link rel = "stylesheet" href="/public/style.css"/>
+    <!-- <link rel = "stylesheet" href="/public/style.css"/> -->
   </head>
   <body>
-    <h1> Task Manager</h1>
+  
     <form action="">
+      <h1> Task Manager</h1>
       <div >
         <div id="inputs" class="inputsAndButtons">
           <label for="newTask">New Task:</label>
@@ -33,12 +34,11 @@
 
           </div>
         </div>
-        <div class="inputsAndButtonsTWO">
+        <div class="inputsAndButtons">
           <br />
           <div id="buttons" class="inputsAndButtons">
-            <button id="submitButton">submit</button>
-            <!-- <button id = "taskNewButton">plus</button> -->
-            <button id="deleteButton">Delete</button>
+            <button id="addButton">add</button>
+            <button id="removeButton">remove</button>
           </div>
           <p class="guides">
             Click 'Submit' look at all of your task ( 1 task is already premade
@@ -55,8 +55,9 @@
         </div>
       </div>
     </form>
+
+    <table id="TaskBase"></table>
+     
   </body>
-
-
-  <script src="/public/client.js"></script>
+  <script src="../public/client.js" ></script>  <!--works on Live Server, NOT local server ( port 3000) -->
 </html>
