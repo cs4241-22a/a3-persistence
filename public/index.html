@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <script src="../../node_modules/particles.js/particles.js"></script>
+    <script src="public/js/script.js"></script>
+    <link rel="stylesheet" href="public/css/style.css"/>
+    <!--Retrieving Font from Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Do It!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    
+    <div id="particles-js">
+      <div id="app-container">
+        <div id="form-container">
+          <form id="task-form">
+            <input type='text' id='task-input' placeholder="Add a task here">
+              <div id="dateDiv">
+                <p>Task is due on</p>
+                <input type="date" id='date-input'>
+              </div>
+              <p>Pick a category</p>
+              <div id="categoryDiv">
+                <label class="selectedCategoryPersonal"  id="category-personalLabel" for="category-personal">
+                  <input type="radio" id="category-personal" name="category-input" value="personal" checked>
+                  Personal
+                </label>
+                <label class="unselectedCategory" id="category-workLabel" for="category-work">
+                  <input type="radio" id="category-work" name="category-input" value="work">
+                  Work
+                </label>
+              </div>
+            <button id="submit-button">Add Task</button>
+          </form>
+        </div>
+        <div id="task-list"></div>
+      </div>
+    </div>
+    
+  </body>
+  
+ 
+</html>
