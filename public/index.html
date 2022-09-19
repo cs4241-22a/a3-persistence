@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Sora" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div class="maincontainer">
+      <div class="header">
+        <h1>
+          <i>Reminders Web Application</i>
+        </h1>
+      </div>
+      <div class="form">
+        <form action="" id="mainform">
+          <label>
+            Title:
+            <input id="title" type="text"><br>
+          </label>
+          <label>
+            Notes:
+            <input id="notes" type="text"><br>
+          </label>
+          <label>
+            URL:
+            <input id="url" type="text"><br>
+          </label>
+          <label>
+            Date:
+            <input id="date" type="date"><br>
+          </label>
+          <label>
+            Time:
+            <input id="time" type="time"><br>
+          </label>
+          <label>
+            Location:
+            <input id="location" type="text"><br>
+          </label>
+          <button>Submit</button>
+        </form>
+      </div>
+      <div class="datatable">
+        <table id="dataTable" border="1">
+              <tr>
+                <th>Delete</th>
+                <th>Title</th>
+                <th>Notes</th>
+                <th>URL</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+              </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script src="js/scripts.js"></script>
+</html>

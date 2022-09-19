@@ -1,0 +1,59 @@
+body {
+    background-color: white;
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+}
+
+label {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: rgb(41, 41, 209);
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+input {
+    border-radius: 5px;
+    border: white;
+    border: none;
+}
+
+table, th, td {
+    max-width: 500px;
+    text-align: center;
+    padding: 0.5vh 0.5vw;
+    border-collapse: collapse;
+    border: 2px solid rgb(91, 114, 208);
+}
+
+#mainform {
+    border-radius: 25px;
+    background-color: rgb(91, 114, 208);
+    padding: 20px;
+    width: 300px;
+}
+
+.maincontainer {
+    display: grid;
+    grid-template-areas:"header header" "form datatable";
+}
+
+.header {
+    grid-area: header;
+}
+
+.form {
+    grid-area: form;
+}
+
+.datatable {
+    grid-area: datatable;
+}
