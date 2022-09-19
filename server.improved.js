@@ -18,6 +18,17 @@ const appdata = [
   { 'model': 'ford', 'year': 1987, 'mileage': 299690} 
 ]
 
+//MongoDB link: mongodb+srv://<username>:<password>@a3cluster.oip0htf.mongodb.net/?retryWrites=true&w=majority
+
+
+
+const appdataDB = {
+  'nobody@noone.com':
+  [{ 'model': 'toyota', 'year': 1999, 'mileage': 205724},
+  { 'model': 'dodge', 'year': 2004, 'mileage': 172057 },
+  { 'model': 'ford', 'year': 1987, 'mileage': 299690} ]
+};
+
 app.use(serveStatic(dir, {index: ['index.html', 'index.htm']}))
 
 app.use(bodyParser.json({type: 'text/plain'}));

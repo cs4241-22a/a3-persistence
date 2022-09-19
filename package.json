@@ -1,4 +1,11 @@
 {
+  "name": "",
+  "version": "0.1.0",
+  "description": "WPI CS 4241 third assignment",
+  "author": "Andrei Ignatiev",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
   "dependencies": {
     "body-parse": "^0.1.0",
     "body-parser": "^1.20.0",
