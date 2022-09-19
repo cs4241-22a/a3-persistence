@@ -6,14 +6,11 @@ const express = require('express'),
       helmet = require('helmet'),
       mongodb = require('mongodb'),
       MongoClient = mongodb.MongoClient,
-      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`,
-      client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }),
-    GitHubStrategy = require('passport-github').Strategy,
-    passport = require('passport'),
-    session = require('express-session')
+      uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}/datatest?retryWrites=true&w=majority`,
+      client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true,}),
+      GitHubStrategy = require('passport-github').Strategy,
+      passport = require('passport'),
+      session = require('express-session')
 
 let githubid = null
 let collection = null
@@ -23,13 +20,7 @@ client.connect((err) => {
 });
 
 app.use(
-    session({
-        secret: 'secret',
-        resave: false,
-        saveUninitialized: false,
-        cookie: {httpOnly: true, secure: true, maxAge: 60 * 1000,
-        },
-    })
+    session({secret: 'secret', resave: false, saveUninitialized: false, cookie: {httpOnly: true, secure: true, maxAge: 60 * 1000,},})
 )
 
 app.use(passport.initialize())
@@ -59,7 +50,7 @@ app.use((req, res, next) => {
   if (collection !== null) {
     next();
   } else {
-    res.status(503).send();
+    res.status(503).send()
   }
 })
 
@@ -71,21 +62,21 @@ const checkauthenticated = (request, response, next) => {
   if (request.user) {
     next();
   } else {
-    response.redirect('/login.html');
+    response.redirect('/login.html')
   }
 }
 
 app.get('/', function (request, response) {
-  response.sendFile(__dirname + '/public/login.html');
+  response.sendFile(__dirname + '/public/login.html')
 })
 
-app.get('/home', checkauthenticated, function (request, response) {
-  response.sendFile(__dirname + '/public/home.html');
+app.get('/index', checkauthenticated, function (request, response) {
+  response.sendFile(__dirname + '/public/index.html')
 })
 
 app.get('/logout', function (request, response) {
   request.logOut();
-  response.redirect('/');
+  response.redirect('/')
 })
 
 app.get('/auth/github', passport.authenticate('github'));
@@ -95,7 +86,7 @@ app.get(
   passport.authenticate('github', { failureRedirect: '/login.html' }),
   function (req, res) {
     githubid = req.user.id;
-    res.redirect('/home.html');
+    res.redirect('/index.html')
   }
 )
 
@@ -124,14 +115,14 @@ app.post('/submit', express.json(), function (request, response) {
       kda: kda,
     })
     .then(() => collection.find({ creator: githubid }).toArray())
-    .then((result) => response.json(result));
+    .then((result) => response.json(result))
 })
 
 app.post('/delete', express.json(), function (request, response) {
   collection
     .deleteOne({ _id: mongodb.ObjectId(request.body.id) })
     .then(() => {
-      return collection.find({ creator: githubid }).toArray();
+      return collection.find({ creator: githubid }).toArray()
     })
     .then((result) => response.json(result));
 })
@@ -155,7 +146,7 @@ app.post('/edit', express.json(), function (request, response) {
       }
     )
     .then(() => collection.find({ creator: githubid }).toArray())
-    .then((result) => response.json(result));
+    .then((result) => response.json(result))
 })
 
 app.use(express.static('public'))

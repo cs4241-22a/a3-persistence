@@ -88,7 +88,7 @@ function refreshTable(data) {
                 table.remove()
                 refreshTable(json)
                 resetForm()
-                saveBtn.innerHTML = 'Submit Review'
+                saveBtn.innerHTML = 'Submit'
                 saveBtn.onclick = submit
             })
         }
@@ -104,7 +104,7 @@ function refreshTable(data) {
         resetForm()
         const formBtn = document.querySelector('#Submit-Button')
         formBtn.onclick = submit
-        formBtn.innerHTML = 'Submit Review'
+        formBtn.innerHTML = 'Submit'
         fetch('/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -122,7 +122,7 @@ function refreshTable(data) {
       deleteButtonCell.appendChild(deleteBtn)
     }
     document.body.appendChild(table);
-    table.classList.add('table','table-bordered','border-dark','align-middle','table-responsive','m-4')
+    table.classList.add('table','table-responsive')
 }
   
 const submit = function (e) {
