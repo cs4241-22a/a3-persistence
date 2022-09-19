@@ -6,7 +6,6 @@ bodyparser = require('body-parser'),
 cookieSession = require('cookie-session'),
 cookieParser = require('cookie-parser'),
 cookie  = require( 'cookie-session' ),
-mongoose = require('mongoose'),
 GitHubStrategy = require('passport-github2').Strategy,
 passport = require('passport'),
 MongoClient = mongodb.MongoClient;
@@ -50,14 +49,17 @@ const http = require("http"),
     done(null, user);
   })
 
-  passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_ID,
-    clientSecret: process.env.GITHUB_SECRET,
-    callbackURL: "https://contact-log.herokuapp.com/github/logs"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
-  }))
+  /**
+   
+   passport.use(new GitHubStrategy({
+     clientID: process.env.GITHUB_ID,
+     clientSecret: process.env.GITHUB_SECRET,
+     callbackURL: "https://contact-log.herokuapp.com/github/logs"
+   },
+   function(accessToken, refreshToken, profile, done) {
+     return done(null, profile);
+   }))
+   */
 
   
   app.get('/auth/error', (req, res) => res.send('Unknown Error'));
@@ -83,7 +85,7 @@ const http = require("http"),
 
 //post functions:
 
-app.post('/createAccount', bodyParser.json(), function(request, response) {
+app.post('/createAccount', bodyparser.json(), function(request, response) {
 
   if( loginCollection !== null ) {
     loginCollection.find({ username: request.body.username }).toArray()
@@ -100,20 +102,18 @@ app.post('/createAccount', bodyParser.json(), function(request, response) {
         response.json({isValid: false})
       }
     }) 
-    
-  }
-  
+  } 
 })
 
 
 
-app.post('/delete', bodyParser.json(), function(request, response) {
+app.post('/delete', bodyparser.json(), function(request, response) {
   collection
     .deleteOne({ _id:mongodb.ObjectId( request.body.id ) })
     .then( result => response.json( result ) )
 })
 
-app.post('/update', bodyParser.json(), function(request, response) {
+app.post('/update', bodyparser.json(), function(request, response) {
   collection
     .updateOne(
       { _id:mongodb.ObjectId( request.body.modifyInput ) },
@@ -128,14 +128,14 @@ app.post('/update', bodyParser.json(), function(request, response) {
     .then( result => response.json( result ) )
 })
 
-app.post( '/signout', bodyParser.json(), function( request, response ) {
+app.post( '/signout', bodyparser.json(), function( request, response ) {
   console.log("In sign out: " + request.session.login)
   request.session.login = false
   console.log("In sign out: " + request.session.login)
   response.sendFile( __dirname + '/public/login.html' )
 })
 
-app.post( '/submit', bodyParser.json(), function( request, response ) {
+app.post( '/submit', bodyparser.json(), function( request, response ) {
   console.log("In submit");
   request.body.username = request.session.username;
   collection.insertOne( request.body )
@@ -144,7 +144,7 @@ app.post( '/submit', bodyParser.json(), function( request, response ) {
   .catch(err => console.log(err)) 
 })
 
-app.post('/getResponse',  bodyParser.json(), function(request, response) {
+app.post('/getResponse',  bodyparser.json(), function(request, response) {
   if( collection !== null ) {
     collection.findOne( { _id:mongodb.ObjectId( request.body.id ) } )
       .then( result => { response.json( result ) })
@@ -173,13 +173,7 @@ const deleteItem = function (jsonData) {
   //console.log(appdata);
   appdata.splice(jsonData["deletingResponse"], 1);
 };
-const server = http.createServer(function (request, response) {
-  if (request.method === "GET") {
-    handleGet(request, response);
-  } else if (request.method === "POST") {
-    handlePost(request, response);
-  }
-});
+
 
 const handleGet = function (request, response) {
   const filename = dir + request.url.slice(1);
