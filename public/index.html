@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+
+    <script src='js/scripts.js' defer></script>
+    <title>Entry Page</title>
+    <meta charset='utf-8'/>
+    <meta name='description' content='Game Statistics Table'/>
+</head>
+<body>
+    <div class='container-fluid m-4 bg-dark' id='header'>
+        <div class='col'>
+            <h1 class='text-white' id='title'>Entry Page</h1>
+        </div>
+        <div class='col'>
+            <a href='/logout' type='button' class='btn btn-danger'>Log Out</a>
+        </div>
+    </div>
+
+    <h2 class='m-4'>Leave a review:</h2>
+    <form action='' method='POST' id='form'>
+        <div class='m-4 mb-5'>
+            <div>
+                <label class='form-label'>Game:
+                <input class='form-control' type='text' id='game' placeholder='Game name...'/></label>
+            </div>
+            <div>
+                <label class='form-label'>Character:
+                <input class='form-control' type='text' id='character' placeholder='Character name...'/></label>
+            </div>
+            <div>
+                <label class='form-label'>Kills:
+                <input class='form-control' type='number' id='kills' placeholder='#'/></label>
+            </div>
+            <div>
+                <label class='form-label'>Assists:
+                <input class='form-control' type='number' id='assists' placeholder='#'/></label>
+            </div>
+            <div>
+                <label class='form-label'>Deaths:
+                <input class='form-control' type='number' id='deaths' placeholder='#'/></label>
+            </div>
+            <div id='Button-Container'>
+                <button type='button' class='btn btn-success' id='Submit-Button'>Submit</button>
+            </div>
+        </div>
+    </form>
+    <table class='table table-responsive table-bordered border-dark align-middle m-2' id='table'></table>
+</body>
+</html>
