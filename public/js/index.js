@@ -12,6 +12,8 @@ function cancelUpdate() {
 	//Reset form and swap form action back to default (add new birthday)
 	document.querySelector("form#newBirthday").action = "/newBirthday";
 	document.querySelector("form#newBirthday").reset();
+	//Reset form heading 
+	document.querySelector("h2#form").innerHTML = "Add a New Birthday"
 	//Return add new button to original location
 	document.querySelector("#newBirthday").appendChild(newBDBtn);
 }
@@ -46,6 +48,8 @@ async function editBirthday(timeID) {
 			updateBtn.id = "updateBirthday";
 			updateBtn.innerHTML = "Update Birthday";
 			document.querySelector("form#newBirthday").action = "/updateBirthday";
+			//Update form heading
+			document.querySelector("h2#form").innerHTML = "Update Birthday"
 			//Create cancel button and set oncick function to cancelUpdate()
 			let cancelBtn = document.createElement("button");
 			cancelBtn.innerHTML = "Cancel";
