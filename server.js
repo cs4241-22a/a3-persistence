@@ -39,7 +39,6 @@ app.get('/login.html', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/login.html'));
 });
 
-// make sure to substitute your username / password for tester:tester123 below!!!
 const uri = "mongodb+srv://admin:admin@cluster0.wqjmlvr.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
@@ -51,21 +50,11 @@ client.connect()
         return client.db( 'database' ).collection( 'collection' )
     })
     .then( __collection => {
-        // store reference to collection
         collection = __collection
         console.log(collection)
-        // blank query returns all documents
         return collection.find({ }).toArray()
     })
     .then( console.log )
-
-// // route to get all docs
-// app.get( '/', (req,res) => {
-//   if( collection !== null ) {
-//     debugger
-//     collection.find({ }).toArray().then( result => res.json( result ) )
-//   }
-// })
 
 app.get('/data', (req, res) => {
     if (collection !== null) {
@@ -105,11 +94,9 @@ const client2 = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifie
 let loginCollection = null;
 client2.connect()
     .then( () => {
-        // will only create collection if it doesn't exist
         return client2.db( 'testdata' ).collection( 'users' )
     })
     .then( __collection => {
-        // store reference to collection
         loginCollection = __collection
         loginCollection.createIndex({"username": 1}, {unique: true})
             .then( console.log )
