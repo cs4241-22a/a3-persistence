@@ -17,6 +17,7 @@ const connect = async () => {
 
   try {
     await client.connect()
+    console.log('connected to mongodb server')
     await listDatabases(client)
   } catch (e) {
     console.error(e)
@@ -24,7 +25,6 @@ const connect = async () => {
     await client.close()
   }
 
-  console.log('connected to mongodb server')
   const collection = client.db("datatest").collection("test")
   //console.log(collection)
 }
