@@ -51,3 +51,37 @@ app.post('/register', express.json(), (req, res) => {
 });
 
 app.listen(3000);
+
+//const { MongoClient, ServerApiVersion } = require('mongodb');
+//const uri = "mongodb+srv://admin:admin@cluster0.hhvf1tq.mongodb.net/?retryWrites=true&w=majority";
+//const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+// client.connect()
+//     .then(() => {
+//         return client.db('login').collection('credentials');
+//     })
+//     .then(__collection => {
+//         credCollection = __collection;
+//         return credCollection.find({}).toArray();
+//     });
+
+// // retrieve user data
+// client.connect()
+//     .then(() => {
+//         return client.db('login').collection('showData');
+//     })
+//     .then(__collection => {
+//         dataCollection = __collection;
+//         return dataCollection.find({}).toArray();
+//     });
+
+// verify that credentials data was retrieved successfully
+// app.use((req, res, next) => {
+//     if (credCollection !== null) {
+//         console.log("Credentials collection is not null");
+//         next();
+//     } else {
+//         console.log("No data found");
+//         res.status(503).send();
+//     }
+// });
