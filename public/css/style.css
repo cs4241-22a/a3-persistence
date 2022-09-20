@@ -1,0 +1,36 @@
+body {
+    text-align: center;
+    font-family: courier;
+    background: black;
+    color: white;
+    text-align:center;
+  }
+  #page_title {
+    font-size: 60px;
+  }
+  
+  #submit{
+    background-color: lightblue;
+    border-radius: 10%;
+    border-color: black;
+    color: black;
+    text-align: center;
+    font-size: larger;
+    margin-left: 20px;
+  }
+  .result{
+    border-collapse: collapse;
+    margin: 0;
+  }
+  /* th,    
+  tr,
+  td {
+    margin:5%;
+    padding:5px;
+    border-spacing: 0.5cm;
+    border: 1px solid yellow;
+    font-size: larger;
+    font-family: "Courier New", Courier, monospace;
+    text-align:body;
+    
+  } */
