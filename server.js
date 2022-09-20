@@ -55,9 +55,17 @@ passport.use(new GitHubStrategy({
   callbackURL: "http://142.93.202.135/auth/github/callback"
 },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
+    process.nextTick(function () {
+      
+      // To keep the example simple, the user's GitHub profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the GitHub account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
     });
+    /*({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });*.
   }
 ));
 
