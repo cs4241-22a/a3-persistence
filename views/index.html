@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+  </head>
+  <body>
+    <script src="./public/script.js"></script>
+    <div id="body-box">
+      <div class="header">
+        <h1>QuickList</h1>
+        <h4>Your Personal Grocery List Tool</h4>
+      </div>
+
+      <h2>Current List</h2>
+      <div class="container">
+        <div class="box">
+          <p class="column-label">Item</p>
+          <ul id="items"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Quantity</p>
+          <ul id="qtys"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Units</p>
+          <ul id="units"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Brand</p>
+          <ul id="brands"></ul>
+        </div>
+      </div>
+      <br />
+
+      <h2>Add to List</h2>
+      <div class="add-form">
+        <form>
+          <table>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Brand</th>
+            </tr>
+            <tr>
+              <td><input type="text" id="item" /></td>
+              <td><input type="text" id="qty" /></td>
+              <td><input type="text" id="brand" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <br />
+      <div class="btn-center" id="add-button"><button>submit</button></div>
+      <br /><br />
+
+      <h2>Delete from List</h2>
+      <div class="delete-form">
+        <p>Name of item to be deleted: &nbsp;</p>
+        <input type="text" id="deleted-item" /> &nbsp;
+        <button id="delete-button">delete</button>
+      </div>
+    </div>
+  </body>
+</html>
