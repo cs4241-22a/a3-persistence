@@ -1,4 +1,4 @@
-console.session.passport("Starting Server...")
+console.log("Starting Server...")
 require('dotenv').config()
 
 /**
@@ -194,7 +194,7 @@ app.get('/items', (req, res) => {
  */
  function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/session.passportin')
+  res.redirect('/login')
 }
 
 app.listen(3001)
