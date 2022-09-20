@@ -42,8 +42,7 @@ client.connect()
   .then(__collection => {
     collection = __collection;
 
-    return collection.find({ }).toArray()
-}).then(console.log)
+})
 
 /**
  * Loading Express Middlewears
@@ -116,7 +115,6 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log("Logged in")
     // Successful authentication, redirect home.
     res.redirect('/dataview.html');
 });
@@ -133,8 +131,6 @@ app.get('/login', function(req, res){
  * When user want's personal data
  */
 app.get('/items', (req, res) => {
-  console.log(req.session)
-  console.log(req.session.passport)
   collection.find({_id:mongodb.ObjectId(req.session.passport.user)})
   .project({_id:0, items:1}).toArray()
   .then(result => res.json(result));

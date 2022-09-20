@@ -7,11 +7,10 @@
  * itemQuantity
  *(AUTO GENERATED) total
  */
-let _id = "6328e6f035686cb7e52e3f4b"
 
 const getData = function() {
 
-    fetch( `/items?_id=${_id}`, {
+    fetch( `/items`, {
       method:'GET',
       headers: {
         "Content-Type": "application/json"
@@ -40,8 +39,7 @@ const submitForm = function(e)  {
     const itemName = document.getElementById( 'itemName' ),
           itemQuantity = document.getElementById( 'itemQuantity' ),
           itemPrice = document.getElementById( 'itemPrice' ),
-          json = {_id: "6328e6f035686cb7e52e3f4b",
-                  name: itemName.value,
+          json = {name: itemName.value,
                   quantity: parseInt(itemQuantity.value),
                   price: parseFloat(itemPrice.value)}
    
@@ -68,8 +66,7 @@ const addEntry = (json) => {
 
 //works
 const deleteEntry = (_itemID) => {
-    let json = {_id: _id,
-                _itemID: _itemID},
+    let json = {_itemID: _itemID},
         body = JSON.stringify(json)
     
     fetch('/remove', {
@@ -84,8 +81,7 @@ const deleteEntry = (_itemID) => {
 }
 
 const modifyEntry = (_itemID, name, price, quantity) => {
-    let json = {_id: _id,
-                _itemID: _itemID,
+    let json = {_itemID: _itemID,
                 name: name,
                 price: price,
                 quantity: quantity},
