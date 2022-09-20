@@ -46,4 +46,7 @@ h1{color:#FFD430;
     float: center;
     height:245px;
     background-color: #E87C31;
+    border: 10px solid #E87C31;
+    padding: 30px
+    background-origin: content-box;
 }
