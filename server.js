@@ -33,6 +33,9 @@ app.use(express.static('views'))
 app.use(haltOnTimeout)
 app.use(express.json())
 app.use(haltOnTimeout)
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 client.connect()
   .then(() => {
