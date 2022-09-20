@@ -1,30 +1,41 @@
+
 const Todo = []
-
-
-function main(){
-  console.log("vibes")
-  const todo = document.getElementsByName('todo').value
-  const date = document.getElementsByName('date').value
-  const priority = document.getElementsByName('priority').value
-  const sub = document.querySelector('#submit')
-
-  sub.onclick = function isEmpty(e){
-    e.preventDefault()
-
-    console.log(todo.value)
-  //   if (todo === null || date === null){
-  //       alert("Please fill out all fields") 
-  //       console.log('checked')
-  //       return false
-  //   }
-  //   return true
-   }
+const todoForm = document.getElementById['add']
+console.log("vibes")
+todoForm.addEventLis = function(event){
+  const taskInput = todoForm.elements['task']
+  const dateInput = todoForm.elements['date']
+  const priorityInput = todoForm.elements['priority']
+  
+  // stop our form submission from refreshing the page
+  event.preventDefault()
+  isEmpty()
 }
+  // const value = dreamInput.value
+  // // get dream value and add it to the list
+  // dreams.push( value )
+  // appendNewDream( value )
+
+  // // reset form 
+  // dreamInput.value = ''
+  // dreamInput.focus()
+  
+  // fetch( '/submit', {
+  //   method:'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body:JSON.stringify({ "newdream":value })
+  // })
+  // .then( response => response.json() )
+  // .then( json => console.log( json ) )
 
 
-
-
-
+function isEmpty(){
+  if (taskInput.value === "" || taskInput.value === null){
+      alert("Please fill out all fields") 
+      console.log('checked')
+      return false
+  }
+}
 
 // sub.onclick = isEmpty()
 

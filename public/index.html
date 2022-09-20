@@ -8,18 +8,18 @@
     <script src="js/scripts.js"></script> 
   </head>
 
-  <body onload="main()">
+  <body>
     <h1 id="page_title">TO DO</h1>
 
-        <form name="task">
-            <input type="text" name="todo" placeholder="add tasks">
+        <form id="add">
+            <input type="text" name="task" placeholder="add tasks">
             <input type="date" name="date">
             <select name="priority">
                 <option >High</option>
                 <option>Medium</option>
                 <option>Low</option>
               </select> 
-            <input type="submit" id="submit">
+            <button type="submit" id="submit"> + </button>
         </form>
         <section id="results">
             <table>
