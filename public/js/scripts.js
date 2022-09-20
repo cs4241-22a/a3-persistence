@@ -31,7 +31,8 @@ const submit = function( e ) {
 
     fetch( '/submit', {
       method:'POST',
-      body 
+      headers: { 'Content-Type': 'application/json' },
+      body
     })
     .then( function( response ) {
       return response.json()
@@ -48,6 +49,7 @@ const submit = function( e ) {
     body = JSON.stringify(json)
     fetch( '/delete', {
       method:'POST',
+      headers: { 'Content-Type': 'application/json' },
       body 
     })
     .then( function( response ) {
