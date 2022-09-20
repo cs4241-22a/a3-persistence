@@ -34,6 +34,7 @@ const haltOnTimeout =  function(req, res, next)
  * MongoDB Connecting to database
  */
 let collection = null;
+
 client.connect()
   .then(() => {
     return client.db('a3-inventory').collection('inventory')
@@ -93,28 +94,19 @@ passport.use(new GitHubStrategy({
       // to associate the GitHub account with a user record in your database,
       // and return that user instead.
 
-      return collection.find({githubID:profile.id})
-      .then(userData => {
-          if(user == null) {
-            collection.insert({githubID:profile.id, items:[]})
-            .then(() => {
-                return collection.find({githubID:profile.id})})
-          }
-          else
-            return userData;
-      })
-      .then(toArray)
-      .then(userData => {
-        console.log(userData)
-        console.log("ID:" + userData._id)
-        return done(userData._id)
+      let githubID = 5000930;
+        collection.update({githubID:githubID}, 
+                      {$setOnInsert:{githubID:githubID, items:[]}},
+                      {upsert:true})
+      then(result => console.log(result))
+      
       })
       /*
       if(user == null) {
         collection.insert({githubID:profile.id, items:[]})
         user = collection.find({githubID:profile.id})
       }*/
-    });
+    
     /*({ githubId: profile.id }, function (err, user) {
       return done(err, user);
     });*/
