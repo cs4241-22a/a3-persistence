@@ -18,6 +18,9 @@ h1{color:#FFD430;
     grid-area: footer;
     padding:5%;
   }
+.boxes{
+	float: center;
+}
 
   .container {
     width: 1000px;
