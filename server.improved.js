@@ -11,15 +11,30 @@ app.use(express.static('views'))
 app.use(express.json())
 app.use(express.static(__dirname + '/public'));
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
-const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true})
-
 const connect = async () => {
-  await client.connect()
+  const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+  const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true})
+
+  try {
+    await client.connect()
+    await listDatabases(client)
+  } catch (e) {
+    console.error(e)
+  } finally {
+    await client.close()
+  }
+
   console.log('connected to mongodb server')
   const collection = client.db("datatest").collection("test")
   //console.log(collection)
 }
+
+async function listDatabases(client){
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases:");
+  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
 
 connect()
 
