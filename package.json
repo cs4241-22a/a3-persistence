@@ -9,8 +9,12 @@
   "dependencies": {
     "dotenv": "^16.0.2",
     "express": "^4.16.4",
+    "express-session": "^1.17.3",
     "mime": "^2.4.4",
     "mongodb": "^4.9.1",
-    "prettier": "^2.7.1"
+    "passport": "0.6.0",
+    "passport-github2": "0.1.12",
+    "prettier": "^2.7.1",
+    "ejs": ">= 0.0.0"
   }
 }

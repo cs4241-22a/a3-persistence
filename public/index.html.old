@@ -21,6 +21,16 @@
       <h1>Simple Todo App</h1>
       <form action="#">
         <label for="newtask-input">Task: </label><input type="text" id="newtask-input" value="your task here" onClick="this.select();" />
+<!--        <div class="dropdown">-->
+<!--          <button class="btn btn-secondary dropdown-toggle" type="button" id="priority" name="priority" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--            Dropdown button-->
+<!--          </button>-->
+<!--          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
+<!--            <li><a class="dropdown-item" href="#">!</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">!!</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">!!!</a></li>-->
+<!--          </ul>-->
+<!--        </div>-->
         <select id="priority" name="priority">
           <option value="30">!</option>
           <option value="7">!!</option>
