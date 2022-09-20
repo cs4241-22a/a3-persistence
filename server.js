@@ -10,7 +10,8 @@ const router = require("./app/app.routes");
 
 app.use(logger);
 app.use("/", router);
-app.use(express.static("app/css"));
-app.use(express.static("app/img"));
 
-app.listen(process.env.PORT || 3000);
+app.use(express.static("app"));
+app.use(express.json());
+
+const uri = app.listen(process.env.PORT || 3000);
