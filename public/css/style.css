@@ -1,0 +1,41 @@
+/*Style your own assignment! This is fun! */
+body 
+{background-color: #FFAD42;}
+
+h1{color:#FFD430;
+    text-align: center;
+}
+
+.item-a {
+    grid-area: header;
+    padding:5%;
+  }
+  .item-b {
+    grid-area: main;
+    padding:5%;
+  }
+  .item-d {
+    grid-area: footer;
+    padding:5%;
+  }
+
+  .container {
+    width: 1000px;
+    border: 5px #E8AE31;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 320px 320px 320px;
+    grid-template-rows: 320px 320px 320px;
+    grid-template-areas: 
+      "header header header "
+      "main main main"
+      "footer footer footer";
+  }
+
+.Alfie_Image {
+    width:245px;
+    float: center;
+    height:245px;
+    background-color: #E87C31;
+}
