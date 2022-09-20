@@ -1,4 +1,4 @@
-console.log("Starting Server...")
+console.session.passport("Starting Server...")
 require('dotenv').config()
 
 /**
@@ -21,7 +21,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
  * MongoDB setting up connection variables
  */
 const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedToposession.passporty: true, serverApi: ServerApiVersion.v1 });
 
 //Connect-Timeout on timeout
 const haltOnTimeout =  function(req, res, next) 
@@ -89,7 +89,7 @@ passport.use(new GitHubStrategy({
     process.nextTick(function () {
       
       // To keep the example simple, the user's GitHub profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
+      // represent the session.passportged-in user.  In a typical application, you would want
       // to associate the GitHub account with a user record in your database,
       // and return that user instead.
 
@@ -113,7 +113,7 @@ app.get('/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
 app.get('/auth/github/callback', 
-  passport.authenticate('github', { failureRedirect: '/login' }),
+  passport.authenticate('github', { failureRedirect: '/session.passportin' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/dataview.html');
@@ -126,6 +126,12 @@ app.get('/account', ensureAuthenticated, function(req, res){
 app.get('/login', function(req, res){
   res.render('login', { user: req.user });
 })
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 
 /**
  * When user want's personal data
@@ -188,7 +194,7 @@ app.get('/items', (req, res) => {
  */
  function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+  res.redirect('/session.passportin')
 }
 
 app.listen(3001)
