@@ -67,7 +67,7 @@ app.use(express.json())
 app.use(haltOnTimeout)
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
-app.use(session.passport());
+app.use(passport.session());
 
 
 passport.serializeUser(function(user, done) {
