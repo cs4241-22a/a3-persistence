@@ -15,6 +15,8 @@ const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.e
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
+let appdata = []
+let userdata = null
 
 client.connect()
   .then( () => {
@@ -25,9 +27,8 @@ client.connect()
     // store reference to collection
     collection = __collection
     // blank query returns all documents
-    return collection.find({ }).toArray()
+    appdata = collection.find({ }).toArray()
   })
-  .then( console.log )
 
 // cookie middleware! The keys are used for encryption and should be
 // changed
@@ -44,20 +45,32 @@ app.post( '/login', (req,res)=> {
     // into an object, where the key is the name of each
     // form field and the value is whatever the user entered
     console.log( req.body )
-    
-    // below is *just a simple authentication example* 
-    // for A3, you should check username / password combos in your database
-    if( req.body.password === 'test' ) {
-      // define a variable that we can check in other middleware
-      // the session object is added to our requests by the cookie-session middleware
-      req.session.login = true
-    }else{
-      // password incorrect, redirect back to login page
-      res.sendFile( __dirname + '/views/index.html' )
-      //maybe add a wrong password message
-    }
+    let password = null;
+    appdata.then( (_appdata) => {
+        for(let i = 0; i < _appdata.length; i++){
+          if(req.body.username === _appdata[i].username){
+            password = _appdata[i].password
+            break
+          }
+        }
+        if( req.body.password === password ) {
+          // define a variable that we can check in other middleware
+          // the session object is added to our requests by the cookie-session middleware
+          req.session.login = true
+          res.redirect( 'main' )
+        }else{
+          // password incorrect, redirect back to login page
+          res.sendFile( __dirname + '/views/index.html' )
+          //maybe add a wrong password message
+        }
+      }
+    )
   })
-  
+
+app.post( '/logout', (req,res)=> {
+      req.session.login = false
+      res.sendFile( __dirname + '/views/index.html' )
+  }) 
 
 app.get( '/main', ( req, res) => {
     if( req.session.login === true )
@@ -75,12 +88,6 @@ app.get( '/main', ( req, res) => {
     else{
         res.sendFile( __dirname + '/views/index.html' )
     }
-})
-app.get( '/', (req,res) => {
-  if( collection !== null ) {
-    // get array and pass to res.json
-    collection.find({ }).toArray().then( result => res.json( result ) )
-  }
 })
 
 app.use( (req,res,next) => {
