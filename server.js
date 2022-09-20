@@ -3,6 +3,7 @@ const express = require("express"),
     logs = []
 
 const cookie = require("cookie-session")
+const mongodb = require("mongodb")
 
 app.use(express.static("public"))
 app.use(express.static("views"))
@@ -26,9 +27,7 @@ app.post( '/submit', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    // console.log(collection);
-    // collection.insertOne(req.body).then(result => res.json(result));
-    // client.db("A3").collection("Activity Logs").deleteMany({});
+
     let query = (req.body);
     console.log(query)
     client.db("A3").collection("accounts").find(query).toArray(function(err, result) {
@@ -55,14 +54,17 @@ app.post('/signUp', (req, res) => {
 
 app.get('/starting', (req, res) => {
 
-    // res.json();
-    // console.log(JSON.stringify(client.db("A3").collection("Activity Logs").find().toArray()))
     (client.db("A3").collection("Activity Logs").find({ }).toArray()).then(result => res.json(result)) //.then(result => res.json(result))
 })
 
 app.get('/getUser', (req, res) => {
-    // res.writeHead(200, "OK", { "Content-Type": "text/plain" });
+
     res.send(req.session.user);
+})
+
+app.post( '/delete', (req,res) => {
+    collection.deleteOne(req.body)
+        .then( result => res.json( result ) )
 })
 
 

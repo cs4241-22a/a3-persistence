@@ -2,6 +2,8 @@
 
 console.log("Starting");
 
+let count = 0 ;
+
 
 const logs = [];
 
@@ -28,8 +30,6 @@ window.onload = function (){
             console.log(text)
         })
 
-
-
     fetch('/starting', {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
@@ -40,7 +40,9 @@ window.onload = function (){
             json.forEach((item) => {
                 if (item.user === user) {
                     table.innerHTML +=
-                        "<tr>" +
+                        "<tr id = " +
+                        (count++).toString() +
+                        ">" +
                         "<td>" +
                         item.activity +
                         "</td>" +
@@ -60,7 +62,7 @@ window.onload = function (){
                         item.duration +
                         "</td>" +
                         "<td> <button id = 'delete' onclick = 'delete_row( " +
-                        5 +
+                        (count - 1).toString() +
                         ")'>Delete</button> </td>" +
                         "</tr>";
                 }
@@ -69,38 +71,37 @@ window.onload = function (){
 }
 
 
-const appendToTable = function(log){
-    const newItem = document.createElement("tr");
-    newItem.innerHTML = "<tr>" +
-    "<td>" +
-    log.activity +
-    "</td>" +
-    "<td>" +
-    log.date +
-    "</td>" +
-    "<td>" +
-    log.startTime +
-    "</td>" +
-    "<td>" +
-    log.endTime +
-    "</td>" +
-    "<td>" +
-    log.description +
-    "</td>" +
-    "<td>" +
-    time_duration(log.startTime, log.endTime) +
+const appendToTable = function(item){
 
-    "</td>" + //(time_duration("2:15", "03: 18"))
-    "<td> <button id = 'delete' onclick = 'delete_row( " +
-    15 +
-    ")'>Delete</button> </td>" +
-    "</tr>";
-
-    console.log(log.activity);
-
-    table.appendChild(newItem);
-
+    let table = document.getElementById("table");
+    table.innerHTML +=
+        "<tr id = " +
+        (count++).toString() +
+        ">" +
+        "<td>" +
+        item.activity +
+        "</td>" +
+        "<td>" +
+        item.date +
+        "</td>" +
+        "<td>" +
+        item.startTime +
+        "</td>" +
+        "<td>" +
+        item.endTime +
+        "</td>" +
+        "<td>" +
+        item.description +
+        "</td>" +
+        "<td>" +
+        item.duration +
+        "</td>" +
+        "<td> <button id = 'delete' onclick = 'delete_row( " +
+        (count - 1).toString() +
+        ")'>Delete</button> </td>" +
+        "</tr>";
 }
+
 
 logs.forEach( function (newLog) {
     appendToTable(newLog);
@@ -186,19 +187,38 @@ function time_duration(start, end) {
 // Function to delete the row
 // I wanted to delete a row and then convert the current table to JSON and send back to server and get the new appdata back (without the deleted row) and recreate but it seems to just reset the appdata back to the starting array
 function delete_row(id) {
-    document.getElementById(id).remove(); // Remove from html table based on the id of the row
+    console.log(id);
+    const current = document.getElementById(id).children;
+    console.log(current[2].innerHTML);
 
-    // Create a new json array to send back to the server
-    let table = document.getElementById("table");
-    let newTable = [];
+    const currentActivity = current[0].innerHTML;
+    const currentDate = current[1].innerHTML;
+    const currentStart = current[2].innerHTML;
+    const currentEnd = current[3].innerHTML;
+    const currentDescription = current[4].innerHTML;
+    const currentDuration = current[5].innerHTML;
 
-    for (let row = 1; row < table.rows[row].length; row++) {
-        let curRow = [];
-        for (let col = 0; col < row.cells.length - 1; col++) {
-            curRow.push(table.rows[row].cells[col].innerHTML);
-        }
-        newTable.push(curRow);
+    const json = {
+        activity: currentActivity.toString(),
+        date: currentDate.toString(),
+        startTime: currentStart.toString(),
+        endTime: currentEnd.toString(),
+        description: currentDescription.toString(),
+        duration: currentDuration.toString()
     }
+    console.log(json);
+    fetch('/delete', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json),
+    })
+        .then(response => response.json())
+        .then( console.log)
+
+    document.getElementById(id).remove();
+    // count--;
+
+
 }
 
 
