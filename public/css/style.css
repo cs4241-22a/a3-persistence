@@ -1,6 +1,11 @@
 /*Style your own assignment! This is fun! */
+
 body 
-{background-color: #FFAD42;}
+{background-color: #FFAD42;
+ text-align: center;}
+
+form {
+ display: inline-block;}
 
 h1{color:#FFD430;
     text-align: center;
