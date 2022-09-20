@@ -65,7 +65,7 @@ passport.use(new GitHubStrategy({
     });
     /*({ githubId: profile.id }, function (err, user) {
       return done(err, user);
-    });*.
+    });*/
   }
 ));
 
