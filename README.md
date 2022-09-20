@@ -1,6 +1,20 @@
 Mason Powell https://a2-finalhalation.glitch.me/
 
-This project shows ...
+This project shows 
+a server that uses express, a results functionality from a logged-in user, a form/entry functionality that allows a user to add, delete, and modify assignments on the users account.
+It has persistant data storage through mongodb and uses bootstramp for a css framework/template.
+
+The Goal of this project was to overhaul project 2 and enhance upon both the functionality and look of the website. I added the ability to modify data that was not in project 2
+and added database connectivity.
+
+The challenges I faced in this project was setting up the database and using express middleware I haven't worked with express or mongodb before and it was a little bit of a learning curve,
+since I haven't done any development with express or taken a database class here at WPI.
+
+The authentication strategy I used was cookies because it was easy to implement and I understood the concept.
+
+I used bootstrap as my CSS framework/template because I was recommended it by fellow students and it was very simple to setup and use. 
+
+The middleware I used was Body-Parser to parse requests,response-time to record response times for testing, connect-timeout to timeout a request, cookie-session to handle user sessions,  and a custom login.html to redirect users to the login page after signing out
 ## Technical Achievements
 Technical Achievement #3: I got 100% in all four lighthouse tests on both pages of my website.
 Login Page:

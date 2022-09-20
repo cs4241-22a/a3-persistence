@@ -94,9 +94,9 @@ client2.connect()
     .then( () => {
         return client2.db( 'testdata' ).collection( 'users' )
     })
+    .then( __collection => {
         loginCollection = __collection
         loginCollection.createIndex({"username": 1}, {unique: true})
-
     })
     .then( console.log )
 let user = null;
