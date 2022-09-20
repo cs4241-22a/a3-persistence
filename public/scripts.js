@@ -15,6 +15,60 @@ const endTime = form.elements['time_ended']
 const description = form.elements['description'];
 
 
+window.onload = function (){
+    let user = null;
+    fetch('/getUser', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => (response.text()))
+        .then(text => {
+            user = text
+            console.log(user);
+            console.log(text)
+        })
+
+
+
+    fetch('/starting', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => (response.json()))
+        .then((json) => {
+            let table = document.getElementById("table");
+            json.forEach((item) => {
+                if (item.user === user) {
+                    table.innerHTML +=
+                        "<tr>" +
+                        "<td>" +
+                        item.activity +
+                        "</td>" +
+                        "<td>" +
+                        item.date +
+                        "</td>" +
+                        "<td>" +
+                        item.startTime +
+                        "</td>" +
+                        "<td>" +
+                        item.endTime +
+                        "</td>" +
+                        "<td>" +
+                        item.description +
+                        "</td>" +
+                        "<td>" +
+                        item.duration +
+                        "</td>" +
+                        "<td> <button id = 'delete' onclick = 'delete_row( " +
+                        5 +
+                        ")'>Delete</button> </td>" +
+                        "</tr>";
+                }
+            });
+        })
+}
+
+
 const appendToTable = function(log){
     const newItem = document.createElement("tr");
     newItem.innerHTML = "<tr>" +
@@ -147,16 +201,4 @@ function delete_row(id) {
     }
 }
 
-window.onload = function (){
-    fetch('/starting', {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(response => (response.json()))
-        .then((json) => {
-            // console.log(json)
-            json.forEach((item) => {
-                console.log(JSON.stringify(item));
-        })
-})
-}
+
