@@ -67,6 +67,20 @@ app.post( '/delete', (req,res) => {
         .then( result => res.json( result ) )
 })
 
+app.post('/edit', (req, res) => {
+    let current = client.db("A3").collection("Activity Logs").find(req.body);
+    console.log(req.body[0]);
+    console.log(req.body[1]);
+    const old = req.body[0];
+    const newer = req.body[1];
+
+    client.db("A3").collection("Activity Logs").updateOne(
+        old,
+        { $set:{ activity:newer.activity, date:newer.date, startTime:newer.startTime, endTime:newer.endTime, description:newer.description, duration:newer.duration}})
+        .then( result => res.json( result ) )
+
+})
+
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');

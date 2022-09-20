@@ -26,8 +26,6 @@ window.onload = function (){
         .then(response => (response.text()))
         .then(text => {
             user = text
-            console.log(user);
-            console.log(text)
         })
 
     fetch('/starting', {
@@ -63,7 +61,10 @@ window.onload = function (){
                         "</td>" +
                         "<td> <button id = 'delete' onclick = 'delete_row( " +
                         (count - 1).toString() +
-                        ")'>Delete</button> </td>" +
+                        ")'>Delete</button>" +
+                        "<button id = 'edit' onclick = 'edit_row( " +
+                        (count - 1).toString() +
+                        ")'>Edit</button> </td>" +
                         "</tr>";
                 }
             });
@@ -98,7 +99,10 @@ const appendToTable = function(item){
         "</td>" +
         "<td> <button id = 'delete' onclick = 'delete_row( " +
         (count - 1).toString() +
-        ")'>Delete</button> </td>" +
+        ")'>Delete</button>" +
+        "<button id = 'edit' onclick = 'edit_row( " +
+        (count - 1).toString() +
+        ")'>Edit</button> </td>" +
         "</tr>";
 }
 
@@ -124,7 +128,6 @@ form.onsubmit = function(event) {
     appendToTable(input);
 
     const body = JSON.stringify(input);
-    console.log(input);
     fetch( '/submit', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -187,9 +190,7 @@ function time_duration(start, end) {
 // Function to delete the row
 // I wanted to delete a row and then convert the current table to JSON and send back to server and get the new appdata back (without the deleted row) and recreate but it seems to just reset the appdata back to the starting array
 function delete_row(id) {
-    console.log(id);
     const current = document.getElementById(id).children;
-    console.log(current[2].innerHTML);
 
     const currentActivity = current[0].innerHTML;
     const currentDate = current[1].innerHTML;
@@ -206,7 +207,6 @@ function delete_row(id) {
         description: currentDescription.toString(),
         duration: currentDuration.toString()
     }
-    console.log(json);
     fetch('/delete', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -216,9 +216,102 @@ function delete_row(id) {
         .then( console.log)
 
     document.getElementById(id).remove();
-    // count--;
+
+}
+
+function edit_row(id) {
+    console.log(id);
+    const current = document.getElementById(id).children;
 
 
+    let currentActivity = current[0].innerHTML;
+    let currentDate = current[1].innerHTML;
+    let currentStart = current[2].innerHTML;
+    let currentEnd = current[3].innerHTML;
+    let currentDescription = current[4].innerHTML;
+    let currentDuration = current[5].innerHTML;
+
+    const oldjson = {
+        activity: currentActivity.toString(),
+        date: currentDate.toString(),
+        startTime: currentStart.toString(),
+        endTime: currentEnd.toString(),
+        description: currentDescription.toString(),
+        duration: currentDuration.toString()
+    }
+
+    console.log(oldjson);
+
+    current[0].innerHTML = "<select id= 'editactivity'  name='Type of activity done' value=" + currentActivity.toString() +">" +
+        "<option value='Sleep'>Sleep</option>" +
+        "<option value='Food'>Food</option>" +
+        "<option value='School'>School</option>" +
+        "<option value='Work'>Work</option>" +
+        "<option value='Fun'>Fun</option>" +
+        "</select>"
+
+    current[1].innerHTML = "<input type='date' id='editdate' name='date' value='" + currentDate.toString() +"'/>"
+
+    current[2].innerHTML = "<input type='time' id='edittime_started' name='time_started' value='" + currentStart.toString() +"'/>"
+
+    current[3].innerHTML = "<input type='time' id='edittime_ended' name='time_ended' value='" + currentEnd.toString() +"'/>"
+
+    current[4].innerHTML = "<input type='text' id='editdescription' name='description' value='" + oldjson.description + "'/>"
+
+    current[6].innerHTML = "<td> <button id = 'editSubmit' onclick = 'submit_Edit( " +
+        (id).toString() + ", " + JSON.stringify(oldjson) +
+        ")'>Submit Edit</button>" +"</tr>";
+}
+
+
+function submit_Edit(id, oldjson){
+    console.log(id);
+    const current = document.getElementById(id).children;
+    console.log(current[2].innerHTML);
+
+
+    const currentActivity = document.querySelector("#editactivity");
+    const currentDate =  document.querySelector("#editdate");;
+    const currentStart =  document.querySelector("#edittime_started");;
+    const currentEnd =  document.querySelector("#edittime_ended");;
+    const currentDescription =  document.querySelector("#editdescription");;
+
+
+    const json = {
+        activity: currentActivity.value,
+        date: currentDate.value,
+        startTime: currentStart.value,
+        endTime: currentEnd.value,
+        description: currentDescription.value,
+        duration: time_duration(startTime.toString(), endTime.toString())
+    }
+    console.log(json);
+    console.log(oldjson)
+
+    let edited = [oldjson, json]
+
+    fetch('edit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(edited),
+    })
+
+    current[0].innerHTML = json.activity;
+
+    current[1].innerHTML = json.date;
+
+    current[2].innerHTML = json.startTime;
+
+    current[3].innerHTML = json.endTime;
+
+    current[4].innerHTML = json.description;
+
+    current[6].innerHTML = "<button id='delete' onClick='delete_row( " +
+        (id).toString() +
+        ")'>Delete</button>" +
+    "<button id = 'edit' onClick = 'edit_row( " +
+    (id).toString() +
+    ")'>Edit</button>"
 }
 
 
