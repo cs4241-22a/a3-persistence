@@ -68,15 +68,15 @@ app.get('/auth/github/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-/*
+
   app.get('/account', ensureAuthenticated, function(req, res){
     res.render('account', { user: req.user });
   });
 
   app.get('/login', function(req, res){
     res.render('login', { user: req.user });
-  });
-*/
+  })
+
 /**
  * When user want's personal data
  */
