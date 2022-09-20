@@ -11,7 +11,7 @@ const express = require('express'),
       GitHubStrategy = require('passport-github2').Strategy,
       app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
+let collection = null;
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -33,6 +33,14 @@ app.use(haltOnTimeout)
 app.use(express.json())
 app.use(haltOnTimeout)
 
+client.connect()
+  .then(() => {
+    return client.db('a3-inventory').collection('inventory')
+  })
+  .then(__collection => {
+    collection = __collection;
+})
+
 
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -47,13 +55,6 @@ passport.use(new GitHubStrategy({
 ));
 
 //connects to databse and loads data
-client.connect()
-  .then(() => {
-    return client.db('a3-inventory').collection('inventory')
-  })
-  .then(__collection => {
-    collection = __collection;
-})
 
 //github auth
 
