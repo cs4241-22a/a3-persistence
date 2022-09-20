@@ -11,3 +11,17 @@
   object-fit: cover;
   object-position: right;
 }
+
+.complete-st {
+  display: flex;
+  flex-direction: row;
+}
+
+.complete-st:before,
+.complete-st:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  margin: auto;
+  margin: auto 10px;
+}
