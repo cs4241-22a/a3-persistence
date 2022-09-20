@@ -1,6 +1,7 @@
 ## Birthday Tracker
 
-https://birthdaytracker-363023.uc.r.appspot.com/
+[**Birthday Tracker**](https://birthdaytrkr.botsak.com/)
+
 
 - The goal of this application was to improve on the Birthday Tracker I developed in the last assignment by adding user authentication and persistent storage. 
 - One of the biggest challenges for me in developing this application was understanding how to develop an authentication method. 
@@ -15,7 +16,7 @@ https://birthdaytracker-363023.uc.r.appspot.com/
 
 ## Technical Achievements
 - **Tech Achievement 1**: Host site on a different service from Glitch
-    - I chose Google Cloud App Engine to host my application because I use Firebase to host my personal website so I wanted to learn more of the Google Cloud platform. It was definitley a bit more work to get it setup, and I needed to change some of the things in my project directory in order to make it work compared to if I had just uploaded it to Glitch. App Engine has a bunch of features I am not using so it's probably more than I need platform wise, and I would guess I did some things not following "best practices". But it runs!
+    - I chose Google Cloud App Engine to host my application because I use Firebase to host my personal website so I wanted to learn more of the Google Cloud platform. It was definitley a bit more work to get it setup, including creating an app.yml file that is used by App Engine. I also configured a custom domain (a subdomain of my personal domain) for the application.
 - **Tech Achievement 2**: 100% in all 4 lighthouse tests 
   - ![Lighthouse results on the login page for unauthenticated users](assets/login.png)
 Lighthouse results on the login page for unauthenticated user
