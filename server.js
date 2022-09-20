@@ -41,11 +41,10 @@ client.connect()
     collection = __collection;
 })
 
-
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+  callbackURL: "http://http://142.93.202.135/auth/github/callback"
 },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -66,7 +65,7 @@ app.get('/auth/github/callback',
   function(req, res) {
     console.log("Logged in")
     // Successful authentication, redirect home.
-    res.redirect('http://dataview.html');
+    res.redirect('/dataview.html');
   });
 
   app.get('/account', ensureAuthenticated, function(req, res){
@@ -107,7 +106,6 @@ app.get('/items', (req, res) => {
 /**
  * Handle Data Modification
  */
-
  app.post( '/update', (req,res) => {
 
   let updatedItem = {_itemID:mongodb.ObjectId(req.body._itemID),
@@ -127,7 +125,6 @@ app.get('/items', (req, res) => {
 /**
  * Handle Data Deletion
  */
-
  app.post( '/remove', (req,res) => {
   
   collection
