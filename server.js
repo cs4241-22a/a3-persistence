@@ -15,6 +15,10 @@ const uri = 'mongodb+srv://'+process.env.USER_NAME+':'+process.env.PASSWORD+'@'+
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
 
+let loggedInUser = ""
+let objectId = ""
+let itemId = 0
+
 client.connect()
   .then( () => {
     return client.db( 'Test' ).collection( 'DataTest' )
@@ -41,6 +45,11 @@ app.post( '/login', (req,res)=> {
       //if the account exists and username and password are correct, redirect to main.html
       seen = true
       req.session.login = true
+      loggedInUser = element.username
+      objectId = element._id
+      element.data.forEach(item => {
+        if (item.id >= itemId) itemId = item.id + 1
+      })
       res.redirect( 'main.html' )
     } else if (element.username === req.body.username && element.password !== req.body.password) {
       //if the username matches an existing account but the password is wrong, send back to login screen
@@ -54,9 +63,12 @@ app.post( '/login', (req,res)=> {
       //if the username is not recognized in the database, a new account with that 
       //username and password will be created
       req.body.data = []
-      collection.insertOne( req.body )
-      req.session.login = true
-      res.redirect( 'main.html' )
+      collection.insertOne( req.body ).then (result => objectId = result.insertedId)
+      .then (function (e) {
+        req.session.login = true
+        loggedInUser = req.body.username
+        res.redirect( 'main.html' )
+      }) 
     }
   })
 })
@@ -120,10 +132,44 @@ app.get( '/', (req,res) => {
   }
 })
 
+function compare( a, b ) {
+  if ( a.date < b.date ){
+    return -1;
+  }
+  if ( a.date > b.date ){
+    return 1;
+  }
+  return 0;
+}
+
 app.post( '/submit', express.json(), ( req, res ) => {
-  //console.log(req.body)
-  req.body.dueDate = '1 day'
-  collection.insertOne( req.body ).then( result => res.json( result ) )
+  let userdata = []
+  client.db( 'Test' ).collection( 'DataTest' ).find().forEach(element => {
+    if (element.username === loggedInUser) {
+      userdata = element.data
+    }
+  })
+  .then (function (e) {
+    req.body.id = itemId
+    itemId++
+
+    console.log(req.body)
+    userdata.push(req.body)
+    
+    userdata.sort( compare );
+  
+    //update collection
+    collection.updateOne({ _id:mongodb.ObjectId( objectId ) }, { $set:{ data:userdata } })
+    .then (function (e) {
+      res.writeHead( 200, { 'Content-Type': 'application/json'})
+      res.end( JSON.stringify(userdata) )
+    })
+  })
+
+  
+  //
+
+  //collection.insertOne( req.body ).then( result => res.json( result ) )
   // collection.insertOne( req.body )
   // //console.log(req.body)
   // let appdata = []
@@ -139,9 +185,26 @@ app.post( '/submit', express.json(), ( req, res ) => {
 })
 
 app.post( '/delete', ( req, res ) => {
-  // our request object now has a 'json' field in it from our previous middleware
-  res.writeHead( 200, { 'Content-Type': 'application/json'})
-  res.end( req.json )
+  let userdata = []
+  client.db( 'Test' ).collection( 'DataTest' ).find().forEach(element => {
+    if (element.username === loggedInUser) {
+      userdata = element.data
+    }
+  })
+  .then (function (e) {
+    req.body.dueDate = '1 day'
+    userdata.forEach( (item, i) => {
+      if (item.id === req.body.id) {
+        userdata.splice(i, 1)
+      }
+    })
+    //update collection
+    collection.updateOne({ _id:mongodb.ObjectId( objectId ) }, { $set:{ data:userdata } })
+    .then (function (e) {
+      res.writeHead( 200, { 'Content-Type': 'application/json'})
+      res.end( JSON.stringify(userdata) )
+    })
+  })
 })
 
 

@@ -1,7 +1,6 @@
 let rowIndex = 0
 let i = 0
 let originalHTML = ''
-let id = 0
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -23,9 +22,6 @@ const submit = function( e ) {
     } else {
         json.priority = 'No'
     }
-
-    json.id = id
-    id++
 
     body = JSON.stringify( json )
 
@@ -77,14 +73,12 @@ const submit = function( e ) {
       const item = document.createElement('td')
       item.innerText = json.item
   
-      const completionDate = document.createElement('td')
-      completionDate.innerText = json.date
+      const dueDate = document.createElement('td')
+      dueDate.innerText = json.date
       
       const priority = document.createElement('td')
       priority.innerText = json.priority
   
-      const dueDate = document.createElement('td')
-      dueDate.innerText = json.dueDate
   
       const actions = document.createElement('td')
       const deleteButton = document.createElement('button')
@@ -97,9 +91,8 @@ const submit = function( e ) {
       actions.appendChild(deleteButton)
   
       newRow.appendChild(item)
-      newRow.appendChild(completionDate)
-      newRow.appendChild(priority)
       newRow.appendChild(dueDate)
+      newRow.appendChild(priority)
       newRow.appendChild(actions)
   
       tbl.appendChild(newRow)
