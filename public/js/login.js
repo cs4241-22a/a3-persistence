@@ -5,8 +5,10 @@ const password = document.getElementById("password1");
 
 loginForm.addEventListener('submit', event => {
     event.preventDefault();
-}
-    const body = JSON.stringify(json);
+
+    const json = { username: username.value,
+            password: password.value },
+        body = JSON.stringify(json);
 
     fetch("/login", {
         method: "POST",
@@ -43,7 +45,7 @@ signForm.addEventListener('submit', event => {
         }
     })
         .then(response => {
-            if(response.status != 200) {
+            if(response.status !== 200) {
                 window.alert("Username Taken!")
 
             }else {

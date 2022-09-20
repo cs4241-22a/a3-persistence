@@ -16,13 +16,15 @@ const path = require('path');
 function haltOnTimedout (req, res, next) {
     if (!req.timedout) next()
 }
-
+// use express.urlencoded to get data sent by defaut form actions
+// or GET requests
 app.use( express.urlencoded({ extended:true }) )
 
-
+// cookie middleware! The keys are used for encryption and should be
+// changed
 app.use( cookie({
     name: 'session',
-    keys: ['ThisIsNotAkey', 'ThisIsNotACookiekey']
+    keys: ['secretkey', 'cookiekey']
 }))
 
 app.get('/', function(req, res) {
@@ -37,6 +39,7 @@ app.get('/login.html', function(req, res) {
     res.sendFile(path.join(__dirname, '/views/login.html'));
 });
 
+// make sure to substitute your username / password for tester:tester123 below!!!
 const uri = "mongodb+srv://admin:admin@cluster0.wqjmlvr.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
@@ -44,14 +47,25 @@ let collection = null
 
 client.connect()
     .then( () => {
+        // will only create collection if it doesn't exist
         return client.db( 'database' ).collection( 'collection' )
     })
     .then( __collection => {
+        // store reference to collection
         collection = __collection
         console.log(collection)
+        // blank query returns all documents
         return collection.find({ }).toArray()
     })
     .then( console.log )
+
+// // route to get all docs
+// app.get( '/', (req,res) => {
+//   if( collection !== null ) {
+//     debugger
+//     collection.find({ }).toArray().then( result => res.json( result ) )
+//   }
+// })
 
 app.get('/data', (req, res) => {
     if (collection !== null) {
@@ -67,13 +81,6 @@ app.post( '/add', (req,res) => {
         .then( findResponse => res.json( findResponse))
 })
 
-app.post( '/remove', (req,res) => {
-    console.log(req.body)
-    collection
-        .deleteOne({ _id:mongodb.ObjectId( req.body.id ) })
-        .then( result => res.json( result ) )
-})
-
 app.post( '/update', (req,res) => {
     console.log(res.body)
     collection
@@ -87,18 +94,27 @@ app.post( '/update', (req,res) => {
         .then( findResponse => res.json( findResponse))
 })
 
+app.post( '/remove', (req,res) => {
+    console.log(req.body)
+    collection
+        .deleteOne({ _id:mongodb.ObjectId( req.body.id ) })
+        .then( result => res.json( result ) )
+})
 
 const client2 = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let loginCollection = null;
 client2.connect()
     .then( () => {
+        // will only create collection if it doesn't exist
         return client2.db( 'testdata' ).collection( 'users' )
     })
     .then( __collection => {
+        // store reference to collection
         loginCollection = __collection
         loginCollection.createIndex({"username": 1}, {unique: true})
+            .then( console.log )
     })
-    .then( console.log )
+
 let user = null;
 
 app.post("/login", bodyParser.json(), function(req, res) {
@@ -137,5 +153,6 @@ app.use( function( req,res,next) {
 app.post("/logout", bodyParser.json(), function(req, res) {
     user = null;
 });
+
 
 app.listen(process.env.PORT || 3000 )
