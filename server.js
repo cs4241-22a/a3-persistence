@@ -14,6 +14,7 @@ const express = require('express'),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy,
       app = express()
+const { profileEnd } = require('console');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 /**
@@ -91,8 +92,14 @@ passport.use(new GitHubStrategy({
       // represent the logged-in user.  In a typical application, you would want
       // to associate the GitHub account with a user record in your database,
       // and return that user instead.
-      console.log(`User Profile:\n${profile}`)
-      return done(null, profile);
+
+      let user = collection.find({githubID:profile.id})
+      if(user == null) {
+        collection.insert({githubID:profile.id, items:[]})
+        user = collection.find({githubID:profile.id})
+      }
+      console.log(`ID: ${user._id}}`)
+      return done(null, user._id);
     });
     /*({ githubId: profile.id }, function (err, user) {
       return done(err, user);
