@@ -49,4 +49,5 @@ h1{color:#FFD430;
     border: 10px solid #E87C31;
     padding: 30px
     background-origin: content-box;
+    border-radius: 25px;
 }
