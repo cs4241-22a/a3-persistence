@@ -100,16 +100,9 @@ passport.use(new GitHubStrategy({
       .then(() => {
         return collection.findOne({githubID:profile.id})
       }).then((result) => {
-        console.log(result)
-        console.log(result._id)
         return done(null, result._id)
       })
-      
   })
-     
-    /*({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });*/
   }
 ));
 
@@ -140,8 +133,7 @@ app.get('/login', function(req, res){
  * When user want's personal data
  */
 app.get('/items', (req, res) => {
-
-  collection.find({_id:mongodb.ObjectId(req.query._id)})
+  collection.find({_id:mongodb.ObjectId(req.passport.session.user)})
   .project({_id:0, items:1}).toArray()
   .then(result => res.json(result));
 })
@@ -157,7 +149,7 @@ app.get('/items', (req, res) => {
               quantity:req.body.quantity
             }
 
-  collection.updateOne({_id:mongodb.ObjectId(req.body._id)}, 
+  collection.updateOne({_id:mongodb.ObjectId(req.passport.session.user)}, 
                        {$push:{items:body}})
             .then(result => res.json(result))
 })
@@ -175,7 +167,7 @@ app.get('/items', (req, res) => {
 
   collection
     .updateOne(
-      { _id:mongodb.ObjectId( req.body._id ), "items._itemID":mongodb.ObjectId(req.body._itemID)},
+      { _id:mongodb.ObjectId( req.passport.session.user), "items._itemID":mongodb.ObjectId(req.body._itemID)},
       { $set:{ "items.$":updatedItem} }
     )
     .then( result => res.json( result ) )
@@ -188,7 +180,7 @@ app.get('/items', (req, res) => {
   
   collection
     .updateOne(
-      {_id:mongodb.ObjectId(req.body._id)},
+      {_id:mongodb.ObjectId( req.passport.session.user)},
       {$pull: {items: {_itemID:mongodb.ObjectId(req.body._itemID)}}}
     ).then(result => res.json(result))
 })
