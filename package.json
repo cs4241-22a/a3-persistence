@@ -1,0 +1,15 @@
+{
+  "name": "a2-memerson12",
+  "version": "1.0.0",
+  "description": "Sleep Tracker",
+  "author": "memerson12",
+  "scripts": {
+    "start": "node server.improved.js",
+    "dev": "nodemon --watch . server.js -e html,css,js"
+  },
+  "dependencies": {
+    "mime": "^2.4.4",
+    "nodemon": "^2.0.19",
+    "uuid": "^9.0.0"
+  }
+}
