@@ -18,8 +18,8 @@ const signup = function(){
     
   }
 
-  function createAccount() {
-  
+  function createAccount(e) {
+    e.preventDefault();
       console.log("start creating account")
       const json = {
           username:  document.getElementById("createName").value,
@@ -33,7 +33,7 @@ const signup = function(){
       else{
           fetch( '/createAccount', {
               method:'POST',
-              body,
+              body: body,
               headers:{
                 "Content-Type":"application/json"
               }
@@ -58,7 +58,8 @@ const signup = function(){
       }
   }
 
-  function login() {
+  function login(e) {
+    e.preventDefault();
     const password = document.getElementById('loginPassword').value
     const username = document.getElementById('loginName').value
   
@@ -79,7 +80,7 @@ const signup = function(){
       if(json.worked){
         document.getElementById('loginPassword').value = ""
         document.getElementById('loginName').value = ""
-        window.location.href = '/main.html'
+        window.location.href = '/response.html'
       }
       else {
         document.getElementById('loginPassword').value = ""

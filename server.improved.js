@@ -3,7 +3,6 @@ mongodb = require( 'mongodb' ),
 app = express(),
 serveStatic = require('serve-static'),
 bodyparser = require('body-parser'),
-cookieSession = require('cookie-session'),
 cookieParser = require('cookie-parser'),
 cookie  = require( 'cookie-session' ),
 GitHubStrategy = require('passport-github2').Strategy,
@@ -15,9 +14,9 @@ MongoClient = mongodb.MongoClient;
 require('dotenv').config();
 
 
-app.use( express.json() )
-  app.use(express.urlencoded({ extended:true }))
-  app.use(cookieParser())
+app.use( express.json() );
+  app.use(express.urlencoded({ extended:true }));
+  app.use(cookieParser());
   app.use(passport.initialize());
   app.use(passport.session());
   app.use( cookie({
@@ -31,7 +30,7 @@ const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@' +process.
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 client.connect(err => {
-  loginCollection = client.db("a3database").collection("survey");
+  loginCollection = client.db("a3database").collection("login");
 });
 
 
@@ -49,17 +48,17 @@ const http = require("http"),
     done(null, user);
   })
 
-  /**
+  
    
    passport.use(new GitHubStrategy({
      clientID: process.env.GITHUB_ID,
      clientSecret: process.env.GITHUB_SECRET,
-     callbackURL: "https://contact-log.herokuapp.com/github/logs"
+     callbackURL: "https://localhost:3000"
    },
    function(accessToken, refreshToken, profile, done) {
      return done(null, profile);
    }))
-   */
+   
 
   
   app.get('/auth/error', (req, res) => res.send('Unknown Error'));
