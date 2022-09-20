@@ -41,7 +41,8 @@ function buildListing(json) {
 
         // Append a text node to the cell
         let newText = document.createTextNode(item["task"]);
-        newCell.appendChild(newText);
+        checkbox_label.textContent = newText.textContent
+        newCell.appendChild(checkbox_label);
 
         // --------------------------
         // --- DAYS TILL DUE CELL ---
