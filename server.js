@@ -56,7 +56,7 @@ client.connect()
 })
 
 //github auth
-/*
+
 app.get('/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
@@ -67,7 +67,7 @@ app.get('/auth/github/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-
+/*
   app.get('/account', ensureAuthenticated, function(req, res){
     res.render('account', { user: req.user });
   });
