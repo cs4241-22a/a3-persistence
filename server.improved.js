@@ -2,7 +2,10 @@ const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       app = express()
 
-app.use( express.static('public') )
+app.get('/', (req, res) => res.send('Hello World!'))
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
+/*app.use( express.static('public') )
 app.use( express.json() )
 
 const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
@@ -26,4 +29,4 @@ app.get( '/', (req,res) => {
   }
 })
   
-app.listen( 3000 )
+app.listen( 3000 )*/
