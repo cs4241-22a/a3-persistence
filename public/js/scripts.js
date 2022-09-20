@@ -22,6 +22,7 @@ const submit = function(e) {
 
     fetch('/api/newreminder', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(output)
     }).then((response) => {
         // sucessfully posted new data to server
@@ -44,7 +45,8 @@ window.onload = () => {
 
 const updateTable = () => {  
     fetch('/api/getdata', {
-        method:'GET'
+        method:'GET',
+        headers: { 'Content-Type': 'application/json' },
     })
     .then(response => response.json())
     .then(data => {
@@ -103,8 +105,10 @@ const removeRow = (event) => {
 }
 
 const deleteReminder = (output) => {
+    console.log('DELETEING REMINDER')
     fetch('/api/deletereminder', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(output)
     }).then((response) => {
         console.log('HERE')
