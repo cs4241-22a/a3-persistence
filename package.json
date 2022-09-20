@@ -4,9 +4,17 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "body-parser": "^1.20.0",
+    "connect-timeout": "^1.9.0",
+    "cookie-session": "^1.4.0",
+    "express": "^4.18.1",
+    "mongodb": "^4.9.1",
+    "response-time": "^2.3.2"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }

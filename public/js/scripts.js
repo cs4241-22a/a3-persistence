@@ -1,85 +1,128 @@
-const submitAssignment = function () {
+let eid = null
 
-    const input_assignment = document.getElementById('assignment')
-    const input_subject = document.getElementById('subject')
-    const input_date = document.getElementById('deadline')
-    const json = {assignment: input_assignment.value, subject: input_subject.value, dead_line: input_date.value}
-    const body = JSON.stringify(json)
-
-    fetch('/submit', {
-        method: 'POST',
-        body
-    }).then(async response => {
-        createTable(await response.json())
-    }).catch((reason) => {
-        console.log(reason)
+fetch("/data", {
+})
+    .then(function (response) {
+        return response.json();
     })
+    .then(db =>{
+        db.forEach(createTable);
+    });
 
-    input_assignment.value = ''
-    input_subject.value = ''
-    input_date.value = ''
+const submit = function (e) {
+    e.preventDefault();
 
-    return false
-}
+    let txt = document.getElementById('sub').innerText;
 
-const deleteAssignment = function (e) {
+    if(txt.toLowerCase() === 'submit') {
+        const form = document.querySelector("form")
+        const json = {assignment: form.assignment.value, subject: form.subject.value, dead_line: form.deadline.value,}
+        const body = JSON.stringify(json);
+        fetch("/add", {
+            method: "POST",
+            body,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (response) {
+                // do something with the reponse
+                return response.json();
+            })
 
-    fetch('/' + e.target.id.substring(6), {
-        method: 'DELETE'
-    }).then(async response => {
-        createTable(await response.json())
-    }).catch((reason) => {
-        console.log(reason)
-    })
-}
+            .then(function (json) {
+                document.querySelector("form").reset();
+                createTable(json);
+            });
 
-const createTable = function (json) {
-    let html =
-        '<table>\n' +
-        '        <tr>\n' +
-        '            <th>Assignment</th>\n' +
-        '            <th>Subject</th>\n' +
-        '            <th>Deadline</th>\n' +
-        '            <th>Priority</th>\n' +
-        '            <th>Delete</th>\n' +
-        '        </tr>\n'
-    let idx = 0
-    for (let i of json) {
-        html += `<tr class="tableRow" id="${idx}">`
-        html += '<th>' + i.assignment + '</th>'
-        html += '<th>' + i.subject + '</th>'
-        html += '<th>' + i.dead_line + '</th>'
-        html += '<th>' + i.priority + '</th>'
-        html += '<th><button class="deleteAssignment">X</button></th>'
-        html += '</tr>'
-        idx++
+    } else if(txt.toLowerCase() === 'update') {
+        json = {
+            assignment: document.getElementById('assignment').value,
+            subject: document.getElementById('subject').value,
+            dead_line: document.getElementById('deadline').value,
+            id: eid
+        }
+            body= JSON.stringify(json)
+        fetch("/update", {
+            method: "POST",
+            body,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (response) {
+                return response.json();
+            })
+
+            .then(function (json) {
+                document.querySelector("form").reset();
+                createTable(json);
+            });
+
+        document.querySelector('#sub').innerHTML = "Submit";
+        eid = null;
     }
-    html += '</table>'
-    document.getElementById('assignmentTable').innerHTML = html
-
-    const deleteButtons = document.getElementsByClassName('deleteAssignment')
-    idx = 0
-    for (let button of deleteButtons) {
-        button.onclick = deleteAssignment
-        button.id = 'delete' + idx
-        idx++
-    }
-}
-
-const showTable = function () {
-    fetch('/list', {
-        method: 'GET'
-    }).then(async response => {
-        createTable(await response.json())
-    }).catch((reason) => {
-        console.log(reason)
-    })
-}
+    return false;
+};
 
 window.onload = function () {
-    showTable()
-
-    const submit = document.getElementById('submit')
-    submit.onclick = submitAssignment
-
+    const button = document.querySelector("button");
+    button.onclick = submit;
 }
+
+function createTable(json) {
+    let row = document.querySelector("#tbody").insertRow();
+
+    row.insertCell(0).innerHTML = json.assignment;
+    row.insertCell(1).innerHTML = json.subject;
+    row.insertCell(2).innerHTML = json.dead_line;
+    let id = json._id
+    console.log("building" + id)
+
+
+    let editCell = row.insertCell(3);
+    let editButton = document.createElement("button");
+    editButton.innerHTML = 'Change';
+
+    editButton.onclick = function() {
+        document.getElementById('assignment').value = json.assignment
+        document.getElementById('subject').value = json.subject
+        document.getElementById('deadline').value = json.dead_line
+        eid = id;
+        row.remove()
+        document.querySelector('#sub').innerHTML = "Update";
+    }
+
+
+    editCell.appendChild(editButton);
+
+    let deleteCell = row.insertCell(4);
+    let deletebutton = document.createElement("button");
+    deletebutton.innerHTML = 'Delete';
+    deletebutton.onclick = function() {
+        fetch("/remove", {
+            method: "POST",
+            body: JSON.stringify({ id }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                row.remove();
+            });
+    }
+    deleteCell.appendChild(deletebutton);
+}
+
+const logoutButton = document.getElementById("logout")
+logoutButton.addEventListener("click", event => {
+    event.preventDefault();
+    fetch("/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    window.location.href = "login.html";
+});
