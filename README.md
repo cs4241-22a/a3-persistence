@@ -25,7 +25,7 @@ Lighthouse results on the register page for unauthenticated user
  - ![Lighthouse results on the main page for authenticated users](assets/authenticated-with-data.png)
 Lighthouse results on the main page for authenticated user
 
-### Design/Evaluation Achievements
+## Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
     - Writing
         - Tip #1: Provide informative and unique page titles 
