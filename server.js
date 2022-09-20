@@ -44,7 +44,7 @@ client.connect()
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: "http://http://142.93.202.135/auth/github/callback"
+  callbackURL: "http://142.93.202.135/auth/github/callback"
 },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
