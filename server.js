@@ -1,13 +1,26 @@
+//installed packages
 const express = require("express")
 const app = express()
 const mongodb = require('mongodb')
+const bodyParser = require('body-parser')
+
 require('dotenv').config()
 
 app.set('view-engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.static('views'))
-app.use( express.json() )
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
+//listen to port
+app.listen(3000)
+
+
+
+
+//ROUTES
+//
 app.get('/', (req, res) => {
   res.render('./index.ejs')
 })
@@ -15,6 +28,24 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('./login.ejs')
 })
+
+// route to get all docs
+app.get('/', (req, res) => {
+  if (collection !== null) {
+    // get array and pass to res.json
+    collection.find({}).toArray().then(result => res.json(result))
+  }
+})
+
+app.post('/login', (req, res) => {
+  const name = req.body.username
+  const pw = req.body.password
+  console.log(name + pw)
+  //collection.insertOne(req.body).then( result => res.json( result ) )
+  res.redirect('/')
+})
+
+
 
 
 
@@ -36,21 +67,7 @@ client.connect()
   })
   .then(console.log)
 
-// route to get all docs
-app.get('/', (req, res) => {
-  if (collection !== null) {
-    // get array and pass to res.json
-    collection.find({}).toArray().then(result => res.json(result))
-  }
-})
 
-app.post('/login', (req, res) => {
-  const name = req.body.username
-  const pw = req.body
-  console.log(pw)
-  //collection.insertOne(req.body).then( result => res.json( result ) )
-  res.redirect('/')
-})
 
 //check connection
 app.use((req, res, next) => {
@@ -61,5 +78,3 @@ app.use((req, res, next) => {
   }
 })
 
-//
-app.listen(3000)
