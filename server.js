@@ -98,15 +98,14 @@ passport.use(new GitHubStrategy({
         collection.update({githubID:githubID}, 
                       {$setOnInsert:{githubID:githubID, items:[]}},
                       {upsert:true})
-      then(result => console.log(result))
-      
+      .then(() => {
+        return collection.find({githubID:githubID}).toArray()
+      }).then((result) => {
+        console.log(result)
       })
-      /*
-      if(user == null) {
-        collection.insert({githubID:profile.id, items:[]})
-        user = collection.find({githubID:profile.id})
-      }*/
-    
+      
+  })
+     
     /*({ githubId: profile.id }, function (err, user) {
       return done(err, user);
     });*/
