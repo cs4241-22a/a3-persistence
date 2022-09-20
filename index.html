@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
   </head>
   <body>
     <div class="flexBox">
@@ -14,9 +14,9 @@
     <img src="newsboys.PNG" alt="Newsboys on Stage" style="width:225px;">
   </div>
     
-    <form action="/server.js" method="post">
+    <form>
       <label for="songname">Song name to add:</label><br>
-      <input type='text' onfocus="this.value=''" id='songname' value="song name"><br><br>
+      <input type='text' onfocus="this.value=''" id='songname' value="song name" name="testSongName"><br><br>
       <label for="artist">Artist of song:</label><br>
       <input type='text' onfocus="this.value=''" id='artist' value="artist"><br><br>
       <label for="songduration">Duration of song:</label><br>
@@ -24,6 +24,7 @@
       <label for="album">Album name:</label><br>
       <input type='text' onfocus="this.value=''" id='album' value="album"><br><br>
       <button type="submit" id="submitButton">submit</button><br>
+<!--       <input type="submit" id="submitButton" value="submit"><br> -->
     </form><br>
 
     <table id="results">
