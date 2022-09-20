@@ -1,76 +1,45 @@
-
+// Add some Javascript code here, to run on the front end.
 const Todo = []
-const todoForm = document.getElementById['add']
-console.log("vibes")
-todoForm.addEventLis = function(event){
-  const taskInput = todoForm.elements['task']
-  const dateInput = todoForm.elements['date']
-  const priorityInput = todoForm.elements['priority']
-  
-  // stop our form submission from refreshing the page
-  event.preventDefault()
-  isEmpty()
+let task 
+let date 
+let priority 
+function main(){
+task = document.getElementById('to_do')
+date = document.querySelector('#date')
+priority = document.querySelector('#priority')
+const add = document.querySelector('#add')
+    add.onclick = buttonClick
 }
-  // const value = dreamInput.value
-  // // get dream value and add it to the list
-  // dreams.push( value )
-  // appendNewDream( value )
-
-  // // reset form 
-  // dreamInput.value = ''
-  // dreamInput.focus()
-  
-  // fetch( '/submit', {
-  //   method:'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body:JSON.stringify({ "newdream":value })
-  // })
-  // .then( response => response.json() )
-  // .then( json => console.log( json ) )
-
-
+function buttonClick(){
+    isEmpty()
+    submit()
+    task.value = ""
+    date.value = ""
+    priority.value = "High"
+}
 function isEmpty(){
-  if (taskInput.value === "" || taskInput.value === null){
-      alert("Please fill out all fields") 
-      console.log('checked')
-      return false
-  }
+    if (task.value === "" || date.value === ""){
+        alert("Please fill out all fields") 
+        return false
+    }
+    return true
 }
 
-// sub.onclick = isEmpty()
 
-// const sub = document.getElementById("submit")
-// function main(){
-//   task = document.getElementById("to_do")
-//   date = document.getElementById("date")
-//   document.getElementById("priority")
-//   sub.onclick = isEmpty()
-// // define variables that reference elements on our page
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    // e.preventDefault()
+    
+    let todo=[date.value,task.value,priority.value]
+    Todo.push(todo)
 
-// console.log(task)
-// }
+    fetch('/', {
+    method:'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:JSON.stringify({ "task":todo })
+  })
+     .then( response => response.json())
+     .then( json => {console.log(json)})
+  }
 
 
-// window.onload(main())
-// // isEmpty()
-// // sub.onclick = submit()
-
-
-// // function submit(event) {
-// //   // prevent default form action from being carried out
-// //   event.preventDefault()
-// //   Todo.push({Task:task.value}, {Date:date.value} , {Priority:priority.value})
-
-// //   const json = Todo,
-// //         body= JSON.stringify( json )
-
-// //   fetch( '/submit', {
-// //     method:'POST',
-// //     body
-// //     })
-  
-// //     .then( response => response.json())
-// //     .then( json => console.log(json))
-
-// //   return false
-// // }
