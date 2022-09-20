@@ -9,26 +9,26 @@
         <script src="uikit-3.15.9/js/uikit-icons.min.js"></script>
     </head>
     <body>
-        <header class="uk-flex uk-flex-center">
-          <img src="images/pikachu.jpg" alt="Pikachu" id="pikachu">
+        <header class="uk-flex uk-flex-center uk-margin-large">
+          <img uk-image src="images/pikachu.jpg" alt="Pikachu" id="pikachu">
           <h1 class="uk-heading-medium">Create your own Pokemon!</h1>
-          <img src="images/vaporeon.jpg" alt="Vaporeon" id="vaporeon">
+          <img uk-image src="images/vaporeon.jpg" alt="Vaporeon" id="vaporeon">
         </header>
     
-        <form id="form">
-    
-          <section class="formSection">
-            <label for="name">What is your Pokemon's name?</label>
+        <form class="uk-flex uk-flex-center uk-form-stacked" id="form" uk-grid>
+            
+          <section class="uk-margin">
+            <label class="uk-form-label" for="name">What is your Pokemon's name?</label>
             <input class="uk-input" type='text' id='name' name="name" maxlength="20" required>
           </section>
-    
+        
           <section class="formSection">
-            <label for="description">Describe your Pokemon</label>
+            <label class="uk-form-label" for="description">Describe your Pokemon</label>
             <textarea class="uk-textarea" name="description" id='description'></textarea> 
           </section>
     
           <section class="formSection">
-            <p>Choose your Pokemon's types</p>
+            <label class="uk-form-label">Choose your Pokemon's types</label>
             <select class="uk-select" name="type1" id="type1" required>
               <option value="">Choose a type</option>
               <option value="Normal">Normal</option>
@@ -51,7 +51,7 @@
               <option value="Fairy">Fairy</option>
             </select>
     
-            <select class="uk-select" name="type2" id="type2">
+            <select class="uk-select" name="type2" id="type2" >
               <option value="None">None</option>
               <option value="Normal">Normal</option>
               <option value="Fighting">Fighting</option>
@@ -74,7 +74,7 @@
             </select>
           </section>
     
-          <input type="submit" id="submit">
+          <input class="uk-button uk-button-primary" type="submit" id="submit">
     
           <script src="js/scripts.js"></script>
         </form>
