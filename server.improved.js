@@ -72,16 +72,17 @@ app.use( (req,res,next) => {
 app.use( express.static( 'public' ) )
 app.use( express.static( 'views'  ) )
 
+// 3. express-json, parse incoming JSONs
 app.use( express.json() )
 
-// 3+4. passportjs + express-session middleware
+// 4+5. passportjs + express-session middleware
 app.use(session({ secret: 'fjwiofjeqorfjqepir', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
 
-// 5. favicon middleware
+// 6. favicon middleware
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 
