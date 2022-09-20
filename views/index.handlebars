@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>CS4241 Assignment 3</title>
@@ -7,14 +8,23 @@
       href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="shortcut icon" href="#">
+    <link rel="shortcut icon" href="#"/>
   </head>
   <body>
-    <form action="/login" method="POST">
-      name: <input type="text" name="username" />
-      password:<input type="password" name="password" value="password" />
-      <input type="submit" value="login" />
-    </form>
-    {{{msg}}}
+    <script src="./public/script.js"></script>
+    <div id="body-box">
+      <div class="header">
+        <h1>QuickList</h1>
+        <h4>Your Personal Grocery List Tool</h4>
+      </div>
+      <div id="login-box">
+        <form action="/login" method="POST">
+          Username: <input type="text" name="username" />&nbsp;
+          Password: <input type="password" name="password" value="password" />
+          &nbsp;<input type="submit" value="Login" />
+        </form>
+      </div>
+      <p id="login-error" style="text-align: center;">{{{msg}}}</p>
+    </div>
   </body>
 </html>
