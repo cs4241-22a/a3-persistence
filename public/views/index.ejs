@@ -24,7 +24,9 @@
 	<% if (!user) { %>
 		<p>Please <a href="/login">Log in!</a></p>
 	<% } else { %>
-		<h2>Hello, <%= user.displayName %>.</h2>
+		<% if (user.displayName) { %>
+			<h2>Hello, <%= user.displayName %>.</h2>
+		<% } %>
 		<p>Please visit <a href="/account">your account</a></p>
 	<% } %>
 
