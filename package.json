@@ -4,7 +4,7 @@
   "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "express": "^4.18.1",
+    "paper": "^0.12.15",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12",
+    "passport-local": "^1.0.0",
     "webpack": "^5.74.0"
   },
   "homepage": "https://github.com/CJACOBSON32/cs4241_Assignment_3#readme",
