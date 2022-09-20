@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+  <header class="cover">
+    <h1>Simple Hike Planner</h1>
+  </header>
+  <main>
+    <div class="content">
+      <p>
+        Have you ever gotten lost in the sprawling bike paths of Institute Park? Trying to get home before dinner but
+        still want to get in a quick afterschool trip up to the top of Mount Washington? If this sounds like you, you
+        probably won't have the foresight to use something like this. But don't let me be the one to stop you.
+      </p>
+    </div>
+    <h2 class="subtitle">Using the Tool:</h2>
+      <p class="content">
+        Planning your upcoming hike is about as fast as you get ready after sleeping through your alarm on exam day.
+      </p>
+    <div class="content">
+      <p>
+        If a past trip is already in the server's database, it will already be visible in the table. From here, you can
+        either fill in the specified fields and press "submit" to add a trail to your planned trip, or press "CLEAR DATA" to
+        start fresh with a new trip.
+      </p>
+    </div>
+    <div class="content">
+      <p>
+        Your trip will be saved by the server until you clear it, meaning family members, friends, or that weird neighbour
+        you have that is always peeking through the curtains can see <em>exactly</em> where you will be during your trip.
+      </p>
+    </div>
+  </main>
+  <div id="userinput">
+    <form>
+      <label for="trailname">Trail name:</label><br>
+      <input type='text' id='trailname'><br>
+      <label for="traillength">Trail length (mi):</label><br>
+      <input type='number' id='traillength'><br>
+      <label for="trailelevation">Trail elevation change (ft):</label><br>
+      <input type='number' id='trailelevation'><br>
+      <button type="button" id="submitbutton">submit</button>
+      <button type="button" id="clearbutton">CLEAR DATA</button>
+    </form>
+  </div>
+  <div id="data">
+    <table id="datatable">
+      <tr>
+        <th>Trail Name</th>
+        <th>Trail Length (mi)</th>
+        <th>Trail Elevation Gain (ft)</th>
+        <th>Total Length (mi)</th>
+        <th>Total Elevation Change (ft)</th>
+      </tr>
+    </table>
+  </div>
+  <script src="js/scripts.js"></script>
+  </body>
+</html>
