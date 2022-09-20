@@ -16,7 +16,7 @@
 
 ## Technical Achievements
 - **Tech Achievement 1**: Host site on a different service from Glitch
-    - I chose Google Cloud App Engine to host my application because I use Firebase to host my personal website so I wanted to learn more of the Google Cloud platform. It was definitley a bit more work to get it setup, including creating an app.yml file that is used by App Engine. I also configured a custom domain (a subdomain of my personal domain) for the application.
+    - I chose Google Cloud App Engine to host my application because I use Firebase to host my personal website so I wanted to learn more of the Google Cloud platform. It was definitley a bit more work to get it setup, including creating an app.yml file that is used by App Engine. [See the fork on my personal account used for hosting](https://github.com/benSakac/birthdayTracker) I also configured a custom domain (a subdomain of my personal domain) for the application.
 - **Tech Achievement 2**: 100% in all 4 lighthouse tests 
   - ![Lighthouse results on the login page for unauthenticated users](assets/login.png)
 Lighthouse results on the login page for unauthenticated user
