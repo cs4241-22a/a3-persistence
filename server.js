@@ -93,13 +93,27 @@ passport.use(new GitHubStrategy({
       // to associate the GitHub account with a user record in your database,
       // and return that user instead.
 
-      let user = collection.find({githubID:profile.id})
+      return collection.find({githubID:profile.id})
+      .then(userData => {
+          if(user == null) {
+            collection.insert({githubID:profile.id, items:[]})
+            .then(() => {
+                return collection.find({githubID:profile.id})})
+          }
+          else
+            return userData;
+      })
+      .then(toArray)
+      .then(userData => {
+        console.log(userData)
+        console.log("ID:" + userData._id)
+        return done(userData._id)
+      })
+      /*
       if(user == null) {
         collection.insert({githubID:profile.id, items:[]})
         user = collection.find({githubID:profile.id})
-      }
-      console.log(`ID: ${user._id}}`)
-      return done(null, user._id);
+      }*/
     });
     /*({ githubId: profile.id }, function (err, user) {
       return done(err, user);
