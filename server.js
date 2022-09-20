@@ -66,7 +66,7 @@ app.get('/auth/github/callback',
   function(req, res) {
     console.log("Logged in")
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('http://dataview.html');
   });
 
   app.get('/account', ensureAuthenticated, function(req, res){
