@@ -27,8 +27,11 @@ function buildListing(json) {
         checkbox.type = "checkbox";
         checkbox.name = "name";
         checkbox.value = "value";
+        checkbox.id = `${item["guid"]}-checkbox`
         checkbox.checked = item["status"] === 1;
         statusCell.appendChild(checkbox);
+        const checkbox_label = document.createElement("label");
+        checkbox_label.htmlFor = checkbox.id;
 
         // ---------------------
         // --- TASK NAME CELL ---
