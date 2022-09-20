@@ -67,7 +67,7 @@ app.use(express.json())
 app.use(haltOnTimeout)
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(session.passport());
 
 
 passport.serializeUser(function(user, done) {
@@ -133,7 +133,9 @@ app.get('/login', function(req, res){
  * When user want's personal data
  */
 app.get('/items', (req, res) => {
-  collection.find({_id:mongodb.ObjectId(req.passport.session.user)})
+  console.log(req.session)
+  console.log(req.session.passport)
+  collection.find({_id:mongodb.ObjectId(req.session.passport.user)})
   .project({_id:0, items:1}).toArray()
   .then(result => res.json(result));
 })
@@ -149,7 +151,7 @@ app.get('/items', (req, res) => {
               quantity:req.body.quantity
             }
 
-  collection.updateOne({_id:mongodb.ObjectId(req.passport.session.user)}, 
+  collection.updateOne({_id:mongodb.ObjectId(req.session.passport.user)}, 
                        {$push:{items:body}})
             .then(result => res.json(result))
 })
@@ -167,7 +169,7 @@ app.get('/items', (req, res) => {
 
   collection
     .updateOne(
-      { _id:mongodb.ObjectId( req.passport.session.user), "items._itemID":mongodb.ObjectId(req.body._itemID)},
+      { _id:mongodb.ObjectId( req.session.passport.user), "items._itemID":mongodb.ObjectId(req.body._itemID)},
       { $set:{ "items.$":updatedItem} }
     )
     .then( result => res.json( result ) )
@@ -180,7 +182,7 @@ app.get('/items', (req, res) => {
   
   collection
     .updateOne(
-      {_id:mongodb.ObjectId( req.passport.session.user)},
+      {_id:mongodb.ObjectId( req.session.passport.user)},
       {$pull: {items: {_itemID:mongodb.ObjectId(req.body._itemID)}}}
     ).then(result => res.json(result))
 })
