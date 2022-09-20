@@ -1,7 +1,6 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "express",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template\r ===",
   "author": "",
   "scripts": {
     "start": "node server.improved.js"
@@ -14,5 +13,16 @@
   },
   "engines": {
     "node": "16.x"
-  }
+  },
+  "version": "1.0.0",
+  "main": "server.improved.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csnow99/a3-persistence.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csnow99/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/csnow99/a3-persistence#readme"
 }
