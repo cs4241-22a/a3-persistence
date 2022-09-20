@@ -56,6 +56,7 @@ client.connect()
 })
 
 //github auth
+/*
 app.get('/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
@@ -74,7 +75,7 @@ app.get('/auth/github/callback',
   app.get('/login', function(req, res){
     res.render('login', { user: req.user });
   });
-
+*/
 /**
  * When user want's personal data
  */
