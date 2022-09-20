@@ -33,7 +33,7 @@ app.use(haltOnTimeout)
 app.use(express.json())
 app.use(haltOnTimeout)
 
-/*
+
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -44,7 +44,7 @@ passport.use(new GitHubStrategy({
       return done(err, user);
     });
   }
-));*/
+));
 
 //connects to databse and loads data
 client.connect()
@@ -54,7 +54,7 @@ client.connect()
   .then(__collection => {
     collection = __collection;
 })
-/*
+
 //github auth
 app.get('/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
@@ -62,10 +62,19 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
+    console.log("Logged in")
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-*/
+
+  app.get('/account', ensureAuthenticated, function(req, res){
+    res.render('account', { user: req.user });
+  });
+
+  app.get('/login', function(req, res){
+    res.render('login', { user: req.user });
+  });
+
 /**
  * When user want's personal data
  */
