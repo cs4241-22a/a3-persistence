@@ -1,72 +1,29 @@
-const http = require( 'http' ),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
-      dir  = 'public/',
-      port = 3000
+const express = require( 'express' ),
+      mongodb = require( 'mongodb' ),
+      app = express()
 
-const appdata = []
+app.use( express.static('public') )
+app.use( express.json() )
 
-const server = http.createServer( function( request,response ) {
-  if( request.method === 'GET' ) {
-    handleGet( request, response )    
-  }else if( request.method === 'POST' ){
-    handlePost( request, response ) 
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection = null
+
+client.connect()
+  .then( () => client.db( 'testdb' ).collection( 'test collection' ) )
+  .then( __collection => {
+    collection = __collection
+    return collection.find({ }).toArray()
+  })
+  .then( console.log )
+  
+// route to get all docs
+app.get( '/', (req,res) => {
+  if( collection !== null ) {
+    // get array and pass to res.json
+    collection.find({ }).toArray().then( result => res.json( result ) )
   }
 })
-
-const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
-
-  if( request.url === '/' ) {
-    sendFile( response, 'public/index.html' )
-  }else{
-    sendFile( response, filename )
-  }
-}
-
-const handlePost = function( request, response ) {
-  let dataString = ''
-
-  request.on( 'data', function( data ) {
-      dataString += data 
-  })
-
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-
-    // ... do something with the data here!!!
-    let rat = JSON.parse( dataString )
-    
-    appdata.push( rat )
-
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-    response.write( JSON.stringify( appdata ))
-    response.end()
-  })
-}
-
-const sendFile = function( response, filename ) {
-   const type = mime.getType( filename ) 
-
-   fs.readFile( filename, function( err, content ) {
-
-     // if the error = null, then we've loaded the file successfully
-     if( err === null ) {
-
-       // status code: https://httpstatuses.com
-       response.writeHeader( 200, { 'Content-Type': type })
-       response.end( content )
-
-     }else{
-
-       // file not found, error code 404
-       response.writeHeader( 404 )
-       response.end( '404 Error: File Not Found' )
-
-     }
-   })
-}
-
-server.listen( process.env.PORT || port )
+  
+app.listen( 3000 )
