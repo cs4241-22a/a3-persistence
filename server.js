@@ -19,7 +19,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 /**
  * MongoDB setting up connection variables
  */
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
+const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 //Connect-Timeout on timeout
