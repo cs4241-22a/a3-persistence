@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/tobias-mack/a3-persistence#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongodb": "^4.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
