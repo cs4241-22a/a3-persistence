@@ -2,7 +2,12 @@ const express = require( 'express' ),
     session = require('express-session'),
     passport = require('passport'),
     GitHubStrategy = require('passport-github2').Strategy,
+    favicon = require('serve-favicon'),
+    path = require('path'),
     app = express()
+
+var util= require('util');
+var encoder = new util.TextEncoder('utf-8');
 
 require('dotenv').config()
 
@@ -56,18 +61,28 @@ passport.use(new GitHubStrategy({
 // ---
 // Middleware
 // ---
+
+// 1. user defined-middleware :: logs current route
 app.use( (req,res,next) => {
   console.log( 'url:', req.url )
   next()
 })
+
+// 2. express-static middleware
 app.use( express.static( 'public' ) )
 app.use( express.static( 'views'  ) )
+
 app.use( express.json() )
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+// 3+4. passportjs + express-session middleware
+app.use(session({ secret: 'fjwiofjeqorfjqepir', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
+
+// 5. favicon middleware
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 
 
@@ -111,7 +126,7 @@ app.get('/auth/github',
 //   login page.  Otherwise, the primary route function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
+    passport.authenticate('github', { failureRedirect: '/login?github-auth-failed' }),
     function(req, res) {
       res.redirect('/');
     });
