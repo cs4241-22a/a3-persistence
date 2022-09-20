@@ -1,11 +1,33 @@
+require('dotenv').config()
 const express = require( 'express' ),
     cookie  = require( 'cookie-session' ),
-    app = express(),
-    engine = require('express-handlebars')
+    engine = require('express-handlebars'),
+    mongodb = require( 'mongodb' ),
+    app = express()
 
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
 app.use( express.urlencoded({ extended:true }) )
+
+app.use( express.json() )
+
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection = null
+
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'TODOs' ).collection( 'usersAndTasks' )
+  })
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
+    // blank query returns all documents
+    return collection.find({ }).toArray()
+  })
+  .then( console.log )
 
 // cookie middleware! The keys are used for encryption and should be
 // changed
@@ -53,6 +75,20 @@ app.get( '/main', ( req, res) => {
     else{
         res.sendFile( __dirname + '/views/index.html' )
     }
+})
+app.get( '/', (req,res) => {
+  if( collection !== null ) {
+    // get array and pass to res.json
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
+})
+
+app.use( (req,res,next) => {
+  if( collection !== null ) {
+    next()
+  }else{
+    res.status( 503 ).send()
+  }
 })
 
 app.use( express.static( 'public' ) )
