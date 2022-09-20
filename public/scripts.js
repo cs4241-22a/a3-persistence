@@ -283,10 +283,10 @@ function submit_Edit(id, oldjson){
         startTime: currentStart.value,
         endTime: currentEnd.value,
         description: currentDescription.value,
-        duration: time_duration(startTime.toString(), endTime.toString())
+        duration: time_duration(currentStart.value.toString(), currentEnd.value.toString())
     }
-    console.log(json);
-    console.log(oldjson)
+    console.log(json.duration);
+
 
     let edited = [oldjson, json]
 
@@ -305,6 +305,8 @@ function submit_Edit(id, oldjson){
     current[3].innerHTML = json.endTime;
 
     current[4].innerHTML = json.description;
+
+    current[5].innerHTML = json.duration;
 
     current[6].innerHTML = "<button id='delete' onClick='delete_row( " +
         (id).toString() +
