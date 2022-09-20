@@ -38,7 +38,7 @@ passport.use(
   new GitHubStrategy({
       clientID: process.env.ID,
       clientSecret: process.env.SECRET,
-      callbackURL: 'https://fun-game-stats.herokuapp.com/auth/github/callback',
+      callbackURL: 'https://a3-kr0man0va.glitch.me/auth/github/callback',
     },
     function (accessToken, refreshToken, profile, callback) {
       callback(null, profile);
