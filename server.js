@@ -94,15 +94,15 @@ passport.use(new GitHubStrategy({
       // to associate the GitHub account with a user record in your database,
       // and return that user instead.
 
-      let githubID = 5000930;
-        collection.updateOne({githubID:githubID}, 
-                      {$setOnInsert:{githubID:githubID, items:[]}},
+      return collection.updateOne({githubID:profile.id}, 
+                      {$setOnInsert:{githubID:profile.id, items:[]}},
                       {upsert:true})
       .then(() => {
-        return collection.findOne({githubID:githubID})
+        return collection.findOne({githubID:profile.id})
       }).then((result) => {
         console.log(result)
         console.log(result._id)
+        return done(null, result._id)
       })
       
   })
