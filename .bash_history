@@ -1,0 +1,12 @@
+npm install mongodb
+npm i bootstrap@5.2.1
+ npm install errorhandler
+ npm install serve-favicon
+npm install serve-index
+npm i server-static
+npm install morgan
+npm install connect-timeout
+npm i response-time
+npm install response-time
+npm install response-time
+npm install serve-favicon
