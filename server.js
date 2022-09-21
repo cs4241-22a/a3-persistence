@@ -170,11 +170,9 @@ app.get('/items', (req, res) => {
   }
   console.log(req.body._itemID)
   collection
-    .findAndModify(
-      {
-        query: {_id:mongodb.ObjectId( req.session.passport.user), "items._itemID":mongodb.ObjectId( req.body._itemID)},
-        update:{ $set: {"items.$.name":req.body.name}}
-      }
+    .updateOne(
+      {_id:mongodb.ObjectId( req.session.passport.user), "items._itemID":mongodb.ObjectId( req.body._itemID)},
+      { $set: {"$.name":req.body.name}}
     )
     .then( result => {
       console.log(result)
