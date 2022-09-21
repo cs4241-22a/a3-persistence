@@ -31,7 +31,7 @@ app.get('/login', (req, res) => {
 
 // route to get all docs
 app.get('/', (req, res) => {
-  
+
 })
 
 app.post('/login', async (req, res) => {
@@ -54,12 +54,13 @@ app.post('/login', async (req, res) => {
   }
 })
 
-app.post('/add', (req, res) => {
-  todoCollection.insertOne(req.body, function (error, response) {
+app.post('/add', async (req, res) => {
+  await todoCollection.insertOne(req.body, function (error, response) {
     if (error) {
       console.log('Error occurred while inserting');
     } else {
       console.log('inserted record', response);
+      res.render('index.ejs', { name: req.body.name })
     }
   });
 })
