@@ -8,7 +8,7 @@ app.listen(3000, () => console.log('Example app listening on port 3000!'))
 app.use( express.static('public') )
 app.use( express.json() )
 
-const uri = 'mongodb+srv://csnow99:marketGhost@cluster0.9mcegoz.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
