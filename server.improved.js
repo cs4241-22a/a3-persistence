@@ -36,11 +36,10 @@ app.use(passport.session())
 
 app.use(express.static('views'))
 app.use(express.json())
-//app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'))
 
 app.get('/auth/login', (req, res) => {
   console.log('in auth login')
-  console.log(path.join(__dirname, '/public/login.html'))
   res.sendFile(path.join(__dirname, '/public/login.html'))
 })
 
