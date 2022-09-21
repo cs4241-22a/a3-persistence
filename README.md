@@ -13,7 +13,7 @@ The project of:
     Andrei Ignatiev:
         alignatiev@wpi.edu
 
-Droplent URL: http://164.90.252.100:3000
+Droplet URL: http://164.90.252.100:3000
 
 
 
