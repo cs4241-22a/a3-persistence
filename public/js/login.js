@@ -6,29 +6,21 @@ const submit = function (e) {
 
     var password = document.getElementById('password').value;
 
-    // EXAMPLE OF POST REQUEST THAT ADDS TO ARRAY
-    // fetch( '/submit', {
-    //   method:  'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body:    JSON.stringify([username])
-    // })
-    // .then( response => response.json() )
-    // .then( console.log ) 
-
-    //EXAMPLE OF GET REQUEST TO TABLE
-    // fetch( '/table', {
-    //   method:  'GET'
-    // })
-    // .then( response => response.json() )
-    // .then( console.log )
-
-    //HOW TO SWAP PAGES
-    // fetch( '/main', {
-    //   method:'get'
-    // })
-    // .then( function( response ) {
-    //   window.location.href = '/main.html'
-    // })
+    fetch('/authenticate', {
+      method: 'get'
+    })
+    .then ( function (response) {
+      return response.json();
+    })
+    .then( function (response) {
+      if(response === 'true')
+      {
+        window.location.href = '/main.html'
+      }
+      else{
+        window.location.href = '/'
+      }
+    })
 
     return false
   }
