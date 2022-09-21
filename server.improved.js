@@ -83,7 +83,7 @@ connect()
 
 app.get('/', checkAuth, (req, res) => {
   console.log('in main page')
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(__dirname, '/private/index.html'))
 })
 
 //////////////////// GET DATA ////////////////////
