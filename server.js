@@ -5,7 +5,7 @@ require('dotenv').config()
  * Loading Node Modules
  */
 const express = require('express'),
-      cookies = require('cookie-session'),
+      errorhandler = require('errorhandler'),
       favicon = require('serve-favicon'),
       timeout = require('connect-timeout'),
       session = require('express-session'),
@@ -14,7 +14,6 @@ const express = require('express'),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy,
       app = express()
-const { profileEnd } = require('console');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 /**
@@ -54,6 +53,12 @@ client.connect()
     res.status( 503 ).send()
   }
 })
+
+app.set('env', 'development')
+if (process.env.NODE_ENV === 'development') {
+  // only use in development
+  app.use(errorhandler())
+}
 
 app.use(timeout('5s'))
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
@@ -131,7 +136,6 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
-
 
 /**
  * When user want's personal data
