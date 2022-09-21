@@ -5,7 +5,7 @@ const express = require( 'express' ),
       hbs = require( 'express-handlebars' ).engine,
       crypto = require("crypto"); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const { promises } = require('stream');
+console.log(process.env.USER, process.env.PWD, process.env.HOST);
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PWD}@${process.env.HOST}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
