@@ -1,11 +1,15 @@
 Name Logger with Authentication
 Project Link: http://a3-charlie-roberts.glitch.me
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+For this project, I continued on my name logger. The database no longer stored the index of the entry but continued to store the name, number of characters and timestamp now along with the username and password of the user. Once a user has logged in, only their information will show up on the table. There are now 3 different boxes to use to add, modify, or delete data from the database. 
 
-the goal of the application
-challenges you faced in realizing the application
-what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-what CSS framework you used and why
-include any modifications to the CSS framework you made via custom CSS you authored
-the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for one (and one alone) middleware please add a little more detail about what it does.
+The biggest challenge I found was the authentication. I spent multiple hours working on a solution because different aspects of the webpage kept breaking. In the end, I used one page for authentication and another to show data that included a sign out button. Once a user has entered their information, login.js sends a POST request to the server with the username and password that was provided. If it authenticates, then a cookie is created that stores the username and password and then the application is redirected to the results page. If they are not authenticated or the user does not exist, then the login screen is reloaded.
+
+For this project, I used Bootstrap 5.2.1. I used this CSS Framework becuase it was the most popular out of the general purpose frameworks. The only CSS modification I used was creating a border around the table that held the results from the database.
+
+The Express Middleware Packages I used were...
+1. 
+2. 
+3. 
+4. 
+5. 

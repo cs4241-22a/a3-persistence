@@ -1,5 +1,5 @@
-const update = function (e) {
-  fetch('/api',{
+const update = function () {
+  fetch('/table',{
     method: 'GET'
   })
   .then( function (response ) {
@@ -13,16 +13,7 @@ const update = function (e) {
         table.deleteRow(i - 1);
       }
 
-      var rowInfo = [];
-      for(let j = 0; j < response.length; j++)
-      {
-          if(typeof response[j].Name === "string")
-          {
-              rowInfo.push(response[j]);
-          }
-      }
-
-      for(let r = 0; r < rowInfo.length; r++)
+      for(let r = 0; r < response.length; r++)
       {
           var row = table.insertRow(r + 1);
 
@@ -32,10 +23,10 @@ const update = function (e) {
           var cell4 = row.insertCell(3);
 
 
-          cell1.innerHTML = response[r].index;
-          cell2.innerHTML = response[r].Name;
-          cell3.innerHTML = response[r].Characters;
-          cell4.innerHTML = response[r].Timestamp;
+          cell1.innerHTML = response[r].username;
+          cell2.innerHTML = response[r].name;
+          cell3.innerHTML = response[r].numChars;
+          cell4.innerHTML = response[r].timestamp;
       }
   })
 }
@@ -46,42 +37,42 @@ const add = function (e) {
 
     const input = document.querySelector( '#addname' ),
           json = input.value,
-          body = JSON.stringify( json );
+          body = JSON.stringify({'name': json});
 
     fetch( '/add', {
       method:'POST',
+      headers: { 'Content-Type': 'application/json' },
       body 
     })
     .then( function( response ) {
       console.log( response )
     })
 
-    update;
+    update();
 
     return false
   }
 
-  const modify = function (e) {
+const modify = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
     const input = document.querySelector( '#oldname' ),
-          json = input.value,
-          body = JSON.stringify( json );
-
-    const input2 = document.querySelector( '#newname' ),
-          json2 = input.value,
-          body2 = JSON.stringify( json );
+          input2= document.querySelector('#newname');
+          val1 = input.value,
+          val2 = input2.value,
+          body = JSON.stringify( {'oldname': val1, 'newname':val2} );
 
     fetch( '/modify', {
       method:'POST',
+      headers: { 'Content-Type': 'application/json' },
       body 
     })
     .then( function( response ) {
       console.log( response )
     })
 
-    update;
+    update();
 
     return false
   }
@@ -92,17 +83,18 @@ const add = function (e) {
 
     const input = document.querySelector( '#deletename' ),
           json = input.value,
-          body = JSON.stringify( json );
+          body = JSON.stringify( {'name':json });
 
-    fetch( '/delete', {
+    fetch( '/remove', {
       method:'POST',
+      headers: { 'Content-Type': 'application/json' },
       body 
     })
     .then( function( response ) {
       console.log( response )
     })
 
-    update;
+    update();
 
     return false
   }
@@ -114,10 +106,12 @@ const add = function (e) {
   }
 
   window.onload = function() {
+    update();
     const addButton = document.querySelector('#addButton');
     const modifyButton = document.querySelector('#modifyButton');
     const deleteButton = document.querySelector('#deleteButton');
     const signoutButton = document.querySelector('#signoutButton');
+    
     addButton.onclick = add;
     modifyButton.onclick = modify;
     deleteButton.onclick = deleteItem;
