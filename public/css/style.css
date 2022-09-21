@@ -9,7 +9,15 @@ form {
 
 h1{color:#FFD430;
     text-align: center;
+    border: 10px solid #E87C31;
+    padding: 30px
+    background-origin: content-box;
+    border-radius: 25px;
 }
+h2{
+color:#FF7042;
+text-align: center;
+font-weight:bold;}
 
 .item-a {
     grid-area: header;
