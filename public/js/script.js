@@ -41,9 +41,9 @@ const onEditClick = function(id, name, price, quantity)
 
   currentEntryEditing = document.getElementById(`row-${id}`)
   
-  let newHTML = `<th><input type="text" value="${name}>"</th>`
-  newHTML += `<th><input type="text" value="${price}>"</th>`
-  newHTML += `<th><input type="text" value="${quantity}>"</th>`
+  let newHTML = `<th><input type="text" value="${name}"></th>`
+  newHTML += `<th><input type="text" value="${price}"></th>`
+  newHTML += `<th><input type="text" value="${quantity}"></th>`
   newHTML += `<button onClick=resetEditEntry(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>cancel</button>`
   newHTML += `<button onClick=onEditSubmit(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>save</button>` 
   currentEntryEditing.innerHTML = newHTML;
