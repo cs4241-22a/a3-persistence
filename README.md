@@ -4,7 +4,9 @@
 Heroku: https://fruitsurvey.herokuapp.com/
 
 Test account:
+
 Username: test
+
 Password: 1234
 
 This fruit survey application allows user to create accounts and store the responses in their account only (which are stored in MongoDB). It allows user to login once they create an account, as well as adding responses, edit and delete existing responses. 
