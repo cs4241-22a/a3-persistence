@@ -45,8 +45,16 @@ app.get( '/', (req,res) => {
   console.log("handling / ")
   if( collection !== null ) {
     // get array and pass to res.json
-    collection.find({ }).toArray().then( result => res.json( result ) )
+    let cData = JSON.stringify(collection.find({ }).toArray())
+    response.end(cData)
+
+    // .then( result => res.json( result ) )
   }
+})
+
+app.post('/results', (req,res)=>{
+    let filler = req.body; 
+    collection.find({ }).toArray().then(result => res.json(result))
 })
 
 app.post( '/add', (req,res) => {
@@ -72,7 +80,8 @@ app.post( '/update', (req,res) => {
 })
 
 
-const cookie  = require( 'cookie-session' )
+const cookie  = require( 'cookie-session' );
+const { response } = require('express');
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
 app.use( express.urlencoded({ extended:true }) )

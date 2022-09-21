@@ -9,6 +9,14 @@
 
     // const button3 = document.querySelector('EditButton')
     // button2.onclick = edit
+
+    const button3 = document.querySelector('#resultsButton')
+    button3.onclick = results
+
+
+
+    // from tutorial -https://www.youtube.com/watch?v=MkESyVB4oUw&ab_channel=TylerPotts
+
   }
 
 const add = function( e ) {
@@ -32,7 +40,12 @@ const add = function( e ) {
       // add JSON to client side
       let tr = document.createElement('tr')
       tr.innerText = JSON.stringify(json)
+
       TaskBase.appendChild(tr)
+
+      tr.addEventListener('dblclick',function(){
+      TaskBase.removeChild(tr);
+    })
     
 
     fetch( '/add', {
@@ -71,22 +84,25 @@ const remove = function(e)
   e.preventDefault()
   
   console.log("Hello Again")
-
-
-
-
 }
 
-const update = function(e)
+const results = function(e)
 {
+  
   e.preventDefault()
-
-  console.log("ddd")
+  json = {filler:"data"}
+  
+  console.log("Hello Again")
+  fetch( '/results', {
+    method:'POST',
+    headers: { 'Content-Type': 'application/json'}, // needed for MongoDB and/or the server to know you are using JSON data?
+    headers: {'Accept': 'application/json'},
+    body:JSON.stringify({json})
+  })
+  .then(response=>response.json())
+  .then( json => {
+    console.log(json)
+  })
 }
 
-const resultsd = function(e)
-{
-e.preventDefault()
 
-
-}
