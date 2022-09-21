@@ -31,20 +31,38 @@ app.get('/login', (req, res) => {
 
 // route to get all docs
 app.get('/', (req, res) => {
-  if (collection !== null) {
-    // get array and pass to res.json
-    collection.find({}).toArray().then(result => res.json(result))
+  
+})
+
+app.post('/login', async (req, res) => {
+  const name = req.body.username
+  const pw = req.body.password
+  const user = await userCollection.findOne({ username: name, password: pw })
+  if (user) {
+    console.log("found " + user)
+    res.render('index.ejs', { name: name })
+  } else {
+    console.log("not found")
+    userCollection.insertOne(req.body, function (error, response) {
+      if (error) {
+        console.log('Error occurred while inserting');
+      } else {
+        console.log('inserted record', response);
+      }
+    });
+    res.render('login.ejs')
   }
 })
 
-app.post('/login', (req, res) => {
-  const name = req.body.username
-  const pw = req.body.password
-  console.log(name + pw)
-  //collection.insertOne(req.body).then( result => res.json( result ) )
-  res.redirect('/')
+app.post('/add', (req, res) => {
+  todoCollection.insertOne(req.body, function (error, response) {
+    if (error) {
+      console.log('Error occurred while inserting');
+    } else {
+      console.log('inserted record', response);
+    }
+  });
 })
-
 
 
 
@@ -52,26 +70,23 @@ app.post('/login', (req, res) => {
 //MONGO DB
 const uri = 'mongodb+srv://' + process.env.ADMIN + ':' + process.env.PASS + '@' + process.env.HOST
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-let collection = null
+let userCollection = null
+let todoCollection = null
 
 client.connect()
   .then(() => {
-    // will only create collection if it doesn't exist
-    return client.db('XXXtest').collection('XXXtodos')
+    return client.db('todoApp')
   })
-  .then(__collection => {
-    // store reference to collection
-    collection = __collection
-    // blank query returns all documents
-    return collection.find({}).toArray()
+  .then(__database => {
+    userCollection = __database.collection('users')
+    todoCollection = __database.collection('todos')
   })
-  .then(console.log)
 
 
 
 //check connection
 app.use((req, res, next) => {
-  if (collection !== null) {
+  if (userCollection !== null && todoCollection !== null) {
     next()
   } else {
     res.status(503).send()

@@ -10,19 +10,15 @@
 </head>
 
 <body>
-    <!--     <div class="logo">
-        <img src="https://www.pikpng.com/pngl/b/346-3464524_wpilogo-worcester-polytechnic-institute-wpi-logo-clipart.png"
-            alt="WPI-Logo">
-
-    </div> -->
-    <h1> -- Todo List -- </h1>
+    <h1>Todo List of <%= name %>
+    </h1>
     <div id="task-input">
-        <form id="new-task-form">
-            <input type="text" name="new-task-input" id="new-task-input" onkeyup="success()"
+        <form action="/add" method="post" id="new-task-form">
+            <input type="text" name="new-task-input" id="new-task-input"
                 placeholder="What do you have planned?" />
             <input type="datetime-local" id="new-task-time" name="new-task-time" value="2018-06-12T19:30"
                 min="2022-09-01T00:00" max="2024-09-01T00:00">
-            <input type="submit" id="new-task-submit" value="ADD" disabled />
+            <input type="submit" id="new-task-submit" value="ADD"/>
             <input type="button" id="sortButton" value="Sort" />
         </form>
     </div>
