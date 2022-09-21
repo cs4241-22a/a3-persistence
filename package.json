@@ -1,12 +1,13 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "webware3",
+  "version": "0.0.1",
+  "description": "Webware a3",
+  "author": "JinRyoul Kim",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "express": "^4.18.1"
   }
 }
