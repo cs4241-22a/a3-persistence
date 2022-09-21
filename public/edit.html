@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Fruit Survey Edit Page</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Fruit Survey edit and view response page">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Fruitsurvey">
+  <meta name="author" content="Cather Zhang">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="container-fluid header-footer-background">
+    <div class="align-items-center">
+
+      <h1 class="bg-light text-dark text-center">Fruit Survey</h1>
+      
+    </div>
+  </header>
+
+  <div class="responses-background p-3">
+    <div id='info' class="container-fluid py-3">
+      <div class="row align-items-center text-center">
+        <div class="col">
+          <button type="button" class="btn btn-lg btn-warning" id="addResponseButton"  onclick='document.getElementById("addResponseBlock").style.display = "block"'>
+            Add a Response
+          </button>
+        </div>
+        <div class="col">
+          <a class="btn btn-lg btn-warning" id="signOutButton">Sign Out</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-center text-black" id="tableTitle">Response Table</h2>
+    <table id='response' class="table table-striped text-center">
+    </table>
+
+    <div class="responses-background p-3">
+      <div class="container-fluid py-3">
+
+
+        <div class="row align-items-start text-center" id="addResponseBlock">
+          
+          <h3>Add A Response</h3>
+
+          <div class="mb-3">
+              <form onSubmit="return false;">
+                <label for='name' class="form-label">What is your name?</label>
+                <input type='text' class="form-control" id='name' value="">
+              </form>
+          </div>
+            
+          <div class="mb-3">
+            <label for='year' class="form-label">What year are you?</label>
+            <select class="form-select" aria-label="Select a Student Year" id='year'>
+              <option value='none'></option>
+              <option value='Freshman'>Freshman</option>
+              <option value='Sophomore'>Sophomore</option>
+              <option value='Junior'>Junior</option>
+              <option value='Senior'>Senior</option>
+              <option value='Master'>Master</option>
+              <option value='PHD'>PHD</option>
+            </select>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for='gender' class="form-label">What is your gender?</label>
+            <select class="form-select" aria-label="Select a gender" id='gender'>
+              <option value='none'></option>
+              <option value='female'>Female</option>
+              <option value='male'>Male</option>
+              <option value='non-binary'>Non-Binary</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='calories' class="form-label">How much calories do you consume daily?
+              </label>
+              <input type='number' class="form-control" id='calories' value="">
+            </form>
+          </div>
+          
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='favoritefruit' class="form-label">What is your favorite fruit?</label>
+              <input type='text' class="form-control" id='fruit' value="">
+            </form>
+          </div>
+            
+            <button class="btn btn-danger" onclick='event.preventDefault(); submit();'>Add</button>
+          
+
+        </div>  
+
+        <div class="row align-items-start text-center" id="editResponseBlock">
+          <h3>Edit Response</h3>
+            
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='name' class="form-label">What is your name?</label>
+              <input type='text' class="form-control" id='editname' value="">
+            </form>
+          </div>
+
+          <div class="mb-3">
+            <label for='year' class="form-label">What year are you?</label>
+            <select class="form-select" aria-label="Select a Student Year" id='edityear'>
+              <option value='none'></option>
+              <option value='Freshman'>Freshman</option>
+              <option value='Sophomore'>Sophomore</option>
+              <option value='Junior'>Junior</option>
+              <option value='Senior'>Senior</option>
+              <option value='Master'>Master</option>
+              <option value='PHD'>PHD</option>
+            </select>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for='gender' class="form-label">What is your gender?</label>
+            <select class="form-select" aria-label="Select a gender" id='editgender'>
+              <option value='none'></option>
+              <option value='female'>Female</option>
+              <option value='male'>Male</option>
+              <option value='non-binary'>Non-Binary</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='calories' class="form-label">How much calories do you consume daily?
+              </label>
+              <input type='number' class="form-control" id='editcalories' value="">
+            </form>
+          </div>
+
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='favoritefruit' class="form-label">What is your favorite fruit?</label>
+              <input type='text' class="form-control" id='editfruit' value="">
+            </form>
+          </div>
+          <input type="hidden" id="hiddenRowIndex">
+          <button class="btn btn-danger" onclick='editClicked()'>Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src='js/editPage.js'></script>
+  
+</body>
+</html>

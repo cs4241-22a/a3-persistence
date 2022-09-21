@@ -1,116 +1,12 @@
-body {
-  background-color: #f5e960;
-  font-family: Rubik, sans-serif;
+.header-footer-background {
+    background-image: url("../images/fruits.jpg");
+    background-color: #f5e960;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: center;
+    
 }
 
-h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f2f5ff;
-  width: 1024px;
-  height: 60px;
-  color: #465362;
-}
-h2 {
-  margin-top: 10px;
-}
-table {
-  border-collapse: collapse;
-  border: 2px solid black;
-  letter-spacing: 1px;
-}
-
-td,
-th {
-  border: 1px solid black;
-  padding: 10px;
-  color: #465362;
-}
-
-.button {
-  display: flex;
-  background-color: #f49097;
-  color: #083d77;
-  font-weight: bold;
-  text-decoration: none;
-
-  align-items: center;
-  padding: 10px;
-  height: 30px;
-}
-.addResponseButton {
-  background-color: #dfb2f4;
-  padding: 5px;
-  height: 30px;
-  color: #465362;
-  font-family: Rubik, sans-serif;
-}
-
-.deleteButton, .editbutton {
-  font-family: Rubik, sans-serif;
-  background-color: #bedcfe;
-}
-
-.centerText {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.autoMargin {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-select, option {
-  font-family: Rubik, sans-serif;
-}
-.surveyQuestion {
-  padding: 20px;
-  line-height: 1.6;
-}
-
-#main-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 350px;
-  background-image: url('../picture/fruits.jpg');
-}
-
-#Buttons {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  margin-top: 20px;
-  color: #f49097;
-}
-
-#addResponseBlock {
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  background-color: #edebd7;
-}
-#resultTable {
-  margin-left: 30px;
-  margin-right:30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  background-color: #f3ffbd;
-}
-
-#information {
-  margin-left: 100px;
-  margin-right:  100px;
-  background-color: #C0D7BB;
-  padding: 10px;
-line-height: 1.6;
+.responses-background {
+    background-color: #f3ffbd;
 }

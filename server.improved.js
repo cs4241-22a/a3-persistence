@@ -1,237 +1,190 @@
 const express = require('express'),
-mongodb = require( 'mongodb' ),
-app = express(),
-serveStatic = require('serve-static'),
-bodyparser = require('body-parser'),
-cookieParser = require('cookie-parser'),
-cookie  = require( 'cookie-session' ),
-GitHubStrategy = require('passport-github2').Strategy,
-passport = require('passport'),
-MongoClient = mongodb.MongoClient;
+  app = express(),
+  serveStatic = require('serve-static'),
+  bodyparser = require('body-parser'),
+  cookieSession = require("cookie-session"),
+  cookieParser = require("cookie-parser"),
+  mongoose = require('mongoose'),
+  GitHubStrategy = require('passport-github2').Strategy,
+  passport = require('passport');
 
-
-
+// use express.urlencoded to get data sent by defaut form actions
+// or GET requests
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 require('dotenv').config();
 
+app.use(cookieSession({
+  name: "session",
+  keys: [process.env.KEY1, process.env.KEY2]
+}))
 
-app.use( express.json() );
-  app.use(express.urlencoded({ extended:true }));
-  app.use(cookieParser());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use( cookie({
-    name: 'session',
-    keys: [process.env.KEY1, process.env.KEY2]
-  }))
-  app.use(serveStatic('public', {'index' : ['login.html']}))
+mongoose.connect(process.env.MONGO_DB_URL);
 
-let loginCollection = null
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@' +process.env.HOST;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const userSchema = new mongoose.Schema({
+  username: String,
+  password: String,
 
-client.connect(err => {
-  loginCollection = client.db("a3database").collection("login");
+  responseList: {
+    response: [{
+      name: String,
+      year: String,
+      gender: String,
+      calories: Number,
+      fiber: Number,
+      fruit: String
+    }]
+  }
 });
 
 
-const http = require("http"),
-  fs = require("fs"),
-  mime = require("mime"),
-  dir = "public/",
-  port = 3000;
+const User = mongoose.model("User", userSchema);
 
-  passport.serializeUser(function(user, done){
-    done(null, user);
-  })
-  
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
-  })
+app.use(express.static('public'))
+app.use(bodyparser.json())
 
-  
-   
-   passport.use(new GitHubStrategy({
-     clientID: process.env.GITHUB_ID,
-     clientSecret: process.env.GITHUB_SECRET,
-     callbackURL: "https://localhost:3000"
-   },
-   function(accessToken, refreshToken, profile, done) {
-     return done(null, profile);
-   }))
-   
+app.use(serveStatic('public', { 'index': ['login.html'] }))
 
-  
-  app.get('/auth/error', (req, res) => res.send('Unknown Error'));
-  app.get('/github/logs',passport.authenticate('github', { failureRedirect: '/auth/error' }),
-  function(req, res) {
-    res.redirect('/route?id=' + req.user.id);
-  });
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
 
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
-  app.get('/route', (req, res) => {
-  
-    if(loginCollection!=null){
-      loginCollection.insertOne({username:req.query.id})
-      .catch(err => console.log(err)) 
-      .then(response => {
-        req.session.login = true;
-        req.session.username = req.query.id;
-        res.redirect("response.html");
-      });
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_SECRET,
+  callbackURL: "https://fruitsurvey.herokuapp.com/github/logs"
+},
+function(accessToken, refreshToken, profile, done) {
+  return done(null, profile);
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/auth/error', (req, res) => response.send("Unknown Error"))
+app.get('/github/logs', passport.authenticate('github', { failureRedirect: '/auth/error'}),
+function(req, res) {
+  res.redirect('/response?id=' + req.user.id)
+})
+
+app.get('/response', async (req, res) => {
+  const githubUser = new User( {
+    username: req.query.id,
+    password: "",
+    responseList: {
+      response: []
     }
-  })
+  });
+  githubUser.save();
+  req.session.login = true;
+  req.session.username = req.query.id;
+  res.redirect("edit.html")
+});
 
 
-//post functions:
-
-app.post('/createAccount', bodyparser.json(), function(request, response) {
-
-  if( loginCollection !== null ) {
-    loginCollection.find({ username: request.body.username }).toArray()
-    .then(result => {
-      if(result.length == 0){
-        loginCollection.insertOne( request.body )
-        .then( result => { 
-          response.json({isValid: true})
-        })
-        .catch(err => console.log(err)) 
-      }
-      else {
-        console.log("Account already exists, please login instead.")
-        response.json({isValid: false})
-      }
-    }) 
-  } 
-})
-
-
-
-app.post('/delete', bodyparser.json(), function(request, response) {
-  collection
-    .deleteOne({ _id:mongodb.ObjectId( request.body.id ) })
-    .then( result => response.json( result ) )
-})
-
-app.post('/update', bodyparser.json(), function(request, response) {
-  collection
-    .updateOne(
-      { _id:mongodb.ObjectId( request.body.modifyInput ) },
-      { $set:{ name:request.body.name,
-               gender:request.body.gender,
-               year:request.body.year,
-               calories:request.body.calories,
-               fiber:request.body.fiber,
-               favoritefruit:request.body.favoritefruit,
-              }}
-    )
-    .then( result => response.json( result ) )
-})
-
-app.post( '/signout', bodyparser.json(), function( request, response ) {
-  console.log("In sign out: " + request.session.login)
-  request.session.login = false
-  console.log("In sign out: " + request.session.login)
-  response.sendFile( __dirname + '/public/login.html' )
-})
-
-app.post( '/submit', bodyparser.json(), function( request, response ) {
-  console.log("In submit");
-  request.body.username = request.session.username;
-  collection.insertOne( request.body )
-    .then( insertResponse => collection.findOne( insertResponse.insertedId ) ) 
-    .then( findResponse   => response.json( findResponse ) )
-  .catch(err => console.log(err)) 
-})
-
-app.post('/getResponse',  bodyparser.json(), function(request, response) {
-  if( collection !== null ) {
-    collection.findOne( { _id:mongodb.ObjectId( request.body.id ) } )
-      .then( result => { response.json( result ) })
-  }
-})
-
-//get functions:
-app.get('/getData', function(request, response) {
-  if( collection !== null ) {
-    collection.find({ username:request.session.username }).toArray().then( result => { response.json( result ) } )
-  }
-})
-
-const appdata = [
-  {
-    responseNum: 1,
-    name: "Cather",
-    year: "Junior",
-    sex: "Female",
-    calories: 2500,
-    fiber: 35,
-    favoritefruit: "Watermelon",
-  },
-];
-const deleteItem = function (jsonData) {
-  //console.log(appdata);
-  appdata.splice(jsonData["deletingResponse"], 1);
-};
-
-
-const handleGet = function (request, response) {
-  const filename = dir + request.url.slice(1);
-
-  if (request.url === "/") {
-    sendFile(response, "public/index.html");
-  } else if (request.url === "/getResponses") {
-    response.writeHeader(200, { "Content-Type": "text/plain" });
-    response.end(JSON.stringify(appdata));
+app.get('/redirectToEdit', bodyparser.json(), (req, res) => {
+  if (req.session.login === true) {
+    res.json({ redirect: true });
   } else {
-    sendFile(response, filename);
+    res.json({ redirect: false });
   }
-};
+})
 
-const handlePost = function (request, response) {
-  let dataString = "";
+app.get('/getUsername', bodyparser.json(), (req, res) => {
+  let username = req.session.username;
+  res.json({ username: username });
+})
 
-  request.on("data", function (data) {
-    dataString += data;
-  });
+app.post('/getTableData', bodyparser.json(), async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user !== null) {
+    console.log(user.responseList);
+    res.json({ rows: user.responseList });
+  }
+})
 
-  request.on("end", function () {
-    //console.log(JSON.parse(dataString));
-    if (request.url === "/submit") {
-      appdata.push(JSON.parse(dataString));
-    } else if (request.url === "/delete") {
-      console.log(JSON.parse(dataString));
-      deleteItem(JSON.parse(dataString));
-    }
-    //console.log(appdata);
-    // ... do something with the data here!!!
-    for (let i = 0; i < appdata.length; i++) {
-      let response = appdata[i];
-      response.fiber = amountFiber(response.calories);
-    }
-    response.writeHead(200, "OK", { "Content-Type": "text/plain" });
-    response.end();
-  });
-};
 
-const sendFile = function (response, filename) {
-  const type = mime.getType(filename);
+app.post('/delete', bodyparser.json(), async (req, res) => {
+  console.log("Deleting a row!");
+  const user = await User.findOne({ username: req.body.username });
+  if (user !== null) {
+    console.log("Found the user!");
+    let rowIndex = req.body.deletingItem;
+    user.responseList.response.splice(rowIndex, 1);
+    user.save();
+    res.json({ success: true });
+  }
+})
 
-  fs.readFile(filename, function (err, content) {
-    // if the error = null, then we've loaded the file successfully
-    if (err === null) {
-      // status code: https://httpstatuses.com
-      response.writeHeader(200, { "Content-Type": type });
-      response.end(content);
-    } else {
-      // file not found, error code 404
-      response.writeHeader(404);
-      response.end("404 Error: File Not Found");
-    }
-  });
-};
+app.post('/edit', bodyparser.json(), async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user !== null) {
+    let rowIndex = req.body.index;
+    console.log("splicing at index" + rowIndex);
+    user.responseList.response.splice(rowIndex, 1, req.body);
+    console.log(req.body);
+    user.save();
+    res.json({ success: true });
+  }
+})
+
+app.post('/submit', bodyparser.json(), async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user !== null) {
+    user.responseList.response.push(req.body);
+    user.save();
+    res.json({ success: true });
+  }
+})
+
+app.post('/login', bodyparser.json(), async (req, res) => {
+  console.log(req.body.username);
+  const user = await User.findOne({ username: req.body.username, password: req.body.password });
+  if (user == null) {
+    req.session.login = false;
+    res.json({ loginSuccess: false });
+  } else {
+    req.session.login = true;
+    req.session.username = req.body.username;
+    res.json({ loginSuccess: true });
+    console.log("Successful login!");
+  }
+})
+
+app.put('/signOut', (req, res) => {
+  req.session.login = false;
+  req.session.username = "";
+  res.json({ signOutSuccess: true });
+});
+
+app.post('/createAccount', bodyparser.json(), async (req, res) => {
+  const user = await User.findOne({ username: req.body.username });
+  if (user == null) {
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      responseList: {
+        response: []
+      }
+    });
+    newUser.save();
+
+    req.session.login = true;
+    req.session.username = req.body.username;
+    res.json({ registrationSuccess: true });
+    console.log("Successful created account!");
+  } else {
+    req.session.login = false;
+    res.json({ registrationSuccess: false });
+  }
+})
+
+
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
-
-
