@@ -171,7 +171,7 @@ app.get('/items', (req, res) => {
   console.log(req.body._itemID)
   collection
     .updateOne(
-      {_id:mongodb.ObjectId( req.session.passport.user), _itemID:mongodb.ObjectId( req.body._itemID)},
+      {_id:mongodb.ObjectId( req.session.passport.user), "items._itemID":mongodb.ObjectId( req.body._itemID)},
       { $set: {"items.$":updatedItem}}
     )
     .then( result => {
