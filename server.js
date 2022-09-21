@@ -96,11 +96,7 @@ app.post("/update", (req, res) => {
 
 /* ------------------- LOGIN  ------------------- */
 app.post("/login", (req, res) => {
-  console.log(req.body);
-
   const user = req.body.email;
-
-  // if the user exist in the database, check the password against it
 
   if (false) {
     res.redirect("views/task.html");
