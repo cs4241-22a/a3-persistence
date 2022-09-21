@@ -8,7 +8,7 @@ a database (mongodb), and a CSS application framework / template of your choice 
 
 ## Activity Logger
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+https://a3-nicholas-li.herokuapp.com/ on Heroku
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
@@ -63,7 +63,7 @@ A server using Express, at least five pieces of Express middleware, and a persis
 
 
 ## Technical Achievements
-- **Tech Achievement 1**: I am hosting my site on a different service Heroku Digital Ocean
+- **Tech Achievement 1**: I am hosting my site on a different service Heroku https://a3-nicholas-li.herokuapp.com/. I like Heroku more than Glitch in the sense that I feel it is faster. The site does not need an initial load at the beginning and it was also easy to use. I also like that it has an auto deploy function that automatically grabs from the main branch and updates. I was also easy to setup since I only needed to connect to github and it allows to connect to the repo. I have not found anything that I like Glitch more than Heroku at the moment.
 - **Tech Achievement 2**: I got 100% on all four lighthouse tests for this assignment for all three pages of my website. I have included them in the photo folder.
 - 
 
