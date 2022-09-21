@@ -2,13 +2,13 @@ const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       app = express()
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Hello Wordld!'))
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
-/*app.use( express.static('public') )
+app.use( express.static('public') )
 app.use( express.json() )
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+const uri = 'mongodb+srv://csnow99:marketGhost@cluster0.9mcegoz.mongodb.net/?retryWrites=true&w=majority'
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
@@ -28,5 +28,3 @@ app.get( '/', (req,res) => {
     collection.find({ }).toArray().then( result => res.json( result ) )
   }
 })
-  
-app.listen( 3000 )*/
