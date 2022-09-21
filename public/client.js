@@ -12,6 +12,7 @@
 
     const remove = function(){ console.log("Hello Again")}
 const add = function( e ) {
+  console.log("add button is on")
 
     // prevent default form action from being carried out
     e.preventDefault()
@@ -24,7 +25,6 @@ const add = function( e ) {
     const field1 = document.querySelector( '#TypeOfTask')
     const field2 = document.querySelector('#Difficulty')
     const field3= document.querySelector("#Semester")
-debugger
       json  = { Task: input.value, TypeOfTask: field1.value, Difficulty: field2.value, Semester: field3.value},
       body = JSON.stringify( json )
     
@@ -32,17 +32,16 @@ debugger
       method:'POST',
       body 
     })
-    .then( function( response ) {
-      // do something with the reponse 
-      console.log( response )
-      // return response.json()
-      json.forEach( item =>{
-        //////////MAKE initial elements in a div clear before adding new data
-        let tr = document.createElement('tr')
-        tr.innerText = JSON.stringify(item)
-        TaskBase.appendChild(tr)
-      })
-    })
+    .then(response=> response.json())
+    // .then( json => {
+    //   console.log(json)
+    //   json.forEach( item =>{
+    //     //////////MAKE initial elements in a div clear before adding new data
+    //     let tr = document.createElement('tr')
+    //     tr.innerText = JSON.stringify(item)
+    //     TaskBase.appendChild(tr)
+    //   })
+    // })
 
     return false
   }
