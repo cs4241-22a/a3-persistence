@@ -42,6 +42,10 @@ app.get('/auth/login', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/login.html'))
 })
 
+app.get('/', checkAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+})
+
 app.get('/auth/error', (req, res) => res.send('Unknown Error'))
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }))
 app.get('/auth/github/callback',
