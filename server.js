@@ -73,49 +73,20 @@ app.post( '/login', (req,res)=> {
   })
 })
 
-
-// const middleware_post = (request, response, next) => {
-//   let dataString = ''
-
-//   request.on( 'data', function( data ) {
-//       dataString += data 
-//   })
-
-//   request.on( 'end', function() {
-
-//     if (request.url === "/submit") {
-//       let updatedDataset = calculateDueDate(dataString)
-//       let newItem = JSON.parse( updatedDataset ) 
-//       appdata.push( newItem )
-//       collection.insertOne( newItem ).then( result => request.json = JSON.stringify(result) )
-//     } else if (request.url === '/delete') {
-//       appdata.forEach( (item, i) => {
-//         if (JSON.stringify(item) == dataString) {
-//           appdata.splice(i, 1)
-//         }
-//       })
-//     }
-//     //request.json = JSON.stringify(appdata)
-//     next()
-//   })
-// }
-
-// //server logic
-// function calculateDueDate (dataString) {
-//   let obj = JSON.parse(dataString)
-
-//    //creation of derived data field
-//    if (obj.priority == 'Yes') {
-//     obj.dueDate = '1 day'
-//   } else {
-//     obj.dueDate = '2 days'
-//   }
-
-//   return JSON.stringify(obj)
-// }
-
-//app.use(middleware_post)
-//app.use(express.json())
+// add some middleware that always sends unauthenicated users to the login page
+app.use( function( req,res,next) {
+  if( loggedIn === true ) {
+    next()
+  } else {
+    res.sendFile(__dirname + '/public/index.html', function (err) {
+      if (err) {
+        next(err)
+      } else {
+        console.log('Sent:', __dirname + '/public/index.html')
+      }
+    })
+  }
+})
 
 // route to get all docs
 app.get( '/', (req,res) => {
@@ -134,15 +105,6 @@ function compare( a, b ) {
   }
   return 0;
 }
-
-// add some middleware that always sends unauthenicated users to the login page
-app.use( function( req,res,next) {
-  if( loggedIn === true ) {
-    next()
-  } else {
-    res.sendFile( __dirname + '/public/index.html')
-  }
-})
 
 app.post( '/', express.json(), ( req, res ) => {
   let userdata = []
@@ -181,23 +143,30 @@ app.post( '/submit', express.json(), ( req, res ) => {
       res.end( JSON.stringify(userdata) )
     })
   })
+})
 
-  
-  //
-
-  //collection.insertOne( req.body ).then( result => res.json( result ) )
-  // collection.insertOne( req.body )
-  // //console.log(req.body)
-  // let appdata = []
-  // (collection.find({ }).toArray()).forEach(element => {
-  //   appdata.push(element)
-  // });
-  // res.writeHead( 200, { 'Content-Type': 'application/json'})
-  // res.end( JSON.stringify(appdata) )
-
-  //collection.insertOne( req.body ).then( result => console.log(result) )
-  // our request object now has a 'json' field in it from our previous middleware
-
+app.post( '/save', express.json(), ( req, res ) => {
+  let userdata = []
+  client.db( 'Test' ).collection( 'DataTest' ).find().forEach(element => {
+    if (element.username === loggedInUser) {
+      userdata = element.data
+    }
+  })
+  .then (function (e) {
+    userdata.forEach( (item, i) => {
+      if (item.id === req.body.id) {
+        item.item = req.body.item
+        item.date = req.body.date
+        item.priority = req.body.priority
+      }
+    })
+    //update collection
+    collection.updateOne({ _id:mongodb.ObjectId( objectId ) }, { $set:{ data:userdata } })
+    .then (function (e) {
+      res.writeHead( 200, { 'Content-Type': 'application/json'})
+      res.end( JSON.stringify(userdata) )
+    })
+  })
 })
 
 app.post( '/delete', ( req, res ) => {
@@ -208,7 +177,6 @@ app.post( '/delete', ( req, res ) => {
     }
   })
   .then (function (e) {
-    req.body.dueDate = '1 day'
     userdata.forEach( (item, i) => {
       if (item.id === req.body.id) {
         userdata.splice(i, 1)
@@ -222,9 +190,5 @@ app.post( '/delete', ( req, res ) => {
     })
   })
 })
-
-
-
-//app.get( '/', ( req, res ) => res.sendFile('./public/login.html') )
 
 app.listen( process.env.PORT || 3000 )

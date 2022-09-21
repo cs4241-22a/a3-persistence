@@ -41,6 +41,22 @@ const submit = function( e ) {
     return false
   }
 
+  function saveRow ( json ) {
+    body = JSON.stringify(json)
+    fetch( '/save', {
+      method:'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body 
+    })
+    .then( function( response ) {
+      return response.json()
+    })
+    .then ( function ( json ) {
+      alert("Row saved!")
+      renderTable(json)
+    })
+  }
+
   function deleteRow ( json ) {
     body = JSON.stringify(json)
     fetch( '/delete', {
@@ -71,23 +87,49 @@ const submit = function( e ) {
       const newRow = document.createElement('tr')
 
       const item = document.createElement('td')
-      item.innerText = json.item
+      const itemText = document.createElement('input')
+      itemText.type = 'text'
+      itemText.value = json.item
+      item.appendChild(itemText)
+      //item.innerText = json.item
   
       const dueDate = document.createElement('td')
-      dueDate.innerText = json.date
+      const dateText = document.createElement('input')
+      dateText.type = 'date'
+      dateText.value = json.date
+      dueDate.appendChild(dateText)
+      //dueDate.innerText = json.date
       
       const priority = document.createElement('td')
-      priority.innerText = json.priority
+      const priorityText = document.createElement('input')
+      priorityText.type = 'text'
+      priorityText.value = json.priority
+      priority.appendChild(priorityText)
+      //priority.innerText = json.priority
   
   
       const actions = document.createElement('td')
+
+      const saveButton = document.createElement('button')
+      saveButton.className = 'tableButtons'
+      saveButton.id = 'save_button'
+      saveButton.onclick = function ( e ) {
+        json.item = itemText.value
+        json.date = dateText.value
+        json.priority = priorityText.value
+        saveRow(json)
+      }
+      saveButton.innerText = 'Save'
+
       const deleteButton = document.createElement('button')
       deleteButton.className = 'tableButtons'
+      deleteButton.id = 'delete_button'
       deleteButton.onclick = function ( e ) {
         deleteRow(json)
       }
       deleteButton.innerText = 'Delete'
   
+      actions.appendChild(saveButton)
       actions.appendChild(deleteButton)
   
       newRow.appendChild(item)

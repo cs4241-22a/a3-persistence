@@ -17,6 +17,7 @@ h1, label, button, input {
     padding: 7px 20px;
     text-align: center;
     text-decoration:blue;
+    border-radius: 8px;
 }
 th, td {
     border: 1px solid;
@@ -35,10 +36,13 @@ table {
 .bold {
     font-weight: bold;
 }
-#login_button, #submit_button {
+#login_button, #submit_button, #save_button{
     background-color: darkgreen;
 }
-.tableButtons{
+#delete_button {
     background-color: darkred;
+}
+.tableButtons{
+    display:inline;
     width: 100%;
 }
