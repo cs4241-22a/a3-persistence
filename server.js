@@ -44,6 +44,8 @@ app.use("/js", express.static("app/js"));
 app.use(["/", "/load"], checkAuthentication, async (req, res) => {
   const data = await Task.find({ user: req.user.id }).lean();
 
+  console.log(data);
+
   res.render("index", { data, layout: false });
 });
 

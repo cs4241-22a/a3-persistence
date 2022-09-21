@@ -41,6 +41,7 @@
           <div
             class="card rounded shadow w-100 mb-3"
             style="background-color: #2d3238"
+            id="{{this._id}}"
           >
             <div id="card-group">
               <div class="card-body">
@@ -50,7 +51,10 @@
                     type="button"
                     class="btn-close btn-close-white"
                     aria-label="Close"
-                  ></button>
+                    onclick="remove(event)"
+                    id="{{this._id}}"
+                  >
+                  </button>
                 </div>
                 <h6 class="card-subtitle my-2">
                   <span class="badge bg-light text-black">Due on
@@ -68,6 +72,6 @@
         {{/each}}
       </main>
     </div>
-    <script type="text/javascript" src="/js/window.js"></script>
+    <script type="text/javascript" src="/js/request.js"></script>
   </body>
 </html>
