@@ -106,6 +106,18 @@ const submit = function( e ) {
   }
 
   window.onload = function() {
+    body = ""
+    fetch( '/', {
+      method:'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body
+    })
+    .then( function( response ) {
+      return response.json()
+    })
+    .then ( function ( json ) {
+      renderTable(json)
+    })
     const submit_button = document.getElementById( 'submit_button' )
     submit_button.onclick = submit
   }

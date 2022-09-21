@@ -14,7 +14,7 @@ const uri = 'mongodb+srv://'+process.env.USER_NAME+':'+process.env.PASSWORD+'@'+
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
-
+let loggedIn = false
 let loggedInUser = ""
 let objectId = ""
 let itemId = 0
@@ -44,7 +44,7 @@ app.post( '/login', (req,res)=> {
     if (element.username === req.body.username && element.password === req.body.password) {
       //if the account exists and username and password are correct, redirect to main.html
       seen = true
-      req.session.login = true
+      loggedIn = true
       loggedInUser = element.username
       objectId = element._id
       element.data.forEach(item => {
@@ -65,7 +65,7 @@ app.post( '/login', (req,res)=> {
       req.body.data = []
       collection.insertOne( req.body ).then (result => objectId = result.insertedId)
       .then (function (e) {
-        req.session.login = true
+        loggedIn = true
         loggedInUser = req.body.username
         res.redirect( 'main.html' )
       }) 
@@ -73,13 +73,6 @@ app.post( '/login', (req,res)=> {
   })
 })
 
-// add some middleware that always sends unauthenicated users to the login page
-app.use( function( req,res,next) {
-  if( req.session.login === true )
-    next()
-  else
-    res.sendFile( __dirname + '/public/index.html' )
-})
 
 // const middleware_post = (request, response, next) => {
 //   let dataString = ''
@@ -141,6 +134,29 @@ function compare( a, b ) {
   }
   return 0;
 }
+
+// add some middleware that always sends unauthenicated users to the login page
+app.use( function( req,res,next) {
+  if( loggedIn === true ) {
+    next()
+  } else {
+    res.sendFile( __dirname + '/public/index.html')
+  }
+})
+
+app.post( '/', express.json(), ( req, res ) => {
+  let userdata = []
+  client.db( 'Test' ).collection( 'DataTest' ).find().forEach(element => {
+    if (element.username === loggedInUser) {
+      userdata = element.data
+    }
+  })
+  .then (function (e) {
+    res.writeHead( 200, { 'Content-Type': 'application/json'})
+    res.end( JSON.stringify(userdata) )
+
+  })
+})
 
 app.post( '/submit', express.json(), ( req, res ) => {
   let userdata = []
