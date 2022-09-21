@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // cookie middleware! The keys are used for encryption and should be
 // changed
-app.use( cookie({
+app.use(cookie({
   name: 'session',
   keys: ['key1', 'key2']
 }))
@@ -30,11 +30,27 @@ app.listen(3000)
 //ROUTES
 //
 app.get('/', (req, res) => {
-  if( req.session.login === true ){
+  if (req.session.login === true) {
     res.render('./login.ejs')
-  }else{
+  } else {
     res.render('./index.ejs')
   }
+})
+
+app.post('/edit', async (req, res) => {
+  const name = req.body.name
+  const oldValue = req.body.oldValue
+  const todo = req.body.edited
+  console.log("name:"+name)
+  console.log("v:"+oldValue)
+  console.log("todo:"+todo)
+
+
+  await todoCollection.updateOne({ name: name, 'new-task-input': oldValue },
+    { $set: { name: name, 'new-task-input': todo } })
+
+  let todos = await todoCollection.find({ name: name }).toArray()
+  res.render('index.ejs', { name: req.body.name, results: todos })
 })
 
 app.get('/login', (req, res) => {
@@ -62,7 +78,7 @@ app.post('/login', async (req, res) => {
         console.log('inserted record', response);
       }
     });
-    res.render('login.ejs',{msg:'user was created, you can login now!'})
+    res.render('login.ejs', { msg: 'user was created, you can login now!' })
   }
 })
 

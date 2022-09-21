@@ -28,10 +28,13 @@
         <ul>
             <% for(var i=0; i<results.length; i++) { %>
                 <div id="task">
-                    <input type="text" name="new-task-input" id="new-task-input"
-                        value='<%= results[i]["new-task-input"] %>' />
-                    <button>Save</button>
-                    <button>&#x1F5D1</button>
+                    <form action="/edit" id="edit" method="post">
+                        <input type="hidden" id="name" name="name" value="<%= name %>">
+                        <input type="hidden" id="oldValue" name="oldValue" value='<%= results[i]["new-task-input"] %>'>
+                        <input type="text" name="edited" id="edited" value='<%= results[i]["new-task-input"] %>' />
+                        <button id="save" name="save">Save</button>
+                        <button id="delete" name="delete" >&#x1F5D1</button>
+                    </form>
                 </div>
                 <% } %>
         </ul>
