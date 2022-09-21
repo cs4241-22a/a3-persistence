@@ -81,8 +81,8 @@ const onEditSubmit = function(id)
 const resetEditEntry = function(id)
 {
   let name = document.getElementById(`name-${id}`).value;
-  let price = document.getElementById(`name-${id}`).value;
-  let quantity = document.getElementById(`name-${id}`).value
+  let price = document.getElementById(`price-${id}`).value;
+  let quantity = document.getElementById(`quantity-${id}`).value
 
   let newHTML =`<th>${name}</th>`
   newHTML += `<th>${price}</th>`
