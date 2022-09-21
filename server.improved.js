@@ -1,12 +1,13 @@
 const { log } = require("console");
 
-const http = require("http"),
-  fs = require("fs"),
-  // IMPORTANT: you must run `npm install` in the directory for this assignment
-  // to install the mime library used in the following line of code
-  mime = require("mime"),
-  dir = "public/",
-  port = 3000;
+//use express to create a server
+const express = require("express");
+const app = express();
+const port = 3000;
+const mime = require("mime");
+const fs = require("fs");
+const dir = "public/";
+
 
 const yahooFinance = require("yahoo-finance2").default;
 
@@ -16,19 +17,12 @@ const stocks = [
   { symbol: "f", price: 0, dateAdded: new Date() },
 ];
 
-const server = http.createServer(function (request, response) {
-  if (request.method === "GET") {
-    handleGet(request, response);
-  } else if (request.method === "POST") {
-    handlePost(request, response);
-  }
-});
-
 const handleGet = async function (request, response) {
   const filename = dir + request.url.slice(1);
 
   if (request.url === "/") {
-    sendFile(response, "public/index.html");
+    //send the index.html file
+    response.sendFile("index.html");
   } //check for a request for stocks
   else if (request.url === "/stocks") {
     response.writeHead(200, { "Content-Type": "application/json" });
@@ -58,11 +52,10 @@ const handleGet = async function (request, response) {
       response.end("Stock not found");
     }
     //otherwise, return the stock data
-
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(historicalData));
   } else {
-    sendFile(response, filename);
+    response.sendFile(filename);
   }
 };
 
@@ -153,21 +146,14 @@ const handlePost = async function (request, response) {
   });
 };
 
-const sendFile = function (response, filename) {
-  const type = mime.getType(filename);
+app.use(express.static("public"));
 
-  fs.readFile(filename, function (err, content) {
-    // if the error = null, then we've loaded the file successfully
-    if (err === null) {
-      // status code: https://httpstatuses.com
-      response.writeHeader(200, { "Content-Type": type });
-      response.end(content);
-    } else {
-      // file not found, error code 404
-      response.writeHeader(404);
-      response.end("404 Error: File Not Found");
-    }
-  });
-};
+//if there is any type of get request, call the handleGet function with the request and response as parameters
+app.get("*", handleGet);
 
-server.listen(process.env.PORT || port);
+//if there is any type of post request, call the handlePost function with the request and response as parameters
+app.post("*", handlePost);
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
