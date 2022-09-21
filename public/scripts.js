@@ -25,7 +25,10 @@ window.onload = function (){
     })
         .then(response => (response.text()))
         .then(text => {
-            user = text
+            user = text;
+            let header = document.getElementById("header");
+            header.innerHTML = "Logged In As: " + text + "  ";
+            header.innerHTML += "<br> <a href='index.html'> Log Out</a> "
         })
 
     fetch('/starting', {
