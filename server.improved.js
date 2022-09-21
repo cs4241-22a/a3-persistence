@@ -1,4 +1,3 @@
-const { ObjectID } = require('bson')
 const express = require('express'),
       mongodb = require('mongodb'),
       cookieSession = require('cookie-session'),
