@@ -11,28 +11,33 @@
 
 <body>
     <h1>Todo List of <%= name %>
+            <hr>
     </h1>
     <div id="task-input">
         <form action="/add" method="post" id="new-task-form">
             <input type="hidden" id="name" name="name" value="<%= name %>">
             <input type="text" name="new-task-input" id="new-task-input" placeholder="What do you have planned?" />
-            <input type="datetime-local" id="new-task-time" name="new-task-time" value="2018-06-12T19:30"
-                min="2022-09-01T00:00" max="2024-09-01T00:00">
-            <input type="submit" id="new-task-submit" value="ADD" />
-            <input type="button" id="sortButton" value="Sort" />
+            <!--  <input type="datetime-local" id="new-task-time" name="new-task-time" value="2022-28-09T19:30"
+                min="2022-09-01T00:00" max="2024-09-01T00:00"> -->
+            <input type="submit" id="new-task-submit" value="&#x2795" />
         </form>
     </div>
+    <hr>
+
     <div id="tasks">
         <ul>
             <% for(var i=0; i<results.length; i++) { %>
-                <li>
-                    <%= results[i]["new-task-input"] %>
-                    <%= results[i]["new-task-time"] %>
-                </li>
-            <% } %>
+                <div id="task">
+                    <input type="text" name="new-task-input" id="new-task-input"
+                        value='<%= results[i]["new-task-input"] %>' />
+                    <button>Save</button>
+                    <button>&#x1F5D1</button>
+                </div>
+                <% } %>
         </ul>
     </div>
 </body>
+<footer> <a href="#">Back to top ⬆</a> </footer>
 
 <script src="./js/scripts.js"></script>
 

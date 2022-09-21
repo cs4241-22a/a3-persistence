@@ -114,3 +114,11 @@ add a little more detail about what it does.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+
+Proximity of label adjusted-> labels and inputs are closer to each other. h1 was also visually seperated from the inputs.
+
+Contrast
+
+Repetition
+
+Alignment: the main input was made to be a centered one-liner so that it is easy to see and use. The alignment of the added tasks is different so that one can easily differ between the two.
