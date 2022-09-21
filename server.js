@@ -1,8 +1,10 @@
 const express    = require('express'),
       path       = require('path'),
       mongodb    = require('mongodb'),
-      cookieSession = require('cookie-session'),
+      timeout = require('connect-timeout'),
       session = require('express-session'),
+      bodyParser = require('body-parser'),
+      errorHandler = require('errorhandler'),
       app        = express();
 
 const uri = 'mongodb+srv://sean:Marley07@assignment-3.xnqev8q.mongodb.net/?retryWrites=true&w=majority';
@@ -32,6 +34,8 @@ app.use( (req,res,next) => {
     }
 });
 
+app.use(timeout('10s'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
@@ -39,6 +43,8 @@ app.use(session({
     name: 'uniqueSessionID',
     saveUninitialized:false
 }));
+
+app.use(bodyParser.json())
 
 app.get('/main', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/main.html'));
@@ -55,7 +61,7 @@ app.post('/authenticate', (req, res) => {
     collection.find({ username: user}).toArray().then(result => {
         if(typeof result[0] === 'undefined')
         {
-            res.end(JSON.stringify("false"));
+            app.use(errorHandler());
         }
         if(result[0].password === req.body.password)
         {

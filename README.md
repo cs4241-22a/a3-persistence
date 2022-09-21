@@ -8,8 +8,8 @@ The biggest challenge I found was the authentication. I spent multiple hours wor
 For this project, I used Bootstrap 5.2.1. I used this CSS Framework becuase it was the most popular out of the general purpose frameworks. The only CSS modification I used was creating a border around the table that held the results from the database.
 
 The Express Middleware Packages I used were...
-1. 
-2. 
-3. 
-4. 
-5. 
+1. Session: I used this to keep a users session information stored to only show their information.
+2. Timeout: I used this to set a 10 second timeout for requests
+3. Serve-Static: I used this to serve all of the html and js files (express.static(...))
+4. Body-Parser: To simplify converting JSON files
+5. Errorhandler: I used this to throw an error if a username is not on file
