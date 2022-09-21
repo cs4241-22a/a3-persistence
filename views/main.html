@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <!-- <link rel = "stylesheet" href="/style.css"/> -->
+     <script src= "/client.js"> </script> <!-- when you use exprss.static on public, you dont need to write public in the client.js link-->
+  </head>
+  <body>
+  
+    <form action="">
+      <h1> Task Manager</h1>
+      <div >
+        <div id="inputs" class="inputsAndButtons">
+          <label for="newTask">New Task:</label>
+          <input type="text" id="newTask" placeholder="Type task here" />
+          <div id="dropDowns">
+            <select id="TypeOfTask">
+              <option value="School">School</option>
+              <option value="Work">Work</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <select id="Difficulty">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+
+            <select id="Semester">
+              <option value="Fall">Fall</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="inputsAndButtons">
+          <br />
+          <div id="buttons" class="inputsAndButtons">
+            <button id="addButton">add</button>
+            <button id="removeButton">remove</button>
+            <button id="resultsButton">Results</button>
+          </div>
+          <p class="guides">
+            Click 'Submit' look at all of your task ( 1 task is already premade
+            for you)
+            <br />
+            <br />
+            Click 'Delete' will delete the task identitcal to the one that you
+            have in your field.
+          </p>
+          <div class="toDoList" id="toDoList">
+            <h1><u>Tasks to Complete</u></h1>
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </form>
+    <table id="TaskBase"></table>
+  </body>
+</html>

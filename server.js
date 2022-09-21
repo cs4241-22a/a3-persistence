@@ -50,55 +50,73 @@ app.get( '/', (req,res) => {
 })
 
 app.post( '/add', (req,res) => {
-  console.log("handling /add")
+  // console.log("handling /add")
   // assumes only one object to insert
   collection.insertOne( req.body ).then( result => res.json( result ) )
 })
 
+// assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
+app.post( '/remove', (req,res) => {
+  collection
+    .deleteOne({ _id:mongodb.ObjectId( req.body._id ) })
+    .then( result => res.json( result ) )
+})
 
-// cookie  = require( 'cookie-session' )
-// // use express.urlencoded to get data sent by defaut form actions
-// // or GET requests
-// app.use( express.urlencoded({ extended:true }) )
+app.post( '/update', (req,res) => {
+  collection
+    .updateOne(
+      { _id:mongodb.ObjectId( req.body._id ) },
+      { $set:{ name:req.body.name } }
+    )
+    .then( result => res.json( result ) )
+})
 
-// // cookie middleware! The keys are used for encryption and should be
-// // changed
-// app.use( cookie({
-//   name: 'session',
-//   keys: ['key1', 'key2']
-// }))
 
-// app.post( '/login', (req,res)=> {
-//   // express.urlencoded will put your key value pairs 
-//   // into an object, where the key is the name of each
-//   // form field and the value is whatever the user entered
-//   console.log( req.body )
+const cookie  = require( 'cookie-session' )
+// use express.urlencoded to get data sent by defaut form actions
+// or GET requests
+app.use( express.urlencoded({ extended:true }) )
+
+// cookie middleware! The keys are used for encryption and should be
+// changed
+app.use( cookie({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
+app.post( '/login', (req,res)=> {
+  // express.urlencoded will put your key value pairs 
+  // into an object, where the key is the name of each
+  // form field and the value is whatever the user entered
+  console.log( req.body )
   
-//   // below is *just a simple authentication example* 
-//   // for A3, you should check username / password combos in your database
-//   if( req.body.password === 'test' ) {
-//     // define a variable that we can check in other middleware
-//     // the session object is added to our requests by the cookie-session middleware
-//     req.session.login = true
+  // below is *just a simple authentication example* 
+  // for A3, you should check username / password combos in your database
+  if( req.body.password === 'test' ) {
+    // define a variable that we can check in other middleware
+    // the session object is added to our requests by the cookie-session middleware
+    req.session.login = true
     
-//     // since login was successful, send the user to the main content
-//     // use redirect to avoid authentication problems when refreshing
-//     // the page or using the back button, for details see:
-//     // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-//     res.redirect( 'main.html' )
-//   }else{
-//     console.log(" wrong passowrd")
-//     // password incorrect, redirect back to login page
-//     res.sendFile( __dirname + '/views/index.html' )
-//   }
-// })
+    // since login was successful, send the user to the main content
+    // use redirect to avoid authentication problems when refreshing
+    // the page or using the back button, for details see:
+    // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
+    res.redirect( 'main.html' )
+  }else{
+    console.log(" wrong passowrd")
+    // password incorrect, redirect back to login page
+    // res.sendFile( __dirname + '/views/index.html' )
+    res.sendFile( __dirname + '/index.html' )
+  }
+})
 
-// // add some middleware that always sends unauthenicaetd users to the login page
-// app.use( function( req,res,next) {
-//   if( req.session.login === true )
-//     next()
-//   else
-//     res.sendFile( __dirname + '/views/index.html' )
-// })
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use( function( req,res,next) {
+  if( req.session.login === true )
+    next()
+  else
+    // res.sendFile( __dirname + '/views/index.html' )
+    res.sendFile( __dirname + '/index.html' )
+})
 
 app.listen( process.env.PORT || 3000 )
