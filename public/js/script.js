@@ -24,7 +24,7 @@ const getData = function() {
   const createTable = function(jsonData) {
     //console.log(jsonData[0].items)
     const table = document.getElementById("dataTable")
-    table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th></tr>"
+    table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th> <th></th> <th></th></tr>"
     
     jsonData.forEach(entry => {
       table.innerHTML += `<tr id="row-${entry._itemID}"> <th>${entry.name}</th> <th>${entry.price}</th> <th>${entry.quantity}</th><th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="onEditClick(\'${entry._itemID}\', \'${entry.name}\', \'${entry.price}\', \'${entry.quantity}\')">Edit</button><th></tr>`
