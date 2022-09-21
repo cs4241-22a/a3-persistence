@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,7 +9,9 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"
+    ></script>
     <title>🌑🔭</title>
   </head>
   <body>
@@ -36,40 +37,37 @@
             Add
           </button>
         </div>
-        <div
-          class="card rounded shadow w-100 mb-3"
-          style="background-color: #2d3238"
-        >
-          <div id="card-group">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-end">
-                <h6 class="card-title fw-bold">CS4241 Assignment 3</h6>
-                <button
-                  type="button"
-                  class="btn-close btn-close-white"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <h6 class="card-subtitle my-2">
-                <span class="badge bg-light text-black">2 days left</span>
-                <span class="badge bg-danger">High Urgency</span>
-                <span class="badge bg-primary">Academics</span>
-              </h6>
-              <p class="card-text my-3">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut a....
-              </p>
-              <hr />
-              <div class="card-footer text-muted">
-                Created on September 1, 2022
+        {{#each data}}
+          <div
+            class="card rounded shadow w-100 mb-3"
+            style="background-color: #2d3238"
+          >
+            <div id="card-group">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-end">
+                  <h6 class="card-title fw-bold">{{this.title}}</h6>
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <h6 class="card-subtitle my-2">
+                  <span class="badge bg-light text-black">Due on
+                    {{this.deadline_date}}</span>
+                  <span class="badge bg-danger">{{this.priority}} Urgency</span>
+                  <span class="badge bg-primary">{{type}}</span>
+                </h6>
+                <p class="card-text my-3">{{{this.description}}}</p>
+                <hr />
+                <div class="card-footer text-muted">Created on
+                  {{this.creation_date}}</div>
               </div>
             </div>
           </div>
-        </div>
+        {{/each}}
       </main>
     </div>
-    <script src="./js/window.js"></script>
+    <script type="text/javascript" src="/js/window.js"></script>
   </body>
 </html>

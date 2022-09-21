@@ -7,8 +7,10 @@ const mongoose = require("mongoose");
 const hbs = require("express-handlebars").engine;
 const path = require("path");
 const passport = require("passport");
+const fetch = require("node-fetch");
 
 const { router: authRouter, checkAuthentication } = require("./routes/auth");
+const { User, Task } = require("./models");
 const taskRouter = require("./routes/task");
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
@@ -38,8 +40,11 @@ app.use("/login", authRouter);
 app.use("/task", checkAuthentication, taskRouter);
 app.use("/css", express.static("app/css"));
 app.use("/img", express.static("app/img"));
-app.use("/", checkAuthentication, (req, res) => {
-  res.render("index", { layout: false });
+app.use("/js", express.static("app/js"));
+app.use(["/", "/load"], checkAuthentication, async (req, res) => {
+  const data = await Task.find({ user: req.user.id }).lean();
+
+  res.render("index", { data, layout: false });
 });
 
 app.listen(process.env.DEV_PORT);
