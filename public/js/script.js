@@ -47,7 +47,7 @@ const onEditClick = function(id, name, price, quantity)
   let newHTML = `<th><input id="name-${id}"type="text" value=\"${name}\"></th>`
   newHTML += `<th><input id="price-${id}"type="text" value=\"${price}\"></th>`
   newHTML += `<th><input id="quantity-${id}" type="text" value=\"${quantity}\"></th>`
-  newHTML += `<th><button onclick="resetEditEntry(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Cancel</button></th>`
+  newHTML += `<th><button onclick="resetEditEntry(\'${id}\')">Cancel</button></th>`
   newHTML += `<th><button onclick="onEditSubmit(\'${id}\')">Submit</button></th>` 
   currentEntryEditing.innerHTML = newHTML;
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
@@ -75,12 +75,16 @@ const onEditSubmit = function(id)
       currentEntryEditing = null;
 }
 
-const resetEditEntry = function(id, name, price, quantity)
+const resetEditEntry = function(id)
 {
+  let name = document.getElementById(`name-${id}`).value;
+  let price = document.getElementById(`name-${id}`).value;
+  let quantity = document.getElementById(`name-${id}`).value
+
   let newHTML =`<th>${name}</th>`
   newHTML += `<th>${price}</th>`
   newHTML += `<th>${quantity}</th>`
-  newHTML += `<th><button onclick="deleteEntry(\'${id}\')">delete</button><th>`
+  newHTML += `<th><button onclick="deleteEntry(\'${id}\')">Delete</button><th>`
   newHTML += `<th><button onclick="onEditClick(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Edit</button><th></th>`
   currentEntryEditing.innerHTML = newHTML;
   currentEntryEditing = null;
