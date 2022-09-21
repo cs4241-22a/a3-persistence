@@ -48,8 +48,20 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/signUp', (req, res) => {
-    client.db("A3").collection("accounts").insertOne(req.body)
+    client.db("A3").collection("accounts").find(req.body).toArray(function (err, result) {
+        if (err) throw err;
+        if (result.length > 0) {
+            res.redirect("signUp.html");
 
+        } else {
+            // req.session.login = false;
+            client.db("A3").collection("accounts").insertOne(req.body)
+            res.redirect("index.html");
+
+        }
+
+
+    })
 })
 
 app.get('/starting', (req, res) => {
@@ -96,14 +108,15 @@ client.connect()
         // will only create collection if it doesn't exist
         return client.db( 'A3' ).collection( 'Activity Logs' )
     })
-    // .then( () => {
-    //     return client.db('A3').collection('accounts');
-    // })
     .then( __collection => {
         collection = __collection;
         // blank query returns all documents
         return collection.find({ }).toArray()
     })
+    // .then( () => {
+    //     return client.db('A3').collection('accounts');
+    // })
+
     .then( console.log )
 
 app.get( '/', (req, res) => {

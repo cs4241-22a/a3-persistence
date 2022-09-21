@@ -14,7 +14,6 @@ form.onsubmit = function (event){
 
     const input = {
         user: user.value,
-        pass: pass.value,
     }
 
     const body = JSON.stringify(input);
@@ -25,23 +24,20 @@ form.onsubmit = function (event){
         headers: {'Content-Type': 'application/json'},
         body: body,
     })
-    alert("Account have been created! You may now log in.");
-    window.location.href = "index.html";
+        .then((response) => {
+            console.log(response.url)
+            if (response.url.includes("signUp.html")){
+                alert("Username already exists. Please use another!");
+                window.location.href = response.url
+            }
+            else if (response.url.includes("index.html")){
+                alert("Account have been created! You may now log in.");
+                window.location.href = response.url;
+            }
 
-        // .then((response) => response.json())
-        // .then(function () {
-        //
-        // })
-        // .then(function () {
-        //
-        // })
-    // .then(function (response){
-    //     console.log(response.json())
-    //     if (response === "True"){
-    //         window.location.href = "/main.html";
-    //     }
-    // })
-    // .then(window.location.href = "/main.html")
+        })
+
+
 
 
 }
