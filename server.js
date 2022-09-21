@@ -1,156 +1,137 @@
-const express = require('express')
-const cookie = require('cookie-session')
-const session = require('express-session')
-const mongodb = require('mongodb')
+const express = require('express');
+const session = require('express-session');
 const dotenv = require('dotenv')
-const bcrypt = require('bcrypt')
-const passport = require('passport')
-const flash = require('express-flash')
-const initializePassport = require('./passport-config')
-const app = express()
-const test = []
-app.set('view engine', 'ejs')
-dotenv.config()
+const cookie = require('cookie-session')
+const hbs = require('express-handlebars');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+const app = express();
+dotenv.config();
 
-// url logger
-const logger = (req, res, next) => {
-  console.log('url:', req.url)
-  next()
+// use mongoose to connect to database
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-// database initialized
-const uri = 'mongodb+srv://' + process.env.USER + ':' + process.env.PASS + '@' + process.env.HOST
+connectDB();
 
-const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-let collection = null
-
-client.connect()
-  .then(() => {
-    // will only create collection if it doesn't exist
-    return client.db('RPS').collection('Player')
-  })
-  .then(__collection => {
-    // store reference to collection
-    collection = __collection
-    // blank query returns all documents
-    return collection.find({}).toArray()
-  })
-  .then(console.log)
-
-// route to get all docs
-// app.get('/', (req, res) => {
-//   if (collection !== null) {
-//     // get array and pass to res.json
-//     collection.find({}).toArray().then(result => res.json(result))
-//   }
-// })
-
-// check connection
-app.use((req, res, next) => {
-  if (collection !== null) {
-    next()
-  } else {
-    res.status(503).send()
+// create user schema
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  win: {
+    type: Number,
+    default: 0
+  },
+  loss: {
+    type: Number,
+    default: 0
+  },
+  winrate: {
+    type: Number,
+    default: 0
   }
-})
+
+});
+
+const User = mongoose.model('User', UserSchema);
 
 
-// --- GLOBAL ---
-// must-have middleware functions 
-initializePassport(
-  passport,
-  username => collection.find({ username: 'oliver' }).toArray()
-)
-app.use(express.urlencoded({ extended: false }))
-app.use(flash())
-app.use(express.static('views'))
-app.use(express.json())
-app.use(logger)
+// Middleware
+//app.engine('hbs', exphbs({ extname: '.hbs' }));
+app.set('view engine', 'hbs');
+app.use(express.static(__dirname + '/views'));
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: "verygoodsecret",
   resave: false,
-  saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
+  saveUninitialized: true
+}));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-//#region Post-Handling example
-// app.post( '/submit', (req, res) => {
-//   test.push( req.body.newdream )
-//   res.writeHead( 200, { 'Content-Type': 'application/json' })
-//   res.end( JSON.stringify( test ) )
-// })
-//#endregion
+// Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
-//#region ejs get method
-app.get('/', (req, res) => {
-  console.log(req.session)
-  res.render('index.ejs')
-})
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
 
-app.get('/register', (req, res) => {
-  res.render('register.ejs')
-})
-//#endregion
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
-//#region handle login
-// TODO: message the user when login fail
-app.post('/', passport.authenticate('local', {
-  successRedirect: '/game.html',
-  failureRedirect: '/',
-  failureFlash: true
-}))
+passport.use(new localStrategy(function (username, password, done) {
+  User.findOne({ username: username }, function (err, user) {
+    if (err) return done(err);
+    if (!user) return done(null, false, { message: 'Incorrect username.' });
 
-// notify the user with the failure
-// app.use(function (req, res, next) {
-//   if (req.session.login === true)
-//     next()
-//   else
-//   req.session.login = false
-// })
-//#endregion
+    bcrypt.compare(password, user.password, function (err, res) {
+      if (err) return done(err);
+      if (res === false) return done(null, false, { message: 'Incorrect password.' });
 
+      return done(null, user);
+    });
+  });
+}));
 
-//#region handle database
-// register
-// TODO: Don't allow duplicate username
-app.post('/register', async (req, res) => {
-  try {
-    const new_username = req.body.new_username
-    const hashedPassword = await bcrypt.hash(req.body.new_password, 10)
-    const new_win = 0
-    const new_loss = 0
-    const new_winrate = 0
-    // assumes only one object to insert
-    collection.insertOne({ username: new_username, password: hashedPassword, win: new_win, loss: new_loss, winrate: new_winrate })
-    // if success, redirect to login page
-    res.redirect('/')
-  } catch {
-    // if fail, redirect to register page
-    res.redirect('/register')
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/login');
+}
+
+function isLoggedOut(req, res, next) {
+  if (!req.isAuthenticated()) return next();
+  res.redirect('/');
+}
+
+// ROUTES
+app.get('/', isLoggedIn, (req, res) => {
+  res.render("index", { title: "Home" });
+});
+
+app.get('/login', isLoggedOut, (req, res) => {
+  const response = {
+    title: "Login",
+    error: req.query.error
   }
 
+  res.render('login', response);
+});
 
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login?error=true'
+}));
+
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+// handle register
+
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
+  app.listen(3000, () => {
+    console.log("Listening on port 3000");
+  });
 })
 
-// deleting
-app.post('/remove', (req, res) => {
-  collection
-    .deleteOne({ _id: mongodb.ObjectId(req.body._id) })
-    .then(result => res.json(result))
-})
-
-// updating
-app.post('/update', (req, res) => {
-  collection
-    .updateOne(
-      { _id: mongodb.ObjectId(req.body._id) },
-      { $set: { name: req.body.name } }
-    )
-    .then(result => res.json(result))
-})
-
-//#endregion
-
-
-app.listen(process.env.PORT || 3000)
