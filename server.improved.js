@@ -39,6 +39,7 @@ app.use(express.json())
 app.use(express.static(__dirname + '/public'))
 
 app.get('/auth/login', (req, res) => {
+  console.log('in auth login')
   res.sendFile(path.join(__dirname, '/public/login.html'))
 })
 
@@ -57,6 +58,7 @@ const checkAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
+  console.log('about to redirect!!!!!')
   res.redirect('/auth/login')
 }
 
