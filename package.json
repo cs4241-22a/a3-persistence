@@ -2,7 +2,6 @@
   "name": "a3-persistence",
   "version": "1.0.0",
   "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template\r ===",
-  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
