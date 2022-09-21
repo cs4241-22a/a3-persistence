@@ -3,17 +3,20 @@ const express = require( 'express' ),
       app = express(),
       cookie  = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
-      crypto = require("crypto"); 
+      crypto = require("crypto"),
+      path = require('path'); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-console.log(process.env.USER, process.env.PASS, process.env.HOST);
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 app.use( express.urlencoded({ extended:true }) )
 //Keys from https://stackoverflow.com/a/69358886
+
+const key1 = crypto.randomBytes(64).toString("hex");
+const key2 = crypto.randomBytes(64).toString("hex");
 app.use( cookie({
   name: 'AllYourStuff',
-  keys: [crypto.randomBytes(64).toString("hex"), crypto.randomBytes(64).toString("hex")]
+  keys: [key1, key2]
 }))
 
 app.engine('handlebars', hbs());
@@ -56,7 +59,6 @@ app.post( '/login', (req,res)=> {
 })
 
 app.post( '/register', (req,res)=> {
-  console.log(req.body);
   db.collection("Admin_Logins").find({ }).toArray()
     .then(result => {
       let userFound = false;
@@ -66,13 +68,16 @@ app.post( '/register', (req,res)=> {
         }
       }
 
-      if(!userFound) {
+      if(req.body.username === "" || req.body.password === "" || req.body.password === "password") {
+        req.session.login = false;
+        res.render('login', { msg:'This login is invalid', layout:false })
+      } else if(!userFound) {
         // Register new user
         req.session.login = true;
         db.collection("Admin_Logins").insertOne({ user: req.body.username, pwd: req.body.password});
         currUser = req.body.username;
         res.redirect('index.html');
-      }else{
+      } else {
         req.session.login = false;
         res.render('login', { msg:'This account already exists', layout:false })
       }
@@ -88,10 +93,10 @@ app.post('/currentUser', (req, res) => {
 })
 
 app.get( '/', (req,res) => {
-  res.render( 'login', { msg:'', layout:false })
+    res.render( 'login', { msg:'', layout:false })
 })
 app.use( function( req,res,next) {
-  if(req.session.login === true) {
+  if(req.session.login) {
     next();
   } else {
     res.render('login', { msg:'login failed, please try again', layout:false })
@@ -100,6 +105,15 @@ app.use( function( req,res,next) {
 app.get('/index.html', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 })
+
+app.get('/logout',  function (req, res)  {
+  if (req.session.login) {
+    req.session.login = false;
+    res.redirect('/');
+  }else{
+    res.redirect('/');
+  }
+});
 
 app.use(express.static('public'));
 app.use(express.json());

@@ -1,14 +1,26 @@
 <html lang="en">
   <head>
-    <style>input { display:block }</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://gitcdn.link/cdn/tjcoppola234/AllYourStuff/main/public/css/pico.classless.min.css">
+    <style>input{max-width: 70%;}</style>
+    <title>AllYourStuff | Login</title>
   </head>
   <body>
-    <form action="/login" method="POST">
-      name: <input type="text" name="username" />
-      password:<input type="password" name="password" value="password" />
-      <input type="submit" value="login" formaction="/login"/>
-      <input type="submit" value="register" formaction="/register"/>
-    </form>
-    {{{msg}}}
+    <main>
+      <h1>AllYourStuff</h1>
+      <form action="/login" method="POST" class="vertflex">
+        <h2>Log in</h2>
+        <label for="username">Username:</label>
+        <input type="text" name="username" />
+        <label for="password">Password: </label>
+        <input type="password" name="password" value="password" />
+        <div class="horflex">
+          <input type="submit" value="log in" formaction="/login"/>
+          <input type="submit" value="register" formaction="/register"/>
+        </div>
+      </form>
+      {{{msg}}}
+    </main>
   </body>
 </html>
