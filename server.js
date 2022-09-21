@@ -16,11 +16,16 @@ app.get('/', function(req, res) {
 
 app.use( express.json() );
 
-//POST and GET REQUESTS FOR DATA
-// app.post('/submit', (req, res) => {
-//     test.push( req.body )
-//     res.writeHead( 200, { 'Content-Type': 'application/json' })
-//     res.end( JSON.stringify( test ) )
-// });
+//POST Request Example
+app.post('/submit', (req, res) => {
+    test.push( req.body )
+    res.writeHead( 200, { 'Content-Type': 'application/json' })
+    res.end( JSON.stringify( test ) )
+});
+
+//GET Request (Data) Example
+app.get('/table', (req, res) => {
+    res.end(JSON.stringify(test))
+})
 
 app.listen( process.env.PORT || 3000)
