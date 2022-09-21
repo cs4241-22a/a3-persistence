@@ -40,7 +40,10 @@ const onEditClick = function(id, name, price, quantity)
   }
 
   currentEntryEditing = document.getElementById(`row-${id}`)
-  
+  console.log(id)
+  console.log(name)
+  console.log(price)
+  console.log(quantity)
   let newHTML = `<th><input type="text" value="${name}"></th>`
   newHTML += `<th><input type="text" value="${price}"></th>`
   newHTML += `<th><input type="text" value="${quantity}"></th>`
