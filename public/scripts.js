@@ -62,10 +62,10 @@ window.onload = function (){
                         "<td>" +
                         item.duration +
                         "</td>" +
-                        "<td> <button type = 'button' id = 'delete' onclick = 'delete_row( " +
+                        "<td> <button type = 'button'id = 'delete " + count + "' class='button' onclick = 'delete_row( " +
                         (count - 1).toString() +
                         ")'>Delete</button>" +
-                        "<button type = 'button' id = 'edit' onclick = 'edit_row( " +
+                        "<button type = 'button' id = 'edit " + count + "' class='button' onclick = 'edit_row( " +
                         (count - 1).toString() +
                         ")'>Edit</button> </td>" +
                         "</tr>";
@@ -100,10 +100,10 @@ const appendToTable = function(item){
         "<td>" +
         item.duration +
         "</td>" +
-        "<td> <button id = 'delete' onclick = 'delete_row( " +
+        "<td> <button id = 'delete" + count + "' class='button' onclick = 'delete_row( " +
         (count - 1).toString() +
         ")'>Delete</button>" +
-        "<button id = 'edit' onclick = 'edit_row( " +
+        "<button id = 'edit" + count + "' class='button' onclick = 'edit_row( " +
         (count - 1).toString() +
         ")'>Edit</button> </td>" +
         "</tr>";
@@ -138,6 +138,8 @@ form.onsubmit = function(event) {
     })
         .then(response => response.json())
         .then( console.log)
+
+    form.reset();
 }
 
 
@@ -261,7 +263,7 @@ function edit_row(id) {
 
     current[4].innerHTML = "<input type='text' id='editdescription' name='description' value='" + oldjson.description + "'/>"
 
-    current[6].innerHTML = "<td> <button id = 'editSubmit' onclick = 'submit_Edit( " +
+    current[6].innerHTML = "<td> <button class='button' id = 'editSubmit' onclick = 'submit_Edit( " +
         (id).toString() + ", " + JSON.stringify(oldjson) +
         ")'>Submit Edit</button>" +"</tr>";
 }

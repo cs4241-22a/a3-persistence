@@ -6,111 +6,73 @@ Due: September 22nd, by 11:59 AM.
 This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
 a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
 
-Baseline Requirements
----
-
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
+## Activity Logger
 
 your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+- Your very own event logger. This is meant to be the opposite of a calendar. Instead of schedule what you WANT to do, you would log in events that have already been done so you have an idea of what you have done throughout the day. Be sure to log all the events that you have done!
+- The main challenge in creating this is learning these new technologies and applying them correctly
+- The authentication strategy that I chose to use is just a system of using a username and password, logging in and signing up.
+- CSS framework: Pico CSS (https://picocss.com/)
+    - I chose this because it seemed to me as a very minimalistic design and I did not want a very complex design that would lead people away from the point of this website
+    - I used some custom CSS to change the alignment and sizing of the components since the frameworked seemed to put everything at 100% of the screen size. I also added a header. I changed the color of the button to add contrast as per the suggestion of lighthouse.
+- Express middlewares
+  - "express.static()" to deliver the files in the public and views folders
+  - "express.json()" to handle getting and sending the JSON
+  - "cookie-session" to handle getting the current user logged in
+  - "express.urlencoded" to get the data that sent from the server to the client and back
+  - "express.timeout" to timeout any http process that takes over 10 seconds to complete
+
+Baseline Requirements
+---
+ I created a server using Express <br>
+ I am using a table that shows the results that belong to the user logged in <br>
+ I am using a form that allows the user to submit a form that adds to the results, delete and edit an entry. <br>
+ I am using several forms of Express middlewares:
+<ul>
+<li>"express.static()" to deliver the files in the public and views folders</li>
+<li>"express.json()" to handle getting and sending the JSON</li>
+<li>"cookie-session" to handle getting the current user logged in</li>
+<li>"express.urlencoded" to get the data that sent from the server to the client and back</li>
+<li>"express.timeout" to timeout any http process that takes over 10 seconds to complete</li>
+</ul>
+
+I am keeping persistent data storage in between server sessions using Mongodb.
+I am using a CSS framework (Pico CSS) to do the majority of the styling with some of my custom adjustment to sizing and other smaller things.
+
+HTML:<br>
+I am using various types of input and form tags (select, input(text), date, time, textarea) <br>
+I am showing the results of the logged in user on the results table. <br>
+I am using 3 separates pages for this website. I have a log in page, a sign up page for those without an account, and a main page that handles the form input and the results. <br>
+
+
+CSS: <br>
+I am using a CSS framework (Pico CSS) to do the majority of the styling with some of my custom adjustment to sizing and other smaller things.
+I use a custom stylesheet to change the colors of some buttons, centering everything on the pages, and changing some alignment of the text and labels.
+
+
+JavaScript: <br>
+I used some Javascript to get and fetch the data from the server and rebuild the table for the results.
+Starting the website, I am fetching for all the data that belongs to that user and builds the table with the existing data
+
+
+Node.js: <br>
+A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
+
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: I am hosting my site on a different service Heroku Digital Ocean
+- **Tech Achievement 2**: I got 100% on all four lighthouse tests for this assignment for all three pages of my website. I have included them in the photo folder.
+- 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**: CRAP Principles
+- Contrast - My website is using contrast on each page. The main elements of contrast are in the colors on the site. For the background color, I am using a sort of dark navy blue color from the Pico CSS framework. On the other hand, the foreground colors of the texts are white. This creates a high contrast between a dark background and a bright text/foreground. There is also some contrast between the colors of the buttons. For the button, I changed the button to a pink/tan color resting on the same dark blue color. I also made the text inside the button the same color as the background to show more emphasis and contrast. So there is contrast between the background of the site and the color of the button but also the color of the button and the text of the button. 
+- Repetition - I am using several forms of repetition for this website. I make sure that all pages use the same colors. I am using the same dark blue color from Pico CSS for the background on all three pages. I am using the color grayish white for text for all pages. except for the text inside the buttons which are all the dark blue color. I am using the same format for all pages using the same size fonts. I am using the same font for all pages, the fonts size for the headers are the same etc. All the pages also show the same minimalist design with very few colors and no images. I am also repeating the same form inputs, for example, the sign up page and the log in page are the exact same form format.
+- Alignment - I am making sure that the alignment on my site has connections for all three pages. All the elements on my site, I am aligning them to be centered. For example, all the form inputs are centered. There is a label above every input that describes what you are entering for the form. Centering the forms and table, I am also making the left and right margins equal so that they are not taking the entire width of the screen and also centered. I am aligning the label to be left aligned and starting at the start of the left side of the form input. All the headers are also aligned centered. For the header on the site, it shows the logged in user and it is right aligned.
+- Proximity - For the proximity of the website, I am keeping the forms close. The labels and form inputs are all close together so that they appear to be a unit and not to be confused as separate entities. I put the label right above each form input so that users would know what each input is referring to. I am keeping others separate. For example, the header would have some space between that and the heading and then that would have some space before reaching the form. The form would also have some distance between that and the table. For the signup and login pages, the only things there are for the users to input their username and password so they are all together to seem like a unit. The button would always be at the bottom so that users know that everything above is meant to be all inputted and then submitted
+
+
+

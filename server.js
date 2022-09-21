@@ -8,6 +8,10 @@ const mongodb = require("mongodb")
 app.use(express.static("public"))
 app.use(express.static("views"))
 app.use(express.json())
+app.use(express.urlencoded({ extended:true }))
+app.use(express.timeout('10s'))
+
+
 
 app.use( cookie({
     name: 'session',
@@ -54,7 +58,6 @@ app.post('/signUp', (req, res) => {
             res.redirect("signUp.html");
 
         } else {
-            // req.session.login = false;
             client.db("A3").collection("accounts").insertOne(req.body)
             res.redirect("index.html");
 
