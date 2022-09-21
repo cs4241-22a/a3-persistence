@@ -47,6 +47,7 @@ app.get('/auth/github', passport.authenticate('github',{ scope: ['user:email'] }
 app.get('/auth/github/callback',
  passport.authenticate('github', { failureRedirect: '/auth/error' }),
  (req, res) => {
+  console.log('redirecting to main webpage')
   res.redirect('/');
 });
 
