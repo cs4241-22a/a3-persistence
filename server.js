@@ -1,9 +1,7 @@
-// 1. Add session middleware
-// 2. Write a query to look up shows by user id
-// 3. Fix add route
-// 4. Fix remove route
-// 5. Implement modification frontend
-// 6. Write modification route
+// 1. Fix add route
+// 2. Fix remove route
+// 3. Implement modification frontend
+// 4. Write modification route
 
 const express = require('express'),
     mongoose = require('mongoose'),
@@ -17,6 +15,15 @@ app.set('views', './views');
 
 require('mongoose-double')(mongoose);
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
+
+app.use(cookie({
+    name: 'session',
+    keys: ['key1', 'key2']
+}));
+
+// Mongoose schema definitions
 const userSchema = new mongoose.Schema(
     {
         username: {
@@ -66,15 +73,12 @@ const entrySchema = new mongoose.Schema(
 
 const Entry = mongoose.model('Entry', entrySchema);
 
-app.use(express.urlencoded({ extended: true }));
-
+// Database connections
 mongoose.connect('mongodb+srv://admin:admin@cluster0.hhvf1tq.mongodb.net/login');
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-let dataCollection = null;
-
-// retrieve credentials data
+// set up initial credentials data
 const createUsersWithMessages = async () => {
     console.log("Adding data");
     console.log(mongoose.connection.readyState);
@@ -128,51 +132,24 @@ const createUsersWithMessages = async () => {
     console.log("Users added");
 };
 
-const query = async () => {
-    const user = await User.findOne({ username: 'sdf' });
-    console.log(user);
-    const entry = await Entry.find({user: user.id});
-    console.log(entry);
-    
-    // User.findOne({ username: 'iAmAUser' }, (err, docs) => {
-    //     if(err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log(docs);
-    //         console.log(docs._id);
-    //         Entry.find({ user: docs.id}, (err, finalDocs) => {
-    //             if(err) {
-    //                 console.log(err);
-    //             } else {
-    //                 console.log(finalDocs);
-    //             }
-    //         })
-    //     }
-    // });
+// helper function used by the add, remove, modify routes
+const queryUsernameToId = async function(userLookup) {
+    const user = await User.findOne({ username: userLookup });
+    return user.id;
 }
 
-// TODO: enable add items
-app.post('/submit', express.json(), (req, res) => {
-    console.log("Something got submitted to the TV show form");
-    req.body.totalTime = ((req.body.seasons * req.body.eps * req.body.duration) / 60).toFixed(2);
-    console.log("Request body:");
-    console.log(req.body);
-    console.log("Request session:");
-    console.log(req.session);
+app.post('/submit', express.json(), async (req, res) => {
+    console.log("Received request to enter show " + req.body.show + " under name " + req.session.username);
+    const userId = await queryUsernameToId(req.session.username);
     const newEntry = new Entry({
         show: req.body.show,
         seasons: req.body.seasons,
         eps: req.body.eps,
         duration: req.body.duration,
-        totalTime: req.body.totalTime,
-        user: req.session.username // TODO: implement sessions
+        totalTime: ((req.body.seasons * req.body.eps * req.body.duration) / 60).toFixed(2),
+        user: userId
     });
-    newEntry.save()
-        .then(
-            res.json(newEntry)
-        );
-    // we don't want this to just return an affirmation that data got entered
-    // we need it to return HTML to update the frontend
+    newEntry.save().then(res.status(200).json(newEntry));
 });
 
 // TODO: enable delete items
@@ -200,23 +177,18 @@ app.post('/remove', (req, res) => {
 
 // route to get all docs
 app.get('/', (req, res) => {
-    //createUsersWithMessages();
-    query();
+    // createUsersWithMessages();
     res.render('index', { layout: false });
 });
-
-app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
-
-app.use(cookie({ // cookie middleware
-    name: 'session',
-    keys: ['key1', 'key2'] // TODO: secure these
-}));
 
 app.get('/account', function (req, res) {
     if (req.session.login) {
         console.log("Logged in");
         let tempString = "Welcome, " + req.session.username + "!";
         res.render('main', { msg: tempString, layout: false });
+        // TODO: need to add a place in the view for the table ???
+        // actually no, because I have code in the frontend that turns the JSON into a pretty table
+        // just make a function to send + update the JSON data properly
     } else {
         res.send('Invalid login credentials, please try again');
         res.end();
@@ -227,9 +199,7 @@ app.get('/account', function (req, res) {
 // manage login form requests
 app.post('/register', express.json(), async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    // if the user exists, check the password
-    User.find({ username: req.body.username }, async function (err, resultsList) {
+    User.find({ username: req.body.username }, async function (err, resultsList) { // if the user exists, check the password
         console.log(resultsList);
 
         if (resultsList.length == 1) { // case where the user is already registered

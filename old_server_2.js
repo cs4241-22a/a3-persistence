@@ -1,3 +1,27 @@
+// const query = async () => {
+//     const user = await User.findOne({ username: 'sdf' });
+//     console.log(user);
+//     const entry = await Entry.find({ user: user.id });
+//     console.log(entry);
+// }
+
+// Working callback hell version of querying user ID by username
+// User.findOne({ username: 'iAmAUser' }, (err, docs) => {
+//     if(err) {
+//         console.log(err);
+//     } else {
+//         console.log(docs);
+//         console.log(docs._id);
+//         Entry.find({ user: docs.id}, (err, finalDocs) => {
+//             if(err) {
+//                 console.log(err);
+//             } else {
+//                 console.log(finalDocs);
+//             }
+//         })
+//     }
+// });
+
 const express = require('express'),
     cookie = require('cookie-session'),
     hbs = require('express-handlebars').engine,
