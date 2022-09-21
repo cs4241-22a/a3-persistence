@@ -1,5 +1,6 @@
 let rowsAdded = 0 //keeps track of how many rows of data our table has (useful for clearing the table)
 let dataUpdated = 0 //lets the page know that the data has been displayed to the user on first opening
+//let deletedRow = 0 //tells the page which row to delete when the user presses a delete row button
 
 //updates the table with the data that the server sends back
 const updateTable = function ( json ) {
@@ -31,18 +32,22 @@ const updateTable = function ( json ) {
             cell.innerHTML = json[i].length
             cell = row.insertCell()
             cell.innerHTML = json[i].elevation
-            cell = row.insertCell()
-            cell.innerHTML = json[i].totallength
-            cell = row.insertCell()
-            cell.innerHTML = json[i].totalelevation
+/*            //create the button for this row
+            let btn = document.createElement('input')
+            btn.type = "button";
+            btn.className = "deletebutton";
+            btn.value = "Delete";
+            btn.id = "Delete" + rowsAdded
+            cell.appendChild(btn)*/
         }
     }
 }
 
-const clear = function () {
+/*const deleteRow = function () {
 
     const json = {
-        name: "!clear"
+        name: "!delete",
+        rownum: deletedRow
     }
 
     fetch( '/submit', {
@@ -57,6 +62,26 @@ const clear = function () {
             updateTable(json)
         })
     return false
+}*/
+
+const clear = function () {
+
+    const json = {
+        name: "!clear"
+    }
+
+    fetch( '/clear', {
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( json )
+    })
+        .then( response => response.json() )
+        .then( json => {
+            update()
+        })
+    return false
 }
 
 const update = function () {
@@ -64,7 +89,7 @@ const update = function () {
         name: "!update"
     }
 
-    fetch( '/submit', {
+    fetch( '/update', {
         method:'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -84,16 +109,11 @@ const submit = function() {
         name: document.querySelector( '#trailname' ),
         length: document.querySelector( '#traillength' ),
         elevation: document.querySelector( '#trailelevation' ),
-        //these fields will be derived and filled by the server
-        totallength: 0,
-        totalelevation: 0
     }
     const json = {
         name: input.name.value,
         length: input.length.value,
         elevation: input.elevation.value,
-        totallength: input.totallength.value,
-        totalelevation: input.totalelevation.value
     }
 
     fetch( '/submit', {
@@ -105,7 +125,7 @@ const submit = function() {
     })
         .then( response => response.json() )
         .then( json => {
-            updateTable(json)
+            update()
         })
     return false
 }
@@ -120,6 +140,7 @@ window.onload = function() {
 
     const submitbutton = document.getElementById( 'submitbutton' )
     const clearbutton =  document.getElementById( 'clearbutton' )
+//    let deletebutton = document.getElementsByClassName('deletebutton')
     submitbutton.onclick = function(e) {
         //just in case button type=button doesn't prevent the submit action
         e.preventDefault()
@@ -138,4 +159,15 @@ window.onload = function() {
         e.preventDefault()
         clear()
     }
+/*    deletebutton.onclick = function(e) {
+        e.preventDefault()
+        //get row of clicked button
+        let buttonid = e.target.id
+        deletedRow = parseInt(buttonid.slice(6)) //slices number off of button id
+        //delete the row
+        deleteRow()
+
+        //update the buttons
+    }*/
+
 }
