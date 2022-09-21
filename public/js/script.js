@@ -31,14 +31,16 @@ const getData = function() {
     })
   }
   
+let currentEntryID = null;
 let currentEntryEditing = null
 const onEditClick = function(id, name, price, quantity)
 {
   if(currentEntryEditing != null)
   {
-    resetEditEntry(currentEntryEditing)
+    resetEditEntry(currentEntryID)
   }
 
+  currentEntryID = id
   currentEntryEditing = document.getElementById(`row-${id}`)
   console.log(id)
   console.log(name)
@@ -49,7 +51,7 @@ const onEditClick = function(id, name, price, quantity)
   newHTML += `<th><input id="quantity-${id}" type="text" value=\"${quantity}\"></th>`
   newHTML += `<th><button onclick="resetEditEntry(\'${id}\')">Cancel</button></th>`
   newHTML += `<th><button onclick="onEditSubmit(\'${id}\')">Submit</button></th>` 
-  currentEntryEditing.innerHTML = newHTML;
+  currentEntryEditing.innerHTML = newHTML
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
 }
 
@@ -72,7 +74,8 @@ const onEditSubmit = function(id)
       .then( response => response.json())
       .then(getData())
 
-      currentEntryEditing = null;
+      currentEntryEditing = null
+      currentEntryID = null
 }
 
 const resetEditEntry = function(id)
@@ -88,6 +91,7 @@ const resetEditEntry = function(id)
   newHTML += `<th><button onclick="onEditClick(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Edit</button><th></th>`
   currentEntryEditing.innerHTML = newHTML;
   currentEntryEditing = null;
+  currentEntryID = null;
 }
 
 const submitForm = function(e)  {
