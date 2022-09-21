@@ -40,7 +40,8 @@ app.post('/login', async (req, res) => {
   const user = await userCollection.findOne({ username: name, password: pw })
   if (user) {
     console.log("found " + user)
-    res.render('index.ejs', { name: name })
+    let todos = await todoCollection.find({ name: name }).toArray()
+    res.render('index.ejs', { name: name, results: todos })
   } else {
     console.log("not found")
     userCollection.insertOne(req.body, function (error, response) {
@@ -60,10 +61,12 @@ app.post('/add', async (req, res) => {
       console.log('Error occurred while inserting');
     } else {
       console.log('inserted record', response);
-      res.render('index.ejs', { name: req.body.name })
+
     }
-  });
-})
+  })
+  let todos = await todoCollection.find({ name: req.body.name }).toArray()
+  res.render('index.ejs', { name: req.body.name, results: todos })
+});
 
 
 
