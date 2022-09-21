@@ -136,4 +136,6 @@ app.post('/api/updatereminder', checkAuth, async (req, res) => {
 })
 //////////////////////////////////////////////////
 
-app.listen(process.env.PORT || port)
+app.listen(process.env.PORT || 3000, (e) => {
+  console.log('started up server')
+})
