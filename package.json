@@ -17,5 +17,8 @@
         "mime": "^2.4.4",
         "mongodb": "^4.10.0",
         "package.json": "^2.0.1"
+    },
+    "engines": {
+        "node": "12.x"
     }
 }
