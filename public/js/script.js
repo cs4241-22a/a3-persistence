@@ -44,7 +44,7 @@ const onEditClick = function(id, name, price, quantity)
   let newHTML = `<th><input type="text" value="${name}"></th>`
   newHTML += `<th><input type="text" value="${price}"></th>`
   newHTML += `<th><input type="text" value="${quantity}"></th>`
-  newHTML += `<button onClick=resetEditEntry(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>cancel</button>`
+  newHTML += `<button onClick=resetEditEntry(\"${id}\", \"${name}\" , \"${price}\" , \"${quantity}\" )>cancel</button>`
   newHTML += `<button onClick=onEditSubmit(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>save</button>` 
   currentEntryEditing.innerHTML = newHTML;
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
