@@ -24,7 +24,7 @@ const getData = function() {
   const createTable = function(jsonData) {
     //console.log(jsonData[0].items)
     const table = document.getElementById("dataTable")
-    table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th> <th>Total Price</th></tr>"
+    table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th></tr>"
     
     jsonData.forEach(entry => {
       table.innerHTML += `<tr id="row-${entry._itemID}"> <th>${entry.name}</th> <th>${entry.price}</th> <th>${entry.quantity}</th><th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="onEditClick(\'${entry._itemID}\', \'${entry.name}\', \'${entry.price}\', \'${entry.quantity}\')">Edit</button><th></tr>`
@@ -39,19 +39,26 @@ const onEditClick = function(id, name, price, quantity)
     resetEditEntry()
   }
 
-  let row = document.getElementById(`row-${id}`)
+  currentEntryEditing = document.getElementById(`row-${id}`)
+  
   let newHTML = `<th><input type="text" value="${name}"</th>`
   newHTML += `<th><input type="text" value="${price}"</th>`
   newHTML += `<th><input type="text" value="${quantity}"</th>`
-  newHTML += `<button>cancel</button>`
+  newHTML += `<button onClick=resetEditEntry(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>cancel</button>`
   newHTML += `<button>save</button>`
-  row.innerHTML = newHTML;
+  currentEntryEditing.innerHTML = newHTML;
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
 }
 
-const resetEditEntry = function()
+const resetEditEntry = function(id, name, price, quantity)
 {
-
+  let newHTML =`<th>${name}</th>`
+  newHTML += `<th>${price}</th>`
+  newHTML += `<th>${quantity}</th>`
+  newHTML += `<th><button onclick="deleteEntry(\'${id}\')">delete</button><th>`
+  newHTML += `<th><button onclick="onEditClick(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Edit</button><th></th>`
+  currentEntryEditing.innerHTML = newHTML;
+  currentEntryEditing = null;
 }
 
 const submitForm = function(e)  {
