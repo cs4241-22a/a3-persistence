@@ -89,7 +89,7 @@ app.get('/auth/getusername', checkAuth, (req, res) => {
   res.end(JSON.stringify({'username': req.user.username}))
 })
 
-app.get('/api/getdata', async (req, res) => {
+app.get('/api/getdata', checkAuth, async (req, res) => {
   console.log(req.user)
   const output = await remindersDB.find({ user: req.user.username }).toArray()
   console.log(output)
