@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Watchlist</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./css/style.css" defer>
+  <script src="./js/scripts.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.1/dist/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+  <script src="./js/chartjs-chart-financial.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Watchlist</h1>
+  <form>
+    <input type='text' id='stockinput' placeholder="Add a stock. Ex: GME">
+    <button class="buy" id="buybutton">ADD</button>
+  </form>
+  <div id="stock-list">
+    <p id="expansion-instructions">Expand a listing for more information.</p>
+    <details class="stock" id="stock-template">
+      <summary class="stock-data">
+        <!-- add an carrot for showing if details are open or closed -->
+        <h2 class="expansion-indicator">▶</h2>
+        
+      </summary>
+        <div class="detailed-data">
+          
+        </div>
+        <div class="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
+        <p class="date-added"></p>
+    </details>
+  </div>
+  <footer>
+    <p>Created by Nathan Pollock</p>
+    <p>Data sourced from <a href="https://finance.yahoo.com/">Yahoo Finance</a></p>
+    <p>Charts created with <a href="https://www.chartjs.org/">Chart.js</a></p>
+  </footer>
+</body>
+
+</html>
