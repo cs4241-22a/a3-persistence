@@ -1,4 +1,5 @@
 const { log } = require("console");
+require('dotenv').config()
 
 //use express to create a server
 const express = require("express");
@@ -7,6 +8,102 @@ const port = 3000;
 const mime = require("mime");
 const fs = require("fs");
 const dir = "public/";
+const session = require("express-session");
+const {MongoClient} = require('mongodb');
+
+//use the session middleware
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+//add passport 
+const passport = require("passport");
+//add github login
+const GitHubStrategy = require("passport-github").Strategy;
+
+//add passport to app
+app.use(passport.initialize());
+app.use(passport.session());
+
+const uri = process.env.MONGO_URI;
+
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function listDatabases(client) {
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+
+async function addEntryTest(client, entry) {
+  const result = await client.db("Webware-A3").collection("User-Data").insertOne(entry);
+  console.log(`New entry created with the following id: ${result.insertedId}`);
+}
+
+async function main() {
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        // Make the appropriate DB calls
+        await  listDatabases(client);
+
+        // await addEntryTest(client, {name: "Nathan", age: 21});
+        // await addEntryTest(client, {name: "Jacob", age: 20});
+        // await addEntryTest(client, {name: "John", age: 12});
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+
+    }
+}
+
+main().catch(console.error);
+
+
+//make the authentication with github and on success run the callback function
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: "b24afc1b91aef2c1d3d0",
+      clientSecret: process.env.GITHUB_SECRET,
+      callbackURL: "http://localhost:3000/",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      console.log("Logged in!");
+      console.log(profile);
+      return cb(null, profile);
+    }
+    
+
+  )
+);
+
+
+
+
+app.use('/login-go', passport.authenticate('github', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
+
+
+
+app.use(express.static("public"));
+
+//add a entry to mongodb
+const addEntry = async function (db, entry) {
+  const collection = db.collection("entries");
+  const result = await collection.insertOne(entry);
+  return result;
+};
+
+
 
 
 const yahooFinance = require("yahoo-finance2").default;
@@ -22,8 +119,12 @@ const handleGet = async function (request, response) {
 
   if (request.url === "/") {
     //send the index.html file
-    response.sendFile("index.html");
+    // response.sendFile("index.html");
+    response.sendFile(__dirname + "/public/index.html");
   } //check for a request for stocks
+  else if (request.url === "/login") {
+    response.sendFile(__dirname + "/public/login.html");
+  }
   else if (request.url === "/stocks") {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(stocks));
@@ -55,7 +156,7 @@ const handleGet = async function (request, response) {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(historicalData));
   } else {
-    response.sendFile(filename);
+    response.sendFile(__dirname + "/public" + request.url);
   }
 };
 
@@ -94,7 +195,12 @@ const handlePost = async function (request, response) {
   });
 
   request.on("end", async function () {
-    let dataObject = JSON.parse(dataString);
+    let dataObject;
+    try {
+    dataObject = JSON.parse(dataString);
+    } catch (error) {
+      console.log("Error parsing JSON");
+    }
     // console.log(dataObject);
 
     if (request.url === "/submit") {
@@ -142,11 +248,17 @@ const handlePost = async function (request, response) {
         response.writeHead(404, "Not Found", { "Content-Type": "text/plain" });
         response.end("Stock not found in array");
       }
-    }
+    } 
+    // else if (request.url === "/login-go"){
+    //   console.log("login-go");
+    //   //use passport to authenticate the user
+    //   passport.authenticate("github", { 
+    //     successRedirect: "/",
+    //     failureRedirect: "/login"
+    //   })(request, response);
+    // }
   });
 };
-
-app.use(express.static("public"));
 
 //if there is any type of get request, call the handleGet function with the request and response as parameters
 app.get("*", handleGet);
