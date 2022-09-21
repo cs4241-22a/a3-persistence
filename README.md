@@ -15,7 +15,10 @@ Express middleware: body-parser, compression, helmet, passport, serve-favicon, e
 ## Technical Achievements
 - **Tech Achievement 1**: 
 -I used OAuth authentication via the GitHub strategy.
--Achieved a score of 99/100/100/100 and gave up since the only reason I couldn't get 100 on performance was because I used bootstrap as my css framework...
+
+-Achieved a score of 100/100/100/100 in Lighthouse.
+(resources/1.png)
+(resources/2.png)
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
