@@ -5,32 +5,60 @@
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="/style.css">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="/client.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>Outwork <i>thousands</i> in front of <i>nobody</i><br>
-    to outshine <i>everybody</i> in front of <i>thousands</i></h1>
-    </header>
+    <div class="container">
+      <header class="jumbotron text-center">
+        <h1>Outwork <i>thousands</i> in front of <i>nobody</i><br>
+      to outshine <i>everybody</i> in front of <i>thousands</i></h1>
+      </header>
 
-    <main>
-      <h3>Trust the process</h3>
-      
-      <form>
-        <input name="exercise" type="text" maxlength="100" placeholder="Name of exercise">
-        <input name="sets" type="text" maxlength="10" placeholder="Sets">
-        <input name="reps" type="text" maxlength="10" placeholder="Reps">
-        <input name="weight" type="text" maxlength="10" placeholder="Weight">
-        <button type="submit" id="submit-dream">Get bigger</button>
-      </form>
-      
-      <section class="theProcess">
-        <ul id="process"></ul>
-      </section>
-    </main>
+      <main>
+        <h3>Welcome to The Jim</h3>
+        <div class="row mb-4">
+          <form id="addForm" class="mb-4 form-horizontal">
+            <input name="exercise" type="text" maxlength="100" placeholder="Name of exercise">
+            <input name="sets" type="text" maxlength="10" placeholder="Sets">
+            <input name="reps" type="text" maxlength="10" placeholder="Reps">
+            <input name="weight" type="text" maxlength="10" placeholder="Weight">
+            <button type="submit" id="addWorkout" class="btn btn-primary btn-sm active">Get Bigger</button>
+          </form>
+        </div>
 
+        <div class="row"><br>
+          <form id="removeForm" class="form-horizontal">
+            <input name="exercise" type="text" maxlength="100" placeholder="Name of exercise">
+            <input name="sets" type="text" maxlength="10" placeholder="Sets">
+            <input name="reps" type="text" maxlength="10" placeholder="Reps">
+            <input name="weight" type="text" maxlength="10" placeholder="Weight">
+            <button type="submit" id="removeWorkout" class="btn btn-primary btn-sm active">Get Smaller</button>
+          </form>
+        </div>
+
+        <div class="row"><br>
+          <form id="editForm">
+            <input name="index" type="text" placeholder="Table Row Number">
+            <button type="submit" id="edit" class="btn">Edit</button>
+          </form>
+          <form id="editValuesForm" class="form-horizontal"></form>
+        </div>
+
+        <div class="row" id="msg"><br>
+          <p></p>
+        </div>
+        
+        <table id="process" class="table table-hover">
+          <caption>Trust the process</caption>
+          <thead>
+          <tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight</th></tr>
+          </thead>
+        </table>
+      </main>
+
+    </div>
   </body>
 </html>
