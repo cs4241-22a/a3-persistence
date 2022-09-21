@@ -120,8 +120,10 @@
                     'Content-Type': 'application/json'
                 },
                 body
-            }).then(function (response) {
+            })
+            .then(function (response) {
                 console.log(response);
+                window.location.href = "/";
             });
         };
 

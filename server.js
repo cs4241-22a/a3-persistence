@@ -1,4 +1,4 @@
-// 1. Properly verify login (basically treat login as registration, just keep the users straight)
+// 1. Add session middleware
 // 2. Write a query to look up shows by user id
 // 3. Fix add route
 // 4. Fix remove route
@@ -28,8 +28,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true
         }
-    },
-    { collection: 'users' }
+    }
 );
 
 const User = mongoose.model('User', userSchema);
@@ -57,13 +56,12 @@ const entrySchema = new mongoose.Schema(
             required: true
         },
         user: {
-            type: mongoose.SchemaTypes.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
         },
     },
-    { timestamps: true },
-    { collection: 'showData' },
+    { timestamps: true }
 );
 
 const Entry = mongoose.model('Entry', entrySchema);
@@ -80,14 +78,15 @@ let dataCollection = null;
 const createUsersWithMessages = async () => {
     console.log("Adding data");
     console.log(mongoose.connection.readyState);
+
     const user1 = new User({
         username: 'iAmAUser',
-        password: CryptoJS.AES.encrypt('test', 'secret_key')
+        password: 'test',
     });
 
     const user2 = new User({
         username: 'iAmAnotherUser',
-        password: CryptoJS.AES.encrypt('test2', 'secret_key')
+        password: 'test',
     });
 
     const entry1 = new Entry({
@@ -105,7 +104,7 @@ const createUsersWithMessages = async () => {
         eps: 10,
         duration: 60,
         totalTime: 10.0,
-        user: user2.id
+        user: user1.id
     });
 
     const entry3 = new Entry({
@@ -130,10 +129,26 @@ const createUsersWithMessages = async () => {
 };
 
 const query = async () => {
-    Entry.find({ show: "Game of Thrones" }, (err, list) => {
-        if (err) return console.log(err);
-        console.log(list);
-    });
+    const user = await User.findOne({ username: 'sdf' });
+    console.log(user);
+    const entry = await Entry.find({user: user.id});
+    console.log(entry);
+    
+    // User.findOne({ username: 'iAmAUser' }, (err, docs) => {
+    //     if(err) {
+    //         console.log(err);
+    //     } else {
+    //         console.log(docs);
+    //         console.log(docs._id);
+    //         Entry.find({ user: docs.id}, (err, finalDocs) => {
+    //             if(err) {
+    //                 console.log(err);
+    //             } else {
+    //                 console.log(finalDocs);
+    //             }
+    //         })
+    //     }
+    // });
 }
 
 // TODO: enable add items
@@ -142,6 +157,8 @@ app.post('/submit', express.json(), (req, res) => {
     req.body.totalTime = ((req.body.seasons * req.body.eps * req.body.duration) / 60).toFixed(2);
     console.log("Request body:");
     console.log(req.body);
+    console.log("Request session:");
+    console.log(req.session);
     const newEntry = new Entry({
         show: req.body.show,
         seasons: req.body.seasons,
@@ -183,8 +200,8 @@ app.post('/remove', (req, res) => {
 
 // route to get all docs
 app.get('/', (req, res) => {
+    //createUsersWithMessages();
     query();
-    testBCryptHash();
     res.render('index', { layout: false });
 });
 
@@ -201,7 +218,7 @@ app.get('/account', function (req, res) {
         let tempString = "Welcome, " + req.session.username + "!";
         res.render('main', { msg: tempString, layout: false });
     } else {
-        res.send('Please login to view this page!');
+        res.send('Invalid login credentials, please try again');
         res.end();
     }
     return;
@@ -209,7 +226,6 @@ app.get('/account', function (req, res) {
 
 // manage login form requests
 app.post('/register', express.json(), async (req, res) => {
-    //console.log(req.body);
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     // if the user exists, check the password
@@ -242,15 +258,14 @@ app.post('/register', express.json(), async (req, res) => {
     });
 });
 
-app.post('/logout', express.json(), (req, res, next) => {
-    console.log("Logging out");
+app.post('/logout', express.json(), (req, res) => {
+    console.log("Login status:");
+    console.log(req.session.login);
     if (req.session.login) {
+        console.log("Re-rendering");
+        res.render('index', { msg: 'logout successful!', layout: false });
         req.session.username = "";
         req.session.login = false;
-        console.log("Re-rendering");
-        res.render('main', { msg: 'Logged out successfully!', layout: false });
-    } else {
-        next();
     }
 });
 
