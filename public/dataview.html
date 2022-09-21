@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Inventory Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A3 for CS4241">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
+    <script src="./js/script.js"></script>
+  </head>
+  <body>
+    <div id="container">
+    <div id="form" class="display-box">
+      <h1>Add Item</h1>
+      <form action="">
+        <div class="column">
+          <label for="itemName">Item Name:</label>
+          <input type='text' id='itemName' value="item name">
+       </div> 
+      <div class="column">
+        <label for="itemQuantity">Item Quantity:</label>
+        <input type='number' id='itemQuantity' value=1>
+      </div>
+      <div class="column">
+        <label for="itemPrice">Item Price:</label>
+        <input type='number' id='itemPrice' value=0>
+    </div>
+        <button id="formSubmit">submit</button>
+      </form>
+    </div>
+    <div id="display" class="display-box">
+      <h1>Display</h1>
+      <table id="dataTable">
+      </table>
+    </div>
+  </div>
+  </body>
+</html>
