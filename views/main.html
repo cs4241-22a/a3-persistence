@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <form action='/logout' method='POST'>
+        <input type='submit' value="logout">
+        </form>
+        <form action='/addTODO' method='POST'>
+        <input type='text' name='text'>
+        <input type='submit' value="+">
+        </form>
+        <ul>
+            {{#each tasks}}
+                <li>
+                    <input type="checkbox" class="task" id="{{this.text}}" {{#if this.completed}}checked{{/if}}>
+                    <label>{{this.text}}</label>
+                    <script>
+                        {
+                            const selectElement = document.getElementById('{{this.text}}');
+
+                            selectElement.addEventListener('change', () => {
+                                const json = {
+                                    text: "{{this.text}}",
+                                    completed: selectElement.checked,
+                                    },
+                                    body = JSON.stringify(json);
+
+                                fetch("/checkTODO", {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body,
+                                })
+                            });
+                        }
+                    </script>
+                </li>   
+            {{/each}}
+        </ul>
+    </body>
+</html>
