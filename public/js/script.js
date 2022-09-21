@@ -45,9 +45,31 @@ const onEditClick = function(id, name, price, quantity)
   newHTML += `<th><input type="text" value="${price}"</th>`
   newHTML += `<th><input type="text" value="${quantity}"</th>`
   newHTML += `<button onClick=resetEditEntry(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>cancel</button>`
-  newHTML += `<button>save</button>`
+  newHTML += `<button onClick=onEditSubmit(\'${id}\',\'${name}\',\'${price}\',\'${quantity}\')>save</button>`
   currentEntryEditing.innerHTML = newHTML;
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
+}
+
+const onEditSubmit = function(id, name, price, quantity)
+{
+  const json = {_itemID: id,
+                name: name,
+                price: price,
+                quantity: quantity}
+   
+    let body = JSON.stringify(json)
+    
+    fetch( '/update', {
+        method:'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },  
+        body: body 
+      })
+      .then( response => response.json())
+      .then(getData())
+
+      currentEntryEditing = null;
 }
 
 const resetEditEntry = function(id, name, price, quantity)
