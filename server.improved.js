@@ -84,6 +84,7 @@ app.get('/auth/getusername', checkAuth, (req, res) => {
 })
 
 app.get('/api/getdata', async (req, res) => {
+  console.log(req)
   const output = await remindersDB.find({ user: req.user.username }).toArray()
   console.log(output)
   res.writeHeader(200, {'Content-Type': 'application/json'})
