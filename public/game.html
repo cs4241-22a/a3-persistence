@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.css">
+    <link rel="stylesheet" href="./game.css">
+    <title>MINESWEEPERDLE | Play</title>
+    <script src="./game.js"></script>
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center flex-row" style="width: 100vw">
+        <div class="border">
+            <h2>Instructions:</h2>
+            <p>1. Left click to clear a space.</p>
+            <p>2. Right click to place a flag.</p>
+            <p>3. New boards are generated daily.</p>
+            <p>4. You are only given one attempt per board.</p>
+            <p>5. You can attempt previous boards by selecting a date on the right of this page.</p>
+        </div>
+        <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh; width: 60vw;">
+            <h1>Mines: <span id="total-mines">0</span></h1>
+            <div class="board" id="board">
+            </div>
+            <button class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">🚩</button>
+        </div>
+        <div class="border">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "minesweeperdle",
+  "version": "1.0.0",
+  "description": "A web app that generates daily minesweeper puzzles",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r2pen2/a3-persistence.git"
+  },
+  "author": "Joe Dobbelaar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r2pen2/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/r2pen2/a3-persistence#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
