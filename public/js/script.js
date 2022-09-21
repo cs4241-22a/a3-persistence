@@ -22,7 +22,6 @@ const getData = function() {
   }
 
   const createTable = function(jsonData) {
-    //console.log(jsonData[0].items)
     const table = document.getElementById("dataTable")
     table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th> <th></th> <th></th></tr>"
     
@@ -42,10 +41,7 @@ const onEditClick = function(id, name, price, quantity)
 
   currentEntryID = id
   currentEntryEditing = document.getElementById(`row-${id}`)
-  console.log(id)
-  console.log(name)
-  console.log(price)
-  console.log(quantity)
+
   let newHTML = `<th><input id="name-${id}"type="text" value=\"${name}\"></th>`
   newHTML += `<th><input id="price-${id}"type="text" value=\"${price}\"></th>`
   newHTML += `<th><input id="quantity-${id}" type="text" value=\"${quantity}\"></th>`
