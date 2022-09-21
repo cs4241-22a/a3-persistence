@@ -5,11 +5,11 @@ const { User } = require("../models");
 const router = express.Router();
 
 passport.serializeUser((user, cb) => {
-  cb(null, user.id);
+  cb(null, user.github_id);
 });
 
-passport.deserializeUser((user, cb) => {
-  cb(null, user);
+passport.deserializeUser((id, cb) => {
+  cb(null, id);
 });
 
 passport.use(
@@ -30,8 +30,6 @@ passport.use(
           const newUser = new User();
           newUser.github_id = profile.id;
           newUser.username = profile.username;
-
-          console.log(profile);
 
           newUser.save((err) => {
             return err ? cb(err) : cb(null, newUser);

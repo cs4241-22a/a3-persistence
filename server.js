@@ -9,8 +9,7 @@ const path = require("path");
 const passport = require("passport");
 
 const { router: authRouter, checkAuthentication } = require("./routes/auth");
-
-const dir = path.join(__dirname + "/app");
+const taskRouter = require("./routes/task");
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log("Connected!");
@@ -22,27 +21,25 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-    cookie: {
-      httpOnly: true,
-      secure: false,
-    },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(express.static(dir));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.engine("handlebars", hbs());
 app.set("view engine", "handlebars");
-app.set("views", dir);
+app.set("views", path.join(__dirname + "/app/views/task_manager"));
 
 app.use("/login", authRouter);
+app.use("/task", checkAuthentication, taskRouter);
 app.use("/css", express.static("app/css"));
 app.use("/img", express.static("app/img"));
-app.use("/", checkAuthentication, express.static("app"));
+app.use("/", checkAuthentication, (req, res) => {
+  res.render("index", { layout: false });
+});
 
 app.listen(process.env.DEV_PORT);
