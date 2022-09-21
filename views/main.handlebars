@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="grid-container">
+    <div class="description">
+      <h1>Your Little Library</h1>
+      <p>Welcome to Your Little Library! Keep track of all your books with this helpful website!</p>
+      <h2>Enter a new book here!</h2>
+    </div>
+      <form action="/submit" id="formElement">
+        <table class="inputData">
+          <tr>
+            <td>Title of Book:</td>
+            <td><input class="textBox" type="text" id="title" name="title" value=""></td>
+          </tr>
+          <tr>
+            <td>Author of Book:</td>
+            <td><input class="textBox" type="text" id="author" name="author" value=""></td>
+          </tr>
+          <tr>
+            <td>Date Acquired (yyyy-mm-dd):</td>
+            <td><input class="textBox" type="text" id="acquiredDate" name="acquiredDate" value=""></td>
+          </tr>
+          <tr>
+            <td>Have you read it yet? (Yes/No):</td>
+            <td><input class="textBox" type="text" id="readYet" name="readYet" value=""></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td id="submitButton"><button>Save to Library</button></td>
+          </tr>
+        </table>
+      </form>
+      <h2>Enter the Book ID of the book you wish to burn (delete):</h2>
+      <form action="/get" id="deleteElement">
+        <input class="textBox" type="text" id="deleteBookID" name="deleteBookID" value="">
+        <p id="deleteButton"><button>Burn Book</button></p>
+      </form>
+      <h2>Your Bookshelf</h2>
+      <table id="currentData">
+        <tr><th class="bookEntry">Book ID</th><th class="bookEntry">Title</th><th class="bookEntry">Author</th><th class="bookEntry">Acquired Date</th><th class="bookEntry">Read Yet?</th><th class="bookEntry">Read Next Number</th></tr>
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+  <script src="js/scripts.js">
+  </script>
+</html>
