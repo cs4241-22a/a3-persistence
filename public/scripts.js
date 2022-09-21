@@ -59,10 +59,10 @@ window.onload = function (){
                         "<td>" +
                         item.duration +
                         "</td>" +
-                        "<td> <button id = 'delete' onclick = 'delete_row( " +
+                        "<td> <button type = 'button' id = 'delete' onclick = 'delete_row( " +
                         (count - 1).toString() +
                         ")'>Delete</button>" +
-                        "<button id = 'edit' onclick = 'edit_row( " +
+                        "<button type = 'button' id = 'edit' onclick = 'edit_row( " +
                         (count - 1).toString() +
                         ")'>Edit</button> </td>" +
                         "</tr>";

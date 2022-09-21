@@ -1,29 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Login Screen</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
 </head>
-<body>
-<div id="logInBox">
-    <form action="logIn">
-    <label for="userName">UserName</label>
-    <input id="userName" name="userName">
 
+<body>
+    <form action="logIn">
+    <h1>Sign In</h1>
+    <p>Your very own event logger.</p>
+    <label for="userName">Username</label>
+    <input id="userName" name="userName">
+</br>
     <label for="password">Password</label>
     <input id="password" name="password" type="password">
     <br>
-        <a href="main.html"><p>test</p></a>
 
-    <button>submit</button>
+    <button>Submit</button>
 
-        <p>No Account Yet? </p><a href="signUp.html"><p>Sign Up</p></a>
+        <p>No Account Yet? <a href="signUp.html">Sign Up</a></p>
     </form>
-
-
-
-</div>
 <script src="/LogIn.js"></script>
 </body>
 </html>

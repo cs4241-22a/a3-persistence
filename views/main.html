@@ -3,19 +3,25 @@
 <head>
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/css/style.css" />
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
 </head>
 <body>
-    <img
-            alt="background"
-            src="https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/clock_in.png?v=1662180150892"
-    >
-
-<br />
+<!--<br />-->
 <h1>Activity Logger</h1>
 
+<!--<img-->
+<!--        alt="background"-->
+<!--        src="https://cdn.glitch.global/be901791-b6e1-44e8-beb5-89b142958435/clock_in.png?v=1662180150892"-->
+<!--&gt;-->
+
 <form action="adding_time">
-    <div class="grid_container">
+    <label>Your very own event logger. This is meant to be the opposite of a calendar. Instead of
+        schedule what you WANT to do, you would log in events that have already been done so you have an idea of what you have done throughout the day.
+        Be sure to log all the events that you have done!</label>
+    </br>
+    </br>
         <label class="grid_item" for="activity">Type of Activity Done</label>
         <select id="activity" name="Type of activity done">
             <option value="Sleep">Sleep</option>
@@ -25,7 +31,6 @@
             <option value="Fun">Fun</option>
         </select>
 
-        <!--         <br /> -->
         <label for="date">Date</label>
         <input type="date" id="date" name="date" />
 
@@ -36,25 +41,24 @@
         <label for="time_ended">Time Ended</label>
         <input type="time" id="time_ended" name="time_ended" />
 
-        <!--         <br /> -->
         <label for="description">Description</label>
-        <input type="text" id="description" name="description" />
-    </div>
-    <br /><button>submit</button>
+    <textarea type="text" id="description" name="description"> </textarea>
+    <br />
+    <button>submit</button>
 
 </form>
 
 <h1>Activities Logged</h1>
 <br />
-<table id="table">
+<table id="table" class="c-table">
     <tr>
-        <th>Activity Done</th>
-        <th>Date</th>
-        <th>Time Started</th>
-        <th>Time Ended</th>
-        <th>Description</th>
-        <th>Duration</th>
-        <th>Delete?</th>
+        <th class="table_activity">Activity Done</th>
+        <th class="table_date">Date</th>
+        <th class="table_start">Time Started</th>
+        <th class="table_end">Time Ended</th>
+        <th class="table_description">Description</th>
+        <th class="table_duration">Duration</th>
+        <th class="table_buttons">Delete/Edit</th>
     </tr>
 </table>
 <script src="/scripts.js"></script>

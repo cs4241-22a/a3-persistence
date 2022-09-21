@@ -1,0 +1,59 @@
+body{
+    text-align: center;
+    margin: 0 auto;
+}
+
+h1{
+    padding-top: 10%;
+    padding-bottom: 0%;
+
+}
+label {
+    /*display: inline-block;*/
+    text-align: left;
+}
+
+
+form{
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#userName, #password {
+    text-align: center;
+
+}
+
+table {
+    table-layout: auto;
+    text-align: center;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+tr, td, th{
+    text-align: center;
+}
+
+th{
+    font-size: x-large;
+}
+
+
+th.table_activity, th.table_date, th.table_start, th.table_end, th.table_duration{
+    text-align: center;
+    width: 10%;
+}
+
+th.table_description {
+    text-align: center;
+    width: 25%;
+}
+
+th.table_buttons {
+    text-align: center;
+    width: 15%;
+}
