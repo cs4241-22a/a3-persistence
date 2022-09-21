@@ -1,0 +1,114 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!-- based on original glitch hello-express example -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Welcome to Glitch!</title>
+    <!--<link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Trip planner created for WPI webware" />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <div id="planner">
+      <header>
+        <h1>Trip Planner</h1>
+      </header>
+
+      <main>
+        <div class="div2">
+          <form id="form">
+            <div class="form-group">
+              <label for="destination">destination</label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="destination"
+                value="your destination here"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="miles">miles to destination</label>
+              <input type="number" class="form-control" id="miles" value="12" />
+            </div>
+            <div class="form-group">
+              <label for="average">average speed (mph)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="average"
+                value="36"
+              />
+            </div>
+            <div class="form-group">
+              <button id="btn" class="btn btn-success">submit</button>
+              <button id="modifybtn" hidden class="btn btn-warning">
+                modify
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <section class="dreams">
+          <ul id="dreams"></ul>
+        </section>
+
+        <div class="div3">
+          <table
+            id="results"
+            class="table table-striped table-hove table-bordered table-sm table-dark"
+          >
+            <tr>
+              <th>Destination</th>
+              <th>Distance to Destination</th>
+              <th>Average Speed</th>
+              <th>Time to Destination</th>
+              <th>delete</th>
+              <th>modify</th>
+            </tr>
+          </table>
+        </div>
+      </main>
+    </div>
+    <div id="login" hidden>
+      
+      <header>
+      <h1>Login</h1>
+    </header>
+    
+
+        <form id="form2">
+          <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" class="form-control" id="username" value="username"/>
+          </div>
+          <div class="form-group">
+            <label for="password">password</label>
+            <input type="text" class="form-control" id="password" value="12" />
+          </div>
+          <div class="form-group">
+            <p id="warn" class="text-danger"></p>
+          </div>
+          <div class="form-group">
+            <button id="loginbtn" class="btn btn-success">Login</button>
+            <button id="registerbtn" class="btn btn-warning">Register</button>
+          </div>
+        </form>
+      
+    </div>
+    
+    
+    
+  </body>
+</html>
