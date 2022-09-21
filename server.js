@@ -1,8 +1,9 @@
 //installed packages
-const express = require("express")
-const app = express()
-const mongodb = require('mongodb')
-const bodyParser = require('body-parser')
+const express = require("express"),
+  app = express(),
+  mongodb = require('mongodb'),
+  bodyParser = require('body-parser'),
+  cookie = require('cookie-session')
 
 require('dotenv').config()
 
@@ -12,6 +13,13 @@ app.use(express.static('views'))
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+// cookie middleware! The keys are used for encryption and should be
+// changed
+app.use( cookie({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
+
 
 //listen to port
 app.listen(3000)
@@ -22,16 +30,15 @@ app.listen(3000)
 //ROUTES
 //
 app.get('/', (req, res) => {
-  res.render('./index.ejs')
+  if( req.session.login === true ){
+    res.render('./login.ejs')
+  }else{
+    res.render('./index.ejs')
+  }
 })
 
 app.get('/login', (req, res) => {
   res.render('./login.ejs')
-})
-
-// route to get all docs
-app.get('/', (req, res) => {
-
 })
 
 app.post('/login', async (req, res) => {
@@ -40,6 +47,10 @@ app.post('/login', async (req, res) => {
   const user = await userCollection.findOne({ username: name, password: pw })
   if (user) {
     console.log("found " + user)
+    // define a variable that we can check in other middleware
+    // the session object is added to our requests by the cookie-session middleware
+    req.session.login = true
+
     let todos = await todoCollection.find({ name: name }).toArray()
     res.render('index.ejs', { name: name, results: todos })
   } else {
@@ -51,7 +62,7 @@ app.post('/login', async (req, res) => {
         console.log('inserted record', response);
       }
     });
-    res.render('login.ejs')
+    res.render('login.ejs',{msg:'user was created, you can login now!'})
   }
 })
 
@@ -96,4 +107,3 @@ app.use((req, res, next) => {
     res.status(503).send()
   }
 })
-

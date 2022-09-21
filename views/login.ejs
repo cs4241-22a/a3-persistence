@@ -23,7 +23,9 @@
         </div>
         <button type="submit">Login</button>
     </form>
-
+    <%_ if(typeof msg !== "undefined"){ _%>
+        <p><%= msg%></p>
+        <%_ } _%>
 </body>
 
 </html>
