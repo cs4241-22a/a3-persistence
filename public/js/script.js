@@ -36,7 +36,7 @@ const onEditClick = function(id, name, price, quantity)
 {
   if(currentEntryEditing != null)
   {
-    resetEditEntry()
+    resetEditEntry(currentEntryEditing)
   }
 
   currentEntryEditing = document.getElementById(`row-${id}`)
