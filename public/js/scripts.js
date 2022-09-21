@@ -16,7 +16,7 @@ const submit = function (e) {
 
     if(txt.toLowerCase() === 'submit') {
         const form = document.querySelector("form")
-        const json = {assignment: form.assignment.value, subject: form.subject.value, dead_line: form.deadline.value,}
+        const json = {assignment: form.assignment.value, subject: form.subject.value, dead_line: form.deadline.value}
         const body = JSON.stringify(json);
         fetch("/add", {
             method: "POST",
@@ -36,33 +36,45 @@ const submit = function (e) {
             });
 
     } else if(txt.toLowerCase() === 'update') {
-        json = {
+        const json = {
             assignment: document.getElementById('assignment').value,
             subject: document.getElementById('subject').value,
             dead_line: document.getElementById('deadline').value,
             id: eid
         }
-            body= JSON.stringify(json)
-        fetch("/update", {
+        const body= JSON.stringify(json)
+            fetch("/update", {
             method: "POST",
             body,
             headers: {
                 "Content-Type": "application/json"
             }
         })
-            .then(function (response) {
+                .then(function (response) {
                 return response.json();
             })
 
             .then(function (json) {
                 document.querySelector("form").reset();
+                document.querySelector("#tbody").innerHTML = "";
+                fetch("/data", {
+                })
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(db =>{
+                        db.forEach(createTable);
+                    });
+
                 createTable(json);
+                document.querySelector("#tbody").deleteRow(0)
             });
 
         document.querySelector('#sub').innerHTML = "Submit";
         eid = null;
     }
     return false;
+
 };
 
 window.onload = function () {
@@ -116,6 +128,7 @@ function createTable(json) {
 }
 
 const logoutButton = document.getElementById("logout")
+
 logoutButton.addEventListener("click", event => {
     event.preventDefault();
     fetch("/logout", {
