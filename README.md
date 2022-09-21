@@ -13,8 +13,9 @@ The project of:
     Andrei Ignatiev:
         alignatiev@wpi.edu
 
-Glitch: http://a2-alignatiev.glitch.me
-back-up Glitch: https://glitch.com/~a2-alignatiev
+Droplent URL: http://164.90.252.100:3000
+
+
 
 
 
