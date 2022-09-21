@@ -36,7 +36,7 @@ app.use(passport.session())
 
 app.use(express.static('views'))
 app.use(express.json())
-app.use(express.static(__dirname + '/public'))
+//app.use(express.static(__dirname + '/public'))
 
 app.get('/auth/login', (req, res) => {
   console.log('in auth login')
@@ -83,6 +83,7 @@ const connect = async () => {
 connect()
 
 app.get('/', checkAuth, (req, res) => {
+  console.log('in main page')
   res.sendFile(path.join(__dirname, '/public/index.html'))
 })
 
