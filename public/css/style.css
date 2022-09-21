@@ -18,7 +18,10 @@ body {
   font-size: larger;
   margin-left: 20px;
 }
-table,
+table{
+  align-self: auto;
+}
+
 th,
 tr,
 td {
