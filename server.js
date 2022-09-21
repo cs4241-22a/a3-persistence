@@ -174,7 +174,9 @@ app.get('/items', (req, res) => {
       { _id:mongodb.ObjectId( req.session.passport.user), "items._itemID":mongodb.ObjectId(req.body._itemID)},
       { $set:{ "items.$":updatedItem} }
     )
-    .then( result => res.json( result ) )
+    .then( result => {
+      console.log(result)
+      res.json( result )})
 })
 
 /**
