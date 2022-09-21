@@ -8,12 +8,14 @@
     <title>Hao Chen Assignment 3</title>
 </head>
 <body>
-    <form action='/register' method='POST'>
-        <label>username:</label><br>
-        <input type='text' name='new_username'><br>
-        <label>password:</label><br>
-        <input type='password' name='new_password'><br>
-        <input type='submit' value="create">
+    <h1>Register</h1>
+    <form action="/register" method="POST">
+        username:<br>
+        <input type="text" id="new_username" name="new_username" required><br>
+        password:<br>
+        <input type="password" id="new_password" name="new_password" required><br>
+        <input type="submit" value="create">
       </form>
+      <a href="/">sign in</a>
 </body>
 </html>
