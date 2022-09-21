@@ -43,7 +43,7 @@ app.get( '/', (req,res) => {
     }
 })
 
-app.listen( 3000 )
+app.listen( 3069 )
 
 app.use( (req,res,next) => {
     if( collection !== null ) {
