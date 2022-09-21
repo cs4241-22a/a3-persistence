@@ -1,5 +1,6 @@
 const express    = require('express'),
       path       = require('path'),
+      serveStatic = require('serve-static'),
       mongodb    = require('mongodb'),
       timeout = require('connect-timeout'),
       session = require('express-session'),
@@ -36,7 +37,7 @@ app.use( (req,res,next) => {
 
 app.use(timeout('10s'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(serveStatic(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: 'my cookie',
