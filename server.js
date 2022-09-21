@@ -5,6 +5,7 @@ const express = require( 'express' ),
       hbs = require( 'express-handlebars' ).engine,
       crypto = require("crypto"); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { promises } = require('stream');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PWD}@${process.env.HOST}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -19,16 +20,73 @@ app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views','./public')
 
+let db = null;
+
+client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'AllYourStuff' )
+  })
+  .then( _db => {
+    // store reference to collection
+    db = _db;
+  });
+
+let currUser = null;
+
 app.post( '/login', (req,res)=> {
-  console.log( req.body )
-  if( req.body.username === process.env.USER && req.body.password === process.env.PWD ) {
-    req.session.login = true;
-    res.redirect('index.html');
-  }else{
-    req.session.login = false;
-    res.render('login', { msg:'login failed, please try again', layout:false })
+  db.collection("Admin_Logins").find({ }).toArray()
+    .then(result => {
+      let loginFound = false;
+      for(let login of result) {
+        if(login.user === req.body.username && login.pwd === req.body.password) {
+          loginFound = true;
+        }
+      }
+
+      if(loginFound) {
+        req.session.login = true;
+        res.redirect('index.html');
+        currUser = req.body.username;
+      }else{
+        req.session.login = false;
+        res.render('login', { msg:'login failed, please try again', layout:false })
+      }
+    });
+})
+
+app.post( '/register', (req,res)=> {
+  console.log(req.body);
+  db.collection("Admin_Logins").find({ }).toArray()
+    .then(result => {
+      let userFound = false;
+      for(let login of result) {
+        if(login.user === req.body.username) {
+          userFound = true;
+        }
+      }
+
+      if(!userFound) {
+        // Register new user
+        req.session.login = true;
+        db.collection("Admin_Logins").insertOne({ user: req.body.username, pwd: req.body.password});
+        currUser = req.body.username;
+        res.redirect('index.html');
+      }else{
+        req.session.login = false;
+        res.render('login', { msg:'This account already exists', layout:false })
+      }
+    });
+});
+
+app.post('/currentUser', (req, res) => {
+  if(currUser == null) {
+    res.json({user: "_none_"});
+  } else {
+    res.json({user: currUser});
   }
 })
+
 app.get( '/', (req,res) => {
   res.render( 'login', { msg:'', layout:false })
 })
@@ -46,18 +104,7 @@ app.get('/index.html', (req, res) => {
 app.use(express.static('public'));
 app.use(express.json());
      
-let db = null;
 let currCollection = null;
-
-client.connect()
-  .then( () => {
-    // will only create collection if it doesn't exist
-    return client.db( 'AllYourStuff' )
-  })
-  .then( _db => {
-    // store reference to collection
-    db = _db;
-  });
 
 app.use( (req,res,next) => {
     if( db !== null ) {
@@ -69,7 +116,13 @@ app.use( (req,res,next) => {
 
 app.post( '/addCollection', (req,res) => {
   if( db !== null ) {
-    db.createCollection(req.body.collectionName);
+    db.createCollection(req.body.collectionName, (err => {
+      if(err != null) {
+        res.json({error: err.codeName})
+      } else {
+        res.json({error: "none"});
+      }
+    }));
   }
 });
 
@@ -83,7 +136,7 @@ app.post( '/items', (req,res) => {
     if( db !== null ) {
       currCollection = db.collection(req.body.collectionName);
       // get array and pass to res.json
-      currCollection.find({ }).toArray().then( result => res.json( result ))
+      currCollection.find({ }).toArray().then( result => res.json(result))
     }
 })
 

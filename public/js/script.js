@@ -1,3 +1,6 @@
+// gets filled upon window loading
+let currentUser = null;
+
 const addCollection = (e) =>{
     // prevent default form action from being carried out
     e.preventDefault();
@@ -15,6 +18,12 @@ const addCollection = (e) =>{
         headers: { 'Content-Type': 'application/json' },
         body
     })
+    .then(response => response.json())
+    .then(result => {
+        if (result.error === "NamespaceExists") {
+            document.getElementById("addcollectionname").placeholder = "collection already exists";
+        }
+    });
 
     document.getElementById("addcollectionname").value = "";
     loadCollectionChoices();
@@ -33,7 +42,7 @@ function getItems() {
         body: JSON.stringify({ "collectionName":document.getElementById("collectionchoice").value})
     })
     .then( response => response.json() )
-    .then( json => showItems(json))
+    .then( json => showItems(json));
 
     return false;
 }
@@ -42,19 +51,23 @@ function showItems(json) {
     document.getElementById('shownItems').innerHTML = "<tr><th>Name</th><th>Date Collected</th><th>Link</th></tr>";
     const shownItems = document.getElementById('shownItems').getElementsByTagName("tbody")[0];
     for (let item of json) {
+        if(item.user !== currentUser) {
+            continue;
+        }
         const row = document.createElement("tr");
         const name = document.createElement("td");
         name.innerHTML = item.name;
         const dateCol = document.createElement("td");
         dateCol.innerHTML = item.dateCol;
         const link = document.createElement("td");
-        link.innerHTML = `<a href="${item.link}">${item.link.split('/')[2]}</a>`;
+        link.innerHTML = `<a href="${item.link}">${(new URL(item.link)).hostname}</a>`;
         row.appendChild(name);
         row.appendChild(dateCol); 
         row.appendChild(link); 
         shownItems.appendChild(row);
     }
 }
+
 function compareAlphabetical(str1, str2) {
     return str1.toLowerCase() > str2.toLowerCase() ? 1 : -1;
 }
@@ -120,6 +133,9 @@ document.getElementById("deleteitemdrop").onclick = () => {
     .then( json => {
         json.sort((item1, item2) => compareAlphabetical(item1.name, item2.name));
         for (let item of json) {
+            if(item.user !== currentUser) {
+                continue;
+            }
             const option = document.createElement("option");
             option.text = item.name;
             option.value = item._id;
@@ -153,6 +169,9 @@ document.getElementById("updateitemdrop").onclick = () => {
     .then( json => {
         json.sort((item1, item2) => compareAlphabetical(item1.name, item2.name));
         for (let item of json) {
+            if(item.user !== currentUser) {
+                continue;
+            }
             const option = document.createElement("option");
             option.text = item.name;
             option.value = JSON.stringify(item);
@@ -189,10 +208,19 @@ const addItem = e => {
     const itemName = document.getElementById('nameadd'),
         itemDateCol = document.getElementById('datecoladd'),
         itemLink = document.getElementById('linkadd'),
-        json = { name: itemName.value, dateCol: itemDateCol.value, link: itemLink.value },
+        json = { user: currentUser, name: itemName.value, dateCol: itemDateCol.value, link: itemLink.value },
         body = JSON.stringify(json);
 
-    if(itemName === "" || itemDateCol === "" || itemLink === "") {
+    if(itemName === "" ) {
+        itemName.placeholder = "This field cannot be blank"
+        return false;
+    }
+    if(itemDateCol === "" ) {
+        itemDateCol.placeholder = "This field cannot be blank"
+        return false;
+    }
+    if(itemLink === "" ) {
+        itemLink.placeholder = "This field cannot be blank"
         return false;
     }
 
@@ -262,6 +290,9 @@ function loadCollectionChoices() {
     .then( json => {
         json.sort((coll1, coll2) => compareAlphabetical(coll1.name, coll2.name));
         for (let coll of json) {
+            if(coll.name === "Admin_Logins") {
+                continue;
+            }
             const option = document.createElement("option");
             option.text = coll.name;
             option.value = coll.name;
@@ -275,4 +306,14 @@ window.onload = function () {
     addCollectionBtn.onclick = addCollection;
     document.getElementById("collectionchoice").value = "none";
     loadCollectionChoices();
+
+    fetch('/currentUser', {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then( response => response.json() )
+    .then( json => {
+        document.getElementById('loggedinuser').innerHTML = `Logged in as: ${json.user}`;
+        currentUser = json.user;
+    });
 }
