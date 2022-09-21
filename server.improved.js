@@ -52,6 +52,8 @@ app.get('/auth/github/callback',
 })
 
 const checkAuth = (req, res, next) => {
+  console.log('check auth')
+  console.log(req.isAuthenticated())
   if (req.isAuthenticated()) {
     return next()
   }
