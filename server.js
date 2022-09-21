@@ -87,12 +87,28 @@
 
 const express = require('express'),
     app = express(),
+    mongoose = require("mongoose"),
+    passport = require("passport"),
     cookie  = require( 'cookie-session' ),
     hbs     = require( 'express-handlebars' ).engine,
-    mongodb = require('mongodb')
+    mongodb = require('mongodb'),
+    LocalStrategy = require("passport-local"),
+    passportLocalMongoose = require("passport-local-mongoose")
+   // User = require("../../../models/user")
+    
 
 app.use( express.urlencoded({ extended:true }) )
+const bodyParser = require('body-parser')
 const bodyparser = require('body-parser')
+const { request } = require('express')
+
+app.use(bodyParser.urlencoded({extended: false}))
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 // const low = require('lowdb')
 // const FileSync = require('lowdb/adapters/FileSync')
@@ -155,28 +171,103 @@ app.use( cookie({
 
 
 
-app.post( '/login', (req,res)=> {
+app.post( '/login', bodyParser.json(), (req,res)=> {
   console.log( req.body )
+
+  collection.find({usr: req.body.usr, pwd: req.body.pwd}).toArray()
+    .then(result => {
+      if(result.length >= 1)
+      {
+        req.session.usr = req.body.usr
+        req.session.login = true
+        //req.login = true
+        res.json({login: true})
+      }
+      else{
+        res.json({login: false})
+      }
+    })
   
+
+  // User.findOne({username: req.query.username}, function(err, user){
+  //   if(err) {
+  //     console.log(err);
+  //   }
+  //   var message;
+  //   if(user) {
+  //     console.log(user)
+  //       message = "user exists";
+  //       console.log(message)
+  //       req.session.login = true
+  //       res.redirect( 'playlist.html' )
+  //   } else {
+  //       message= "user doesn't exist";
+  //       console.log(message)
+  //       var username = req.body.username
+  //   var password = req.body.password
+  //   User.register(new User({ username: username }),
+  //           password, function (err, user) {
+  //       if (err) {
+  //           console.log(err);
+  //           return res.render("index");
+  //       }
+ 
+  //       passport.authenticate("local")(
+  //           req, res, function () {
+  //           res.render("playlist");
+  //       });
+  //   });
+  //   }
+  //   res.json({message: message});
+  });
+
+
+
+
+// post for register
+app.post("/register", bodyParser.json(), (req, res) => {
+  collection.find({usr: req.body.usr}).toArray()
+    .then(result => {
+      if(result.length >= 1)
+      {
+        res.json({login: false})
+      }
+      else{
+        let newUser = {
+          usr: req.body.usr,
+          pwd: req.body.pwd,
+          entries: []
+        }
+        collection.insertOne(newUser) // SA has this line twice for some reason
+        req.session.usr = req.body.usr
+        req.session.login = true
+        res.json({login: true})
+      }
+    })
+})
+
+
+
+
   // below is *just a simple authentication example* 
   // for A3, you should check username / password combos in your database
-  if( req.body.password === 'test' ) {
-    // define a variable that we can check in other middleware
-    // the session object is added to our requests by the cookie-session middleware
-    req.session.login = true
+  // if( req.body.password === 'test' ) {
+  //   // define a variable that we can check in other middleware
+  //   // the session object is added to our requests by the cookie-session middleware
+  //   req.session.login = true
     
-    // since login was successful, send the user to the main content
-    // use redirect to avoid authentication problems when refreshing
-    // the page or using the back button, for details see:
-    // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-    res.redirect( 'playlist.html' )
-  }else{
-    // cancel session login in case it was previously set to true
-    req.session.login = false
-    // password incorrect, send back to login page
-    res.render('index', { msg:'login failed, please try again', layout:false })
-  }
-})
+  //   // since login was successful, send the user to the main content
+  //   // use redirect to avoid authentication problems when refreshing
+  //   // the page or using the back button, for details see:
+  //   // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
+  //   res.redirect( 'playlist.html' )
+  // }else{
+  //   // cancel session login in case it was previously set to true
+  //   req.session.login = false
+  //   // password incorrect, send back to login page
+  //   res.render('index', { msg:'login failed, please try again', layout:false })
+  //}
+//})
 
 
 
@@ -200,16 +291,16 @@ app.post("/delete", bodyparser.json(), function(req, res) {
 });
 
 
-// app.get('/playlist.html', function(req, res){res.sendFile("playlist.html")})
+app.get('/playlist', function(req, res){res.sendFile(__dirname+"/playlist.html")})
 
-app.get( '/playlist.html', ( req, res) => {
-    res.render( 'playlist', { msg:'success you have logged in', layout:false })
+// app.get( '/playlist.html', ( req, res) => {
+//     res.render( 'playlist', { msg:'success you have logged in', layout:false })
   
-    if(collection !== null)
-      {
-        collection.find({ }).toArray().then(result => res.json(result))
-      }
-})
+//     if(collection !== null)
+//       {
+//         collection.find({ }).toArray().then(result => res.json(result))
+//       }
+// })
 
 app.post( '/submit', bodyparser.json(), function( req, res )  {
     console.log('recieving data...')
@@ -218,10 +309,24 @@ app.post( '/submit', bodyparser.json(), function( req, res )  {
     // res.writeHead(200, {'Content-Type': 'application/json'})
     // res.end(JSON.stringify(db.getState()))
   
-  collection.insertOne(req.body).then(dbresponse => {
-    console.log(dbresponse);
-    res.json(dbresponse);
-  });
+  collection.find({usr: req.session.usr}).toArray()
+    .then(result => {
+      let entries = result[0].entries
+      entries.push(req.body)
+
+      collection.updateOne(
+        {  _id: mongodb.ObjectId(result[0]._id)},
+        {$set: {entries: entries}}
+      )
+      res.json(entries)
+    })
+  
+  
+
+  // collection.insertOne(req.body).then(dbresponse => {
+  //   console.log(dbresponse);
+  //   res.json(dbresponse);
+  // });
 })
 
 //app.listen(3000)

@@ -1,12 +1,15 @@
 <html lang="en">
   <head>
     <style>input { display:block }</style>
+    <script src="user.js" defer></script>
   </head>
   <body>
-    <form action="/login" method="POST">
+    <form> 
+      <!-- action="/login" method="POST" -->
       name: <input type="text" name="username" />
       password:<input type="password" name="password" value="password" />
-      <input type="submit" value="login" />
+      <input type="submit" id="log-in" value="login" />
+      <input type="submit" id="register" value="register" />
     </form>
     {{{msg}}}
   </body>
