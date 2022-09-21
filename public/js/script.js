@@ -44,11 +44,11 @@ const onEditClick = function(id, name, price, quantity)
   console.log(name)
   console.log(price)
   console.log(quantity)
-  let newHTML = `<th><input type="text" value=\"${name}\"></th>`
-  newHTML += `<th><input type="text" value=\"${price}\"></th>`
-  newHTML += `<th><input type="text" value=\"${quantity}\"></th>`
-  newHTML += `<button onclick="resetEditEntry(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Edit</button>`
-  newHTML += `<button onclick="onEditSubmit(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Edit</button>` 
+  let newHTML = `<th><input id="name-${row}"type="text" value=\"${name}\"></th>`
+  newHTML += `<th><input id="price-${row}"type="text" value=\"${price}\"></th>`
+  newHTML += `<th><input id="quantity-${row}" type="text" value=\"${quantity}\"></th>`
+  newHTML += `<button onclick="resetEditEntry(\'${id}\', \'${name}\', \'${price}\', \'${quantity}\')">Cancel</button>`
+  newHTML += `<button onclick="onEditSubmit(\'${id}\')">Submit</button>` 
   currentEntryEditing.innerHTML = newHTML;
   //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
 }
@@ -56,9 +56,9 @@ const onEditClick = function(id, name, price, quantity)
 const onEditSubmit = function(id, name, price, quantity)
 {
   const json = {_itemID: id,
-                name: name,
-                price: price,
-                quantity: quantity}
+                name: document.getElementById(`name-${id}`).value,
+                price: document.getElementById(`price-${id}`).value,
+                quantity: document.getElementById(`quantity-${id}`).value}
    
     let body = JSON.stringify(json)
     
