@@ -27,10 +27,32 @@ const getData = function() {
     table.innerHTML = "<tr> <th>Item Name</th> <th>Price</th> <th>Quantity</th> <th>Total Price</th></tr>"
     
     jsonData.forEach(entry => {
-      table.innerHTML += `<tr> <th>${entry.name}</th> <th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th></tr>`
+      table.innerHTML += `<tr id="row-${entry._itemID}"> <th>${entry.name}</th> <th>${entry.price}</th> <th>${entry.quantity}</th><th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="onEditClick(\'${entry._itemID}\', \'${entry.name}\', \'${entry.price}\', \'${entry.quantity}\')">Edit</button><th></tr>`
     })
   }
   
+let currentEntryEditing = null
+const onEditClick = function(id, name, price, quantity)
+{
+  if(currentEntryEditing != null)
+  {
+    resetEditEntry()
+  }
+
+  let row = document.getElementById(`row-${id}`)
+  let newHTML = `<th><input type="text" value="${name}"</th>`
+  newHTML += `<th><input type="text" value="${price}"</th>`
+  newHTML += `<th><input type="text" value="${quantity}"</th>`
+  newHTML += `<button>cancel</button>`
+  newHTML += `<button>save</button>`
+  row.innerHTML = newHTML;
+  //<th>${entry.price}</th> <th>${entry.quantity}</th> <th>${entry.total}</th> <th><button onclick="deleteEntry(\'${entry._itemID}\')">delete</button><th>  <th><button onclick="">Edit</button><th></tr>`
+}
+
+const resetEditEntry = function()
+{
+
+}
 
 const submitForm = function(e)  {
     // prevent default form action from being carried out
