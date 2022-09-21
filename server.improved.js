@@ -31,29 +31,29 @@ app.use(cookieSession({
   name: 'github-auth-session',
   keys: ['key1', 'key2']
 }))
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.static('views'))
 app.use(express.json())
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'))
 
 app.get('/auth/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/login.html'));
+  res.sendFile(path.join(__dirname, '/public/login.html'))
 })
 
 app.get('/auth/error', (req, res) => res.send('Unknown Error'))
-app.get('/auth/github', passport.authenticate('github',{ scope: ['user:email'] }));
+app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }))
 app.get('/auth/github/callback',
  passport.authenticate('github', { failureRedirect: '/auth/error' }),
  (req, res) => {
   console.log('redirecting to main webpage')
-  res.redirect('/');
-});
+  res.redirect('/')
+})
 
 const checkAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return next();
+    return next()
   }
   res.redirect('/auth/login')
 }
@@ -136,4 +136,4 @@ app.post('/api/updatereminder', checkAuth, async (req, res) => {
 })
 //////////////////////////////////////////////////
 
-app.listen(port)
+app.listen(process.env.PORT || port)
