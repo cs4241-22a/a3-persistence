@@ -1,15 +1,64 @@
-require('dotenv').config()
-
+const { ObjectID } = require('bson')
 const express = require('express'),
       mongodb = require('mongodb'),
+      cookieSession = require('cookie-session'),
+      path = require('path')
+      passport = require('passport'),
       app = express(),
+      passport = require('passport'),
+      GitHubStrategy = require('passport-github2').Strategy,
       port = 3000
 
-let reminders = []
+require('dotenv').config()
+
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
+
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUBCLIENTID,
+    clientSecret: process.env.GITHUBCLIENTSECRET,
+    callbackURL: "http://localhost:3000/auth/github/callback"
+}, (accessToken, refreshToken, profile, done) => {
+  return done(null, profile)
+}))
+
+// setup passport and github OAuth
+app.use(cookieSession({
+  name: 'github-auth-session',
+  keys: ['key1', 'key2']
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static('views'))
 app.use(express.json())
 app.use(express.static(__dirname + '/public'));
+
+app.get('/auth/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/login.html'));
+})
+
+app.get('/auth/error', (req, res) => res.send('Unknown Error'))
+app.get('/auth/github', passport.authenticate('github',{ scope: ['user:email'] }));
+app.get('/auth/github/callback',
+ passport.authenticate('github', { failureRedirect: '/auth/error' }),
+ (req, res) => {
+  res.redirect('/');
+});
+
+const checkAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/auth/login')
+}
+
+let remindersDB
 
 const connect = async () => {
   const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
@@ -18,116 +67,73 @@ const connect = async () => {
   try {
     await client.connect()
     console.log('connected to mongodb server')
-    await listDatabases(client)
   } catch (e) {
     console.error(e)
-  } finally {
-    await client.close()
   }
 
-  const collection = client.db("datatest").collection("test")
-  //console.log(collection)
+  remindersDB = client.db("datatest").collection("test")
+  console.log(remindersDB)
 }
-
-async function listDatabases(client){
-  databasesList = await client.db().admin().listDatabases();
-
-  console.log("Databases:");
-  databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
 
 connect()
 
-/*const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://milesdatabse:EutAV1ENZbpmYLfk@a3-assignment.bolnyzj.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+//////////////////// GET DATA ////////////////////
+app.get('/auth/getusername', checkAuth, (req, res) => {
+  res.writeHeader( 200, { 'Content-Type': 'application/json' })
+  res.end(JSON.stringify({'username': req.user.username}))
+})
 
-client.connect(err => {
-  const collection = client.db("datatest").collection("test");
-  console.log("connected to db!!!!")
-  console.log(err)
-  // perform actions on the collection object
-  client.close();
-});*/
+app.get('/api/getdata', async (req, res) => {
+  const output = await remindersDB.find({ user: req.user.username }).toArray()
+  console.log(output)
+  res.writeHeader(200, {'Content-Type': 'application/json'})
+  res.end(JSON.stringify(output))
+})
+//////////////////////////////////////////////////
 
-/*const handleGet = (request, response) => {
-  console.log('in get')
-  console.log(request.url)
-  switch (request.url) {
-    case '/api/getdata':
-      console.log('sending data back to client')
-      console.log(reminders)
-      response.writeHeader(200, {'Content-Type': 'application/json'})
-      response.end(JSON.stringify(reminders))
-      break
-    default:
-      break
+//////////////////// POST DATA ///////////////////
+app.post('/api/newreminder', checkAuth, async (req, res) => {
+  req.body["user"] = req.user.username
+  await remindersDB.insertMany([req.body])
+  res.writeHead(200, "OK", {'Content-Type': 'application/json'})
+  res.end()
+})
+
+app.post('/api/deletereminder', checkAuth, async (req, res) => {
+  console.log('deleteing reminder')
+  console.log(req.body)
+  const deleteItem = await remindersDB.deleteMany({_id: mongodb.ObjectId(req.body._id)})
+  if (deleteItem) {
+    res.writeHead(200, "OK", {'Content-Type': 'application/json'})
+    res.end()
+  } else {
+    res.writeHead(404, "id not found", {'Content-Type': 'application/json'})
+    res.end()
   }
-}*/
-
-//app.use(handleGet)
-
-app.get('/api/getdata', (request, response) => {
-  response.writeHeader(200, {'Content-Type': 'application/json'})
-  response.end(JSON.stringify(reminders))
 })
 
-app.post('/api/newreminder', (request, response) => {
-  console.log(request)
-  reminders.push(request.body)
-  response.writeHead(200, "OK", {'Content-Type': 'application/json'})
-  response.end()
-})
-
-app.post('/api/deletereminder', (request, response) => {
-  console.log(request)
-  reminders = reminders.filter((element) => {
-    return JSON.stringify(element) != JSON.stringify(request.body) //element.title !== data.title
-  })
-  response.writeHead(200, "OK", {'Content-Type': 'application/json'})
-  response.end()
-})
-
-/*const handlePost = (request, response, next) => {
-  let dataString = ''
-
-  request.on('data', (data) => {
-      console.log("Data:", data)
-      dataString += data 
-  })
-
-  console.log('here')
-
-  request.on('end', () => {
-    console.log(dataString)
-    const data = JSON.parse(dataString)
-
-    switch (request.url) {
-      case '/api/newreminder':
-        console.log('new data incoming')
-        reminders.push(data)
-        console.log(reminders)
-        response.writeHead(200, "OK", {'Content-Type': 'application/json'})
-        response.end()
-        break
-      case '/api/deletereminder':
-        console.log('new delete data incoming')
-        reminders = reminders.filter((element) => {
-          return JSON.stringify(element) != JSON.stringify(data) //element.title !== data.title
-        })
-        console.log(reminders)
-        response.writeHead(200, "OK", {'Content-Type': 'application/json'})
-        response.end()
-        break
-      default:
-        console.log("ERROR")
-        break
+app.post('/api/updatereminder', checkAuth, async (req, res) => {
+  console.log('updateing reminder')
+  console.log(req.body)
+  const updatedItem = await remindersDB.updateOne({_id: mongodb.ObjectId(req.body._id)}, {
+    $set: {
+      title: req.body.title,
+      notes: req.body.notes,
+      url: req.body.url,
+      date: req.body.date,
+      time: req.body.time,
+      location: req.body.location
     }
-
-    next()
   })
-}
+  if (updatedItem) {
+    console.log('updated item')
+    res.writeHead(200, "OK", {'Content-Type': 'application/json'})
+    res.end()
+  } else {
+    res.writeHead(404, "id not found", {'Content-Type': 'application/json'})
+    res.end()
+  }
+})
+//////////////////////////////////////////////////
 
-app.use(handlePost)*/
-
-app.listen(process.env.PORT || port)
+app.listen(port)

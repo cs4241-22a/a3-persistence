@@ -2,7 +2,7 @@ const submit = function(e) {
     // prevent default form action from being carried out
     e.preventDefault()
     
-    let myForm = document.getElementById('mainform')
+    let myForm = document.getElementById('primary')
     const output = {}
 
     for (let i = 0; i < myForm.elements.length; i++) {
@@ -16,17 +16,15 @@ const submit = function(e) {
         }
     }
 
-    for (let i = 0; i < myForm.elements.length; i++) {
-        myForm.elements[i].value = ""
-    }
-
     fetch('/api/newreminder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(output)
     }).then((response) => {
-        // sucessfully posted new data to server
-        if (response.status === 200) {
+        if (response.status === 200) { // sucessfully posted new data to server
+            for (let i = 0; i < myForm.elements.length; i++) {
+                myForm.elements[i].value = ''
+            }
             // now update the table on html side
             updateTable()
         } else {
@@ -51,65 +49,54 @@ const updateTable = () => {
     .then(response => response.json())
     .then(data => {
         const table = document.getElementById('dataTable')
-        table.innerHTML = '<tr><th>Delete</th><th>Title</th><th>Notes</th><th>URL</th><th>Date</th><th>Time</th><th>Location</th></tr>'
+        table.innerHTML = '<tr><th>Delete</th><th>Edit</th><th>Title</th><th>Notes</th><th>URL</th><th>Date</th><th>Time</th><th>Location</th></tr>'
         for (let information of data) {
             let rowLength = table.rows.length
             let row = table.insertRow(rowLength)
-            let deleteButton = document.createElement('input')
-            let btnName = 'Delete'
-            
+
+            row.id = information._id
+
+            // make id the object id
+            let deleteButton = document.createElement('input')            
             deleteButton.type = 'button'
-            deleteButton.id = rowLength + 1
-            deleteButton.className = btnName
+            deleteButton.id = information._id
+            deleteButton.className = 'Delete'
             deleteButton.style.background =  'rgba(255, 0, 0, 1)'
-            deleteButton.setAttribute('value', btnName)
+            deleteButton.setAttribute('value', 'Delete')
             deleteButton.onclick = (event) => {
-                removeRow(event)
+                deleteReminder(event)
             }
             row.insertCell(0).appendChild(deleteButton)
 
-            for (let i = 0; i < Object.keys(information).length; i++) {
-                let cell = row.insertCell(i+1)
-                cell.id = Object.keys(information)[i]
-                cell.innerHTML = information[Object.keys(information)[i]]
+            let editButton = document.createElement('input')            
+            editButton.type = 'button'
+            editButton.id = information._id
+            editButton.className = 'Edit'
+            editButton.style.background =  'rgba(0, 255, 0, 1)'
+            editButton.setAttribute('value', 'Edit')
+            editButton.onclick = (event) => {
+                updateReminder(event)
+            }
+            row.insertCell(1).appendChild(editButton)
+
+            console.log(information)
+            let i = 2
+            for (let title of ['title', 'notes', 'url', 'date', 'time', 'location']) {
+                let cell = row.insertCell(i)
+                cell.id = title
+                cell.innerHTML = information[title.toLowerCase()]
+                i++
             }
         }
     })  
 }
 
-const removeRow = (event) => {
-    let table = document.getElementById('dataTable')
-    let left = 1
-    let right = table.rows.length-1
-
-    while (left <= right) {
-        let mid = Math.floor((left + right) / 2)
-        console.log(mid)
-        let cells = table.rows[mid].cells
-        let pos = cells[0].children[0].id
-
-        if (pos === event.target.id) {
-            let output = {}
-            for (let j = 1; j < cells.length; j++) {
-                output[cells[j].id] = cells[j].innerHTML
-            }
-            deleteReminder(output)
-            console.log('deleteing reminder')
-            break
-        } else if (parseInt(pos) < parseInt(event.target.id)) {
-            left = mid + 1
-        } else {
-            right = mid - 1
-        }
-    }
-}
-
-const deleteReminder = (output) => {
+const deleteReminder = (event) => {
     console.log('DELETEING REMINDER')
     fetch('/api/deletereminder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(output)
+        body: JSON.stringify({_id: event.target.id})
     }).then((response) => {
         console.log('HERE')
         if (response.status === 200) {
@@ -117,4 +104,48 @@ const deleteReminder = (output) => {
             updateTable()
         }
     })
+}
+
+const updateReminder = (event) => {
+    console.log('updateing reminder')
+    document.getElementById(event.target.id).childNodes.forEach(e => {
+        if (e.id !== '') {
+            document.getElementById(e.id + '_edit').value = e.innerText
+
+        }
+    })
+
+    document.querySelector('#button_edit').onclick = (e) => {
+        e.preventDefault()
+        let myForm = document.getElementById('edit')
+        const output = {}
+
+        for (let i = 0; i < myForm.elements.length; i++) {
+            let element = myForm.elements[i]
+            if (element.nodeName === 'INPUT') {
+                if (element.value.length === 0) {
+                    alert('Empty input on', element.id)
+                    return
+                }
+                output[element.id.substring(0, element.id.length-5)] = element.value
+            }
+        }
+        console.log(output)
+
+        output['_id'] = event.target.id
+
+        fetch('/api/updatereminder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(output)
+        }).then((response) => {
+            if (response.status === 200) {
+                console.log('succesfully posted update')
+                for (let i = 0; i < myForm.elements.length; i++) {
+                    myForm.elements[i].value = ''
+                }
+                updateTable()
+            }
+        })
+    }
 }

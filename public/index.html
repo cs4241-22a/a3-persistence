@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>CS4241 Assignment 3</title>
     <meta charset="utf-8">
+    <link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Sora" rel="stylesheet" type="text/css">
@@ -10,44 +11,78 @@
   </head>
   <body>
     <div class="maincontainer">
-      <div class="header">
-        <h1>
-          <i>Reminders Web Application</i>
-        </h1>
+      <div class="Header" data-color-mode="dark" data-dark-theme="dark_dimmed">
+        <div class="Header-item">
+          <span class="Header-link f4 d-flex flex-items-center">Reminders</span>
+        </div>
       </div>
-      <div class="form">
-        <form action="" id="mainform">
-          <label>
-            Title:
-            <input id="title" type="text"><br>
-          </label>
-          <label>
-            Notes:
-            <input id="notes" type="text"><br>
-          </label>
-          <label>
-            URL:
-            <input id="url" type="text"><br>
-          </label>
-          <label>
-            Date:
-            <input id="date" type="date"><br>
-          </label>
-          <label>
-            Time:
-            <input id="time" type="time"><br>
-          </label>
-          <label>
-            Location:
-            <input id="location" type="text"><br>
-          </label>
-          <button>Submit</button>
-        </form>
+      <div class="col-3 float-left border p-4">
+        <div class="form">
+          <form id="primary">
+            <p class="h3">Add a new reminder</p>
+            <label>
+              Title:
+              <input id="title" type="text"><br>
+            </label>
+            <label>
+              Notes:
+              <input id="notes" type="text"><br>
+            </label>
+            <label>
+              URL:
+              <input id="url" type="text"><br>
+            </label>
+            <label>
+              Date:
+              <input id="date" type="date"><br>
+            </label>
+            <label>
+              Time:
+              <input id="time" type="time"><br>
+            </label>
+            <label>
+              Location:
+              <input id="location" type="text"><br>
+            </label>
+            <button class="btn">Submit</button>
+          </form>
+        </div>
+        <div class="form2">
+          <p class="h3">Edit a reminder</p>
+          <form id="edit">
+            <label>
+              Title:
+              <input id="title_edit" type="text"><br>
+            </label>
+            <label>
+              Notes:
+              <input id="notes_edit" type="text"><br>
+            </label>
+            <label>
+              URL:
+              <input id="url_edit" type="text"><br>
+            </label>
+            <label>
+              Date:
+              <input id="date_edit" type="date"><br>
+            </label>
+            <label>
+              Time:
+              <input id="time_edit" type="time"><br>
+            </label>
+            <label>
+              Location:
+              <input id="location_edit" type="text"><br>
+            </label>
+            <button class="btn" id="button_edit">Submit</button>
+          </form>
+        </div>
       </div>
-      <div class="datatable">
+      <div class="col-9 float-left border p-4">
         <table id="dataTable" border="1">
               <tr>
                 <th>Delete</th>
+                <th>Edit</th>
                 <th>Title</th>
                 <th>Notes</th>
                 <th>URL</th>
