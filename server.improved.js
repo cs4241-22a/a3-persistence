@@ -21,7 +21,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUBCLIENTID,
     clientSecret: process.env.GITHUBCLIENTSECRET,
-    callbackURL: "http://localhost:3000/auth/github/callback"
+    callbackURL: "https://a3-miles-gregg.herokuapp.com/auth/github/callback"
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, profile)
 }))
