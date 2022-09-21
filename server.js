@@ -1,7 +1,5 @@
-// 1. Fix add route
-// 2. Fix remove route
-// 3. Implement modification frontend
-// 4. Write modification route
+// 1. Implement modification frontend
+// 2. Write modification route
 
 const express = require('express'),
     mongoose = require('mongoose'),
@@ -9,12 +7,14 @@ const express = require('express'),
     hbs = require('express-handlebars').engine,
     app = express();
 const bcrypt = require('bcrypt');
+const { json } = require('body-parser');
 app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
 require('mongoose-double')(mongoose);
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
 
@@ -70,6 +70,8 @@ const entrySchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+entrySchema.index({ show: 1, user: 1 }, { unique: true });
 
 const Entry = mongoose.model('Entry', entrySchema);
 
@@ -133,36 +135,58 @@ const createUsersWithMessages = async () => {
 };
 
 // helper function used by the add, remove, modify routes
-const queryUsernameToId = async function(userLookup) {
+const queryUsernameToId = async function (userLookup) {
     const user = await User.findOne({ username: userLookup });
     return user.id;
 }
 
-app.post('/submit', express.json(), async (req, res) => {
+const queryUsernameToShows = async function (userLookup) {
+    const userId = await queryUsernameToId(userLookup);
+    const docs = await Entry.find({ user: userId }, 'show seasons eps duration totalTime');
+    return docs;
+}
+
+app.post('/submit', async (req, res) => {
     console.log("Received request to enter show " + req.body.show + " under name " + req.session.username);
     const userId = await queryUsernameToId(req.session.username);
-    const newEntry = new Entry({
-        show: req.body.show,
-        seasons: req.body.seasons,
-        eps: req.body.eps,
-        duration: req.body.duration,
-        totalTime: ((req.body.seasons * req.body.eps * req.body.duration) / 60).toFixed(2),
-        user: userId
-    });
-    newEntry.save().then(res.status(200).json(newEntry));
+    const docs = await Entry.find({ show: req.body.show, seasons: req.body.seasons, eps: req.body.eps, duration: req.body.duration, user: userId });
+    if (docs.length > 0) {
+        // an exact duplicate entry already exists
+        res.json({ msg: "Cannot enter two shows with the same information. Either modify the existing show or delete it altogether." });
+    } else {
+        const newEntry = new Entry({
+            show: req.body.show,
+            seasons: req.body.seasons,
+            eps: req.body.eps,
+            duration: req.body.duration,
+            totalTime: ((req.body.seasons * req.body.eps * req.body.duration) / 60).toFixed(2),
+            user: userId
+        });
+        const entry = await newEntry.save();
+        console.log(entry);
+        console.log(typeof (entry));
+        res.json(await queryUsernameToShows(req.session.username)).end();
+    }
+
+
 });
 
 // TODO: enable delete items
-// assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
-app.post('/remove', (req, res) => {
-    console.log("Attempting to remove something");
-    dataCollection
-        .deleteOne({ _id: mongodb.ObjectId(req.body._id) })
-        .then(result => res.json(result))
-    // res.writeHead(200, "OK", {
-    //     "Content-Type": "text/plain",
-    // });
-    // res.end(JSON.stringify(appdata));
+app.post('/remove', async (req, res) => {
+    console.log("Received request to delete show " + req.body.show + " from name " + req.session.username);
+    const userId = await queryUsernameToId(req.session.username);
+    console.log("Finding stuff for show " + req.body.show + " and user " + userId);
+
+    Entry.deleteOne({ show: req.body.show, user: userId }).then(function () {
+        console.log("Data deleted"); // Success
+    }).catch(function (error) {
+        console.log(error); // Failure
+    });
+
+    const data = await queryUsernameToShows(req.session.username);
+    console.log("Updated data for this user:");
+    console.log(data);
+    res.json(data).end();
 });
 
 // TODO: implement modifying items
@@ -181,10 +205,29 @@ app.get('/', (req, res) => {
     res.render('index', { layout: false });
 });
 
-app.get('/account', function (req, res) {
+app.post('/getdata', async function (req, res) {
+    if (req.session.login) {
+        console.log("Sending data");
+        const data = await queryUsernameToShows(req.session.username);
+        res.json(data).end();
+    }
+});
+
+app.post('/update', async function (req, res) {
+    // query for the correct entry and send that back
+    const userId = await queryUsernameToId(req.session.username);
+    console.log("Looking for shows by name " + req.body.show + " associated with " + req.session.username);
+    const docs = await Entry.findOne({ show: req.body.show, user: userId }, 'show seasons eps duration totalTime');
+    console.log("Right show:");
+    console.log(docs);
+    res.json(docs).end();
+});
+
+app.get('/account', async function (req, res) {
     if (req.session.login) {
         console.log("Logged in");
         let tempString = "Welcome, " + req.session.username + "!";
+
         res.render('main', { msg: tempString, layout: false });
         // TODO: need to add a place in the view for the table ???
         // actually no, because I have code in the frontend that turns the JSON into a pretty table
@@ -197,7 +240,7 @@ app.get('/account', function (req, res) {
 });
 
 // manage login form requests
-app.post('/register', express.json(), async (req, res) => {
+app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     User.find({ username: req.body.username }, async function (err, resultsList) { // if the user exists, check the password
         console.log(resultsList);
@@ -233,9 +276,9 @@ app.post('/logout', express.json(), (req, res) => {
     console.log(req.session.login);
     if (req.session.login) {
         console.log("Re-rendering");
-        res.render('index', { msg: 'logout successful!', layout: false });
         req.session.username = "";
         req.session.login = false;
+        res.redirect('index');
     }
 });
 

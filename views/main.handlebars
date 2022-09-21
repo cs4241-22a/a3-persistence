@@ -7,34 +7,34 @@
     <link rel="stylesheet" href="sakura.css" type="text/css">
 
     <script>
-        var dataTable = [
-            {
-                show: "Game of Thrones",
-                seasons: 8,
-                episodes: 10,
-                duration: 60,
-                totalTime: 80.0,
-            },
-            {
-                show: "House of the Dragon",
-                seasons: 1,
-                episodes: 10,
-                duration: 60,
-                totalTime: 10.0,
-            },
-            {
-                show: "Better Call Saul",
-                seasons: 6,
-                episodes: 10,
-                duration: 45,
-                totalTime: 45.0,
-            },
-        ];
+        var dataTable;
+
+        window.onload = function () {
+            document.getElementById("submit").onclick = submit;
+            //document.getElementById("remove").onclick = remove;
+            document.getElementById("logout").onclick = logout;
+            fetch("/getdata", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(function (response) {
+                res = response.json(); // read as JSON
+                const checkPromise = () => {
+                    res.then((result) => {
+                        // on promise fulfillment, return the promise
+                        dataTable = result; // update the client's local copy
+                        handleResults(dataTable);
+                    }).catch((err) => {
+                        console.error("Error: " + err); // otherwise log an error
+                    });
+                };
+                checkPromise();
+            });
+        };
 
         const submit = function (e) {
             e.preventDefault();
-
-            // clear out the error message
             document.getElementById("error").innerHTML = "";
 
             const show = document.querySelector("#show"),
@@ -55,7 +55,6 @@
                 return;
             }
 
-            // clear the form on submit
             document.getElementById("show").value = "";
             document.getElementById("seasons").value = "";
             document.getElementById("eps").value = "";
@@ -72,10 +71,12 @@
                 res = response.json();
                 const checkPromise = () => {
                     res.then((result) => {
-                        dataTable = result;
-                        console.log("Result:");
-                        console.log(result);
-                        handleResults(result);
+                        if (result.msg == "Cannot enter two shows with the same information. Either modify the existing show or delete it altogether.") {
+                            document.getElementById("error").textContent = result.msg;
+                        } else {
+                            dataTable = result;
+                            handleResults(result);
+                        }
                     }).catch((err) => {
                         console.error("Error: " + err);
                     });
@@ -85,9 +86,42 @@
             return false;
         };
 
-        const remove = function (entryToRemove) {
+        function update(entryToRemove) {
             const json = dataTable[entryToRemove];
             const body = JSON.stringify(json);
+            console.log("Entry to be updated");
+            console.log(body);
+
+            fetch("/update", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body,
+            }).then(function (response) {
+                res = response.json(); // read as JSON
+                const checkPromise = () => {
+                    res.then((result) => {
+                        console.log("Reading result");
+                        console.log(result);
+                        document.getElementById("show").value = result.show;
+                        document.getElementById("seasons").value = result.seasons;
+                        document.getElementById("eps").value = result.eps;
+                        document.getElementById("duration").value = result.duration;
+                    }).catch((err) => {
+                        console.error("Error: " + err); // otherwise log an error
+                    });
+                };
+                checkPromise();
+            });
+            return false;
+        };
+
+        function remove(entryToRemove) {
+            const json = dataTable[entryToRemove];
+            const body = JSON.stringify(json);
+            console.log("Entry to remove");
+            console.log(body);
 
             fetch("/remove", {
                 method: "POST",
@@ -121,20 +155,22 @@
                 },
                 body
             })
-            .then(function (response) {
-                console.log(response);
-                window.location.href = "/";
-            });
-        };
-
-        window.onload = function () {
-            document.getElementById("submit").onclick = submit;
-            //document.getElementById("remove").onclick = remove;
-            document.getElementById("logout").onclick = logout;
-            handleResults(dataTable);
+                .then(function (response) {
+                    console.log(response);
+                    window.location.href = "/";
+                });
         };
 
         function handleResults(resultArr) {
+            if (resultArr.length < 1) {
+                return;
+            }
+            console.log("Result array received by handleResults");
+            console.log(resultArr);
+            resultArr.forEach(jsonObj => delete jsonObj._id);
+            console.log("Result array with _id stripped out");
+            console.log(resultArr);
+
             let resultStr = "<table><tr><th>TV Show</th><th>Seasons</th><th>Episodes Per Season</th><th>Duration of an Episode (mins)</th><th>Time to Binge-Watch Full Show (hrs)</th><th></th></tr>";
             let parsedJson;
             for (let i = 0; i < resultArr.length; i++) {
@@ -143,7 +179,7 @@
                 Object.keys(parsedJson).forEach(
                     (item) => (resultStr += "<td>" + parsedJson[item] + "</td>")
                 );
-                resultStr += "<td><button onclick='remove(" + i + ")'>Remove Entry</button></td>";
+                resultStr += "<td><button onclick='update(" + i + ")'>Update Entry</button><button onclick='remove(" + i + ")'>Remove Entry</button></td>";
                 resultStr += "</tr>";
             }
             resultStr += "</table>";
@@ -173,12 +209,11 @@
                     <span class="formLabel">Duration of an episode (minutes)</span>
                     <input type="number" id="duration" value="45" min="1" /><br />
 
-                    <span id="error"></span><br />
-                    <button id="submit">Submit</button>
+                    <span id="error" style="color:red"></span><br />
+                    <button id="submit">Submit</button><button id="modify">Modify Existing</button>
                 </fieldset>
             </form>
         </div>
-
         <div id="results"></div>
         <button id="logout">Logout</button>
     </div>
