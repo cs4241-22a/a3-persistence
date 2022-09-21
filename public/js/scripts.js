@@ -22,13 +22,11 @@ function getTableData() {
         row.appendChild(nameCell);
 
         let costCell = document.createElement("td");
-        costCell.appendChild(document.createTextNode(item.item_cost));
+        costCell.appendChild(document.createTextNode(`$${item.item_cost}`));
         row.appendChild(costCell);
 
         let quantityCell = document.createElement("td");
-        quantityCell.appendChild(
-          document.createTextNode(`$${item.item_quantity}`)
-        );
+        quantityCell.appendChild(document.createTextNode(item.item_quantity));
         let decreaseButton = document.createElement("button");
         decreaseButton.innerText = "Decrease";
         decreaseButton.className = "waves-effect waves-light btn";
@@ -58,7 +56,9 @@ function getTableData() {
 
         let amountCell = document.createElement("td");
         amountCell.appendChild(
-          document.createTextNode(`$${item.item_cost * item.item_quantity}`)
+          document.createTextNode(
+            `$${(item.item_cost * item.item_quantity).toFixed(2)}`
+          )
         );
         row.appendChild(amountCell);
 
@@ -71,9 +71,12 @@ function getTableData() {
 function formSubmit(event) {
   event.preventDefault();
 
-  const item_name = document.querySelector("#item_name").value;
-  const item_cost = document.querySelector("#item_cost").value;
-  const item_quantity = document.querySelector("#item_quantity").value;
+  const name_form = document.querySelector("#item_name");
+  const cost_form = document.querySelector("#item_cost");
+  const quantity_form = document.querySelector("#item_quantity");
+  const item_name = name_form.value;
+  const item_cost = cost_form.value;
+  const item_quantity = quantity_form.value;
   const payment_method = document.querySelector("#payment_method").value;
 
   if (
@@ -104,6 +107,10 @@ function formSubmit(event) {
   }).then(function (response) {
     getTableData();
   });
+
+  name_form.value = "";
+  cost_form.value = "";
+  quantity_form.value = "";
 }
 
 export { getTableData, formSubmit };
