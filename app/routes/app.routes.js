@@ -9,4 +9,8 @@ router.get("/task", function (req, res) {
 //   res.sendFile(__dirname + "/index.html");
 // });
 
+router.get("/", (req, res) => {
+  res.render("index", { msg: "", layout: false });
+});
+
 module.exports = router;
