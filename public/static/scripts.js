@@ -61,8 +61,8 @@ const submitnew = function (e) {
       console.log(response)
       document.getElementById('newsub').disabled = true;
       document.getElementById("newsub").textContent = "success!"
-      updateList();
       setTimeout(function () {
+        updateList();
         document.getElementById("message").value = ""
         document.getElementById("newsub").disabled = false;
         document.getElementById("newsub").textContent = "Submit"
@@ -94,8 +94,8 @@ const submitdelete = function (e) {
       document.getElementById('delcan').disabled = true;
       document.getElementById("delsub").disabled = true;
       document.getElementById("delsub").textContent = "deleting..."
-      updateList();
       setTimeout(function () {
+        updateList();
         showMessages();
         document.getElementById('delcan').disabled = false;
         document.getElementById("delsub").disabled = false;
@@ -129,8 +129,8 @@ const submitedit = function (e) {
       document.getElementById('editcan').disabled = true;
       document.getElementById("editsub").disabled = true;
       document.getElementById("editsub").textContent = "editing..."
-      updateList();
       setTimeout(function () {
+        updateList();
         showMessages();
         document.getElementById('editcan').disabled = false;
         document.getElementById("editsub").disabled = false;
