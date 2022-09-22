@@ -22,7 +22,6 @@ const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.e
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
-let appdata =
 
 refreshDB = () => {return client.connect()
   .then( () => {
@@ -48,7 +47,7 @@ app.post( '/login', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
-  appdata = refreshDB()
+  let appdata = refreshDB()
   appdata.then( (_appdata) => {
       for(let i = 0; i < _appdata.length; i++){
         if(req.body.username === _appdata[i].username){
