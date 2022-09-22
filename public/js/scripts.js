@@ -29,7 +29,7 @@ function getTableData() {
         quantityCell.appendChild(document.createTextNode(item.item_quantity));
         let decreaseButton = document.createElement("button");
         decreaseButton.innerText = "Decrease";
-        decreaseButton.className = "waves-effect waves-light btn";
+        decreaseButton.className = "waves-effect waves-light btn deep-purple";
         decreaseButton.style = "float: right;";
         decreaseButton.addEventListener("click", () => {
           const json = {

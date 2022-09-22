@@ -1,9 +1,10 @@
 <div class="container">
-  <h1>Here are your purchases, {{{username}}}.</h1>
-
-  <div class="center-align">
-    <a class="waves-effect waves-light btn" href="/logout">Log Out</a>
-  </div>
+  <h1>Here are your purchases,
+    {{{username}}}.
+    <div class="center-align">
+      <a class="waves-effect waves-light btn deep-purple" href="/logout">Log Out</a>
+    </div>
+  </h1>
 
   <div class="row">
     <form class="col s12" id="purchase_form" action="">
@@ -49,12 +50,11 @@
             <option value="cash">Cash</option>
           </select>
           <label for="payment_method">Payment Method</label>
-
         </div>
       </div>
       <div class="center-align">
         <button
-          class="btn waves-effect waves-light center-align"
+          class="btn waves-effect waves-light center-align deep-purple"
           type="submit"
           name="action"
         >
