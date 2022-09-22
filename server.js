@@ -2,10 +2,18 @@ require('dotenv').config()
 const express = require( 'express' ),
     cookie  = require( 'cookie-session' ),
     mongodb = require( 'mongodb' ),
+    favicon = require('serve-favicon'),
     app = express()
 
-// use express.urlencoded to get data sent by defaut form actions
+// use express.urlencoded to get data sent by default form actions
 // or GET requests
+app.use( cookie({
+  name: 'session',
+  keys: ['2iMAwLWcViIKX5kAXuted14Jejr5Nwd4', '8ihbYfca2GFjh3eTvL1zpaWbgY0fZGWh']
+}))
+
+app.use(favicon(__dirname +'/public/favicon.ico'))
+
 app.use(express.urlencoded({ extended:true }) )
 
 app.use( express.json() )
@@ -29,18 +37,14 @@ refreshDB = () => {return client.connect()
   })
 }
 refreshDB()
-// cookie middleware! The keys are used for encryption and should be
-// changed
-app.use( cookie({
-  name: 'session',
-  keys: ['2iMAwLWcViIKX5kAXuted14Jejr5Nwd4', '8ihbYfca2GFjh3eTvL1zpaWbgY0fZGWh']
-}))
 
 app.engine('html', require('hbs').__express);
 app.set('view engine', 'hbs');
 app.set('views', './views');
+app.disable('view cache');
 
 app.post( '/login', (req,res)=> {
+  req.session.user = undefined
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
@@ -51,15 +55,25 @@ app.post( '/login', (req,res)=> {
           break
         }
       }
-      if(typeof req.session.user !== 'undefined' && req.body.password === req.session.user.password ) {
+      if(typeof req.session.user !== 'undefined'){
+        if(req.body.password === req.session.user.password ) {
         // define a variable that we can check in other middleware
         // the session object is added to our requests by the cookie-session middleware
         req.session.login = true
         refreshDB()
         .then(res.redirect( 'main' ))
-      }else{
-        // password incorrect, redirect back to login page
-        res.render("index.html", {message:"wrong password or user name"})
+        }else{
+          // password incorrect, redirect back to login page
+          req.session.login = false
+          res.render("login.html", {message:"wrong password"})
+        }
+      }else {
+        req.body.tasks = [];
+        req.session.user = req.body
+        req.session.login = true
+        collection.insertOne( req.body)
+        .then(refreshDB())
+        .then(res.redirect( 'main' ))
       }
     }
   )
@@ -83,9 +97,28 @@ app.post( '/checkTODO', (req, res)=>{
 })
 
 app.post('/addTODO', (req, res)=>{
-  req.session.user.tasks.push({completed: false, text: req.body.text})
-  collection.updateOne({_id:mongodb.ObjectId(req.session.user._id)}, {$set:{tasks:req.session.user.tasks}})
+  if(req.body.text !== ""){
+    for(let i = 0; i < req.session.user.tasks.length; i++){
+      if(req.body.text === req.session.user.tasks[i].text){
+        res.redirect( 'main' )
+        return
+      }
+    }
+    req.session.user.tasks.push({completed: false, text: req.body.text})
+    collection.updateOne({_id:mongodb.ObjectId(req.session.user._id)}, {$set:{tasks:req.session.user.tasks}})
+  }
   res.redirect( 'main' )
+})
+
+app.post('/deleteTODO', (req, res)=>{
+  for(let i = 0; i < req.session.user.tasks.length; i++){
+    if(req.body.text === req.session.user.tasks[i].text){
+      req.session.user.tasks.splice(i,1)
+      collection.updateOne({_id:mongodb.ObjectId(req.session.user._id)}, {$set:{tasks:req.session.user.tasks}})
+      break
+    }
+  }
+  res.status( 200 ).send()
 })
 
 app.get( '/main', ( req, res) => {
@@ -96,7 +129,7 @@ app.get( '/main', ( req, res) => {
     }
 })
 
-app.get('/', (req, res)=>{res.render("index.html", {message:""})})
+app.get('/', (req, res)=>{res.render("login.html", {message:""})})
 
 app.use( (req,res,next) => {
   if( collection !== null ) {
@@ -105,5 +138,7 @@ app.use( (req,res,next) => {
     res.status( 503 ).send()
   }
 })
+
+app.use( express.static( 'public' ) )
 
 app.listen( process.env.PORT || 3000 )

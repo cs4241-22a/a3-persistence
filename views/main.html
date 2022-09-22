@@ -2,28 +2,35 @@
 <html lang='en'>
     <head>
         <meta charset="utf-8" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
     </head>
-    <body>
-        <form action='/logout' method='POST'>
-        <input type='submit' value="logout">
-        </form>
-        <form action='/addTODO' method='POST'>
-        <input type='text' name='text'>
-        <input type='submit' value="+">
-        </form>
+    <body> 
+        <h1>TODO Notes</h1>
+        <h2>Hello {{username}}</h2>
+        <flexbox>
+            <form action='/addTODO' method='POST'>
+            <label>Add TODO:</label>
+            <input type='text' name='text'>
+            <input type='submit' value="+">
+            </form>
+            <form action='/logout' method='POST'>
+                <input type='submit' value="logout">
+            </form>
+        </flexbox>
         <ul>
             {{#each tasks}}
-                <li>
-                    <input type="checkbox" class="task" id="{{this.text}}" {{#if this.completed}}checked{{/if}}>
+                <li id="{{this.text}}">
+                    <input type="checkbox" class="task" id="{{this.text}}checkbox" {{#if this.completed}}checked{{/if}}>
                     <label>{{this.text}}</label>
+                    <input type="button" id="{{this.text}}delete" value="X">
                     <script>
                         {
-                            const selectElement = document.getElementById('{{this.text}}');
-
-                            selectElement.addEventListener('change', () => {
+                            const checkbox = document.getElementById('{{this.text}}checkbox');
+                            const button = document.getElementById('{{this.text}}delete');
+                            checkbox.addEventListener('change', () => {
                                 const json = {
                                     text: "{{this.text}}",
-                                    completed: selectElement.checked,
+                                    completed: checkbox.checked,
                                     },
                                     body = JSON.stringify(json);
 
@@ -34,7 +41,25 @@
                                     },
                                     body,
                                 })
-                            });
+                            })
+
+                            button.onclick = () => {
+                                const json = {
+                                    text: "{{this.text}}"
+                                    },
+                                    body = JSON.stringify(json);
+
+                                fetch("/deleteTODO", {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body,
+                                })
+                                .then(()=> {document.getElementById("{{this.text}}").remove()})
+                            }
+
+
                         }
                     </script>
                 </li>   
