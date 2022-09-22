@@ -4,8 +4,9 @@
 <head>
     <title>CS4241 Assignment 3</title>
     <meta charset="utf-8" />
+    <meta name="description" content="TV show tracking web application">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="sakura.css" type="text/css">
-
     <script>
         window.onload = function () {
             const button = document.getElementById("submit");
@@ -55,11 +56,11 @@
             <form enctype="application/x-www-form-urlencoded">
                 <h1>Login Here</h1>
                 <fieldset>
-                    <span class="formLabel">Username</span>
+                    <label for="username" style="display:inline">Username</label>
                     <input type="text" id="username" /><br />
-
-                    <span class="formLabel">Password</span>
+                    <label for="password" style="display:inline">Password</label>
                     <input type="password" id="password" /><br />
+                    
                     <button id="submit">Submit</button>
                 </fieldset>
             </form>

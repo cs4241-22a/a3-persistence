@@ -1,6 +1,8 @@
 const express = require('express'),
     mongoose = require('mongoose'),
     cookie = require('cookie-session'),
+    csurf = require('csurf'),
+    morgan = require('morgan'),
     hbs = require('express-handlebars').engine,
     app = express();
 
@@ -9,8 +11,7 @@ app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-//require('mongoose-double')(mongoose);
-
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
@@ -75,6 +76,7 @@ const Entry = mongoose.model('Entry', entrySchema);
 mongoose.connect('mongodb+srv://admin:admin@cluster0.hhvf1tq.mongodb.net/login');
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
+console.log();
 
 // helper function used by the add, remove, modify routes
 const queryUsernameToId = async (userLookup) => {
