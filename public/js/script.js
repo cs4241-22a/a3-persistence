@@ -211,16 +211,25 @@ const addItem = e => {
         json = { user: currentUser, name: itemName.value, dateCol: itemDateCol.value, link: itemLink.value },
         body = JSON.stringify(json);
 
-    if(itemName === "" ) {
+    let badField = false;
+
+    if(itemName.value === "" ) {
         itemName.placeholder = "This field cannot be blank"
-        return false;
+        badField = true;
     }
-    if(itemDateCol === "" ) {
+    if(itemDateCol.value === "" ) {
         itemDateCol.placeholder = "This field cannot be blank"
-        return false;
+        badField = true;
     }
-    if(itemLink === "" ) {
-        itemLink.placeholder = "This field cannot be blank"
+    try {
+        new URL(itemLink.value);
+    } catch(err) {
+        itemLink.value = "";
+        itemLink.placeholder = "Must be a valid URL"
+        badField = true;
+    }
+
+    if(badField) {
         return false;
     }
 

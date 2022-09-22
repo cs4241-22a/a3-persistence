@@ -35,6 +35,14 @@ client.connect()
     db = _db;
   });
 
+app.use( (req,res,next) => {
+    if( db !== null ) {
+      next()
+    }else{
+      res.status( 503 ).send()
+    }
+})
+
 let currUser = null;
 
 app.post( '/login', (req,res)=> {
@@ -125,14 +133,6 @@ app.use(express.static('public'));
 app.use(express.json());
 
 let currCollection = null;
-
-app.use( (req,res,next) => {
-    if( db !== null ) {
-      next()
-    }else{
-      res.status( 503 ).send()
-    }
-})
 
 app.post( '/addCollection', (req,res) => {
   if( db !== null ) {
