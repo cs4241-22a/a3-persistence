@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg-x: 0px;
+    --bg-y: 0px;
+}
+
+#bg {
+    transform: translate(var(--bg-x),var(--bg-y));
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: none;
+    overflow: visible;
+}
+
+#map {
+    max-width: none;
+    z-index: -1;
+    position: absolute;
+}
+
+#google:hover {
+    content:url('../img/btn_google_signin_dark_pressed_web.png')
+}

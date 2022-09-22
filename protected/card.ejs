@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme=<%=theme%>>
+
+<head>
+    <title>F1 Difficulty Calculator </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <div data-endpoint=<%= endpoint %> id="card" name="<%=name%>" class="text-base-content cursor-default flex w-full h-[100px] bg-base-100 border-primary border-[1px] rounded-lg hover:border-accent">
+        <div class="flex w-full items-center">
+            <p class="ml-1 w-12">
+                <%= name %>
+            </p>
+            <div class="flex w-full justify-center">
+                <p class="mr-5">
+                    <% if (time) {%>
+                        Time:
+                        <%= time%>
+                        <% } %>
+                </p>
+                <p class="ml-5">
+                    <% if (difficulty) {%>
+                        Difficulty:
+                        <%= difficulty%>
+                        <% } %>
+                </p>
+            </div>
+            <img class="h-auto max-h-[50%] mr-1 ml-auto" src=<%=flag%> alt='flag'/>
+        </div>
+    </div>
+</body>
+
+</html>
