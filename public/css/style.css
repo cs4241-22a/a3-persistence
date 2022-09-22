@@ -1,0 +1,57 @@
+* { animation: cursor-change 500ms infinite; }
+body {
+    font-family: 'Rammetto One', cursive;
+    background: #ABCDEF;
+    animation: shadow-change 100ms infinite; }
+h2 {animation: slider 8000ms infinite; }
+h3 {
+    font: 1.2em 'Montserrat', cursive;
+    animation: fx-3d 1000ms infinite; }
+table {
+    background: linear-gradient(#FFFD46, #FC7DB0, #FFFD46);
+    background-size: 200% 200%;
+    animation: gradient 2000ms infinite;
+    border: 2px solid;
+    border-collapse: collapse;
+    text-shadow: 0px 0px 0px;
+    text-align: center; }
+th {
+    font-family: Arial, cursive;
+    font-size: 20px;
+    height: 50px;
+    background: linear-gradient(#FC7DB0, #FFFD46, #FC7DB0);
+    background-size: 200% 200%;
+    animation: gradient 2000ms infinite;
+    border: 2px solid; }
+th:nth-child(1) { width: 450px; }
+th:nth-child(2) { width: 120px; }
+th:nth-child(3) { width: 060px; }
+th:nth-child(4) { width: 100px; }
+th:nth-child(5) { width: 080px; }
+td {
+    border: 2px solid; 
+    font: 1em 'Montserrat', cursive; }
+button {
+    font: 1em 'Montserrat', cursive;
+    animation: button 1000ms infinite }
+@keyframes shadow-change {
+    from{ text-shadow: 5px 15px 1px #FFFFFF; }
+    to{ text-shadow: 5px 15px 8px #FFFFFF; } }
+@keyframes slider {
+    0%, 100% { transform: translateX(0%); }
+    50% { transform: translateX(60%); } }
+@keyframes fx-3d {
+    0%, 100% { text-shadow: 4px 4px 1px #FF0000; }
+    50% { text-shadow: -4px -4px 1px #0000FF;} }
+@keyframes gradient {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; } }
+@keyframes button {
+    00% {  color: #000000; transform: scale(1.0); text-shadow: 0px 00px 0px #000000; }
+    40% {  color: #FF0000; transform: scale(1.2); text-shadow: 3px 10px 5px #000000; } }
+@keyframes cursor-change {
+    000% { cursor: url('../cursors/cursor0.png'), auto; }
+    025% { cursor: url('../cursors/cursor1.png'), auto; }
+    050% { cursor: url('../cursors/cursor2.png'), auto; }
+    075% { cursor: url('../cursors/cursor3.png'), auto; }
+    100% { cursor: url('../cursors/cursor4.png'), auto; } }

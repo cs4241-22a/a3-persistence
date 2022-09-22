@@ -1,0 +1,11 @@
+{
+  "title": "",
+  "genre": "",
+  "year": "",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "mime": "^2.4.4"
+  }
+}
