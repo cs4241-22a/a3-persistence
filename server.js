@@ -18,6 +18,7 @@ passport.use(new GitHubStrategy({
     function(err, user) { return done(err, user); });
   }
 ));
+app.get('/', ( req, res ) => { res.redirect('/index.html') });
 app.get('/login', ( req, res ) =>
 {
   res.sendFile('index.html', { user: req.user, root: Path2D.join(__dirname, 'public')});
