@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CS4241 Assignment 3</title>
+    <title>Dashboard | TV Show Tracker</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="sakura.css" type="text/css">
 
@@ -209,20 +209,20 @@
                 <h2>TV Show Tracker</h2>
 
                 <fieldset>
-                    <span class="formLabel">TV show name</span>
+                    <label for="show" style="display:inline">TV show name</label>
                     <input type="text" id="show" value="My TV show" /><br />
 
-                    <span class="formLabel">Number of seasons</span>
+                    <label for="seasons" style="display:inline">Number of seasons</label>
                     <input type="number" id="seasons" value="4" min="1" /><br />
 
-                    <span class="formLabel">Episodes per season</span>
+                    <label for="eps" style="display:inline">Episodes per season</label>
                     <input type="number" id="eps" value="13" min="1" /><br />
 
-                    <span class="formLabel">Duration of an episode (minutes)</span>
+                    <label for="duration" style="display:inline">Duration of an episode (minutes)</label>
                     <input type="number" id="duration" value="45" min="1" /><br />
 
                     <span id="error" style="color:red"></span><br />
-                    <button id="submit">Submit</button><br /><button id="modify">Modify Existing</button>
+                    <button id="submit">Submit</button><button id="modify">Modify Existing</button>
                 </fieldset>
             </form>
         </div>

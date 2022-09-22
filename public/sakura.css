@@ -198,6 +198,7 @@ input[type=button] {
     display: inline-block;
     padding: 5px 10px;
     text-align: center;
+    margin: 5px;
     text-decoration: none;
     white-space: nowrap;
     background-color: #1d7484;

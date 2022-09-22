@@ -10,7 +10,6 @@ app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public")); // serve up static files in the directory public
@@ -18,6 +17,7 @@ app.use(cookie({
     name: 'session',
     keys: ['key1', 'key2']
 }));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 // Mongoose schema definitions
 const userSchema = new mongoose.Schema(
