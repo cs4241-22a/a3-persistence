@@ -9,8 +9,11 @@ const submit = async function (e) {
         dreamDescription: inputs['dream-description'].value,
     }
     const body = JSON.stringify(json);
-
-    const rawRes = await fetch('/submit', {method: 'POST', body});
+    console.log(body)
+    const rawRes = await fetch('/submit', {
+        headers: {
+        'Content-Type': 'application/json'
+        }, method: 'POST', body});
     const updatedData = await rawRes.json();
 
     updateSummaries(updatedData['summary']);
@@ -21,6 +24,7 @@ const submit = async function (e) {
 }
 
 const updateSummaries = function (summary) {
+    console.log(summary)
     const averageHours = document.getElementById('average-hours-stat');
     const dreamPercentage = document.getElementById('dream-percentage-stat');
     const averageRating = document.getElementById('average-rating-stat');
@@ -47,7 +51,7 @@ const updateData = function (data) {
         ratingCell.innerText = datum['sleepRating'];
         didDreamCell.innerText = datum['hadDream'] ? '✓' : '✗';
         dreamSummaryCell.innerText = datum['hadDream'] ? (datum['dreamDescription'] ?? 'N/A') : 'N/A';
-        deleteCell.innerHTML = `<td><button id="${datum.id}" class="delete-button" onclick="deleteItem(this)"><span class="material-symbols-outlined">delete</span></button></td>`
+        deleteCell.innerHTML = `<td><button id="${datum.id}" class="invisible hover:visable" onclick="deleteItem(this)"><span class="material-symbols-outlined">delete</span></button></td>`
     })
 }
 
