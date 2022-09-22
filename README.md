@@ -1,116 +1,44 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
+## Simple Hike Log
 
-Due: September 22nd, by 11:59 AM.
+Patrick Salisbury: 
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+DigitalOcean Droplet: http://104.248.62.226:3000/
 
-Baseline Requirements
----
+Glitch Backup: http://a3-patrick-salisbury.glitch.me (if you get a weird 503 just refresh)
 
-Your application is required to implement the following functionalities:
+The main goal of this application was to extend my a2 project in a different direction that aligned better with persistent storage. In a2, I used a hike planner that had no user data. The idea here was to make a way for family/friends to be able to view a hike you were doing (I often found myself writing hike plans on sticky notes for family members before leaving early in the am, and I thought this site might be a solution). With the requirements for a3, I decided to adapt this idea into a way to store your past hiking trips in a bit of a logbook of sorts. This way, one can easily remember which mountains they hiked and which they still need to do, even potentially years later.
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+The most unexpected challenge I faced was likely implementing handlebars to allow incorrect login feedback. This was much more of a pain than I would have expected and I had to redo a ton of stuff.
 
-Your application is required to demonstrate the use of the following concepts:  
+I chose to implement a simple cookie-session authentication strategy, as the data stored here isn't particularly sensitive and I wouldn't expect someone's hike log getting hacked to be a catastrophe. As a result, I chose the easy option since there was no solid justification to make it more complex.
 
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
+I selected a CSS framework called milligram. This is a super lightweight framework and I liked the simplistic styling and UI it enabled me to create. The site also looks fantastic on mobile in my opinion.
 
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
+I did add a small amount of CSS, to enable things like a header background color and github svg icon. I tried to stay consistent with a design example I found using the framework to avoid problems.
+![img.png](img.png)
 
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
+### Middleware
 
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
+- **express.static**: This middleware serves static files to the client when they are requested from a specific folder. Here I used it for my scripts and CSS.
+- **express.json**: This middleware intercepts JSON requests and automatically parses them, saving time.
+- **cookie-session**: This middleware establishes a user session through the use of cookies. This was used to login users and serve the correct data to a given user from the database.
+- **express.urlencoded**: This middleware is used to parse default form responses for the login page.
+- **database connection check (custom)**: This is a custom middleware function that makes sure the database is accessible before continuing. If the database is inaccessible, a 503 error is returned to the client. 
+- **client redirection (custom)**: This is a custom middleware function that redirects any user that is not logged in and managed to access the main page back to the login page.
 
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
 
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
 
-Deliverables
----
 
-Do the following to complete this assignment:
 
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
 
-Acheivements
----
 
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
-
+- **Tech Achievement 1**: I achieved 100% on the four lighthouse tests for both of my site pages (locally). Here, I had the most issues with search engine optimizations, with a score originally in the mid 70's. I was able to improve my score by a great deal with specific search engine friendly header tags on my site pages. (NOTE: My best practices is a 92% because of not implementing HTTPS. I would assume this is out of the scope of the project and unavoidable, that being said if you really do need 100% on everything I technically do not have it unless my site is hosted locally)
+- **Tech Achievement 2**: I hosted my page on DigitalOcean. Overall, I found the experience to be relatively similar in difficulty. One of the benifits of DigitalOcean is that unlike glitch, everything is manual, so you can avoid everything automatically updating when you don't want it to actually do so. On the other hand, this can be a downside for people with less experience. Additionally, I am comfortable in the terminal/using SSH, where someone that is not as familiar with this would likely have much more difficulty than I did. As a final note, I attempted to implement a load balancer to avoid having to specify a port in the URL, but it became much more complicated than I expected so I assume that having a port specified is fine.
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**: CRAP principles
+- On my pages, I focused areas of contrast onto areas where user interaction takes place. This is useful since the user should never have to feel like they are "lost" on the page, and having the areas that the user will regularly interact with contrast with the background is a good way to make the site easier to use. This can help with accessibility as well, as high contrast can help those that may need a bit more help finding where to interact with the page. On the login and main pages, I highlighted buttons and text input fields with high-contrast colors to make them easier to find at-a-glance. Once the user understands the layout of the page, only these high-contrast input areas are really needed to use the site, so this can help the user more efficiently navigate the page.
+- Proximity is everything on most sites. Without associations, everything needs to be labeled to understand the layout of the site, which is an important thing to avoid in clean design. On the login page, the username, password, and submit boxes are all horizontally aligned in close proximity. This makes it second nature to fill out the fields. Imagine how strange it would feel to have the submit button between fields. Even something like an uneven amount of whitespace between username/password and password/login would defy this principle as that uneven proximity would imply that there is no association between the elements. On the main page, proximity between text boxes and their captions allow the user to correctly input data, and the proximity of different sections of the page allows the user to stop and read sections, or simply skip over them easily and go right to the table.
+- The key to a clean, simple design is repetition of elements. Here, repetition allows my page to maintain a consistent style and look across the application. Every text element on both pages uses the same font, as any font change would look completely out of place and throw off the entire look of the page. Instead of changing font, one can stress the same font differently, allowing the principle of repetition to survive while still drawing attention to key areas of the text. Along with consistent text, the pages use consistent color in their design. Keeping the color scheme to a simple grayscale with a single standout color allows for repetition of key highlighted elements without a secondary color possibly appearing out of place. Finally, the header uses a consistent layout between both pages, giving a more cohesive feel to the website than if the headers were separate. Even though you are redirected after logging in, the site is still recognizable and familiar from the login page.
+- Probably the most important design element incorporated into my page is alignment. Every aspect of the page is following a major line. The most obvious line on the page is likely the left alignment line, where there is a very clear and strong line running down the whole length of the page from the header to the bottom of the table. Most of the elements are aligned with this, and when they are not it is intentional. The GitHub link, on the other hand, is aligned to a softer right edge of the page. This is done to both allow it to stand out, as well as to define a right edge of sorts to the top of the page and balance it out. This balance is important, as the header elements are mostly towards the left side of the page while many other elements stretch the entire length of the page below it. As a result, this right aligned element helps to balance out the whitespace at the top of the page.
