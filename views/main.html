@@ -41,14 +41,14 @@
             <button id="addButton">add</button>
 
             <button id="resultsButton">results</button>
-            <button id="EditButton">edit</button> 
+            
           </div>
           <p class="guides">
             Click 'Submit' look at all of your task ( 1 task is already premade
             for you)
             <br />
             <br />
-            Click 'Delete' will delete the task identitcal to the one that you
+            Click 'Delete' will delete the task identical to the one that you
             have in your field.
           </p>
 
@@ -56,6 +56,30 @@
             <h2 for="deleteTaskInput"> Delete your task here</h2>
             <input type = "text" id="deleteTaskInput" placeholder = "Object ID"/>
             <button id="removeButton">remove</button>
+          </div>
+          <div id =  "updateTask">
+              <h2>Update one of your tasks here</h2> 
+              <input type = "text" id="idForUpdate" placeholder = "Insert same Object ID">
+              <input type = "text" id ="TaskInputUpdate" placeholder = "edit task input here">
+              <!-- <div id="updateDropdowns"> -->
+              <select id="typeOfTaskUpdate">
+                <option value="School">School</option>
+                <option value="Work">Work</option>
+                <option value="Other">Other</option>
+              </select>
+              <select id="difficultyUpdate">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+  
+              <select id="difficultyUpdate">
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+            <!-- </div> -->
+              <button id = "updateButton">update</button>
           </div>
           <div class="toDoList" id="toDoList">
             <h1><u>Tasks to Complete</u></h1>

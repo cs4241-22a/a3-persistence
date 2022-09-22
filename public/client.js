@@ -1,17 +1,20 @@
 
   window.onload = function() {
     
+   
     const button = document.querySelector( '#addButton' )
     button.onclick = add
 
     const button2 = document.querySelector('#removeButton')
     button2.onclick = remove
 
-    // const button3 = document.querySelector('EditButton')
-    // button2.onclick = edit
 
     const button3 = document.querySelector('#resultsButton')
     button3.onclick = results
+
+    
+    const button4 = document.querySelector('#updateButton')
+    button4.onclick = update
 
 
 
@@ -103,18 +106,12 @@ const results = function(e)
 
 
 // use query selector all
-const remove = function(e,idToDelete)
+const remove = function(e)
 {
   e.preventDefault()
   // ID for the task that we are going to delete
   const itemToDelete = document.querySelector( '#deleteTaskInput' ) 
-  // const _id = idToDelete
   jsonID = {_id:itemToDelete.value},
-  // body = JSON.stringify(jsonID)
-
-
-  // body._id = idToDelete
-  
   fetch('/remove',{
     method:'POST',
     headers: { 'Content-Type': 'application/json'}, 
@@ -127,4 +124,33 @@ const remove = function(e,idToDelete)
   
   
   console.log("Hello Again")
+}
+
+const update = function(e)
+{ 
+  e.preventDefault()
+  // get all of the updated fields and but them inside a JSON
+  debugger
+  const _id = document.querySelector("#idForUpdate")
+  const newInput = document.querySelector("#TaskInputUpdate")
+  const newType = document.querySelector("#typeOfTaskUpdate")
+  const newDifficulty = document.querySelector("#difficultyUpdate")
+  const newSemester = document.querySelector("#difficultyUpdate")
+
+  jsonUpdate = {
+    _id:_id.value, 
+    newInput:newInput.value,
+    newType: newType.value,
+    newDifficulty:newDifficulty.value,
+    newSemester: newSemester.value}
+
+  fetch('/update',{
+    method:'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(jsonUpdate)
+  })
+  .then(res=>res.json)
+
+  
+
 }

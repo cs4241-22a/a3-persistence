@@ -65,15 +65,9 @@ app.post( '/add', (req,res) => {
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
 app.post( '/remove', (req,res) => {
-  
-  let dataString = ''
-  // dataString += req.body
-  // let dataJSON = JSON.parse(dataString)
-  // initialize our variable before we put anything in?
+
   console.log(req.body._id)
   
-  // console.log(dataString)
-  // console.log(dataJSON)
   collection
     .deleteOne({ _id:mongodb.ObjectId( req.body._id ) }) // ._id parameter is from our JSON
     .then( result => res.json( result ) )
@@ -83,7 +77,7 @@ app.post( '/update', (req,res) => {
   collection
     .updateOne(
       { _id:mongodb.ObjectId( req.body._id ) },
-      { $set:{ name:req.body.name } }
+      {$set:{json:req.body}}
     )
     .then( result => res.json( result ) )
 })
