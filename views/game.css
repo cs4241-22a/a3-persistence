@@ -91,11 +91,11 @@ ul li::before {
 /* Reload button style */
 .reload {
     display: none;
-	margin-top: 2rem;
-	padding: 1rem;
-	background: #f3593d;
-	outline: none;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f3593d;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }

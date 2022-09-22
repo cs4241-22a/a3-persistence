@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const dotenv = require('dotenv')
 const cookie = require('cookie-session')
-const hbs = require('express-handlebars');
+const hbs = require('express-handlebars').engine;
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
@@ -41,19 +41,14 @@ const UserSchema = new mongoose.Schema({
   loss: {
     type: Number,
     default: 0
-  },
-  winrate: {
-    type: Number,
-    default: 0
   }
-
 });
 
 const User = mongoose.model('User', UserSchema);
 
 
 // Middleware
-//app.engine('hbs', exphbs({ extname: '.hbs' }));
+app.engine('hbs', hbs({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/views'));
 app.use(session({
@@ -78,6 +73,7 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
+// verify the login
 passport.use(new localStrategy(function (username, password, done) {
   User.findOne({ username: username }, function (err, user) {
     if (err) return done(err);
@@ -104,7 +100,7 @@ function isLoggedOut(req, res, next) {
 
 // ROUTES
 app.get('/', isLoggedIn, (req, res) => {
-  res.render("index", { title: "Home" });
+  res.render("index", {layout: false});
 });
 
 app.get('/login', isLoggedOut, (req, res) => {
@@ -114,6 +110,15 @@ app.get('/login', isLoggedOut, (req, res) => {
   }
 
   res.render('login', response);
+});
+
+app.get('/register', isLoggedOut, (req, res) => {
+  const response = {
+    title: "Register",
+    error: req.query.error
+  }
+
+  res.render('register', response);
 });
 
 app.post('/login', passport.authenticate('local', {
@@ -127,6 +132,29 @@ app.get('/logout', function (req, res) {
 });
 
 // handle register
+app.post('/register', async (req, res) => {
+  // check for duplicate
+  const exists = await User.exists({ username: req.body.username });
+	if (exists) {
+		res.redirect('/register?error=true');
+		return;
+	};
+
+  // encrypt the password
+  const hashedPwd = await bcrypt.hash(req.body.password, 10);
+
+  // create and store the new user
+  const result = await User.create({
+    username: req.body.username,
+    password: hashedPwd
+  });
+
+  result.save();
+
+  // after registration redirect back to login
+  res.redirect('/login')
+
+});
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
