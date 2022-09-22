@@ -6,9 +6,11 @@ let dataUpdated = 0 //lets the page know that the data has been displayed to the
 const updateTable = function ( json ) {
     const table = document.getElementById("datatable")
     const dataLength = json.length
-
     //if no trail name specified, we cleared the server so we need to clear the table
     if(dataLength === 0) {
+        //no data found for this user yet. display a placeholder until the user adds data
+        const user = document.getElementById('userdisplay')
+        user.innerText = "No existing data found for current user."
         for(let i = 0; i < rowsAdded; i++) {
             table.deleteRow(-1) //will remove the last row always
         }
@@ -20,6 +22,12 @@ const updateTable = function ( json ) {
         }
         rowsAdded = 0
         //add all the data back
+
+        //display logged in user
+        //all our sent back data will have the same user, so we can always just look at the first one
+        const user = document.getElementById('userdisplay')
+        user.innerText = "Displaying data for user: " + json[0].username
+
         //this is so that all the rows are displayed on page load and not just the last one
         for(let i = 0; i < dataLength; i++) {
             //insert row for new data

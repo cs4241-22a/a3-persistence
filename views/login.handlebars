@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="A simple hike planner.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="normalize.css">
+    <!-- Milligram CSS -->
+    <link rel="stylesheet" href="milligram.css">
+    <title>Login</title>
+</head>
+<body>
+<h1>Simple Hike Logger</h1>
+<p>
+    Please login to a user account. If no account is found with the specified username, a new account will be created for you.
+</p>
+<form action='/login' method='POST'>
+    <input type='text' name='username' placeholder="username">
+    <input type='password' name='password' placeholder="password">
+    <input type='submit' value="login">
+</form>
+{{{msg}}}
+</body>
+</html>
