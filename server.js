@@ -22,7 +22,6 @@ const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.e
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
-let appdata = []
 
 refreshDB = () => {return client.connect()
   .then( () => {
@@ -33,7 +32,7 @@ refreshDB = () => {return client.connect()
     // store reference to collection
     collection = __collection
     // blank query returns all documents
-    appdata = collection.find({ }).toArray()
+    return collection.find({ }).toArray()
   })
 }
 refreshDB()
@@ -48,32 +47,36 @@ app.post( '/login', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
-    for(let i = 0; i < appdata.length; i++){
-      if(req.body.username === appdata[i].username){
-        req.session.user  = appdata[i]
-        break
+  let appdata = refreshDB()
+  appdata.then( (_appdata) => {
+      for(let i = 0; i < _appdata.length; i++){
+        if(req.body.username === _appdata[i].username){
+          req.session.user  = _appdata[i]
+          break
+        }
+      }
+      if(typeof req.session.user !== 'undefined'){
+        if(req.body.password === req.session.user.password ) {
+        // define a variable that we can check in other middleware
+        // the session object is added to our requests by the cookie-session middleware
+        req.session.login = true
+        refreshDB()
+        .then(res.redirect( 'main' ))
+        }else{
+          // password incorrect, redirect back to login page
+          req.session.login = false
+          res.render("login.html", {message:"Wrong Password"})
+        }
+      }else {
+        req.body.tasks = [];
+        req.session.user = req.body
+        req.session.login = true
+        collection.insertOne( req.body)
+        .then(refreshDB())
+        .then(res.redirect( 'main' ))
       }
     }
-    if(typeof req.session.user !== 'undefined'){
-      if(req.body.password === req.session.user.password ) {
-      // define a variable that we can check in other middleware
-      // the session object is added to our requests by the cookie-session middleware
-      req.session.login = true
-      refreshDB()
-      .then(res.redirect( 'main' ))
-      }else{
-        // password incorrect, redirect back to login page
-        req.session.login = false
-        res.render("login.html", {message:"Wrong Password"})
-      }
-    }else {
-      req.body.tasks = [];
-      req.session.user = req.body
-      req.session.login = true
-      collection.insertOne( req.body)
-      .then(refreshDB())
-      .then(res.redirect( 'main' ))
-    }
+  )
 })
 
 app.post( '/logout', (req,res)=> {
