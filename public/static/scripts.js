@@ -188,12 +188,6 @@ function updatePing() {
 }
 
 window.onload = function () {
-  //If javascript is enabled, hide warning message
-  const warningh2 = document.getElementById('jswarning-h2');
-  const warningp = document.getElementById('jswarning-p');
-  warningh2.hidden = true;
-  warningp.hidden = true;
-
   newsection.style.display = "block";
 
   const newbutton = document.getElementById('newsub');
