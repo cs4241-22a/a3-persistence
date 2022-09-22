@@ -12,7 +12,7 @@ const submitnew = function (e) {
   e.preventDefault()
 
   const msginput = document.getElementById("message")
-  json = {message: msginput.value, action: "new" }
+  json = { message: msginput.value, action: "new" }
   body = JSON.stringify(json)
 
   fetch('/submit', {
@@ -154,11 +154,11 @@ function updateList(params) {
       msglist.innerHTML = ""
       let wordcounter = 0
       json.forEach(element => {
-        wordcounter+=element.wordcount
-        if (element.name==document.getElementById("username").innerHTML) {
+        wordcounter += element.wordcount
+        if (element.name == document.getElementById("username").innerHTML) {
           msglist.innerHTML += (element.name + " said: " + element.message + "   <a href=\"#\" onclick=\"editMsg(" + element.mid + ",'" + element.name + "','" + element.message + "')\">Edit</a> <a href=\"#\" onclick=\"deleteMsg(" + element.mid + ")\">Delete</a><br/>");
-        }else{
-          msglist.innerHTML += (element.name + " said: " + element.message+"<br/>");
+        } else {
+          msglist.innerHTML += (element.name + " said: " + element.message + "<br/>");
         }
       });
     })
@@ -170,6 +170,21 @@ function timeoutfetch(url, timeout = 300) {
       setTimeout(() => reject(new Error('timeout')), timeout)
     )
   ]);
+}
+function updatePing() {
+  const servconn = document.getElementById('serv-conn');
+  timeoutfetch('/ping', 1300) // throw after max 5 seconds timeout error
+    .then((result) => {
+      servconn.textContent = "✓ Server Online"
+      servconn.style.fontSize = 8;
+      servconn.style.color = "#007700"
+      updateList();
+    })
+    .catch((e) => {
+      console.error(e)
+      servconn.textContent = "✘ Server Unreachable!"
+      servconn.style.color = "#ff0000"
+    })
 }
 
 window.onload = function () {
@@ -194,21 +209,9 @@ window.onload = function () {
   delcanbutton.onclick = formCancel
   const editcanbutton = document.getElementById('editcan');
   editcanbutton.onclick = formCancel
-
+  updatePing();
   var intervalId = setInterval(function () {
     //console.log("Pinging server...")
-    const servconn = document.getElementById('serv-conn');
-    timeoutfetch('/ping', 1300) // throw after max 5 seconds timeout error
-      .then((result) => {
-        servconn.textContent = "✓ Server Online"
-        servconn.style.fontSize = 8;
-        servconn.style.color = "#007700"
-        updateList();
-      })
-      .catch((e) => {
-        console.error(e)
-        servconn.textContent = "✘ Server Unreachable!"
-        servconn.style.color = "#ff0000"
-      })
+    updatePing();
   }, 1500);
 }
