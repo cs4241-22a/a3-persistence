@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended:true }) )
 
 app.use( express.json() )
 
-const uri = 'mongodb+srv://'+process.env.USERNAME+':'+process.env.PASS+'@'+process.env.HOST
+const uri = 'mongodb+srv://'+process.env.NAME+':'+process.env.PASS+'@'+process.env.HOST
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
