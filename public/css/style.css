@@ -1,0 +1,43 @@
+h1{
+    color: blue;
+    background-color: lightblue;
+    padding: 30px;
+    font-family: "Sofia", sans-serif;
+  }
+  
+  form{
+    padding: 50px;
+    line-height: 2;
+    color: black;
+    background-color: pink;
+  }
+  
+  button{
+    color: black;
+  }
+  table {
+    font-family: "Calibri", sans-serif;
+  }
+  
+  P{
+    font-family: "Calibri", sans-serif;
+    background-color: lightgrey;
+    padding: 20px;
+  }
+  
+  .center{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .red{
+    background-color: red;
+  }
+  
+  .green{
+    background-color: lightgreen;
+  }
