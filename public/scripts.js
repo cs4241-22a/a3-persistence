@@ -1,6 +1,5 @@
 let rowsAdded = 0 //keeps track of how many rows of data our table has (useful for clearing the table)
 let dataUpdated = 0 //lets the page know that the data has been displayed to the user on first opening
-//let deletedRow = 0 //tells the page which row to delete when the user presses a delete row button
 
 //updates the table with the data that the server sends back
 const updateTable = function ( json ) {
@@ -40,37 +39,9 @@ const updateTable = function ( json ) {
             cell.innerHTML = json[i].length
             cell = row.insertCell()
             cell.innerHTML = json[i].elevation
-/*            //create the button for this row
-            let btn = document.createElement('input')
-            btn.type = "button";
-            btn.className = "deletebutton";
-            btn.value = "Delete";
-            btn.id = "Delete" + rowsAdded
-            cell.appendChild(btn)*/
         }
     }
 }
-
-/*const deleteRow = function () {
-
-    const json = {
-        name: "!delete",
-        rownum: deletedRow
-    }
-
-    fetch( '/submit', {
-        method:'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify( json )
-    })
-        .then( response => response.json() )
-        .then( json => {
-            updateTable(json)
-        })
-    return false
-}*/
 
 const clear = function () {
 
@@ -86,7 +57,7 @@ const clear = function () {
         body: JSON.stringify( json )
     })
         .then( response => response.json() )
-        .then( json => {
+        .then( function() {
             update()
         })
     return false
@@ -132,7 +103,7 @@ const submit = function() {
         body: JSON.stringify( json )
     })
         .then( response => response.json() )
-        .then( json => {
+        .then( function() {
             update()
         })
     return false
@@ -167,15 +138,4 @@ window.onload = function() {
         e.preventDefault()
         clear()
     }
-/*    deletebutton.onclick = function(e) {
-        e.preventDefault()
-        //get row of clicked button
-        let buttonid = e.target.id
-        deletedRow = parseInt(buttonid.slice(6)) //slices number off of button id
-        //delete the row
-        deleteRow()
-
-        //update the buttons
-    }*/
-
 }
