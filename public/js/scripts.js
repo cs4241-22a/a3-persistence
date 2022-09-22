@@ -85,3 +85,15 @@ function updatersubmitter( id )
     tempID = null;
     tempElement = null;
 }
+const toddcheck = function( title, year ) {
+    const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
+    const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
+                     'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
+    const numFilms = 10;
+    title = title.toString().toUpperCase();
+    for ( let i = 0 ;  i < numFilms ; i++ ) { if( year == years[ i ] && title == titles[ i ] ) { return 'YES!'; } }
+    return 'NO!'; };
+window.onload = function() {
+    const submit = document.getElementById( 'submit' );
+    submit.onclick = submitter;
+    dothething(); };
