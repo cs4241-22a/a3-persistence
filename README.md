@@ -31,7 +31,10 @@ The Express middleware packages used included compression, cookie-session, helme
 Challenges encountered during the project revolved heavily around utilizing Express and properly implementing MongoDB into the work carried over from Assignment 2. There was a learning curve for understanding Express and how middleware worked, and it took time to properly structure and use the different POST and GET requests. Implementing MongoDB combined with these issues in learning Express, and often it was difficult to get data to properly show up onto the page to be added, modified, or deleted.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Twelve Tips Implemented from the W3C**: Tips implemented into the site include:
+1. _Using for and id attributes_: The for and id attributes were used for each label used. These include the "Name", "Password", "Login", and "Register" forms in index.html, and the "Rock", "Paper", "Scissors", "Submit", "Change", and "Delete" forms in main.html.
+
+- 
