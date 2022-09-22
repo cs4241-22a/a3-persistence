@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Submit your activities today.">
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+</head>
+<body>
+<header id = "header"></header>
+<h1>Activity Logger</h1>
+
+
+
+<form action="adding_time">
+    <label>Your very own event logger. This is meant to be the opposite of a calendar. Instead of
+        schedule what you WANT to do, you would log in events that have already been done so you have an idea of what you have done throughout the day.
+        Be sure to log all the events that you have done!</label>
+    </br>
+    </br>
+        <label class="grid_item" for="activity">Type of Activity Done</label>
+        <select id="activity" name="Type of activity done">
+            <option value="Sleep">Sleep</option>
+            <option value="Food">Food</option>
+            <option value="School">School</option>
+            <option value="Work">Work</option>
+            <option value="Fun">Fun</option>
+        </select>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required/>
+
+        <label for="time_started">Time Started</label>
+        <input type="time" id="time_started" name="time_started" required/>
+
+
+        <label for="time_ended">Time Ended</label>
+        <input type="time" id="time_ended" name="time_ended" required/>
+
+        <label for="description">Description</label>
+    <textarea type="text" id="description" name="description" required> </textarea>
+    <br />
+    <button id = "formSubmit">Submit</button>
+
+</form>
+
+<h1>Activities Logged</h1>
+<br />
+<table id="table" class="c-table">
+    <tr>
+        <th class="table_activity">Activity Done</th>
+        <th class="table_date">Date</th>
+        <th class="table_start">Time Started</th>
+        <th class="table_end">Time Ended</th>
+        <th class="table_description">Description</th>
+        <th class="table_duration">Duration</th>
+        <th class="table_buttons">Delete/Edit</th>
+    </tr>
+</table>
+<script src="/scripts.js"></script>
+</body>
+</html>

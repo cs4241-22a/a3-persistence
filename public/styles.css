@@ -1,0 +1,72 @@
+body{
+    text-align: center;
+    margin: 0 auto;
+}
+
+h1{
+    padding: 0;
+
+}
+header{
+    text-align: right;
+    padding: 0;
+    margin-right: 10px;
+}
+
+label {
+    text-align: left;
+}
+
+
+form{
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#userName, #password {
+    text-align: center;
+
+}
+
+table {
+    table-layout: auto;
+    text-align: center;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+tr, td, th{
+    text-align: center;
+}
+
+th{
+    font-size: x-large;
+}
+
+
+th.table_activity, th.table_date, th.table_start, th.table_end, th.table_duration{
+    text-align: center;
+    width: 10%;
+}
+
+th.table_description {
+    text-align: center;
+    width: 25%;
+}
+
+th.table_buttons {
+    text-align: center;
+    width: 15%;
+}
+
+.button {
+    background-color: #F0D7D3;
+    color: #11191f;}
+
+#delete, #edit, #formSubmit, #loginbutton, #signupbutton {
+    background-color: #F0D7D3;
+    color: #11191f;
+}
