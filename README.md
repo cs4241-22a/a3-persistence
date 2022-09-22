@@ -39,4 +39,12 @@ Middleware used:
 * All input fields are clearly marked with instruction
 * All texts in the page are contracted with the white background.
 
-- **Design Achievement 2**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 2**: 
+
+According to the CRAP, the image banner on the webpage actually recieves the most attention which is bad. The website needs to guide the user's attention to the most important content like the title or the main paragraph. However, this is common among websites in the late 90s and early 2000s which is what I am aiming to create in this assinment. To preserve the aesthetic I have to use an image banner with compressed image to lure the user's attention.
+
+Proximity is very important since it gives the user a clear idea on what objects are closely related and what are not. I used CSS flexbox and bold and clear H1 and H2 to split contents into clearly defined groups to make sure only related information are near each other. The policy area only contains the website's usage policy, and the interactive area only contains user interactable contents and does not includes static long informative passages.
+
+The design is very consistance in this website. It recreates an early 2000s WPI website aesthetic. The H1 uses a bold WPI red that's very iconic to WPI. All H2 are using the same gray that usually appears together with the WPI red to further give the user a hint that "This website looks like BannerWeb!" or something similar. 
+
+All elements on this website are aligned for both visual and usability. All elements in the main website are left aligned(and still looks pleasing thanks to css flexbox) and the login page is centre aligned to give the user a very clear instruction that they need to click the button to login with their GitHub account.

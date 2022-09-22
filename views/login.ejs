@@ -5,27 +5,44 @@
     <title>Login | Moene's Guest Book</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/swap.css">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    </noscript>
     <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/style.css"></noscript>
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Playfair+Display" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display"></noscript>
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Sans" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans"></noscript>
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono"></noscript>
+    <noscript>
+        <link rel="stylesheet" href="/style.css">
+    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Playfair+Display" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display">
+    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Sans" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans">
+    </noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono">
+    </noscript>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <h1>Moene's Guest Book</h1>
     <img src="banner.webp" alt="morgan hall">
-    <div class="container">
-            <h2>Login</h2>
-            <p>Please login with</p>
-            <a href="https://github.com/login/oauth/authorize?client_id=<%= client_id %>" class="ui primary button"><span
-                    class="fa fa-github"></span> Github Login</a>
+    <div>
+        <h2>Login</h2>
+        <div class="ui stackable center aligned page grid segment">
+            <div class="column twelve wide ui header">Please login with</div>
+            <a href="https://github.com/login/oauth/authorize?client_id=<%= client_id %>"
+                class="column six wide ui primary button"><span class="fa fa-github"></span> Github Login</a>
+        </div>
+
     </div>
 </body>
 
