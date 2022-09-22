@@ -149,6 +149,7 @@ const formCancel = function (e) {
 
 function updateList(params) {
   //Update list view
+  console.log("Updating as user: "+(document.getElementById("username").textContent))
   const msglist = document.getElementById('msglist');
   fetch('/getmsg', {
     method: 'GET'
@@ -160,7 +161,7 @@ function updateList(params) {
       let wordcounter = 0
       json.forEach(element => {
         wordcounter += element.wordcount
-        if (element.name == document.getElementById("username").innerHTML) {
+        if (element.name == document.getElementById("username").textContent) {
           msglist.innerHTML += (element.name + " said: " + element.message + "   <a href=\"#\" onclick=\"editMsg(" + element.mid + ",'" + element.name + "','" + element.message + "')\">Edit</a> <a href=\"#\" onclick=\"deleteMsg(" + element.mid + ")\">Delete</a><br/>");
         } else {
           msglist.innerHTML += (element.name + " said: " + element.message + "<br/>");
