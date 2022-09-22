@@ -114,6 +114,7 @@ const stocks = [
   { symbol: "f", price: 0, dateAdded: new Date() },
 ];
 
+
 const handleGet = async function (request, response) {
   const filename = dir + request.url.slice(1);
 
@@ -159,6 +160,69 @@ const handleGet = async function (request, response) {
     response.sendFile(__dirname + "/public" + request.url);
   }
 };
+
+app.get("/" , (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
+
+app.get("/stocks", (req, res) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(stocks));
+});
+
+app.get("/stock", (req, res) => {
+  let symbol = req.query.ticker;
+  getStockData(symbol).then((stockData) => {
+    if (stockData === undefined) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("Stock not found");
+    } else {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(stockData));
+    }
+  });
+});
+
+app.get("/historical", (req, res) => {
+  let symbol = req.query.ticker;
+  getHistoricalData(symbol).then((historicalData) => {
+    if (historicalData === undefined) {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("Stock not found");
+    } else {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(historicalData));
+    }
+  });
+});
+
+app.get("/login-go", (req, res) => {
+  // perform github authentication
+  passport.authenticate("github", { scope: ["user:email"] });
+});
+
+app.get("/auth/github/callback", (req, res) => {
+  // perform github authentication
+  passport.authenticate("github", { failureRedirect: "/login" }),
+    function (req, res) {
+      // Successful authentication, redirect home.
+      res.json(req.user);
+
+      // log that the user is logged in
+      console.log("Logged in!");
+    };
+});
+
+//any other request, send the file
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public" + req.url);
+});
+
+
 
 const getHistoricalData = async function (symbol) {
   const pastDate = new Date();
@@ -249,19 +313,11 @@ const handlePost = async function (request, response) {
         response.end("Stock not found in array");
       }
     } 
-    // else if (request.url === "/login-go"){
-    //   console.log("login-go");
-    //   //use passport to authenticate the user
-    //   passport.authenticate("github", { 
-    //     successRedirect: "/",
-    //     failureRedirect: "/login"
-    //   })(request, response);
-    // }
+    
   });
 };
 
-//if there is any type of get request, call the handleGet function with the request and response as parameters
-app.get("*", handleGet);
+
 
 //if there is any type of post request, call the handlePost function with the request and response as parameters
 app.post("*", handlePost);

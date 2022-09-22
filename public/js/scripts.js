@@ -199,7 +199,7 @@ function Stock(symbol, dateAdded) {
 
   this.getHistoricalData = async function (ticker) {
     //get the last year of data
-    const response = await fetch("/historical?symbol=" + ticker, {
+    const response = await fetch("/historical?ticker=" + ticker, {
       method: "GET",
     });
     const data = await response.json();
