@@ -8,6 +8,19 @@ const express = require('express'),
       app = express();
 let collection = undefined;
 client.connect().then( () => { collection = client.db( 'data' ).collection( 'movies' ) } );
+app.use( ( req, res, next ) =>
+{
+  if( collection !== null ) { next(); }
+  else { res.status( 503 ).send(); }
+});
+app.use( express.static( 'public' ) );
+app.use( haltOnTimeout );
+app.use( express.static( 'views' ) );
+app.use( haltOnTimeout );
+app.use( express.json() );
+app.use( haltOnTimeout );
+app.use( passport.initialize() );
+app.use( passport.session() );
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
