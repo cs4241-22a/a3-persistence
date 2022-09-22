@@ -1,128 +1,77 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
-
-Due: September 22nd, by 11:59 AM.
-
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
-
-Baseline Requirements
 ---
 
-Your application is required to implement the following functionalities:
+Dillon McCarthy<br>
+GitHub Username: dmccarthy11<br>
+https://a3-dillon-mccarthy.glitch.me/
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+## The Jim
 
-Your application is required to demonstrate the use of the following concepts:  
+This application allows different users to login and make their own personal workout plans.  A user can add, remove, and edit workouts including the name of the exercise, the number of sets, reps and the weight being lifted.
 
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
-
-- The goal of the application is...
+- Challenges:
+  - How to monitor different users in the database
+  - An effective way to edit an entry in the database that was simple from a UI perspective
+  - How to incorporate the Bootstrap CSS template 
+- Authentication strategy: cookies were used to authenticate users and track their own entries into the database.  This method seemed the simplest to implement and did not require much JavaScript
+- CSS Framework: Bootstrap was used because this is the most popular.  I had no experience using a CSS framework, so I figured I would go with the most popular and most well known because it would be good to learn and have experience for later projects.
 - Expression middlware packages:
   - serve-static: replaces serve.static to serve static files
   - connect-timeout: sets a timeout period for processing an HTTP request
-  - cookie-session: incorporates cookie sessions with data stored on the client
+  - cookie-session: incorporates cookie sessions with data stored on the client to track logins
   - response-time: records the response time of an HTTP request
   - compression: compresses HTTP requests
 
+Application Notes:
+- Initial access is to the login page.  If the username/password to login is incorrect, or if "I am not a robot" is not checked on creating an account, the user is requested to enter the info again, but no feedback is presented, the page is simply reloaded.  In a future application, this would be an important feature to add
+- In the main web page, "Get bigger" adds a workout and "Get smaller" removes a workout
+- The "edit" form is indexed at 1, so 1 refers to the first entry in the table (this feedback is given, but just to clear up confusion)
+- When adding, removing, or editing an entry, there is a bug, oftentimes once opening the edit menu, where the data is not immediately updated.  This bug may occur sometimes, but the data does have the capability of being refreshed immediately with all actions from the user, multiple tries may just be needed
+- For the lighthouse test, when testing in a normal Chrome browser, I recieve a low performance score that says "Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions."  The score is perfect when following this advice
+
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- None
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
-
-
-username: tester
-password: test-password123
+- **Design Achievement 1**: Make your site accessible using the [resources and hints available from the W3C]
+  - Provide sufficient contrast between foreground and background
+    - I actively used dark fonts on a white background for most text.  In the instance that I used white text for the buttons, I used a dark background color for the button to ensure sufficient contrast for viewers to see clearly
+  - Don’t use color alone to convey information
+    - When trying to enter, remove, or edit data, if the action was unable to be completed, such as not all boxes being filled out, rather than highlighting the box in red, the red is used to show an error, but alongside a text description that prompts the user with feedback.  This ensures the user's ability to use the site does not depend on their ability to see color
+  - Ensure that interactive elements are easy to identify
+    - Interactive elements are easily identifiable by changing the mouse accordingly.  Over a text box the mouse changes to the text mouse, and over a button it changes to a hand to click the button
+    - Interactive elements themselves also change when hovering over them.  The button will change to a slightly darker color to show it can be pressed
+  - Ensure that form elements include clearly associated labels
+    - All form elements have placeholders inside of the form rather than labels to ensure there is no confusion and it is clear and easy for the user to use
+  - Use headings to convey meaning and structure
+    - A heading structure is used so that the larger headings are at the top of the page and create sections, where the larger text represents more important information
+  - Help users avoid and correct mistakes
+    - Different feedback is given for different actions
+      - Incomplete form --> Fill out missing values
+      - Wrong edit table number --> Enter number 1 through x
+      - Remove something not in data --> Unable to remove because not in workout plan
+  - Write code that adapts to the user’s technology
+    - The viewport changes sizes accordingly and the tables and forms adjust based on the width of the user's device
+  - Ensure that all interactive elements are keyboard accessible
+    - Buttons can be pressed by tabbing over and using the enter keystroke
+  - CAPTCHA
+    - The CAPTCHA is easy and simple to use and does not require any visual information other than checking the box when creating an account
+  - Users have enough time to read and use the content
+    - The time-sensitive information on the page is the error feedback to the user.  This error message does not disappear, however, and instead remains on the page for the user to finish reading.  Once the user interacts with the web page again and requests another action, then the message will disappear
+  - Users can easily navigate, find content, and determine where they are
+    - Simple two-page application design with login and main page
+    - Very simple controls, where a user is presented to login or create an account and that is it
+    - Logout button in the top left in a location standard to most websites
+  - Content appears and operates in predictable ways
+    - Navigation and interactive elements in the application are repeated across pages and consistent
+    - Significant changes on a web page do not happen without the consent of the user
+    - User interface components that are repeated on web pages have the same labels each time
+- **Design Achievement 2**: Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings.
+  - Proximity:
+    This technique was used in the webpage to group alike objects together.  In my application, there are multiple interactive elements.  All of the forms and buttons related to the workout routine are all in close proximity to each other.  This suggests that they are related and manipulate the same data, which they do.  On the other hand, the logout button is in the top left corner of the page, not in close proximity to these other buttons.  This indicates that this button is separate, and indeed it is because it does not manipulate the data and does not require any input from the user other than clicking the button itself.  The same is true for the login page.  The username and password for the login form are adjacent to each other, but there is significant space between this and the create an account form.  This is because they are separate actions yet both allow the user to login.
+  - Alignment:
+    Everything on the web application is aligned with purpose.  All of the text in the table for the workout plan is left-justified in its own respective column. This makes it clear which and which entry belongs to which column since there are no column lines (for asthetic purposes this looks much nicer). The rest of the text on the page is also left-aligned making it easier to read for the user.  Additionally, all of the forms in this application are aligned vertically, and all individual entries within a form are aligned horizontally.  The table at the bottom and heading at the top with the inspirational message are also aligned in their widths.  This creates a visually appealing header and footer for the application and lets the user know that there is some relationship between these.
+  - Repetition:
+    This technique is used within the application to convey important information.  For example, the same placeholders are used for the add and remove forms for the database.  This ensures there is consistency and lets the user know that in order to remove an exercise, you need to use the same exact information you used to add the exercise to your workout routine.  Additionally, there is repitition in the color of the buttons to convey like actions.  The add, remove, and logout buttons are blue because they are all a final action.  On the other hand, the edit button is grey because this is not the final action.  When this is pressed, another form pops up with an "update" button in blue.  Then, when this button is pressed the data is updated.  In this way, only when a blue button is pressed is something changing on the server.
+  - Contrast
+    This technique is used to make the page more engaging and visually appealing to the user.  The most contrast presented on the page is with the header being backed by grey as opposed to the remaining white page.  This highlights the top message and emphasizes its importance.  After all, "Outwork thousands in front of nobody to outshine everybody in front of thousands" is very important advice.  Additionally, there is contrast with the buttons being blue which makes them stick out to the user and more identifiable that these are interactable and will bring the user's attention to using them.  Finally, within the table, when an exercise is hovered over, the table row is highlighted with a darker shade of grey which indicates that is is currently being looked at.
