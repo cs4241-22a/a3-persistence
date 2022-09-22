@@ -5,8 +5,7 @@ html, body {
 	min-height: 100%;
 	background: #ffffff;
 	color: #000000;
-    font-family: "PT Sans";
-    font-display: swap;
+    font-family: "Gill Sans", sans-serif;
 }
 
 div {
@@ -14,8 +13,7 @@ div {
 }
 
 #nav-area {
-    font-family: "PT Sans";
-    font-display: swap;
+    font-family: "Gill Sans", sans-serif;
 }
 
 .maingrid {  display: grid;
@@ -45,8 +43,7 @@ body {
 }
 
 h1 {
-    font-family: "Playfair Display";
-    font-display: swap;
+    font-family: Georgia, serif;
     background-color: #990000;
     color: #ffffff;
 }
@@ -60,8 +57,7 @@ li {
 }
 
 .typewriter {
-    font-family: 'IBM Plex Mono';
-    font-display: swap;
+    font-family: monospace;
 }
 
 img {

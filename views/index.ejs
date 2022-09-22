@@ -6,17 +6,15 @@
   <meta name="description" content="Kawane Moene's guest book - In true retro WPI style!">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/swap.css">
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"></noscript>
-  <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/style.css"></noscript>
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Playfair+Display" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display"></noscript>
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=PT+Sans" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans"></noscript>
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono"></noscript>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  </noscript>
+  <link rel="preload" href="/static/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/static/style.css">
+  </noscript>
 </head>
 
 <body>
@@ -25,62 +23,73 @@
   <h2 id="jswarning-h2">Warning: Javascript Disabled!</h2>
   <p id="jswarning-p">Seems like you disabled JavaScript in your browser settings or your browser does not support
     JavaScript.<br>
-      Please consult your browser's documentation or ask your administrator for assistant.</p>
-    <div class="maingrid">
-      <div class="nav-grid">
-        <div id="nav-area">
-          <a href="#" onclick="showNew()">Add</a> | <a href="#" onclick="showMessages()">View/Edit</a> | <a href="/logout">Logout</a> | &nbsp; &nbsp;<div
-            id="serv-conn" href="#" >Please wait...</div> &nbsp; &nbsp; <div><i class="icon bullhorn"></i> <%= motd %></div><span style="visibility:hidden;" id="username"><%= name %></span>
-        </div>
+    Please consult your browser's documentation or ask your administrator for assistant.</p>
+  <div class="maingrid">
+    <div class="nav-grid">
+      <div id="nav-area">
+        <a href="#" onclick="showNew()">Add</a> | <a href="#" onclick="showMessages()">View/Edit</a> | <a
+          href="/logout">Logout</a> | &nbsp; &nbsp;<div id="serv-conn" href="#">Please wait...</div> &nbsp; &nbsp; <div>
+          <i class="icon bullhorn"></i>
+          <%= motd %>
+        </div><span style="visibility:hidden;" id="username">
+          <%= name %>
+        </span>
       </div>
-      <div class="policy-grid">
-        <h2>Policy</h2>
-        <p>Avoid blame, speculation, and inflammatory language</p>
-        <p>Do not mention someone else unless you have their permission</p>
-        <p>Do not spam messages</p>
-        <p>Absolutely no sexist, raciest, etc. messages.</p>
+    </div>
+    <div class="policy-grid">
+      <h2>Policy</h2>
+      <p>Avoid blame, speculation, and inflammatory language</p>
+      <p>Do not mention someone else unless you have their permission</p>
+      <p>Do not spam messages</p>
+      <p>Absolutely no sexist, raciest, etc. messages.</p>
+    </div>
+    <div class="data-grid">
+      <div id="entry-area" style="display: none;">
+        <h2>Guest Book Entry</h2>
+        <p>Thank you for visiting!</p>
+        <p>Please sign my guest book before you leave.<br>
+        <div id="add-help">Enter your entry by typing in the text box.</div>
+        </p>
+        </p>
+        <form class="ui action left icon input">
+          <i class="pencil icon"></i>
+          <input title="Message" aria-describedby="add-help" type='text' id='message' placeholder="Message" value=""
+            required><br>
+          <button class="ui primary button" id="newsub">Submit</button>
+        </form>
       </div>
-      <div class="data-grid">
-        <div id="entry-area" style="display: none;">
-          <h2>Guest Book Entry</h2>
-          <p>Thank you for visiting!</p>
-          <p>Please sign my guest book before you leave.<br>
-            <div id="add-help">Enter your entry by typing in the text box.</div></p></p>
-          <form class="ui action left icon input">
-            <i class="pencil icon"></i>
-            <input title="Message" aria-describedby="add-help"  type='text' id='message' placeholder="Message" value="" required><br>
-            <button class="ui primary button" id="newsub">Submit</button>
-          </form>
-        </div>
-        <div id="edit-area" style="display: none;">
-          <h2>Entry Edit</h2>
-          <p>Made a mistake? No worry! Edit your entry here.<br>
-            <div id="edit-help">Edit your entry by typing in the text box.</div></p>
-          <form class="ui action left icon input">
-            <i class="pencil icon"></i>
-            <input title="Message" aria-describedby="edit-help" type='text' id='edit-message' placeholder="Message" value="" required><br>
-            <input style="display: none;" type="number" id='edit-mid' value=0>
-            <button class="ui primary button" id="editsub">Submit</button>
-            <button class="ui button" id="editcan">Cancel</button>
-          </form>
-        </div>
-        <div id="delete-area" style="display: none;">
-          <h2>Entry Delete</h2>
-          <p><i class="exclamation triangle icon"></i> This message will be deleted permanently! Are you sure?</p>
-          <form action="">
-            <input style="display: none;" type="number" id='del-mid' value=0>
-            <button class="ui red button" id="delsub"><i class="trash alternate icon"></i> Delete</button>
-            <button class="ui button" id="delcan">Cancel</button>
-          </form>
-        </div>
-        <div id="view-area" style="display: none;">
-          <h2>Guest Messages</h2>
-          <p>These are messages that leaved by my guests.<br><b>You can only edit or delete your own message.</b></p>
-          <div id="msglist" class="typewriter">
-          </div>
+      <div id="edit-area" style="display: none;">
+        <h2>Entry Edit</h2>
+        <p>Made a mistake? No worry! Edit your entry here.<br>
+        <div id="edit-help">Edit your entry by typing in the text box.</div>
+        </p>
+        <form class="ui action left icon input">
+          <i class="pencil icon"></i>
+          <input title="Message" aria-describedby="edit-help" type='text' id='edit-message' placeholder="Message"
+            value="" required><br>
+          <input style="display: none;" type="number" id='edit-mid' value=0>
+          <button class="ui primary button" id="editsub">Submit</button>
+          <button class="ui button" id="editcan">Cancel</button>
+        </form>
+      </div>
+      <div id="delete-area" style="display: none;">
+        <h2>Entry Delete</h2>
+        <p><i class="exclamation triangle icon"></i> This message will be deleted permanently! Are you sure?</p>
+        <form action="">
+          <input style="display: none;" type="number" id='del-mid' value=0>
+          <button class="ui red button" id="delsub"><i class="trash alternate icon"></i> Delete</button>
+          <button class="ui button" id="delcan">Cancel</button>
+        </form>
+      </div>
+      <div id="view-area" style="display: none;">
+        <h2>Guest Messages</h2>
+        <p>These are messages that leaved by my guests.<br><b>You can only edit or delete your own message.</b></p>
+        <div id="msglist" class="typewriter">
         </div>
       </div>
     </div>
-    <script src="scripts.js"></script>
+  </div>
+  <script src="/static/scripts.js"></script>
 </body>
+
 </html>
