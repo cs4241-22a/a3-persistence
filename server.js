@@ -39,7 +39,7 @@ refreshDB()
 
 app.engine('html', require('hbs').__express);
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', __dirname+'/views');
 app.disable('view cache');
 
 app.post( '/login', (req,res)=> {
