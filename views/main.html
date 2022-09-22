@@ -2,27 +2,32 @@
 <html lang='en'>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+        <link rel="stylesheet" href="/tweaks.css">
     </head>
     <body> 
         <h1>TODO Notes</h1>
-        <h2>Hello {{username}}</h2>
-        <flexbox>
+        <h2 id="salutation">Hello {{username}}</h2>
+        <div id="topLine">
             <form action='/addTODO' method='POST'>
             <label>Add TODO:</label>
-            <input type='text' name='text'>
-            <input type='submit' value="+">
+            <div id="add">
+                <input type='text' name='text'>
+                <input type='submit' value="+">
+            </div>
             </form>
             <form action='/logout' method='POST'>
-                <input type='submit' value="logout">
+                <input type='submit' class="logout" value="logout">
             </form>
-        </flexbox>
+        </div>
         <ul>
             {{#each tasks}}
-                <li id="{{this.text}}">
-                    <input type="checkbox" class="task" id="{{this.text}}checkbox" {{#if this.completed}}checked{{/if}}>
+                <li class="TODO" id="{{this.text}}" >
+                    <input type="checkbox" id="{{this.text}}checkbox" {{#if this.completed}}checked{{/if}}>
                     <label>{{this.text}}</label>
-                    <input type="button" id="{{this.text}}delete" value="X">
+                    <input type="button" class="delete" id="{{this.text}}delete" value="X">
                     <script>
                         {
                             const checkbox = document.getElementById('{{this.text}}checkbox');

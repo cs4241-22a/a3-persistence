@@ -65,7 +65,7 @@ app.post( '/login', (req,res)=> {
         }else{
           // password incorrect, redirect back to login page
           req.session.login = false
-          res.render("login.html", {message:"wrong password"})
+          res.render("login.html", {message:"Wrong Password"})
         }
       }else {
         req.body.tasks = [];
