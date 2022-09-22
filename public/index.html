@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Calibri">
+    <script src="./js/scripts.js"></script>
+  </head>
+  <body>
+    <h1 class = "center">
+      To Do List
+    </h1>
+    <p class = "center">
+      Welcome to my To-Do List. 
+      Please enter the name of the task, how long you think it 
+      will take to complete, as well as the date that the task 
+      needs to be completed by. The list will then rank the priority of each task
+      based on the information you provide, giving you insight to your
+      optimal order or operations.
+    </p>
+     <p class = "center">
+     To add a task to the list, fill out the correct information
+       about the task and hit the GREEN Submit button. To delete a task which is 
+       already inside the table, make sure to correctly spell the desired task and
+       then hit the RED Delete button. 
+    </p>
+    <form class ="center" action="">
+      <div>
+      <label for="taskName">Task Name:</label>
+      <input type="text" id="taskName" placeholder="Type Task Here">
+      </div>
+      <div>
+      <label for="expLength">Task Name:</label>
+      <input type="text" id="expLength" placeholder="Expexted Time To Take">
+      </div>
+      <div>
+      <label for="dueDate"> Due Date:</label>
+      <input type="date" id="duedate"> 
+      </div>
+      <div>
+      <button class = "green">Submit</button>
+      <button class = "red">Delete</button>
+      </div>
+    </form>
+    <table class="center">
+  <tr>
+    <th>Task 1</th>
+    <th>Task 2</th>
+    <th>Task 3</th>
+    <th>Suggested Task</th>
+  </tr>
+  <tr>
+    <td>Task</td>
+    <td>Task</td>
+    <td>Task</td>
+    <th>"Suggestion"</th>
+  </tr>
+  <tr>
+    <td>Expected Length</td>
+    <td>Expected Length</td>
+    <td>Expected Length</td>
+    <th>"Expected Length"</th>
+  </tr>
+  <tr>
+    <td>Due Date</td>
+    <td>Due Date</td>
+    <td>Due Date</td>
+    <th>"Due Date"</th>
+  </tr>
+  
+</table>
+  </body>
+  <script>
+
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    const input = document.querySelector( '#taskname' ),
+          json = { yourname: input.value },
+          body = JSON.stringify( json )
+
+    fetch( '/submit', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {
+      // multiply the expected length by the length until the due date 
+      console.log( response )
+    })
+
+    return false
+  }
+
+  window.onload = function() {
+    const button = document.querySelector( 'button' )
+    button.onclick = submit
+  }
+
+  </script>
+</html>
