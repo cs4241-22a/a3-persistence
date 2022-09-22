@@ -10,37 +10,20 @@
     <form class="col s12" id="purchase_form" action="">
       <div class="row">
         <div class="input-field col s6">
-          <input
-            placeholder="Item Name"
-            id="item_name"
-            type="text"
-            class="validate"
-          />
-          <label for="item_name">Item Name</label>
+          <input placeholder="Item Name" id="item_name" type="text" class="validate" />
+          <label style="color: black;" for="item_name">Item Name</label>
         </div>
         <div class="input-field col s6">
-          <input
-            placeholder="Item Quantity"
-            id="item_quantity"
-            type="number"
-            oninput="this.value = Math.round(this.value);"
-            class="validate"
-          />
-          <label for="item_quantity">Item Quantity</label>
+          <input placeholder="Item Quantity" id="item_quantity" type="number"
+            oninput="this.value = Math.round(this.value);" class="validate" />
+          <label style="color: black;" for="item_quantity">Item Quantity</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input
-            placeholder="Item Cost"
-            id="item_cost"
-            type="number"
-            min="0.00"
-            max="10000.00"
-            step="0.01"
-            class="validate"
-          />
-          <label for="item_cost">Item Cost</label>
+          <input placeholder="Item Cost" id="item_cost" type="number" min="0.00" max="10000.00" step="0.01"
+            class="validate" />
+          <label style="color: black;" for="item_cost">Item Cost</label>
         </div>
         <div class="input-field col s6">
           <select id="payment_method">
@@ -49,15 +32,11 @@
             <option value="debit_card">Debit Card</option>
             <option value="cash">Cash</option>
           </select>
-          <label for="payment_method">Payment Method</label>
+          <label style="color: black;" for="payment_method">Payment Method</label>
         </div>
       </div>
       <div class="center-align">
-        <button
-          class="btn waves-effect waves-light center-align deep-purple"
-          type="submit"
-          name="action"
-        >
+        <button class="btn waves-effect waves-light center-align deep-purple" type="submit" name="action">
           Submit
           <i class="material-icons right">send</i>
         </button>
@@ -79,8 +58,8 @@
 
   <script type="module">
     import { getTableData, formSubmit } from "./js/scripts.js"; getTableData();
-    document .querySelector("#purchase_form") .addEventListener("submit",
-    formSubmit);
+    document.querySelector("#purchase_form").addEventListener("submit",
+      formSubmit);
   </script>
 
   <script></script>
