@@ -9,7 +9,7 @@ app.engine( 'handlebars',  hbs() )
 app.set(    'view engine', 'handlebars' )
 app.set(    'views',       './views' )
 
-const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST+'/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://'+process.env.USER1+':'+process.env.PASS+'@'+process.env.HOST+'/?retryWrites=true&w=majority'
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 })
 let collection = null
