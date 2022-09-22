@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang='en'>
+  <title>Login Page</title>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,9 @@
     <h1>TODO Notes</h1>
     <h2>Login to the site or enter your username and password to create a account below.</h2>
     <form action='/login' method='POST'>
-      <label>Username:</label>
+      <label for="username">Username:</label>
       <input type='text' name='username'>
-      <label>Password:</label>
+      <label for="password">Password:</label>
       <input type='password' name='password'>
       <input type='submit' value="Login">
     </form>
