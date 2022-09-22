@@ -12,6 +12,8 @@ The CSS framework I used was Semantic UI. However, to maintain that WPI 2000s ae
 
 The app is a guest book, it is designed to show all the data in the database. But the user can only edit and delete their own message. There are logics on both the client and the server to enforce this policy. 
 
+I tried my best to increase the lighthouse performance score. However, some issues are unavoidable. The main issue is that this server is located at Japan, which introduces latency and decrease my performance score. I made sure all other possible lighthouse scores (the rest of them) are all 100%.
+
 Middleware used:
 * `cookie-session` handles user's session with cookie
 * `compression` compresses the webpage
