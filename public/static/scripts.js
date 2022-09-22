@@ -28,11 +28,12 @@ const submitnew = function (e) {
       console.log(response)
       document.getElementById('newsub').disabled = true;
       document.getElementById("newsub").textContent = "success!"
+      updateList();
       setTimeout(function () {
         document.getElementById("message").value = ""
         document.getElementById("newsub").disabled = false;
         document.getElementById("newsub").textContent = "Submit"
-      }, 700);
+      }, 100);
     })
 
   return false
@@ -60,12 +61,13 @@ const submitdelete = function (e) {
       document.getElementById('delcan').disabled = true;
       document.getElementById("delsub").disabled = true;
       document.getElementById("delsub").textContent = "deleting..."
+      updateList();
       setTimeout(function () {
         showMessages();
         document.getElementById('delcan').disabled = false;
         document.getElementById("delsub").disabled = false;
         document.getElementById("delsub").innerHTML = "<i class=\"trash alternate icon\"></i> Delete"
-      }, 700);
+      }, 100);
     })
 
   return false
@@ -94,12 +96,13 @@ const submitedit = function (e) {
       document.getElementById('editcan').disabled = true;
       document.getElementById("editsub").disabled = true;
       document.getElementById("editsub").textContent = "editing..."
+      updateList();
       setTimeout(function () {
         showMessages();
         document.getElementById('editcan').disabled = false;
         document.getElementById("editsub").disabled = false;
         document.getElementById("editsub").textContent = "Submit"
-      }, 700);
+      }, 100);
     })
 
   return false
@@ -203,9 +206,10 @@ window.onload = function () {
   delcanbutton.onclick = formCancel
   const editcanbutton = document.getElementById('editcan');
   editcanbutton.onclick = formCancel
-  updatePing();
-  var intervalId = setInterval(function () {
+  updateList();
+  //updatePing();
+  /*var intervalId = setInterval(function () {
     //console.log("Pinging server...")
     updatePing();
-  }, 1500);
+  }, 1500);*/
 }
