@@ -7,6 +7,39 @@ const viewsection = document.getElementById('view-area');
 const editsection = document.getElementById('edit-area');
 const deletesection = document.getElementById('delete-area');
 
+function hideAllViews() {
+  viewsection.style.display = "none";
+  editsection.style.display = "none";
+  newsection.style.display = "none";
+  deletesection.style.display = "none";
+}
+
+function editMsg(mid, name, msg) {
+  console.log("edit " + mid)
+  hideAllViews();
+  document.getElementById("edit-mid").value = mid;
+  document.getElementById("edit-message").value = msg;
+  editsection.style.display = "block";
+}
+
+function deleteMsg(params) {
+  console.log("delete " + params)
+  hideAllViews();
+  document.getElementById("del-mid").value = params;
+  deletesection.style.display = "block";
+}
+
+function showNew() {
+  hideAllViews();
+  newsection.style.display = "block";
+}
+
+function showMessages() {
+  hideAllViews();
+  viewsection.style.display = "block";
+}
+
+
 const submitnew = function (e) {
   // prevent default form action from being carried out
   e.preventDefault()
@@ -112,37 +145,6 @@ const formCancel = function (e) {
   e.preventDefault();
   showMessages();
   return false;
-}
-
-function editMsg(mid, name, msg) {
-  console.log("edit " + mid)
-  hideAllViews();
-  document.getElementById("edit-mid").value = mid;
-  document.getElementById("edit-message").value = msg;
-  editsection.style.display = "block";
-}
-
-function deleteMsg(params) {
-  console.log("delete " + params)
-  hideAllViews();
-  document.getElementById("del-mid").value = params;
-  deletesection.style.display = "block";
-}
-
-function showNew() {
-  hideAllViews();
-  newsection.style.display = "block";
-}
-function showMessages() {
-  hideAllViews();
-  viewsection.style.display = "block";
-}
-
-function hideAllViews() {
-  viewsection.style.display = "none";
-  editsection.style.display = "none";
-  newsection.style.display = "none";
-  deletesection.style.display = "none";
 }
 
 function updateList(params) {
