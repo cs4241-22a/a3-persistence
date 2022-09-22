@@ -29,10 +29,12 @@ app.listen(3000)
 //
 app.get('/', async (req, res) => {
   if (req.session.login === true) {
-    const username = req.session.name 
+    const username = req.session.name
     console.log(req.session)
     console.log(req.session.name)
-    let todos = await todoCollection.find({ name: username }).toArray()
+    let todos = await todoCollection.find({ name: username }).toArray().catch(function () {
+      console.log("Promise Rejected");
+    });
     res.render('index.ejs', { name: username, results: todos })
   } else {
     res.render('./login.ejs')
@@ -48,20 +50,28 @@ app.post('/edit', async (req, res) => {
 
   if (del === undefined) {
     await todoCollection.updateOne({ name: name, 'new-task-input': oldValue },
-      { $set: { name: name, 'new-task-input': todo } })
+      { $set: { name: name, 'new-task-input': todo } }).catch(function () {
+        console.log("Promise Rejected");
+      });
   } else if (save === undefined) {
-    await todoCollection.deleteOne({ name: name, 'new-task-input': oldValue })
+    await todoCollection.deleteOne({ name: name, 'new-task-input': oldValue }).catch(function () {
+      console.log("Promise Rejected");
+    });
   }
-  let todos = await todoCollection.find({ name: name }).toArray()
+  let todos = await todoCollection.find({ name: name }).toArray().catch(function () {
+    console.log("Promise Rejected");
+  });
   res.render('index.ejs', { name: name, results: todos })
 })
 
 app.get('/login', async (req, res) => {
   if (req.session.login === true) {
-    const username = req.session.name 
+    const username = req.session.name
     console.log(req.session)
     console.log(req.session.name)
-    let todos = await todoCollection.find({ name: username }).toArray()
+    let todos = await todoCollection.find({ name: username }).toArray().catch(function () {
+      console.log("Promise Rejected");
+    });
     res.render('index.ejs', { name: username, results: todos })
   } else {
     res.render('./login.ejs')
@@ -71,7 +81,9 @@ app.get('/login', async (req, res) => {
 app.post('/login', async (req, res) => {
   const name = req.body.username
   const pw = req.body.password
-  const user = await userCollection.findOne({ username: name, password: pw })
+  const user = await userCollection.findOne({ username: name, password: pw }).catch(function () {
+    console.log("Promise Rejected");
+  });
   console.log("login: " + user)
   if (user) {
     console.log("found " + user)
@@ -80,7 +92,9 @@ app.post('/login', async (req, res) => {
     req.session.login = true
     req.session.name = name
 
-    let todos = await todoCollection.find({ name: name }).toArray()
+    let todos = await todoCollection.find({ name: name }).toArray().catch(function () {
+      console.log("Promise Rejected");
+    });
     res.render('index.ejs', { name: name, results: todos })
   } else {
     console.log("not found")
@@ -90,7 +104,9 @@ app.post('/login', async (req, res) => {
       } else {
         console.log('inserted record', response);
       }
-    });
+    }).catch(function () {
+      console.log("Promise Rejected");
+    });;
     res.render('login.ejs', { msg: 'user was created, you can login now!' })
   }
 })
@@ -103,7 +119,9 @@ app.post('/add', async (req, res) => {
       console.log('inserted record', response);
 
     }
-  })
+  }).catch(function () {
+    console.log("Promise Rejected");
+  });
   let todos = await todoCollection.find({ name: req.body.name }).toArray()
   res.render('index.ejs', { name: req.body.name, results: todos })
 });
