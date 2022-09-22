@@ -27,8 +27,9 @@
         <ul>
             {{#each tasks}}
                 <li class="TODO" id="{{this.text}}" >
+
                     <input type="checkbox" id="{{this.text}}checkbox" {{#if this.completed}}checked{{/if}}>
-                    <label>{{this.text}}</label>
+                    <label for="{{this.text}}checkbox">{{this.text}}</label>
                     <input type="button" class="delete" id="{{this.text}}delete" value="X">
                     <script>
                         {
