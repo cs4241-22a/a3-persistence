@@ -1,5 +1,5 @@
 const { log } = require("console");
-require('dotenv').config()
+require("dotenv").config();
 
 //use express to create a server
 const express = require("express");
@@ -9,7 +9,7 @@ const mime = require("mime");
 const fs = require("fs");
 const dir = "public/";
 const session = require("express-session");
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require("mongodb");
 
 //use the session middleware
 app.use(
@@ -20,7 +20,7 @@ app.use(
   })
 );
 
-//add passport 
+//add passport
 const passport = require("passport");
 //add github login
 const GitHubStrategy = require("passport-github").Strategy;
@@ -31,40 +31,43 @@ app.use(passport.session());
 
 const uri = process.env.MONGO_URI;
 
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 async function listDatabases(client) {
-    databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+  databasesList = await client.db().admin().listDatabases();
+  console.log("Databases:");
+  databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+}
 
 async function addEntryTest(client, entry) {
-  const result = await client.db("Webware-A3").collection("User-Data").insertOne(entry);
+  const result = await client
+    .db("Webware-A3")
+    .collection("User-Data")
+    .insertOne(entry);
   console.log(`New entry created with the following id: ${result.insertedId}`);
 }
 
 async function main() {
-    try {
-        // Connect to the MongoDB cluster
-        await client.connect();
-        // Make the appropriate DB calls
-        await  listDatabases(client);
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+    // Make the appropriate DB calls
+    await listDatabases(client);
 
-        // await addEntryTest(client, {name: "Nathan", age: 21});
-        // await addEntryTest(client, {name: "Jacob", age: 20});
-        // await addEntryTest(client, {name: "John", age: 12});
-
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-
-    }
+    // await addEntryTest(client, {name: "Nathan", age: 21});
+    // await addEntryTest(client, {name: "Jacob", age: 20});
+    // await addEntryTest(client, {name: "John", age: 12});
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
 }
 
 main().catch(console.error);
-
 
 //make the authentication with github and on success run the callback function
 passport.use(
@@ -79,20 +82,23 @@ passport.use(
       console.log(profile);
       return cb(null, profile);
     }
-    
-
   )
 );
 
+app.get(
+  "/login-go",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
 
-
-
-app.use('/login-go', passport.authenticate('github', {
-  successRedirect: '/',
-  failureRedirect: '/login'
-}));
-
-
+app.get(
+  "/login/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication
+    res.json(req.user);
+    console.log(req.user);
+  }
+);
 
 app.use(express.static("public"));
 
@@ -103,9 +109,6 @@ const addEntry = async function (db, entry) {
   return result;
 };
 
-
-
-
 const yahooFinance = require("yahoo-finance2").default;
 
 const stocks = [
@@ -113,7 +116,6 @@ const stocks = [
   { symbol: "amzn", price: 0, dateAdded: new Date() },
   { symbol: "f", price: 0, dateAdded: new Date() },
 ];
-
 
 const handleGet = async function (request, response) {
   const filename = dir + request.url.slice(1);
@@ -125,8 +127,7 @@ const handleGet = async function (request, response) {
   } //check for a request for stocks
   else if (request.url === "/login") {
     response.sendFile(__dirname + "/public/login.html");
-  }
-  else if (request.url === "/stocks") {
+  } else if (request.url === "/stocks") {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(stocks));
   }
@@ -161,7 +162,7 @@ const handleGet = async function (request, response) {
   }
 };
 
-app.get("/" , (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
@@ -222,8 +223,6 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public" + req.url);
 });
 
-
-
 const getHistoricalData = async function (symbol) {
   const pastDate = new Date();
   pastDate.setFullYear(pastDate.getFullYear() - 2);
@@ -261,7 +260,7 @@ const handlePost = async function (request, response) {
   request.on("end", async function () {
     let dataObject;
     try {
-    dataObject = JSON.parse(dataString);
+      dataObject = JSON.parse(dataString);
     } catch (error) {
       console.log("Error parsing JSON");
     }
@@ -312,12 +311,9 @@ const handlePost = async function (request, response) {
         response.writeHead(404, "Not Found", { "Content-Type": "text/plain" });
         response.end("Stock not found in array");
       }
-    } 
-    
+    }
   });
 };
-
-
 
 //if there is any type of post request, call the handlePost function with the request and response as parameters
 app.post("*", handlePost);
