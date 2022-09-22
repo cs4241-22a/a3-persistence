@@ -8,25 +8,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./index.css">
-    <title>MINESWEEPERDLE | Login </title>
+    <link rel="stylesheet" href="./login.css">
+    <title>MINESWEEPERDLE | Login</title>
 </head>
 <body>
     <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh">
         <h1>Minesweeperdle</h1>
-        <h2>By Joe Dobbelaar</h2>
-        <button id="login-button" type="button" class="btn btn-primary">
+        <button id="create-acct-button" type="button" class="btn btn-primary">
+            Create Account
+        </button>
+        <button id="sign-in-button" type="button" class="btn btn-primary">
             Sign In
         </button>
     </div>
 </body>
-
 <script>
     window.onload = () => {
-        document.getElementById("login-button").onclick = () => {
-            window.location = "/login";
+        document.getElementById("create-acct-button").onclick = () => {
+            window.location = "/new-user";
         };
-        localStorage.removeItem("MS:email");
+        document.getElementById("sign-in-button").onclick = () => {
+            window.location = "/sign-in";
+        };
     }
 </script>
 </html>

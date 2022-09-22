@@ -1,0 +1,38 @@
+:root {
+    --dark: #191716;
+    --light: #76818E;
+    --primary: #717EC3;
+}
+
+@font-palette-values --Nabla {
+    font-family: Nabla;
+    base-palette: 3;
+}
+
+body {
+    background-color: white;
+    user-select: none;
+}
+
+h1 {
+    font-family: 'Nabla', cursive;
+    font-palette: --Nabla;
+    text-transform: uppercase;
+	font-size: 4vw;
+    font-variation-settings: "EDPT" 100;
+    letter-spacing: 1rem;
+}
+
+h2 {
+    color: var(--light);
+}
+
+.btn {
+    width: 8vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.hidden {
+    opacity: 0;
+}

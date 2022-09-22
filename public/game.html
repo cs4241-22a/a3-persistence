@@ -7,9 +7,29 @@
     <link rel="stylesheet" href="./bootstrap.css">
     <link rel="stylesheet" href="./game.css">
     <title>MINESWEEPERDLE | Play</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./bootstrap.js"></script>
     <script src="./game.js"></script>
 </head>
 <body>
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">...</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modal-button">...</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="d-flex align-items-center justify-content-center flex-row" style="width: 100vw">
         <div class="border">
             <h2>Instructions:</h2>
@@ -20,12 +40,24 @@
             <p>5. You can attempt previous boards by selecting a date on the right of this page.</p>
         </div>
         <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh; width: 60vw;">
-            <h1>Mines: <span id="total-mines">0</span></h1>
+            <h1 id="title">Title</h1>
+            <h2>Mines: <span id="total-mines">0</span></h2>
             <div class="board" id="board">
             </div>
-            <button class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">🚩</button>
+            <div class="d-flex align-items-center justify-content-between flex-row" style="width: 60vh">
+                <p id="time">Time: 0.00</p>
+                <button class="btn btn-outline-primary" id="flag-mode-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">🚩 OFF</button>
+            </div>
+            <div class="d-flex align-items-center justify-content-start flex-column" style="width: 60vh">
+                <p id="user-info"></p>
+                <button class="btn btn-outline-primary" id="logout-button" data-toggle="button" aria-pressed="false" autocomplete="off">Sign Out</button>
+            </div>
         </div>
         <div class="border">
+            <h2>Previous puzzles:</h2>
+            <ul id="puzzle-list">
+
+            </ul>
         </div>
     </div>
 </body>
