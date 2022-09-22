@@ -6,7 +6,7 @@ Heroku---> https://a3-jacob-chlebowski.herokuapp.com/  <br>
 
 Welcome to my WebWare Assignment 3. This assignment focuses on the same functionality as Assignment 2, but with a login functionality, and a database that holds all information for a particular user.
 
-![**Login Page**](https://github.com/jacobchlebowski/a3-persistence/blob/master/login.png?raw=true)
+![**Login Page**](https://github.com/jacobchlebowski/a3-persistence/blob/main/login.png?raw=true)
 
 The goal of this application is to allow users to create a list of assignments that they might have and the number of days before the assignment is due. For this assignmnet, the ultimate goal was to allow users to only interact with their data from the database (mongodb), and not other data (for different users).
 
@@ -25,12 +25,12 @@ The five Express middleware packages that I used include:
 
 4) Middleware checking if connection to collection is valid: 
 
-![**Connection**](https://github.com/jacobchlebowski/a3-persistence/blob/master/connection.png?raw=true)
+![**Connection**](https://github.com/jacobchlebowski/a3-persistence/blob/main/connection.png?raw=true)
 
 
 5) Middleware confirm new account creation: 
 
-![**New Account**](https://github.com/jacobchlebowski/a3-persistence/blob/master/new_account.png?raw=true)
+![**New Account**](https://github.com/jacobchlebowski/a3-persistence/blob/main/new_account.png?raw=true)
 
 
 **Baseline Requirements That Have Been Met**
