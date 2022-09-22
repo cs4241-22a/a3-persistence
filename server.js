@@ -1,7 +1,6 @@
 const express = require('express'),
     mongoose = require('mongoose'),
     cookie = require('cookie-session'),
-    csurf = require('csurf'),
     morgan = require('morgan'),
     hbs = require('express-handlebars').engine,
     app = express();
