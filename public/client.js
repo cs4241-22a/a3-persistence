@@ -61,48 +61,70 @@ const add = function( e ) {
     console.log(json)
     
     })
-    
-    // .then(json=> console.log(json)) 
-    // .then( json => {
-    //   console.log(json)
-    //   json.forEach( item =>{
-    //     //////////MAKE initial elements in a div clear before adding new data
-    //     let tr = document.createElement('tr')
-    //     tr.innerText = JSON.stringify(item)
-    //     TaskBase.appendChild(tr)
-    //   })
-    // })
-
+    //
+      // .then(json=> console.log(json)) 
+      // .then( json => {
+      //   console.log(json)
+      //   json.forEach( item =>{
+      //     //////////MAKE initial elements in a div clear before adding new data
+      //     let tr = document.createElement('tr')
+      //     tr.innerText = JSON.stringify(item)
+      //     TaskBase.appendChild(tr)
+      //   })
+      // })
     return false
   }
-
-  
-  // use query selector all
-const remove = function(e)
-{
-  
-  e.preventDefault()
-  
-  console.log("Hello Again")
-}
 
 const results = function(e)
 {
   
   e.preventDefault()
+
+  TaskBase.innerText = " "
   json = {filler:"data"}
   
-  console.log("Hello Again")
   fetch( '/results', {
     method:'POST',
     headers: { 'Content-Type': 'application/json'}, // needed for MongoDB and/or the server to know you are using JSON data?
-    headers: {'Accept': 'application/json'},
+    // headers: {'Accept': 'application/json'},
     body:JSON.stringify({json})
   })
   .then(response=>response.json())
   .then( json => {
     console.log(json)
+    json.forEach( item =>{
+      //////////MAKE initial elements in a div clear before adding new data
+      let tr = document.createElement('tr')
+      tr.innerText = JSON.stringify(item)
+      TaskBase.appendChild(tr)
   })
+})
 }
 
 
+// use query selector all
+const remove = function(e,idToDelete)
+{
+  e.preventDefault()
+  // ID for the task that we are going to delete
+  const itemToDelete = document.querySelector( '#deleteTaskInput' ) 
+  // const _id = idToDelete
+  jsonID = {_id:itemToDelete.value},
+  // body = JSON.stringify(jsonID)
+
+
+  // body._id = idToDelete
+  
+  fetch('/remove',{
+    method:'POST',
+    headers: { 'Content-Type': 'application/json'}, 
+    body: JSON.stringify(jsonID)
+  })
+  .then(res=>res.json)
+  .then(json => console.log(json))
+
+
+  
+  
+  console.log("Hello Again")
+}
