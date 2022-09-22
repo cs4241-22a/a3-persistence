@@ -48,33 +48,31 @@ app.post( '/login', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
-  appdata.then( (_appdata) => {
-      for(let i = 0; i < _appdata.length; i++){
-        if(req.body.username === _appdata[i].username){
-          req.session.user  = _appdata[i]
-          break
-        }
+    for(let i = 0; i < appdata.length; i++){
+      if(req.body.username === appdata[i].username){
+        req.session.user  = appdata[i]
+        break
       }
-      if(typeof req.session.user !== 'undefined'){
-        if(req.body.password === req.session.user.password ) {
-        // define a variable that we can check in other middleware
-        // the session object is added to our requests by the cookie-session middleware
-        req.session.login = true
-        refreshDB()
-        .then(res.redirect( 'main' ))
-        }else{
-          // password incorrect, redirect back to login page
-          req.session.login = false
-          res.render("login.html", {message:"Wrong Password"})
-        }
-      }else {
-        req.body.tasks = [];
-        req.session.user = req.body
-        req.session.login = true
-        collection.insertOne( req.body)
-        .then(refreshDB())
-        .then(res.redirect( 'main' ))
+    }
+    if(typeof req.session.user !== 'undefined'){
+      if(req.body.password === req.session.user.password ) {
+      // define a variable that we can check in other middleware
+      // the session object is added to our requests by the cookie-session middleware
+      req.session.login = true
+      refreshDB()
+      .then(res.redirect( 'main' ))
+      }else{
+        // password incorrect, redirect back to login page
+        req.session.login = false
+        res.render("login.html", {message:"Wrong Password"})
       }
+    }else {
+      req.body.tasks = [];
+      req.session.user = req.body
+      req.session.login = true
+      collection.insertOne( req.body)
+      .then(refreshDB())
+      .then(res.redirect( 'main' ))
     }
   )
 })
