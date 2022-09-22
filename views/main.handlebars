@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard | TV Show Tracker</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="sakura.css" type="text/css">
+
+    <script>
+        var dataTable;
+        var indexToModify;
+        var idToModify;
+
+        window.onload = function () {
+            document.getElementById("submit").onclick = submit;
+            document.getElementById("modify").onclick = modify;
+            document.getElementById("logout").onclick = logout;
+            fetch("/getdata", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(function (response) {
+                res = response.json();
+                const checkPromise = () => {
+                    res.then((result) => {
+                        dataTable = result;
+                        handleResults(result);
+                    }).catch((err) => {
+                        console.error("Error: " + err);
+                    });
+                };
+                checkPromise();
+            });
+        };
+
+        const submit = function (e) {
+            e.preventDefault();
+            document.getElementById("error").textContent = "";
+
+            const show = document.querySelector("#show"),
+                seasons = document.querySelector("#seasons"),
+                eps = document.querySelector("#eps"),
+                duration = document.querySelector("#duration");
+
+            const json = {
+                show: show.value,
+                seasons: seasons.value,
+                eps: eps.value,
+                duration: duration.value,
+            };
+            const body = JSON.stringify(json);
+
+            if (show.value === "" || seasons.value === "" || eps.value === "" || duration.value === "") {
+                document.getElementById("error").innerText = "Invalid form values";
+                return;
+            }
+
+            document.getElementById("show").value = "";
+            document.getElementById("seasons").value = "";
+            document.getElementById("eps").value = "";
+            document.getElementById("duration").value = "";
+
+            fetch("/submit", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body,
+            }).then(function (response) {
+                res = response.json();
+                const checkPromise = () => {
+                    res.then((result) => {
+                        if (result.msg == "Cannot enter two shows with the same information. Either modify the existing show or delete it altogether.") {
+                            document.getElementById("error").textContent = result.msg;
+                        } else {
+                            dataTable = result;
+                            handleResults(result);
+                        }
+                    }).catch((err) => {
+                        console.error("Error: " + err);
+                    });
+                };
+                checkPromise();
+            });
+            return false;
+        };
+
+        function update(entryToRemove) {
+            indexToModify = entryToRemove;
+            idToModify = dataTable[indexToModify]["_id"];
+            document.getElementById("show").value = dataTable[indexToModify].show;
+            document.getElementById("seasons").value = dataTable[indexToModify].seasons;
+            document.getElementById("eps").value = dataTable[indexToModify].eps;
+            document.getElementById("duration").value = dataTable[indexToModify].duration;
+        }
+
+        const modify = function (e) {
+            e.preventDefault();
+            document.getElementById("error").textContent = "";
+
+            const show = document.querySelector("#show"),
+                seasons = document.querySelector("#seasons"),
+                eps = document.querySelector("#eps"),
+                duration = document.querySelector("#duration"),
+                entryId = dataTable[indexToModify]["_id"];
+
+            let updatedEntry = {
+                id: entryId,
+                show: show.value,
+                seasons: seasons.value,
+                eps: eps.value,
+                duration: duration.value,
+            };
+
+            if (show.value === "" || seasons.value === "" || eps.value === "" || duration.value === "") {
+                document.getElementById("error").innerText = "Invalid form values";
+                return;
+            }
+
+            fetch("/update", {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedEntry),
+            }).then(function (response) {
+                res = response.json();
+                const checkPromise = () => {
+                    res.then((result) => {
+                        dataTable = result;
+                        handleResults(result);
+                    }).catch((err) => {
+                        console.error("Error: " + err);
+                    });
+                };
+                checkPromise();
+            });
+            return false;
+        };
+
+        function remove(entryToRemove) {
+            const json = dataTable[entryToRemove];
+            const body = JSON.stringify(json);
+
+            fetch("/remove", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body,
+            }).then(function (response) {
+                res = response.json(); // read as JSON
+                const checkPromise = () => {
+                    res.then((result) => {
+                        // on promise fulfillment, return the promise
+                        dataTable = result; // update the client's local copy
+                        handleResults(result);
+                    }).catch((err) => {
+                        console.error("Error: " + err); // otherwise log an error
+                    });
+                };
+                checkPromise();
+            });
+            return false;
+        };
+
+        const logout = function () {
+            const json = dataTable;
+            const body = JSON.stringify(json);
+            fetch("/logout", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body
+            })
+                .then(function (response) {
+                    window.location.href = "/";
+                });
+        };
+
+        function handleResults(resultArr) {
+            if (resultArr.length < 1) {
+                return;
+            }
+
+            let resultStr = "<table><tr><th>TV Show</th><th>Seasons</th><th>Episodes Per Season</th><th>Duration of an Episode (mins)</th><th>Time to Binge-Watch Full Show (hrs)</th><th></th></tr>";
+            let parsedJson;
+            for (let i = 0; i < resultArr.length; i++) {
+                resultStr += "<tr>";
+                parsedJson = resultArr[i];
+                resultStr += `<td>${parsedJson.show}</td><td>${parsedJson.seasons}</td><td>${parsedJson.eps}</td><td>${parsedJson.duration}</td><td>${parsedJson.totalTime}</td>`;
+                resultStr += "<td><button onclick='update(" + i + ")'>Update Entry</button><button onclick='remove(" + i + ")'>Remove Entry</button></td>";
+                resultStr += "</tr>";
+            }
+            resultStr += "</table>";
+            document.getElementById("results").innerHTML = resultStr;
+        }
+    </script>
+</head>
+
+
+<body>
+    <div class="flex-container">
+        <div>
+            <form>
+                <h1 id="userInfo">{{{msg}}}</h1>
+                <h2>TV Show Tracker</h2>
+
+                <fieldset>
+                    <label for="show" style="display:inline">TV show name</label>
+                    <input type="text" id="show" value="My TV show" /><br />
+
+                    <label for="seasons" style="display:inline">Number of seasons</label>
+                    <input type="number" id="seasons" value="4" min="1" /><br />
+
+                    <label for="eps" style="display:inline">Episodes per season</label>
+                    <input type="number" id="eps" value="13" min="1" /><br />
+
+                    <label for="duration" style="display:inline">Duration of an episode (minutes)</label>
+                    <input type="number" id="duration" value="45" min="1" /><br />
+
+                    <span id="error" style="color:red"></span><br />
+                    <button id="submit">Submit</button><button id="modify">Modify Existing</button>
+                </fieldset>
+            </form>
+        </div>
+        <div id="results"></div>
+        <button id="logout">Logout</button>
+    </div>
+</body>
+
+</html>

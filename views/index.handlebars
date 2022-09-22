@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login | TV Show Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="TV show tracking web application">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sakura.css" type="text/css">
+    <script>
+        window.onload = function () {
+            const button = document.getElementById("submit");
+            button.onclick = submit;
+        };
+
+        const submit = function (e) {
+            e.preventDefault();
+
+            document.getElementById("error").innerHTML = "";
+
+            const username = document.querySelector("#username"),
+                password = document.querySelector("#password");
+
+            const body = {
+                username: username.value,
+                password: password.value,
+            };
+
+            const stringified_body = JSON.stringify(body);
+
+            if (username.value === "" || password.value === "") {
+                document.getElementById("error").innerText = "Invalid form values";
+                return;
+            }
+
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: stringified_body,
+            }).then(function (response) {
+                console.log(response);
+                window.location.href = "/account";
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <form enctype="application/x-www-form-urlencoded">
+                <h1>Login Here</h1>
+                <fieldset>
+                    <label for="username" style="display:inline">Username</label>
+                    <input type="text" id="username" /><br />
+                    <label for="password" style="display:inline">Password</label>
+                    <input type="password" id="password" /><br />
+                    
+                    <button id="submit">Submit</button>
+                </fieldset>
+            </form>
+            <div id="error">{{{msg}}}</div>
+        </div>
+
+        <div id="results"></div>
+    </div>
+</body>
+
+</html>
