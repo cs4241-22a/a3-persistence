@@ -1,7 +1,6 @@
 ## Assignment 3 - Homework Assignment List with Login Functionality
 
 <b>Jacob Chlebowski - </b> <br>
-Glitch---> https://a3-jacobchlebowski.glitch.me <br>
 Heroku---> https://a3-jacob-chlebowski.herokuapp.com/  <br>
 
 
