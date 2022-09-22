@@ -3,7 +3,7 @@
   "genre": "",
   "year": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "mime": "^2.4.4"
