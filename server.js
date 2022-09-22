@@ -92,6 +92,10 @@ app.post('/currentUser', (req, res) => {
   }
 })
 
+app.get('/robots.txt', express.static('public'), (req, res) => {
+  res.sendFile(__dirname + '/public/robots.txt');
+})
+
 app.get( '/', (req,res) => {
     res.render( 'login', { msg:'', layout:false })
 })
@@ -117,7 +121,7 @@ app.get('/logout',  function (req, res)  {
 
 app.use(express.static('public'));
 app.use(express.json());
-     
+
 let currCollection = null;
 
 app.use( (req,res,next) => {

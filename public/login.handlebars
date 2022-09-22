@@ -1,7 +1,9 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple app for managing your collections. Sign up to create a collection and add, delete, or update your collectables">
     <link rel="stylesheet" href="https://gitcdn.link/cdn/tjcoppola234/AllYourStuff/main/public/css/pico.classless.min.css">
     <style>input{max-width: 70%;}</style>
     <title>AllYourStuff | Login</title>
@@ -12,12 +14,12 @@
       <form action="/login" method="POST" class="vertflex">
         <h2>Log in</h2>
         <label for="username">Username:</label>
-        <input type="text" name="username" />
+        <input type="text" id="username" name="username" />
         <label for="password">Password: </label>
-        <input type="password" name="password" value="password" />
-        <div class="horflex">
-          <input type="submit" value="log in" formaction="/login"/>
-          <input type="submit" value="register" formaction="/register"/>
+        <input type="password" id="password" name="password" value="password" />
+        <div class="horflex" >
+          <input type="submit" value="log in" formaction="/login" style="color: #11191F;"/>
+          <input type="submit" value="register" formaction="/register" style="color: #11191F;"/>
         </div>
       </form>
       {{{msg}}}
