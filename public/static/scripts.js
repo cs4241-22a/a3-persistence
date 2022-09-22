@@ -45,8 +45,8 @@ const submitnew = function (e) {
   e.preventDefault()
 
   const msginput = document.getElementById("message")
-  json = { message: msginput.value, action: "new" }
-  body = JSON.stringify(json)
+  let json = { message: msginput.value, action: "new" }
+  let body = JSON.stringify(json)
 
   fetch('/submit', {
     method: 'POST',
@@ -77,8 +77,8 @@ const submitdelete = function (e) {
   e.preventDefault()
 
   const mid = document.querySelector('#del-mid')
-  json = { action: "delete", mid: mid.value }
-  body = JSON.stringify(json)
+  let json = { action: "delete", mid: mid.value }
+  let body = JSON.stringify(json)
 
   fetch('/submit', {
     method: 'POST',
@@ -112,8 +112,8 @@ const submitedit = function (e) {
 
   const msginput = document.querySelector('#edit-message')
   const mid = document.querySelector('#edit-mid')
-  json = { message: msginput.value, action: "edit", mid: mid.value }
-  body = JSON.stringify(json)
+  let json = { message: msginput.value, action: "edit", mid: mid.value }
+  let body = JSON.stringify(json)
 
   fetch('/submit', {
     method: 'POST',
