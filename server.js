@@ -122,4 +122,4 @@ app.post( '/clear', express.json(), (req,res) => {
         .then( result => res.json( result ) )
 })
 
-app.listen(process.env.PORT || 3000)
+app.listen(3000)
