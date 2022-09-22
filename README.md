@@ -2,7 +2,7 @@
 
 https://allyourstuff-zibol.ondigitalocean.app/
 
-A simple, responsive, and accessible web application for collectors to manage their collections, built with node.js and mongoDB.
+A simple, responsive, and accessible web application for collectors to manage their collections, built with node.js, mongoDB, and pico.css.
 
 Steps to use:
  1) Register an account, or log in to your account
