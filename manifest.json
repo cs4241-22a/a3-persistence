@@ -1,0 +1,15 @@
+{
+  "short_name": "ClickSpeed",
+  "name": "Click Speed Tower",
+  "icons": [
+  {
+    "src":"/assets/favicon-32.ico",
+    "sizes": "32x32",
+    "type": "image/ico"
+  }
+ ],
+ "start_url": "/",
+ "background_color": "hsl(171, 100%, 41%)",
+ "Theme_color": "hsl(48, 100%, 96%)",
+ "display": "standalone"
+}

@@ -1,0 +1,28 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "hello-express",
+  "version": "0.0.1",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.2",
+    "mongodb": "^4.9.1",
+    "passport": "^0.6.0",
+    "serve-favicon": "^2.5.0",
+    "bulma": "0.9.4",
+    "passport-github2": "^0.1.12",
+    "express-session": "^1.17.3",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
