@@ -99,30 +99,20 @@
             e.preventDefault();
             document.getElementById("error").textContent = "";
 
-            console.log(dataTable[indexToModify]);
-
             const show = document.querySelector("#show"),
                 seasons = document.querySelector("#seasons"),
                 eps = document.querySelector("#eps"),
                 duration = document.querySelector("#duration"),
                 entryId = dataTable[indexToModify]["_id"];
 
-            const mins = seasons * eps * duration;
-            console.log("minutes " + mins);
-            const totalTime = parseInt(mins / 60);
-            console.log("total time " + totalTime);
-
             let updatedEntry = {
                 id: entryId,
                 show: show.value,
                 seasons: seasons.value,
                 eps: eps.value,
-                totalTime: totalTime,
                 duration: duration.value,
             };
 
-            console.log("updated entry");
-            console.log(updatedEntry);
             if (show.value === "" || seasons.value === "" || eps.value === "" || duration.value === "") {
                 document.getElementById("error").innerText = "Invalid form values";
                 return;
@@ -135,7 +125,6 @@
                 },
                 body: JSON.stringify(updatedEntry),
             }).then(function (response) {
-                console.log("Patch request returned");
                 res = response.json();
                 const checkPromise = () => {
                     res.then((result) => {
@@ -153,8 +142,6 @@
         function remove(entryToRemove) {
             const json = dataTable[entryToRemove];
             const body = JSON.stringify(json);
-            console.log("Entry to remove");
-            console.log(body);
 
             fetch("/remove", {
                 method: "POST",
@@ -189,35 +176,21 @@
                 body
             })
                 .then(function (response) {
-                    console.log(response);
                     window.location.href = "/";
                 });
         };
 
         function handleResults(resultArr) {
-            let temp = resultArr;
-            if (temp.length < 1) {
+            if (resultArr.length < 1) {
                 return;
             }
-            console.log("Result array received by handleResults");
-            console.log(temp);
-            //temp.forEach(jsonObj => delete jsonObj._id);
-            temp.forEach(jsonObj => delete jsonObj.createdAt);
-            temp.forEach(jsonObj => delete jsonObj.updatedAt);
-            temp.forEach(jsonObj => delete jsonObj.user);
-            temp.forEach(jsonObj => delete jsonObj.__v);
-            console.log("Result array with _id stripped out");
-            console.log(temp);
 
             let resultStr = "<table><tr><th>TV Show</th><th>Seasons</th><th>Episodes Per Season</th><th>Duration of an Episode (mins)</th><th>Time to Binge-Watch Full Show (hrs)</th><th></th></tr>";
             let parsedJson;
-            for (let i = 0; i < temp.length; i++) {
+            for (let i = 0; i < resultArr.length; i++) {
                 resultStr += "<tr>";
-                parsedJson = temp[i];
+                parsedJson = resultArr[i];
                 resultStr += `<td>${parsedJson.show}</td><td>${parsedJson.seasons}</td><td>${parsedJson.eps}</td><td>${parsedJson.duration}</td><td>${parsedJson.totalTime}</td>`;
-                //Object.keys(parsedJson).forEach(
-                //    (item) => (resultStr += "<td>" + parsedJson[item] + "</td>")
-                //);
                 resultStr += "<td><button onclick='update(" + i + ")'>Update Entry</button><button onclick='remove(" + i + ")'>Remove Entry</button></td>";
                 resultStr += "</tr>";
             }

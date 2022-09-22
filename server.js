@@ -5,8 +5,6 @@ const express = require('express'),
     app = express();
 
 const bcrypt = require('bcrypt');
-const { json } = require('body-parser');
-const { reset } = require('nodemon');
 app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
@@ -96,7 +94,6 @@ app.get('/', (req, res) => {
 
 app.post('/getdata', async (req, res) => {
     if (req.session.login) {
-        console.log("Sending data");
         const data = await queryUsernameToShows(req.session.username);
         if (data.length == 0) {
             res.end();
@@ -109,7 +106,6 @@ app.post('/getdata', async (req, res) => {
 });
 
 app.post('/submit', async (req, res) => {
-    console.log("Received request to enter show " + req.body.show + " under name " + req.session.username);
     const userId = await queryUsernameToId(req.session.username);
     const docs = await Entry.find({ show: req.body.show, user: userId });
     if (docs.length > 0) {
@@ -129,28 +125,19 @@ app.post('/submit', async (req, res) => {
 });
 
 app.post('/remove', async (req, res) => {
-    console.log("Received request to delete show " + req.body.show + " from name " + req.session.username);
     const userId = await queryUsernameToId(req.session.username);
     Entry.deleteOne({ show: req.body.show, user: userId }).then(() => {
-        console.log("Data deleted"); // Success
+        console.log("Successfully deleted");
     }).catch((error) => {
         console.log(error); // Failure
     });
-
-    const data = await queryUsernameToShows(req.session.username);
-    res.json(data).end();
+    res.json(await queryUsernameToShows(req.session.username)).end();
 });
 
 app.patch('/update', async (req, res) => {
-    console.log("ID to modify:");
-    console.log(req.body.id);
     const userId = await queryUsernameToId(req.session.username);
     const mins = req.body.seasons * req.body.eps * req.body.duration;
-    console.log(mins);
-    console.log("Total time " + parseInt(mins / 60));
-
     let doc = await Entry.findOneAndUpdate({ _id: req.body.id }, { show: req.body.show, seasons: req.body.seasons, eps: req.body.eps, duration: req.body.duration, totalTime: parseInt(mins / 60) });
-    console.log(doc);
     const data = await queryUsernameToShows(req.session.username);
     if (data.length == 0) {
         res.end();
@@ -161,7 +148,6 @@ app.patch('/update', async (req, res) => {
 
 app.get('/account', async (req, res) => {
     if (req.session.login) {
-        console.log("Logged in");
         let tempString = "Welcome, " + req.session.username + "!";
         res.render('main', { msg: tempString, layout: false });
     } else {
@@ -175,12 +161,8 @@ app.get('/account', async (req, res) => {
 app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     User.find({ username: req.body.username }, async (err, resultsList) => { // if the user exists, check the password
-        //console.log(resultsList);
-
         if (resultsList.length == 1) { // case where the user is already registered
             let validLogin = false;
-            console.log("Comparing " + req.body.password + " to " + resultsList[0].password);
-
             validLogin = await bcrypt.compare(req.body.password, resultsList[0].password);
 
             if (validLogin) {
@@ -205,7 +187,6 @@ app.post('/register', async (req, res) => {
 
 app.post('/logout', (req, res) => {
     if (req.session.login) {
-        console.log("Re-rendering");
         req.session.username = "";
         req.session.login = false;
         res.redirect('index');
