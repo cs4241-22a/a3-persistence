@@ -5,6 +5,9 @@ const express = require('express'),
     hbs = require('express-handlebars').engine,
     app = express();
 
+const dotenv = require("dotenv");
+dotenv.config()
+
 const bcrypt = require('bcrypt');
 app.engine('handlebars', hbs());
 app.set('view engine', 'handlebars');
@@ -72,7 +75,7 @@ entrySchema.index({ show: 1, user: 1 }, { unique: true });
 const Entry = mongoose.model('Entry', entrySchema);
 
 // Database connections
-mongoose.connect('mongodb+srv://admin:admin@cluster0.hhvf1tq.mongodb.net/login');
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.hhvf1tq.mongodb.net/login`);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 console.log();
