@@ -41,16 +41,17 @@ app.post('/edit', async (req, res) => {
   const name = req.body.name
   const oldValue = req.body.oldValue
   const todo = req.body.edited
-  console.log("name:"+name)
-  console.log("v:"+oldValue)
-  console.log("todo:"+todo)
+  const save = req.body.save
+  const del = req.body.delete
 
-
-  await todoCollection.updateOne({ name: name, 'new-task-input': oldValue },
-    { $set: { name: name, 'new-task-input': todo } })
-
+  if (del === undefined) {
+    await todoCollection.updateOne({ name: name, 'new-task-input': oldValue },
+      { $set: { name: name, 'new-task-input': todo } })
+  } else if (save === undefined) {
+    await todoCollection.deleteOne({ name: name, 'new-task-input': oldValue })
+  }
   let todos = await todoCollection.find({ name: name }).toArray()
-  res.render('index.ejs', { name: req.body.name, results: todos })
+  res.render('index.ejs', { name: name, results: todos })
 })
 
 app.get('/login', (req, res) => {
