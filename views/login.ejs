@@ -4,16 +4,11 @@
 <head>
     <title>Login | Moene's Guest Book</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    </noscript>
-    <link rel="preload" href="/static/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/static/style.css">
-    </noscript>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preload" href="/static/semantic.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/static/semantic.css">
+  </noscript>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -24,7 +19,7 @@
         <div class="ui stackable center aligned page grid segment">
             <div class="column twelve wide ui header">Please login with</div>
             <a href="https://github.com/login/oauth/authorize?client_id=<%= client_id %>"
-                class="column six wide ui primary button"><span class="fa fa-github"></span> Github Login</a>
+                class="column six wide ui primary button"><i class="icon github"></i> Github Login</a>
         </div>
 
     </div>
