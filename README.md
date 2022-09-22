@@ -1,6 +1,10 @@
 ## Simple Hike Log
 
-Patrick Salisbury: http://a3-patrick-salisbury.glitch.me
+Patrick Salisbury: 
+
+DigitalOcean Droplet: http://104.248.62.226:3000/
+
+Glitch Backup: http://a3-patrick-salisbury.glitch.me (if you get a weird 503 just refresh)
 
 The main goal of this application was to extend my a2 project in a different direction that aligned better with persistent storage. In a2, I used a hike planner that had no user data. The idea here was to make a way for family/friends to be able to view a hike you were doing (I often found myself writing hike plans on sticky notes for family members before leaving early in the am, and I thought this site might be a solution). With the requirements for a3, I decided to adapt this idea into a way to store your past hiking trips in a bit of a logbook of sorts. This way, one can easily remember which mountains they hiked and which they still need to do, even potentially years later.
 
@@ -30,8 +34,8 @@ I did add a small amount of CSS, to enable things like a header background color
 
 
 ## Technical Achievements
-- **Tech Achievement 1**: I achieved 100% on the four lighthouse tests for both of my site pages. Here, I had the most issues with search engine optimizations, with a score originally in the mid 70's. I was able to improve my score by a great deal with specific search engine friendly header tags on my site pages.
-
+- **Tech Achievement 1**: I achieved 100% on the four lighthouse tests for both of my site pages (locally). Here, I had the most issues with search engine optimizations, with a score originally in the mid 70's. I was able to improve my score by a great deal with specific search engine friendly header tags on my site pages. (NOTE: My best practices is a 92% because of not implementing HTTPS. I would assume this is out of the scope of the project and unavoidable, that being said if you really do need 100% on everything I technically do not have it unless my site is hosted locally)
+- **Tech Achievement 2**: I hosted my page on DigitalOcean. Overall, I found the experience to be relatively similar in difficulty. One of the benifits of DigitalOcean is that unlike glitch, everything is manual, so you can avoid everything automatically updating when you don't want it to actually do so. On the other hand, this can be a downside for people with less experience. Additionally, I am comfortable in the terminal/using SSH, where someone that is not as familiar with this would likely have much more difficulty than I did. As a final note, I attempted to implement a load balancer to avoid having to specify a port in the URL, but it became much more complicated than I expected so I assume that having a port specified is fine.
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: CRAP principles
 - On my pages, I focused areas of contrast onto areas where user interaction takes place. This is useful since the user should never have to feel like they are "lost" on the page, and having the areas that the user will regularly interact with contrast with the background is a good way to make the site easier to use. This can help with accessibility as well, as high contrast can help those that may need a bit more help finding where to interact with the page. On the login and main pages, I highlighted buttons and text input fields with high-contrast colors to make them easier to find at-a-glance. Once the user understands the layout of the page, only these high-contrast input areas are really needed to use the site, so this can help the user more efficiently navigate the page.
