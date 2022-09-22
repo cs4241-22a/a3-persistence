@@ -8,6 +8,7 @@ const express = require( 'express' ),
       app = express(),
       workouts = []
 
+app.use( express.urlencoded({ extended:true }) )
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2'],
@@ -15,7 +16,6 @@ app.use(cookieSession({
 }))
 app.use(compression())
 app.use(responseTime())
-app.use( serveStatic( 'public' ) )
 app.use( serveStatic( 'views'  ) )
 app.use( express.json() )
 app.use(timeout('5s'))
@@ -29,7 +29,9 @@ const uri = `mongodb+srv://${USER}:${PASS}@${HOST}`
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = client.db( 'TheJim' ).collection( 'Push Day' )
+let collection_users = null
 
+// connect to database
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
@@ -41,13 +43,17 @@ client.connect()
   })
   .then( console.log )
 
-  // Alternative way to connect using async and away rather than promises
-  // const connect = async function() {
-  //   await client.connect()
-  //   const collection = await client.db( 'TheJim' ).collection( 'Push Day' )
-  //   const results = await collection.find({ }).toArray()
-  //   console.log( results )
-  // }
+  client.connect()
+  .then( () => {
+    // will only create collection if it doesn't exist
+    return client.db( 'TheJim' ).collection( 'Memberships' )
+  })
+  .then( __collection_users => {
+    collection_users = __collection_users
+    // blank query returns all documents
+    return collection_users.find({ }).toArray()
+  })
+  .then( console.log )
 
 app.use( (req,res,next) => {
   console.log(`${req.method} ${req.url}`)
@@ -59,49 +65,18 @@ app.use( (req,res,next) => {
   }
 })
   
-const middleware_post = ( req, res, next ) => {
-  debugger
-  console.log("Middlware post")
-  let dataString = ''
-
-  req.on( 'data', function( data ) {
-    dataString += data 
-  })
-
-  req.on( 'end', function() {
-    const json = JSON.parse( dataString )
-    workouts.push( json )
-
-    // add a 'json' field to our request object
-    // this field will be available in any additional
-    // routes or middleware.
-    req.json = JSON.stringify( workouts )
-
-    // advance to next middleware or route
-    next()
-  })
-}
-
-// app.use( middleware_post )
-
-const middleware_get = ( res, next) => {
-  console.log("Middleware get")
-  console.log(client.db( 'TheJim' ).collection( 'Push Day' ))
-  return client.db( 'TheJim' ).collection( 'Push Day' )
-}
-
-// app.use(middleware_get)
-  
 // route to get all docs
 app.get( '/showWorkouts', (req,res) => {
+  debugger
   if( collection !== null ) {
     // get array and pass to res.json
-    collection.find({ }).toArray().then( result => res.json( result ) )
+    collection.find( {userId: req.session.userId} ).toArray().then( result => res.json( result ) )
   }
 })
 
 app.post( '/add', (req,res) => {
   // assumes only one object to insert
+  req.body.userId = req.session.userId
   collection.insertOne( req.body ).then( result => res.json( result ) )
   console.log(req.body)
 })
@@ -121,5 +96,58 @@ app.post( '/update', (req,res) => {
         { $set:{ exercise:req.body.exercise, sets:req.body.sets, reps:req.body.reps, weight:req.body.weight } })
     .then( result => res.json( result ) )
 })
+
+app.post( '/login', (req,res) => {
+  req.session.login = true
+  collection_users.findOne({username: req.body.username,
+                            password: req.body.password})
+  .then(user => {
+    console.log(user)
+    if(user == null) {
+      // username/password incorrect, redirect back to login page
+      res.sendFile( __dirname + '/views/index.html' )
+    }
+    else {
+      req.session.login = true
+      req.session.userId = user._id
+      console.log(req.session.userId + " has successfully logged in")
+      res.redirect("main.html")
+    }
+  })
+})
+
+app.post( '/create', (req,res) => {
+  if(req.body.captcha === 'on') {
+    collection_users.insertOne({username: req.body.username,
+                                password: req.body.password,
+                                roles: [ "readWrite" ]})
+    .then(user => {
+      req.session.login = true
+      req.session.userId = user.insertedId
+      console.log(req.session.userId + " has successfully logged in")
+      res.redirect('main.html')
+    })
+  }
+  else {
+    res.sendFile( __dirname + '/views/index.html' )
+  }
+})
+
+app.get( '/logout', (req,res) => {
+  req.session.login = false
+  req.session.userId = null
+  res.redirect('index.html')
+})
+
+// add some middleware that always sends unauthenicaetd users to the login page
+app.use( function( req,res,next) {
+  if( req.session.login === true )
+    next()
+  else
+    res.sendFile( __dirname + '/views/index.html' )
+})
+
+
+app.use( serveStatic( 'public' ) )
   
 app.listen( 3000 )

@@ -1,19 +1,18 @@
-console.log('hello world :o');
 
 // array of JSON strings for every workout, including MongoDB document id
 let workouts = []
 let workoutDocIds = []
 
 // define variables that reference elements on our page
+// const loginForm = document.getElementById("login");
 const workoutTable = document.getElementById('process');
 const workoutForm = document.getElementById("addForm");
-const editForm = document.getElementById("editForm")
+const editForm = document.getElementById("editForm");
+const removeForm = document.getElementById("removeForm");
 const exercise = workoutForm.elements['exercise'];
 const sets = workoutForm.elements['sets'];
 const reps = workoutForm.elements['reps'];
 const weight = workoutForm.elements['weight'];
-
-const removeForm = document.getElementById("removeForm");
 
 // a helper function that creates a list item for a given workout
 const appendNewLift = function(lift) {
@@ -33,9 +32,6 @@ const appendNewLift = function(lift) {
   newSets.appendChild(t2)
   newReps.appendChild(t3)
   newWeight.appendChild(t4)
-  
-
-  // workoutTable.appendChild(newListItem);
 }
 
 // a helper function to reset the form
@@ -60,6 +56,7 @@ const addWorkout = function(input) {
 
 const getDocumentId = function(body) {
   body = body.replace('{', '')
+  body = body.replace('}', '')
   let count = 0
   let id = -1
   workouts.forEach(element => {
@@ -93,9 +90,9 @@ workoutForm.onsubmit = function(event) {
   event.preventDefault();
 
   if(exercise.value != '' && sets.value != '' && reps.value != '' && weight.value != '') {
-    const value = exercise.value + ": " + sets.value + " x " + reps.value + " at " + weight.value
-    // get workout value and add it to the list
-    appendNewLift( value )
+    // const value = exercise.value + ": " + sets.value + " x " + reps.value + " at " + weight.value
+    // // get workout value and add it to the list
+    // appendNewLift( value )
     
     fetch( '/add', {
       method:'POST',
@@ -222,6 +219,7 @@ editForm.onsubmit = function(event) {
         .then( response => response.json() )
         .then( json => console.log( json ) )
         .then(showWorkouts())
+        editValuesForm.innerHTML = ''
         document.getElementById("msg").innerHTML = "<p>Workout updated</p>"
         document.getElementById("msg").style.color = "green"
       }
