@@ -25,15 +25,17 @@ app.use(cookie({
 app.listen(3000)
 
 
-
-
 //ROUTES
 //
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   if (req.session.login === true) {
-    res.render('./login.ejs')
+    const username = req.session.name 
+    console.log(req.session)
+    console.log(req.session.name)
+    let todos = await todoCollection.find({ name: username }).toArray()
+    res.render('index.ejs', { name: username, results: todos })
   } else {
-    res.render('./index.ejs')
+    res.render('./login.ejs')
   }
 })
 
@@ -54,19 +56,29 @@ app.post('/edit', async (req, res) => {
   res.render('index.ejs', { name: name, results: todos })
 })
 
-app.get('/login', (req, res) => {
-  res.render('./login.ejs')
+app.get('/login', async (req, res) => {
+  if (req.session.login === true) {
+    const username = req.session.name 
+    console.log(req.session)
+    console.log(req.session.name)
+    let todos = await todoCollection.find({ name: username }).toArray()
+    res.render('index.ejs', { name: username, results: todos })
+  } else {
+    res.render('./login.ejs')
+  }
 })
 
 app.post('/login', async (req, res) => {
   const name = req.body.username
   const pw = req.body.password
   const user = await userCollection.findOne({ username: name, password: pw })
+  console.log("login: " + user)
   if (user) {
     console.log("found " + user)
     // define a variable that we can check in other middleware
     // the session object is added to our requests by the cookie-session middleware
     req.session.login = true
+    req.session.name = name
 
     let todos = await todoCollection.find({ name: name }).toArray()
     res.render('index.ejs', { name: name, results: todos })
