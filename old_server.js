@@ -1,3 +1,52 @@
+// // set up initial credentials data
+// const createUsersWithMessages = async () => {
+//     console.log(mongoose.connection.readyState);
+
+//     const user1 = new User({
+//         username: 'iAmAUser',
+//         password: 'test',
+//     });
+
+//     const user2 = new User({
+//         username: 'iAmAnotherUser',
+//         password: 'test',
+//     });
+
+//     const entry1 = new Entry({
+//         show: "Better Call Saul",
+//         seasons: 6,
+//         eps: 10,
+//         duration: 45,
+//         totalTime: 45.0,
+//         user: user1.id
+//     });
+
+//     const entry2 = new Entry({
+//         show: "House of the Dragon",
+//         seasons: 1,
+//         eps: 10,
+//         duration: 60,
+//         totalTime: 10.0,
+//         user: user1.id
+//     });
+
+//     const entry3 = new Entry({
+//         show: "Game of Thrones",
+//         seasons: 8,
+//         eps: 10,
+//         duration: 60,
+//         totalTime: 80.0,
+//         user: user2.id
+//     });
+
+//     await entry1.save();
+//     await entry2.save();
+//     await entry3.save();
+//     await user1.save();
+//     await user2.save();
+// };
+
+
 const express = require("express");
 const session = require('express-session');
 const bcrypt = require('bcrypt');
