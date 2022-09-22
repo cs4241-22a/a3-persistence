@@ -74,7 +74,6 @@ app.post( '/login', (req,res)=> {
       .then(refreshDB())
       .then(res.redirect( 'main' ))
     }
-  )
 })
 
 app.post( '/logout', (req,res)=> {
