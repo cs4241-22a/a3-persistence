@@ -81,7 +81,7 @@ app.get('/login', async (req, res) => {
 app.post('/login', async (req, res) => {
   const name = req.body.username
   const pw = req.body.password
-  const user = await userCollection.findOne({ username: name, password: pw }).catch(function () {
+  const user = await userCollection.find({ username: name, password: pw }).catch(function () {
     console.log("Promise Rejected");
   });
   console.log("login: " + user)
