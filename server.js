@@ -96,6 +96,8 @@ app.get('/robots.txt', express.static('public'), (req, res) => {
   res.sendFile(__dirname + '/public/robots.txt');
 })
 
+app.use('/styles', express.static('public/css'));
+
 app.get( '/', (req,res) => {
     res.render( 'login', { msg:'', layout:false })
 })
