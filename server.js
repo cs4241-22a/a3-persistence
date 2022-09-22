@@ -41,21 +41,6 @@ app.use( (req,res,next) => {
     }
 })
 app.use( express.urlencoded({ extended:true }) )
-app.use( function( req,res,next) {
-    if( req.session.login === true )
-        next()
-    else
-        res.render('login', { msg:'', layout:false })
-})
-
-async function createUser(user, password) {
-    let user_login = {
-        username: user,
-        password: password
-    }
-    await collection.insertOne( user_login )
-    return true
-}
 
 //login area
 app.post( '/login', (req,res)=> {
@@ -66,7 +51,11 @@ app.post( '/login', (req,res)=> {
         .then( result => {
             if(result.length === 0) {
                 //if not found create new user and login
-                createUser(user, password)
+                let user_login = {
+                    username: user,
+                    password: password
+                }
+                collection.insertOne( user_login )
                     .then( function() {
                             req.session.login = true
                             //set the username that was successful
@@ -90,7 +79,11 @@ app.post( '/login', (req,res)=> {
 })
 
 app.get( '/index', ( req, res) => {
-    res.render( 'index', {layout:false})
+    if(req.session.login === true) {
+        res.render( 'index', {layout:false})
+    } else {
+        res.render('login', { msg:'', layout:false })
+    }
 })
 
 app.get( '/', (req,res) => {
