@@ -3,7 +3,7 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 
 Dillon McCarthy<br>
 GitHub Username: dmccarthy11<br>
-https://a3-dillon-mccarthy.glitch.me/
+https://a3-dillon-mccarthy.herokuapp.com/
 
 ## The Jim
 
@@ -25,6 +25,7 @@ This application allows different users to login and make their own personal wor
 Application Notes:
 - Initial access is to the login page.  If the username/password to login is incorrect, or if "I am not a robot" is not checked on creating an account, the user is requested to enter the info again, but no feedback is presented, the page is simply reloaded.  In a future application, this would be an important feature to add
 - In the main web page, "Get bigger" adds a workout and "Get smaller" removes a workout
+- To remove a workout, the form is case sensitive and is conscious of spaces.  This means if a workout is added with "50 " as the weight then the space will be included in the database and "50 " will be required to remove it; otherwise, "50" will return "exercise not found"
 - The "edit" form is indexed at 1, so 1 refers to the first entry in the table (this feedback is given, but just to clear up confusion)
 - When adding, removing, or editing an entry, there is a bug, oftentimes once opening the edit menu, where the data is not immediately updated.  This bug may occur sometimes, but the data does have the capability of being refreshed immediately with all actions from the user, multiple tries may just be needed
 - For the lighthouse test, when testing in a normal Chrome browser, I recieve a low performance score that says "Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions."  The score is perfect when following this advice
