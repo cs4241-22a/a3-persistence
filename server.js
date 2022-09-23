@@ -2,15 +2,23 @@
 // you can use npm start to also start the server
 const express = require( 'express' ),
       mongodb = require('mongodb'),
-      
+      responseTime = require('response-time'),
+      bodyParser = require('body-parser') // parses incoming request bodies in a middleware before handlers
       app = express()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb'); 
 require("dotenv").config();
 
 console.log(process.env.HOST);
 app.use( express.static( 'public' ) )
 app.use( express.static( 'views'  ) )
-app.use( express.json() )
+app.use( express.json())
+app.use(responseTime())
+
+// body parser middle ware - do I need to add this?
+  // parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+  // parse application/json
+app.use(bodyParser.json())
 
 // logger function
   // const logger = (req,res,next) => {
@@ -62,12 +70,10 @@ app.post('/results', (req,res)=>{
 })
 
 app.post( '/add', (req,res) => {
-  jsonReq = req.body
-  jsonReq.username = req.body.username
-  console.log(jsonReq.username)
+
   // assumes only one object to insert
   // collection.insertOne( req.body ).then( result => res.json( result ) )
-  collection.insertOne( jsonReq).then( result => res.json( result ) )
+  collection.insertOne( req.body).then( result => res.json( result ) )
 })
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
@@ -118,17 +124,14 @@ app.post( '/login', (req,res)=> {
     // the session object is added to our requests by the cookie-session middleware
     req.session.login = true
     // req.session.username = req.body.username
-    console.log(req.session.username)
-    console.log(req.body.username)
 
-    
-  
     // since login was successful, send the user to the main content
     // use redirect to avoid authentication problems when refreshing
     // the page or using the back button, for details see:
     // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
     res.redirect( 'main.html' )
   }else{
+    // app.use(errorhandler({log:'this password is incorrect'}))
     console.log(" wrong passowrd")
     // password incorrect, redirect back to login page
     // res.sendFile( __dirname + '/views/index.html' )
@@ -144,5 +147,6 @@ app.use( function( req,res,next) {
     // res.sendFile( __dirname + '/views/index.html' )
     res.sendFile( __dirname + '/views/index.html' )
 })
+
 
 app.listen( process.env.PORT || 3000 )

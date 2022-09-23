@@ -6,6 +6,8 @@
   
   
   window.onload = function() {
+
+    
     
     username = document.querySelector("#userName")
    
@@ -23,6 +25,7 @@
     const button4 = document.querySelector('#updateButton')
     button4.onclick = update
 
+   
 
 
     // from tutorial -https://www.youtube.com/watch?v=MkESyVB4oUw&ab_channel=TylerPotts
@@ -114,7 +117,13 @@ const results = function(e)
     json.forEach( item =>{
       //////////MAKE initial elements in a div clear before adding new data
       let tr = document.createElement('tr')
-      tr.innerText = JSON.stringify(item)
+       tr.innerText = JSON.stringify(item)
+      // tr.innerText = "ID:" + item._id + " " 
+      //                 // + "User:" item.User + " "
+      //                 + "Task:" + item.Task + " " 
+      //                 + "Type:" + item.TypeOfTask + " "
+      //                 + "Difficulty:" + item.Difficulty + " "
+      //                 + "Semester:" + item.Semester + " "
       TaskBase.appendChild(tr)
   })
 })
