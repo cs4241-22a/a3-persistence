@@ -55,7 +55,7 @@ app.post( '/login', (req,res)=> {
           break
         }
       }
-      if(typeof req.session.user !== 'undefined'){
+      if(typeof req.session.user !== 'undefined' && req.body.username !== ""){
         if(req.body.password === req.session.user.password ) {
         // define a variable that we can check in other middleware
         // the session object is added to our requests by the cookie-session middleware
@@ -67,13 +67,16 @@ app.post( '/login', (req,res)=> {
           req.session.login = false
           res.render("login.html", {message:"Wrong Password"})
         }
-      }else {
+      }else if (req.body.username !== "" && req.body.password !== ""){
         req.body.tasks = [];
         req.session.user = req.body
         req.session.login = true
         collection.insertOne( req.body)
         .then(refreshDB())
         .then(res.redirect( 'main' ))
+      }else{
+        req.session.login = false
+          res.render("login.html", {message:"Username And Password Cannot Be Blank"})
       }
     }
   )
