@@ -111,9 +111,9 @@ app.post('/currentUser', (req, res) => {
   }
 })
 
-app.get( '/', (req,res) => {
-    res.render( 'login', { msg:'', layout:false })
-})
+// app.get( '/', (req,res) => {
+//     res.render( 'login', { msg:'', layout:false })
+// })
 app.use( function( req,res,next) {
   if(req.session.login) {
     next();
