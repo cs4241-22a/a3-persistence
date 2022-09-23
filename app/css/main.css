@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
 
 * {
   color: #ffffff;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1rem;
 }
 
@@ -28,4 +28,9 @@
 
 .fg {
   background-color: #2d3238;
+}
+
+select,
+option {
+  color: #000000;
 }
