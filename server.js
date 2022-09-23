@@ -12,6 +12,14 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const app = express();
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use('/fav', express.static('public'));
+app.use('/styles', express.static('public/css'));
+
+app.get('/robots.txt', express.static('public'), (req, res) => {
+  res.sendFile(__dirname + '/public/robots.txt');
+})
+
 app.use( express.urlencoded({ extended:true }) )
 //Keys from https://stackoverflow.com/a/69358886
 
@@ -102,12 +110,6 @@ app.post('/currentUser', (req, res) => {
     res.json({user: currUser});
   }
 })
-
-app.get('/robots.txt', express.static('public'), (req, res) => {
-  res.sendFile(__dirname + '/public/robots.txt');
-})
-
-app.use('/styles', express.static('public/css'));
 
 app.get( '/', (req,res) => {
     res.render( 'login', { msg:'', layout:false })
