@@ -5,6 +5,7 @@
     margin-left: 2%;
 }
 #topLine {
+    width: 90%;
     display: flex;
     justify-content: space-between;
 }
