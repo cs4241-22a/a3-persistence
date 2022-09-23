@@ -40,9 +40,11 @@ let collection = null
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
-    return client.db( 'groceries' ).collection( 'devices' )
+    return client.db( 'groceries' ).collection( 'items' )
   })
-  .then( collection => {
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
     // blank query returns all documents
     return collection.find({ }).toArray()
   })
@@ -97,17 +99,23 @@ app.get( '/main.html', ( req, res) => {
   res.render( 'main', { msg:'success you have logged in', layout:false })
 })
 
-app.use( (req,res,next) => {
-  if( collection !== null ) {
-    next()
-  }else{
-    res.status( 503 ).send()
-  }
+// app.use( (req,res,next) => {
+//   if( collection !== null ) {
+//     next()
+//   }else{
+//     res.status( 503 ).send()
+//   }
+// })
+
+app.post( '/submit', (req,res) => {
+  // assumes only one object to insert
+  console.log( req.body )
+  collection.insertOne( req.body ).then(result => res.json( result ) )
 })
 
-app.post( '/add', (req,res) => {
-  // assumes only one object to insert
-  collection.insertOne( req.body ).then( result => res.json( result ) )
+// app get all data from table fcn
+app.get( '/alldata', (res) => {
+  collection.find().then(result => res.json( result ))
 })
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
