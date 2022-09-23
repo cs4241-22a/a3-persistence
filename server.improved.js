@@ -62,7 +62,7 @@ app.use( express.urlencoded({ extended:true }) )
 // activate cookie handeling: session
 app.use( cookie({
   name: 'session',
-  keys: [k1, k2]
+  keys: [process.env.SESSION_k1, process.env.SESSION_k2]
 }))
 // serve all static pages as we need CSS. etc
 app.use(serveStatic(dir, { index: ['login.html', 'login.htm'] }));
