@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="terminalize.css">
+	<title>No Stock Garage</title>
+</head>
+<body class="terminalize" style="padding: 0rem; margin: 0rem; background: black">
+	<div class="screen scanlines">
+		<div class="pannel rounded j-c" id="main">
+			<pre> 
+				 ________   ________          ________  _________  ________  ________  ___  __ 
+				|\   ___  \|\   __  \        |\   ____\|\___   ___\\   __  \|\   ____\|\  \|\  \ 
+				\ \  \\ \  \ \  \|\  \       \ \  \___|\|___ \  \_\ \  \|\  \ \  \___|\ \  \/  /|_
+				 \ \  \\ \  \ \  \\\  \       \ \_____  \   \ \  \ \ \  \\\  \ \  \    \ \   ___  \
+				  \ \  \\ \  \ \  \\\  \       \|____|\  \   \ \  \ \ \  \\\  \ \  \____\ \  \\ \  \
+				   \ \__\\ \__\ \_______\        ____\_\  \   \ \__\ \ \_______\ \_______\ \__\\ \__\
+				    \|__| \|__|\|_______|       |\_________\   \|__|  \|_______|\|_______|\|__| \|__|
+						 		\|_________|																																												  
+			</pre>				
+				<div class="a-c j-s a-m no-border pannel">
+					<form class = "col" action="/login" method="POST">
+						<input class = "pd" type="text" id="Username" placeholder="Username">
+						<input class = "pd" type="text" id="Password" placeholder="Password">
+						<div class="btn rounded">Log In</div>
+						<div class="btn no-border" onclick="openForm()">Sign Up</div>
+					</form>
+				</div>
+				<div class="pannel rounded form-popup" id="signUpForm">
+					<div class="pannel-body">
+						<form class = "col" action="/signUp">
+							<h1>SIGN UP</h1>
+							<input class = "pd" type="text" name="uname" placeholder="Username">
+							<input class = "pd" type="text" name="pword" placeholder="Password">
+							<div class="btn rounded">Submit</div>
+							<div class="btn no-border" onclick="closeForm()">Cancel</div>
+						</form>
+					</div>
+					<div class="panel footer inverse">
+						<div class="col a-e">
+							No Stock V0.1
+						</div>
+					</div>
+				</div>
+				</blockquote>
+		</div>
+	</div>
+
+<script src="client.js"></script>
+</body>
+</html>

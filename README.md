@@ -1,11 +1,6 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
-Due: September 22nd, by 11:59 AM.
-
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
-
 Baseline Requirements
 ---
 
@@ -97,6 +92,9 @@ Sample Readme (delete the above when you're ready to submit, and modify the belo
 
 ## Your Web Application Title
 
+Username: admin
+Password: admin2023
+
 your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
@@ -105,12 +103,17 @@ Include a very brief summary of your project here. Images are encouraged, along 
 - challenges you faced in realizing the application
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
 - what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
+- include any modifications to the CSS framework you made via custom CSS you authored
 - the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
 add a little more detail about what it does.
+  - Custom middleware for getting a user by id
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- Update a user
+- Delete a user
+- Create a new user
+
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
