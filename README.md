@@ -23,11 +23,11 @@ Droplet URL: http://164.90.252.100:3000
 
 I built upon my idea from the second project. The business, Kurtz's Cars has evolved into an auction manager. The website acts as a portal for sellers who wish to show their cars at a hypothetical auction. Once a client creates an accout, they can add, remove, and modify cars that comprise their sellable inventory. Furthermore, users can alter essential data associated with their account. Namely, their name and password. There were many challenges in this project. Overall, it was a slog from start to finish. Difficulties that stood out include synchronizing server actions with mongodb and the subsequent handling of promises that required adding async and await to and into the bodies of functions. I chose to not deal with any fancy authentication strategies and stuck with the email + password combination for simplicity. I also chose to make things easy by implementing a fairly bare bones CSS template. I selected the pure framework. I found that it was easy to include in html, user-friendly, and easy on the eye. Some of the colors, fonts, and dimensions were carried over from the A2 iteration of the website. 
 
-The five middleware packages that were used are listed below:
-    serve-static: load html pages, CSS
-    body-parse: interpret http requests
-    body-parseJSON: interpret JSON data
-    cookie-session: maintain user session upon succesful login
+The five middleware packages that were used are listed below:--
+    serve-static: load html pages, CSS--
+    body-parse: interpret http requests--
+    body-parseJSON: interpret JSON data--
+    cookie-session: maintain user session upon succesful login--
     env: process environment variables and mongoDB
 
 
