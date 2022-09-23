@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: __dirname+"/.env"})
 const express = require( 'express' ),
     cookie  = require( 'cookie-session' ),
     mongodb = require( 'mongodb' ),
@@ -47,8 +47,7 @@ app.post( '/login', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
-  let appdata = refreshDB()
-  appdata.then( (_appdata) => {
+  refreshDB().then( (_appdata) => {
       for(let i = 0; i < _appdata.length; i++){
         if(req.body.username === _appdata[i].username){
           req.session.user  = _appdata[i]
