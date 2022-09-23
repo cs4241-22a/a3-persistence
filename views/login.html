@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang='en'>
+  <title>Login Page</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Login to access your TODOs here.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <link rel="stylesheet" href="/tweaks.css">
+  </head>
+  <body>
+    <h1>TODO Notes</h1>
+    <h2>Login to the site or enter your username and password to create a account below.</h2>
+    <form action='/login' method='POST'>
+      <label for="username">Username:</label>
+      <input type='text' name='username' id="username">
+      <label for="password">Password:</label>
+      <input type='password' name='password' id="password">
+      <input type='submit' value="Login">
+    </form>
+    <p id="passwordMessage">{{message}}</p>
+  </body>
+</html>

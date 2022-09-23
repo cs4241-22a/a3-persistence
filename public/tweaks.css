@@ -1,0 +1,28 @@
+#passwordMessage {
+    color:red;
+}
+#salutation {
+    margin-left: 2%;
+}
+#topLine {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.delete:hover, .logout:hover {
+    color: red;
+}
+.delete {
+    margin-left: 0.5%;
+}
+#add {
+    display: flex;
+    flex-direction: row;
+}
+.TODO{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5%
+}
