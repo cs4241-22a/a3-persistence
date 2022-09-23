@@ -1,14 +1,17 @@
 require('dotenv').config();
 const express = require( 'express' ),
-      app = express(),
       cookie  = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       crypto = require("crypto"),
+      favicon = require('serve-favicon'),
       path = require('path'); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+const app = express();
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use( express.urlencoded({ extended:true }) )
 //Keys from https://stackoverflow.com/a/69358886
 
@@ -113,7 +116,7 @@ app.use( function( req,res,next) {
   if(req.session.login) {
     next();
   } else {
-    res.render('login', { msg:'login failed, please try again', layout:false })
+    res.render('login', { msg:'', layout:false })
   }
 })
 app.get('/index.html', (req, res) => {
