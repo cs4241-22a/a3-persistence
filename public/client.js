@@ -1,6 +1,13 @@
 
+ // getting the username from the browser's sessionStorage
+ const username = sessionStorage.getItem('usernameKey')
+  console.log(username)
+  
+  
   window.onload = function() {
     
+    username = document.querySelector("#userName")
+    console.log(username)
    
     const button = document.querySelector( '#addButton' )
     button.onclick = add
@@ -103,7 +110,6 @@ const results = function(e)
   })
 })
 }
-
 
 // use query selector all
 const remove = function(e)

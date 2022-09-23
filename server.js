@@ -58,9 +58,12 @@ app.post('/results', (req,res)=>{
 })
 
 app.post( '/add', (req,res) => {
-  // console.log("handling /add")
+  jsonReq = req.body
+  jsonReq.username = req.body.username
+  console.log(jsonReq.username)
   // assumes only one object to insert
-  collection.insertOne( req.body ).then( result => res.json( result ) )
+  // collection.insertOne( req.body ).then( result => res.json( result ) )
+  collection.insertOne( jsonReq).then( result => res.json( result ) )
 })
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
@@ -96,6 +99,8 @@ app.use( cookie({
   keys: ['key1', 'key2']
 }))
 
+// this variable represents the authenticated user's username:
+
 app.post( '/login', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
@@ -103,12 +108,17 @@ app.post( '/login', (req,res)=> {
   console.log( req.body )
   
   // below is *just a simple authentication example* 
-  // for A3, you should check username / password combos in your database
-  if( req.body.password === 'test' ) {
+  // checks if the username and password are valid
+  if((req.body.username === 'tester') && (req.body.password === 'test') ) {
     // define a variable that we can check in other middleware
     // the session object is added to our requests by the cookie-session middleware
     req.session.login = true
+    // req.session.username = req.body.username
+    console.log(req.session.username)
+    console.log(req.body.username)
+
     
+  
     // since login was successful, send the user to the main content
     // use redirect to avoid authentication problems when refreshing
     // the page or using the back button, for details see:
@@ -118,7 +128,7 @@ app.post( '/login', (req,res)=> {
     console.log(" wrong passowrd")
     // password incorrect, redirect back to login page
     // res.sendFile( __dirname + '/views/index.html' )
-    res.sendFile( __dirname + '/index.html' )
+    res.sendFile( __dirname + '/views/index.html' )
   }
 })
 
@@ -128,7 +138,7 @@ app.use( function( req,res,next) {
     next()
   else
     // res.sendFile( __dirname + '/views/index.html' )
-    res.sendFile( __dirname + '/index.html' )
+    res.sendFile( __dirname + '/views/index.html' )
 })
 
 app.listen( process.env.PORT || 3000 )

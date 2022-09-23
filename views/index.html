@@ -1,10 +1,33 @@
 <!doctype html>
 <html lang='en'>
+  <head>
+    <!-- <script src= "/client.js"> </script> -->
+  </head>
   <body>
-    <form action='/login' method='POST'>
-      <input type='text' name='username' placeholder="username">
-      <input type='password' name='password'placeholder="password">
+    <form id = 'login' action='/login' method='POST'>
+      <input id = 'username' type='text' name='username' placeholder='username'>
+      <input  type='password' name='password' placeholder='password'>
        <input type='submit'> <!-- submits the request? -->
     </form>
+
+    <script>
+        const form = document.querySelector('#login')
+        const userName = document.querySelector('#username')
+        
+        form.addEventListener('submit', function(e){
+          e.preventDefault()
+          
+
+            const usernameVal =  userName.value
+
+            // this will be put in the local storage for your browser
+            sessionStorage.setItem('usernameKey', usernameVal)
+
+            // sessionStorage.clear
+            // sessionStorage.remove('usernameKey')
+
+            window.location.href = "main.html";
+        })
+    </script>
   </body>
 </html>
