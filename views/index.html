@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>The Jim</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name = "keywords" content = "Workout, Lifting, Gym" />
+    <meta name = "description" content = "Make a workout plan." />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+        <h1 class="jumbotron">The Jim Front Desk</h1><br>
+        <p>Please show your membership</p><br>
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>Login</h1>
+            <form id="login" action="/login" method="POST" class="mb-4 form-vertical">
+              <input name="username" type="text" maxlength="100" placeholder="Username" required>
+              <input name="password" type="password" maxlength="100" placeholder="Password" required>
+              <input type="submit">
+            </form>
+            <div class="row" id="msg"><br>
+              <p></p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h1>Create new account</h1>
+            <form id="create" action="/create" method="POST" class="mb-4 form-vertical">
+              <input name="username" type="text" maxlength="100" placeholder="Username" required>
+              <input name="password" type="password" maxlength="100" placeholder="Password" required>
+              <div class="checkbox">
+                <label><input name="captcha" type="checkbox">I am not a robot</label>
+              </div>
+              <input type="submit">
+            </form>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

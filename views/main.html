@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>The Jim</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name = "keywords" content = "Workout, Lifting, Gym" />
+    <meta name = "description" content = "Make a workout plan." />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/client.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <header><br>
+        <form id="logout" action="/logout" method="GET" class="mb-4 form-vertical">
+          <button name="logoutBtn" class="btn btn-primary btn-sm active" type="submit">Logout</button>
+        </form>
+        <h1 class="jumbotron">Outwork <i>thousands</i> in front of <i>nobody</i><br>
+      to outshine <i>everybody</i> in front of <i>thousands</i></h1>
+      </header>
+
+      <main>
+        <h3>Welcome to The Jim</h3>
+        <h5>Add workouts to your routine to get big</h5>
+        <div class="row mb-4">
+          <form id="addForm" class="m-4 form-horizontal">
+            <input name="exercise" type="text" maxlength="100" placeholder="Name of exercise">
+            <input name="sets" type="text" maxlength="10" placeholder="Sets">
+            <input name="reps" type="text" maxlength="10" placeholder="Reps">
+            <input name="weight" type="text" maxlength="10" placeholder="Weight">
+            <button type="submit" id="addWorkout" class="btn btn-primary btn-sm active">Get Bigger</button>
+          </form>
+        </div>
+
+        <div class="row"><br>
+          <form id="removeForm" class="m-4 form-horizontal">
+            <input name="exercise" type="text" maxlength="100" placeholder="Name of exercise">
+            <input name="sets" type="text" maxlength="10" placeholder="Sets">
+            <input name="reps" type="text" maxlength="10" placeholder="Reps">
+            <input name="weight" type="text" maxlength="10" placeholder="Weight">
+            <button type="submit" id="removeWorkout" class="btn btn-primary btn-sm active">Get Smaller</button>
+          </form>
+        </div>
+
+        <div class="row"><br>
+          <form id="editForm">
+            <input name="index" type="text" placeholder="Table Row Number">
+            <button type="submit" id="edit" class="btn">Edit</button>
+          </form>
+          <form id="editValuesForm" class="form-horizontal"></form>
+        </div>
+
+        <div class="row" id="msg"><br>
+          <p></p>
+        </div>
+        
+        <table id="process" class="table table-hover">
+          <caption>Trust the process</caption>
+          <thead>
+          <tr><th>Exercise</th><th>Sets</th><th>Reps</th><th>Weight</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </main>
+
+    </div>
+  </body>
+</html>

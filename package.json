@@ -1,0 +1,21 @@
+{
+    "name": "a3-dmccarthy11",
+    "version": "1.0.0",
+    "description": "Assignment #3 for Webware 2022",
+    "author": "Dillon McCarthy",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "build-css": "sass -w --load-path=node_modules src:dist --style=compressed",
+    "dependencies": {
+        "bootstrap": "^5.2.1",
+        "compression": "^1.7.4",
+        "connect-timeout": "^1.9.0",
+        "cookie-session": "^2.0.0",
+        "express": "^4.18.1",
+        "jquery": "^3.6.1",
+        "mongodb": "^4.9.1",
+        "response-time": "^2.3.2"
+    }
+}
