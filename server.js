@@ -53,8 +53,12 @@ app.get( '/', (req,res) => {
 })
 
 app.post('/results', (req,res)=>{
-    let filler = req.body; 
-    collection.find({ }).toArray().then(result => res.json(result))
+    let usernameVal = req.body.User
+    console.log(usernameVal)
+    // usernameVal = 'tester'
+    // collection.find({ }).toArray().then(result => res.json(result))
+    // {'json.User':'tester'}  https://stackoverflow.com/questions/10320633/mongo-how-to-query-a-nested-json
+    collection.find({'json.User':usernameVal}).toArray().then(result => res.json(result))
 })
 
 app.post( '/add', (req,res) => {
@@ -68,7 +72,7 @@ app.post( '/add', (req,res) => {
 
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
 app.post( '/remove', (req,res) => {
-
+  console.log(req.body)
   console.log(req.body._id)
   
   collection

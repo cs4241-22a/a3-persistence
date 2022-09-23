@@ -1,13 +1,13 @@
 
  // getting the username from the browser's sessionStorage
- const username = sessionStorage.getItem('usernameKey')
-  console.log(username)
+// https://www.youtube.com/watch?v=x0VcigW9kN0&ab_channel=OpenJavaScript
+ const usernameVal = sessionStorage.getItem('usernameKey')
+  console.log(usernameVal)
   
   
   window.onload = function() {
     
     username = document.querySelector("#userName")
-    console.log(username)
    
     const button = document.querySelector( '#addButton' )
     button.onclick = add
@@ -40,11 +40,18 @@ const add = function( e ) {
     // // clears values on client side each time submit is pressed
     // TaskBase.innerText = " "
 
+    
     const input = document.querySelector( '#newTask' ) 
     const field1 = document.querySelector( '#TypeOfTask')
     const field2 = document.querySelector('#Difficulty')
     const field3= document.querySelector("#Semester")
-      json  = { Task: input.value, TypeOfTask: field1.value, Difficulty: field2.value, Semester: field3.value}
+      json  = { 
+        User: usernameVal,
+        Task: input.value,
+         TypeOfTask: field1.value,
+          Difficulty: field2.value,
+           Semester: field3.value
+          }
       // body = JSON.stringify( json )
 
       // add JSON to client side
@@ -53,11 +60,8 @@ const add = function( e ) {
 
       TaskBase.appendChild(tr)
 
-      tr.addEventListener('dblclick',function(){
-      TaskBase.removeChild(tr);
-    })
-    
-
+      // tr.addEventListener('dblclick',function(){
+      // TaskBase.removeChild(tr); })
     fetch( '/add', {
       method:'POST',
       headers: { 'Content-Type': 'application/json'}, // needed for MongoDB and/or the server to know you are using JSON data?
@@ -91,13 +95,18 @@ const results = function(e)
   e.preventDefault()
 
   TaskBase.innerText = " "
-  json = {filler:"data"}
+  // send JSON with just the username
+
+  const usernameVal = sessionStorage.getItem('usernameKey')
+  jsonUser = {User:usernameVal},
+  console.log(jsonUser)
   
   fetch( '/results', {
     method:'POST',
     headers: { 'Content-Type': 'application/json'}, // needed for MongoDB and/or the server to know you are using JSON data?
     // headers: {'Accept': 'application/json'},
-    body:JSON.stringify({json})
+    body:JSON.stringify(jsonUser)
+    // body:JSON.stringify({jsonUser}) // this will make a json with the field jsonUser, which is just adding extra steps
   })
   .then(response=>response.json())
   .then( json => {
@@ -115,9 +124,11 @@ const results = function(e)
 const remove = function(e)
 {
   e.preventDefault()
-  // ID for the task that we are going to delete
+  // get the ID of the task that we want to delete
   const itemToDelete = document.querySelector( '#deleteTaskInput' ) 
+  
   jsonID = {_id:itemToDelete.value},
+  console.log(jsonID)
   fetch('/remove',{
     method:'POST',
     headers: { 'Content-Type': 'application/json'}, 
@@ -126,9 +137,6 @@ const remove = function(e)
   .then(res=>res.json)
   .then(json => console.log(json))
 
-
-  
-  
   console.log("Hello Again")
 }
 
@@ -136,7 +144,7 @@ const update = function(e)
 { 
   e.preventDefault()
   // get all of the updated fields and but them inside a JSON
-  debugger
+
   const _id = document.querySelector("#idForUpdate")
   const newInput = document.querySelector("#TaskInputUpdate")
   const newType = document.querySelector("#typeOfTaskUpdate")
@@ -145,6 +153,7 @@ const update = function(e)
 
   jsonUpdate = {
     _id:_id.value, 
+    User:username,
     newInput:newInput.value,
     newType: newType.value,
     newDifficulty:newDifficulty.value,
