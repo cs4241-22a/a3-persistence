@@ -516,6 +516,50 @@
   font-family: var(--font);
 }
 
+.terminalize input[type=password]{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none !important; 
+  border: #00c800;
+  border-width: 1em;
+  margin: 1em;
+}
+
+.terminalize input[type=password] {
+  display: block;
+  position: relative;
+  margin: 1em;
+  font-size: 1rem;
+  outline: 1px var(--border-style) var(--color-primary);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+	border:0;
+	padding: 1rem;
+	display:inline-block;
+	white-space:normal;
+	background:none;
+	line-height:1;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  font-family: var(--font);
+}
+
+.terminalize input[type=submit] {
+  display: inline-block;
+  margin: 1em;
+  border: 1px var(--border-style) var(--color-primary);
+  padding: 0.8rem 1rem;
+  min-width: 8rem;
+  max-width: fit-content;
+  text-align: center;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  font-family: var(--font);
+}
+
+
 .terminalize textarea {
   -webkit-appearance: none;
   -moz-appearance: none;

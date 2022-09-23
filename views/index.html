@@ -21,19 +21,19 @@
 			</pre>				
 				<div class="a-c j-s a-m no-border pannel">
 					<form class = "col" action="/login" method="POST">
-						<input class = "pd" type="text" id="Username" placeholder="Username">
-						<input class = "pd" type="text" id="Password" placeholder="Password">
-						<div class="btn rounded">Log In</div>
+						<input class = "pd" type="text" name="uname" placeholder="Username">
+						<input class = "pd" type="text" name="pword" placeholder="Password">
+						<input type='submit' class="btn rounded"></input>
 						<div class="btn no-border" onclick="openForm()">Sign Up</div>
 					</form>
 				</div>
 				<div class="pannel rounded form-popup" id="signUpForm">
 					<div class="pannel-body">
-						<form class = "col" action="/signUp">
+						<form class = "col" action="/signUp" method="POST">
 							<h1>SIGN UP</h1>
 							<input class = "pd" type="text" name="uname" placeholder="Username">
-							<input class = "pd" type="text" name="pword" placeholder="Password">
-							<div class="btn rounded">Submit</div>
+							<input class = "pd" type="password" name="pword" placeholder="Password">
+							<input type='submit' class="btn rounded"></input>
 							<div class="btn no-border" onclick="closeForm()">Cancel</div>
 						</form>
 					</div>
