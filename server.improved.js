@@ -14,7 +14,7 @@ const k1 = "kdjkjdakask";
 const k2 = "dsjfjsfrifw";
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const muri = "mongodb+srv://Starhawk17:GoBruins17@a3cluster.oip0htf.mongodb.net/?retryWrites=true&w=majority";
+const muri = "mongodb+srv://"+process.env.MONGO_USER+":"+ process.env.MONGO_PASSWORD+"@a3cluster.oip0htf.mongodb.net/?retryWrites=true&w=majority";
 const mClient = new MongoClient(muri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 let collection = null
 
@@ -422,4 +422,4 @@ async function handleGetJ( request, response ) {
 }
 
 // start app
-app.listen(port)
+app.listen(port || process.env.PORT)
