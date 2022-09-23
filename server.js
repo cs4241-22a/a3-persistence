@@ -20,7 +20,7 @@ app.use( serveStatic( 'views'  ) )
 app.use( express.json() )
 app.use(timeout('5s'))
 
-// For avoidong Heroku $PORT error
+// For avoiding Heroku $PORT error
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function(request, response) {

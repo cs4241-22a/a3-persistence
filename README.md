@@ -31,7 +31,8 @@ Application Notes:
 - For the lighthouse test, when testing in a normal Chrome browser, I recieve a low performance score that says "Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions."  The score is perfect when following this advice
 
 ## Technical Achievements
-- None
+- Web application hosted on Heroku
+This hosting service appears to be more advanced and more realistic to host an actual web application.  Glitch seems to be marketed more for the classroom and for learning opportunities, whereas Heroku seems to offer more advanced capabailities such as automatic pipelining from GitHub to Heroku.  With this being said, Heroku was more challenging to use and less user friendly.  The service does not (from what I could tell) offer any text editor to edit files.  Instead, any time a change is made to the application, it must be edited elsewhere, pushed to GitHub, and redeployed on Heroku.  Additionally, I also had an issue when first deploying to Heroku where the application did not start and timed out.  This was very difficult to solve because all I had to view were the logs, but eventually I found out Heroku was unable to bind the server to a port.  Fortunately, other people also had this issue and it was resolved by adding a few lines of code in the beginning of my server.js file as denoted here https://stackoverflow.com/questions/31092538/heroku-node-js-error-r10-boot-timeout-web-process-failed-to-bind-to-port-w
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: Make your site accessible using the [resources and hints available from the W3C]
