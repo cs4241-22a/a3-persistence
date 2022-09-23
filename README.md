@@ -28,7 +28,7 @@ The five middleware packages that were used are listed below: \
     body-parse: interpret http requests \
     body-parseJSON: interpret JSON data \
     cookie-session: maintain user session upon succesful login \
-    env: process environment variables and mongoDB \
+    env: process environment variables and mongoDB
 
 
 
