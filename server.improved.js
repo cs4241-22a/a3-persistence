@@ -1,4 +1,7 @@
 const express = require('express');
+const util = require('util');
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
 const app = express();
 const http = require( 'http' ),
       fs   = require( 'fs' ),
