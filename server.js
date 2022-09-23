@@ -71,6 +71,7 @@ app.post("/login", async(req, res) => {
         }
 
         else {
+            currentId = null;
             res.render("index", { msg:"login failed, please try again", layout:false })
         }
     })
@@ -98,6 +99,18 @@ app.post("/delete", (req, res) => {
         { $pull: { todolist: { iid: req.body.iid } }}
     )
     .then (result => res.json(result))
+})
+
+// something isn't working here. it's not getting updated
+app.post("/edit", (req, res) => {
+    collection.updateOne(
+        { _id: currentId, todolist: { iid: req.body.iid } },
+        { $set: { "todolist.$.title": req.body.title } }
+    )
+    .then (result => {
+        console.log(result)
+        res.json(result)
+    })
 })
 
 // get todolist

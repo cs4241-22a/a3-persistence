@@ -73,12 +73,12 @@ const deleteTodo = function(e) {
 
 // edits in db
 const editTodo = function(e) {
-    // render input field. wait until user submitted
-
     const json = {
+        "title": document.getElementById(e.parentNode.getAttribute("id")).querySelector("p").innerText,
         "iid": e.parentNode.getAttribute("id")
     }
     const data = JSON.stringify(json)
+    console.log(data)
 
     fetch("/edit", {
         method: "POST",
@@ -101,10 +101,13 @@ const editTodo = function(e) {
 // adds item to html
 const appendItem = function(item) {
     const newLi = document.createElement("li");
-    
-    newLi.innerText = item.title;
-    newLi.setAttribute("id", item.iid)
+    const p = document.createElement("p");
+    p.innerText = item.title;
 
+    newLi.setAttribute("id", item.iid)
+    p.setAttribute("contenteditable", false);
+
+    newLi.appendChild(p);
     newLi.appendChild(makeEditButton())
     newLi.appendChild(makeDeleteButton())
 
@@ -133,8 +136,29 @@ const makeDeleteButton = function() {
 const makeEditButton = function() {
     const buttonEdit = document.createElement("button");
     buttonEdit.setAttribute("class", "edit");
-    buttonEdit.setAttribute("onclick", "editTodo(this)");
+    buttonEdit.setAttribute("onclick", "makeEditable(this)");
     buttonEdit.innerText = "E";
     return buttonEdit;
 }
-  
+
+// make text editable, turns edit button to submit button, delete button to cancel
+const makeEditable = function(e) {
+    const element = document.getElementById(e.parentNode.getAttribute("id"))
+    const p = element.querySelector("p")
+    p.setAttribute("contenteditable", true);
+    p.focus();
+
+    const buttonEdit = element.querySelector(".edit")
+    buttonEdit.setAttribute("onclick", "submitEdit(this)");
+    buttonEdit.innerText = "S"
+}
+
+const submitEdit = function(e) {
+    const element = document.getElementById(e.parentNode.getAttribute("id"))
+    const p = element.querySelector("p")
+    const buttonEdit = element.querySelector(".edit")
+    buttonEdit.setAttribute("onclick", "makeEditable(this)");
+    buttonEdit.innerText = "E";
+    p.setAttribute("contenteditable", false);
+    editTodo(e);
+}
