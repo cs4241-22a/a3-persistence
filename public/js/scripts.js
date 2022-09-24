@@ -7,7 +7,7 @@ const submit = function(e) {
 
     for (let i = 0; i < myForm.elements.length; i++) {
         let element = myForm.elements[i]
-        if (element.nodeName === 'INPUT') {
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             if (element.value.length === 0) {
                 alert('Empty input on', element.id)
                 return
@@ -60,9 +60,9 @@ const updateTable = () => {
             // make id the object id
             let deleteButton = document.createElement('input')            
             deleteButton.type = 'button'
-            deleteButton.id = information._id
+            deleteButton.id = information._id + "d_id"
             deleteButton.className = 'Delete'
-            deleteButton.style.background =  'rgba(255, 0, 0, 1)'
+            deleteButton.style.background =  'rgba(227, 28, 61, 1)'
             deleteButton.setAttribute('value', 'Delete')
             deleteButton.onclick = (event) => {
                 deleteReminder(event)
@@ -71,9 +71,9 @@ const updateTable = () => {
 
             let editButton = document.createElement('input')            
             editButton.type = 'button'
-            editButton.id = information._id
+            editButton.id = information._id + "e_id"
             editButton.className = 'Edit'
-            editButton.style.background =  'rgba(0, 255, 0, 1)'
+            editButton.style.background =  'rgba(0, 113, 188, 1)'
             editButton.setAttribute('value', 'Edit')
             editButton.onclick = (event) => {
                 updateReminder(event)
@@ -84,7 +84,7 @@ const updateTable = () => {
             let i = 2
             for (let title of ['title', 'notes', 'url', 'date', 'time', 'location']) {
                 let cell = row.insertCell(i)
-                cell.id = title + "_primary"
+                cell.id = title + '_table'
                 cell.innerHTML = information[title.toLowerCase()]
                 i++
             }
@@ -97,7 +97,7 @@ const deleteReminder = (event) => {
     fetch('/api/deletereminder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({_id: event.target.id})
+        body: JSON.stringify({ _id: event.target.id.substring(0, event.target.id.length-4) })
     }).then((response) => {
         console.log('HERE')
         if (response.status === 200) {
@@ -108,11 +108,11 @@ const deleteReminder = (event) => {
 }
 
 const updateReminder = (event) => {
-    console.log('updateing reminder')
-    document.getElementById(event.target.id).childNodes.forEach(e => {
+    console.log('updating reminder')
+    let target_id = event.target.id.substring(0, event.target.id.length-4)
+    document.getElementById(target_id).childNodes.forEach(e => {
         if (e.id !== '') {
-            document.getElementById(e.id + '_edit').value = e.innerText
-
+            document.getElementById(e.id.substring(0, e.id.length-6) + '_edit').value = e.innerText
         }
     })
 
@@ -123,7 +123,7 @@ const updateReminder = (event) => {
 
         for (let i = 0; i < myForm.elements.length; i++) {
             let element = myForm.elements[i]
-            if (element.nodeName === 'INPUT') {
+            if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
                 if (element.value.length === 0) {
                     alert('Empty input on', element.id)
                     return
@@ -133,7 +133,7 @@ const updateReminder = (event) => {
         }
         console.log(output)
 
-        output['_id'] = event.target.id
+        output['_id'] = target_id
 
         fetch('/api/updatereminder', {
             method: 'POST',

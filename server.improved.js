@@ -4,6 +4,7 @@ const express = require('express'),
       path = require('path')
       app = express(),
       passport = require('passport'),
+      compression = require('compression'),
       GitHubStrategy = require('passport-github2').Strategy,
       port = 3000
 
@@ -36,6 +37,7 @@ app.use(passport.session())
 app.use(express.static('views'))
 app.use(express.json())
 app.use(express.static(__dirname + '/public'))
+app.use(compression())
 
 app.get('/auth/login', (req, res) => {
   console.log('in auth login')
@@ -64,6 +66,7 @@ const checkAuth = (req, res, next) => {
 let remindersDB
 
 const connect = async () => {
+  console.log('trying to establish connection to database')
   const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
   const client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology:true})
 
@@ -71,6 +74,7 @@ const connect = async () => {
     await client.connect()
     console.log('connected to mongodb server')
   } catch (e) {
+    console.log('error connecting!')
     console.error(e)
   }
 
@@ -92,7 +96,8 @@ app.get('/auth/getusername', checkAuth, (req, res) => {
 })
 
 app.get('/api/getdata', checkAuth, async (req, res) => {
-  console.log(req.user)
+  console.log('getting user data!')
+  console.log(req.user.username)
   const output = await remindersDB.find({ user: req.user.username }).toArray()
   console.log(output)
   res.writeHeader(200, {'Content-Type': 'application/json'})
