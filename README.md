@@ -11,13 +11,13 @@ A simple, responsive, and accessible web application for collectors to manage th
  - [Important Note](#note)
 
 ## Deliverables
-Challenges: The most time-consuming challenges came with handling the cookies and logins. Handling accounts was intuitive, but I spent many hours figuring out how to serve different files to my login page. Also, ensuring that my CRUD functions were properly set up took a lot of debugging.
+**Challenges**: The most time-consuming challenges came with handling the cookies and logins. Handling accounts was intuitive, but I spent many hours figuring out how to serve different files to my login page. Also, ensuring that my CRUD functions were properly set up took a lot of debugging.
 
-Authentication: I chose to use simple cookies because of the requirement to make a dummy account for any OAuth logins. I thought that might take longer to implement, but in the future I may transition to using passport.js
+**Authentication**: I chose to use simple cookies because of the requirement to make a dummy account for any OAuth logins. I thought that might take longer to implement, but in the future I may transition to using passport.js
 
-CSS: I chose to use pico.css because it was simple and highly responsive. Customizing the css file was a complicated process, as I had to understand what different variables meant and how they were being used. I added two classes to the bottom of the sheet for simple flex layouts.
+**CSS**: I chose to use pico.css because it was simple and highly responsive. Customizing the css file was a complicated process, as I had to understand what different variables meant and how they were being used. I added two classes to the bottom of the sheet for simple flex layouts.
 
-Middleware
+**Middleware**
  - serve-favicon: improves performance by making requests for favicon.ico occur faster
  - cookie-session: stores whether a user is logged in/logged out on the client side and is used to handle access to the main page
  - express-handlebars: Shows different text on the login page based on how the user tries to login/register.
