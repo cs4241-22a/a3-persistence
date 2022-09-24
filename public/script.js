@@ -92,8 +92,6 @@ const editTodo = function(e) {
         if (!response.ok) {
           throw new Error(`HTTP error, status = ${response.status}`);
         }
-
-        editItem(json);
         return response.json();
     })
 }
@@ -118,11 +116,6 @@ const appendItem = function(item) {
 const deleteItem = function(item) {
     const element = document.getElementById(item.iid);
     todoList.removeChild(element);
-}
-
-// edits item from html
-const editItem = function(item) {
-    console.log("EDIT")
 }
 
 const makeDeleteButton = function() {

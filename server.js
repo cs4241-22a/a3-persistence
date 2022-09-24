@@ -101,10 +101,11 @@ app.post("/delete", (req, res) => {
     .then (result => res.json(result))
 })
 
-// something isn't working here. it's not getting updated
+// edits todo item
 app.post("/edit", (req, res) => {
+    console.log("edit db")
     collection.updateOne(
-        { _id: currentId, todolist: { iid: req.body.iid } },
+        { _id: currentId, "todolist.iid": req.body.iid },
         { $set: { "todolist.$.title": req.body.title } }
     )
     .then (result => {
