@@ -2,8 +2,10 @@ require('dotenv').config();
 const express = require( 'express' ),
       cookie  = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
-      crypto = require("crypto"),
       favicon = require('serve-favicon'),
+      compression = require('compression'),
+      responseTime = require('response-time'),
+      crypto = require("crypto"),
       path = require('path'); 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}/?retryWrites=true&w=majority`;
@@ -12,6 +14,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const app = express();
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(compression());
+app.use(responseTime());
 
 app.use('/fav', express.static('public'));
 app.use('/styles', express.static('public/css'));
@@ -48,7 +52,7 @@ client.connect()
 
 app.use( (req,res,next) => {
     if( db !== null ) {
-      next()
+      next();
     }else{
       res.status( 503 ).send()
     }
@@ -89,7 +93,7 @@ app.post( '/register', (req,res)=> {
 
       if(req.body.username === "" || req.body.password === "" || req.body.password === "password") {
         req.session.login = false;
-        res.render('login', { msg:'This login is invalid', layout:false })
+        res.render('login', { msg:'Your name or password cannot be blank', layout:false })
       } else if(!userFound) {
         // Register new user
         req.session.login = true;

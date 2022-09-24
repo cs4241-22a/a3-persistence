@@ -16,5 +16,5 @@
     margin-top: 10px;
 }
 button {
-    color: #11191F;
+    color: var(--form-element-background-color);
 }
