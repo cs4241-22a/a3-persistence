@@ -1,11 +1,17 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login for simple todo application with add, edit, and delete functionality.">
     <style>input { display:block }</style>
   </head>
   <body>
     <form action="/login" method="POST">
-      name: <input type="text" name="username" />
-      password:<input type="password" name="password" />
+      <label for="username">username:</label>
+      <input type="text" id="username" />
+      <label for="password">password:</label>
+      <input type="password" id="password" />
       <input type="submit" value="login" />
     </form>
     {{{msg}}}

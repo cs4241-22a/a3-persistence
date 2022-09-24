@@ -2,7 +2,12 @@ const express = require("express")
 const app = express()
 const mongodb = require("mongodb")
 const hbs = require("express-handlebars").engine
+
 const ObjectId = require('mongodb').ObjectId;
+
+const favicon = require('serve-favicon')
+const path = require('path')
+app.use(favicon(path.join(__dirname, 'public', 'resources', 'favicon.png')))
 
 app.use(express.static("public"))
 app.use(express.json())
@@ -10,6 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.engine("handlebars", hbs())
 app.set("view engine", "handlebars")
 app.set("views", "views")
+
 
 const uri = "mongodb+srv://mdong:Bacon1A3@cluster0.qkeu5vg.mongodb.net/"
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true })
