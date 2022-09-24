@@ -35,7 +35,7 @@ app.get('/', async (req, res) => {
     let todos = await todoCollection.find({ name: username }).toArray()
     res.render('index.ejs', { name: username, results: todos })
   } else {
-    res.render('./login.ejs')
+    res.render('./login.ejs', { msg: 'user will be created, if it is not found.' })
   }
 })
 
@@ -64,7 +64,7 @@ app.get('/login', async (req, res) => {
     let todos = await todoCollection.find({ name: username }).toArray()
     res.render('index.ejs', { name: username, results: todos })
   } else {
-    res.render('./login.ejs')
+    res.render('./login.ejs', { msg: 'user will be created, if it is not found.' })
   }
 })
 

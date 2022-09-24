@@ -11,6 +11,9 @@
   margin-top: 15px;
 }
 
+#message {
+  margin-top: 25px;
+}
 
 :root {
   display: grid;
