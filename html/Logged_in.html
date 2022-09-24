@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quest-application</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Author: Yueting Zhu,
+    Illustrator: Yueting Zhu, Category: Memo, Price: free,
+    An application consistenly record your life and try to remind you in a fun way">
+    <link rel="stylesheet" href="./css/skeleton.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    <script src="./JS/client.js"></script>
+</head>
+
+<body>
+    <form action="">
+        <div class="div">
+            <h1>Welcome to Everyday Quest</h1>
+            <a href ="http://alexzyt.com/auth/logout">LogOut?</a>
+            <h5>Field of the quest:</h5>
+            <select id="fieldname">
+                <option>School</option>
+                <option>Life</option>
+                <option>Challenge</option>
+            </select>
+            <button id="Submit">Retreive</button>
+            <h5>Retreived quest:</h5>
+            <p id="QuestReceived" style="display: flex; font-size: 3em; justify-content: center; background-color: aliceblue;">Add a quest then Click Retreive to retreive a quest!</p>
+            <div class="row">
+                <div class="one column"><p></p></div>
+                <div class="eight columns"><button class="button-primary" id="Done">I did it!</botton></div>
+                <div class="one column"><button id="NotDone">I did not :(</button></div>
+                <div class="two columns"></div>
+            </div>
+            <h3>Add quest:</h3>
+            <div class="row">
+                <div class="one column"><input type="text" id="QuestName" placeholder="What is the Quest?" /></div>
+                <div class="two columns">
+                    <select id="QuestType">
+                        <option>School</option>
+                        <option>Life</option>
+                        <option>Challenge</option>
+                    </select>
+                </div>
+                <div class="one column"><button id="addquest">Add</button></div>
+            </div>
+            <p id="successAdd"></p>
+            <h3>Delete a quest:</h3>
+            <div class="row">
+                <div class="one column"><input type="text" id="DQuestName" placeholder="What is the Quest?" /></div>
+                <div class="one columns"><p></p></div>
+                <div class="one column"><button id="Daddquest">Delete</button></div>
+            </div>
+            <p>For profile information => press Get UserInfo (NOT in realtime)</p>
+            <p>For Getting data realated with this user => press Get Database (NOT in realtime)</p>
+            <button id="Result">Get Database</button>
+            <button id="UserInfo">Get UserInfo</button>
+        </div>
+        <div id="userinfo"></div>
+        <div id="database"></div>
+    </form>
+</body>
+
+</html>
