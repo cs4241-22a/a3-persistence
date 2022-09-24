@@ -2,6 +2,14 @@
 
 [**Birthday Tracker**](https://birthdaytrkr.botsak.com/)
 
+If you do not want to register an account, login in with the following test user credentials: 
+
+  - Email: test@user
+
+  - Password: hardtoguess
+
+Please be sure to delete all saved birthdays with personal/private information otherwise future test users will be able to see that information.
+
 
 - The goal of this application was to improve on the Birthday Tracker I developed in the last assignment by adding user authentication and persistent storage. 
 - One of the biggest challenges for me in developing this application was understanding how to develop an authentication method. 
