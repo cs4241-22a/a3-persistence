@@ -2,6 +2,13 @@
  * Forced dark theme version
  * based on: https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css
  */
+#task-input {
+  margin-top: 25px;
+}
+
+#tasks {
+  margin-top: 40px;
+}
 
 #new-task-form {
   display: flex;
@@ -10,6 +17,7 @@
 #task {
   margin-top: 15px;
 }
+
 
 #message {
   margin-top: 25px;
