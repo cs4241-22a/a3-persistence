@@ -74,7 +74,7 @@ app.post("/login", async(req, res) => {
                 todolist: []
             });
             currentId = ObjectId(result.insertedId);
-            res.redirect("/todo");
+            res.redirect("/todo_new");
         }
 
         else {
@@ -87,6 +87,11 @@ app.post("/login", async(req, res) => {
 // send todo page
 app.get("/todo", (req, res) => {
     res.render("todo", { msg:"success you have logged in", layout:false })
+})
+
+// send todo page on new account creation
+app.get("/todo_new", (req, res) => {
+    res.render("todo", { msg:"new account generated", layout:false })
 })
 
 // add new todo item
