@@ -84,7 +84,7 @@ const updateTable = () => {
             let i = 2
             for (let title of ['title', 'notes', 'url', 'date', 'time', 'location']) {
                 let cell = row.insertCell(i)
-                cell.id = title
+                cell.id = title + "_primary"
                 cell.innerHTML = information[title.toLowerCase()]
                 i++
             }
