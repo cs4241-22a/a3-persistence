@@ -2,12 +2,16 @@ const express = require("express")
 const app = express()
 const mongodb = require("mongodb")
 const hbs = require("express-handlebars").engine
-
 const ObjectId = require('mongodb').ObjectId;
 
+// favicon middleware; serves favicon
 const favicon = require('serve-favicon')
 const path = require('path')
 app.use(favicon(path.join(__dirname, 'public', 'resources', 'favicon.png')))
+
+// compression middleware
+const compression = require('compression')
+app.use(compression())
 
 app.use(express.static("public"))
 app.use(express.json())
@@ -62,6 +66,7 @@ app.post("/login", async(req, res) => {
         if (accountFound) {
             console.log("account found");
             currentId = data[0][0]._id;
+            console.log(currentId)
             res.redirect("/todo");
         }
 
