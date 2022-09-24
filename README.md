@@ -6,7 +6,7 @@ A simple, responsive, and accessible web application for collectors to manage th
 
 ## Contents
  - [Deliverables](#deliverables)
- - [Achievements](#technical-achievements)
+ - [Achievements](#achievements)
  - [Tutorial](#tutorial)
  - [Important Note](#note)
 
@@ -27,7 +27,12 @@ Middleware
 ## Achievements
 ### Technical Acheivements
  - **Hosted site on Digital Ocean**: This was much more confusing than using glitch; figuring out how environment variables worked was a long process. But the main benefit is that any time I push a change to the main branch in GitHub, the site automatically redeploys with my changes. Also my site loads faster than it would have in glitch.
- - **Achieved 100% in four lighthouse tests**: I accomplished this for both pages of my application. The first fix I had to make dealt with my contrast ratio being too low. The second fix was a pain: because I was serving my customized css file from my server to my login page, a large cumulative layout shift occured every time I reloaded the login page. To alleviate this I copy and pasted my css into the style section of my login page. Here are the two tests: 
+ - **Achieved 100% in four lighthouse tests**: I accomplished this for both pages of my application. The first fix I had to make dealt with my contrast ratio being too low. The second fix was a pain: because I was serving my customized css file from my server to my login page, a large cumulative layout shift occured every time I reloaded the login page. To alleviate this I copy and pasted my css into the style section of my login page. Here are the two tests:
+ 
+ ![lighthouse_test_1](https://user-images.githubusercontent.com/37402171/192112128-78ecb8e9-1c15-4450-9371-9e2431a42164.jpg)
+![lightohuse_test_2](https://user-images.githubusercontent.com/37402171/192112151-e4d75147-d109-496e-97f3-829005c457a7.jpg)
+
+
 ### Design Achievements
  - **Made site accessible**: 
    1) Informative and unique page titles: The name of the page comes before the name of the website and describes what the page is for.
@@ -59,4 +64,4 @@ Middleware
  4) When you are done using the application, click the logout link at the top-right of the page
 
 ## Note
-All collections are visible to all users. However, when a user submits a new item, the item is only visible to that user, no one else can access it.
+All collections are visible to all users. However, when a user submits a new item, the item is only visible to that user. No one else can access it.
