@@ -36,6 +36,7 @@ const submit = function(e) {
 }
 
 window.onload = () => {
+    console.log('on loading')
     updateTable()
     const button = document.querySelector('button')
     button.onclick = submit

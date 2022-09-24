@@ -1,98 +1,106 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
-    <title>CS4241 Assignment 3</title>
+    <title>Main - CS4241 Assignment 3</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="main page">
     <meta charset="utf-8">
-    <link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Sora" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
   </head>
   <body>
-    <div class="maincontainer">
-      <div class="Header" data-color-mode="dark" data-dark-theme="dark_dimmed">
-        <div class="Header-item">
-          <span class="Header-link f4 d-flex flex-items-center">Reminders</span>
+    <nav class="container-fluid">
+      <ul>
+        <li><strong>Reminders</strong></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="grid">
+        <div>
+          <div class="grid">
+            <section id="form primary">
+              <form id="primary">
+                <h4>Add a new reminder</h4>
+                <label>
+                  Title:
+                  <input id="title" type="text"><br>
+                </label>
+                <label>
+                  Notes:
+                  <input id="notes" type="text"></input><br>
+                </label>
+                <label>
+                  URL:
+                  <input id="url" type="text"><br>
+                </label>
+                <label>
+                  Date:
+                  <input id="date" type="date"><br>
+                </label>
+                <label>
+                  Time:
+                  <input id="time" type="time"><br>
+                </label>
+                <label>
+                  Location:
+                  <input id="location" type="text"><br>
+                </label>
+                <button class="btn">Submit</button>
+              </form>
+            </section>
+            <section id="form edit">
+              <form id="edit">
+                <h4>Edit a reminder</h4>
+                <label>
+                  Title:
+                  <input id="title_edit" type="text"><br>
+                </label>
+                <label>
+                  Notes:
+                  <input id="notes_edit" type="text"><br>
+                </label>
+                <label>
+                  URL:
+                  <input id="url_edit" type="text"><br>
+                </label>
+                <label>
+                  Date:
+                  <input id="date_edit" type="date"><br>
+                </label>
+                <label>
+                  Time:
+                  <input id="time_edit" type="time"><br>
+                </label>
+                <label>
+                  Location:
+                  <input id="location_edit" type="text"><br>
+                </label>
+                <button class="btn" id="button_edit">Submit</button>
+              </form>
+            </section>
+          </div>
         </div>
-      </div>
-      <div class="col-3 float-left border p-4">
-        <div class="form">
-          <form id="primary">
-            <p class="h3">Add a new reminder</p>
-            <label>
-              Title:
-              <input id="title" type="text"><br>
-            </label>
-            <label>
-              Notes:
-              <input id="notes" type="text"><br>
-            </label>
-            <label>
-              URL:
-              <input id="url" type="text"><br>
-            </label>
-            <label>
-              Date:
-              <input id="date" type="date"><br>
-            </label>
-            <label>
-              Time:
-              <input id="time" type="time"><br>
-            </label>
-            <label>
-              Location:
-              <input id="location" type="text"><br>
-            </label>
-            <button class="btn">Submit</button>
-          </form>
+        <div>
+          <section id="tables">
+            <h4>Tables</h4>
+            <figure>
+              <table id="dataTable" >
+                <tr>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                  <th>Title</th>
+                  <th>Notes</th>
+                  <th>URL</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                </tr>
+              </table>
+            </figure>
+          </section>
         </div>
-        <div class="form2">
-          <p class="h3">Edit a reminder</p>
-          <form id="edit">
-            <label>
-              Title:
-              <input id="title_edit" type="text"><br>
-            </label>
-            <label>
-              Notes:
-              <input id="notes_edit" type="text"><br>
-            </label>
-            <label>
-              URL:
-              <input id="url_edit" type="text"><br>
-            </label>
-            <label>
-              Date:
-              <input id="date_edit" type="date"><br>
-            </label>
-            <label>
-              Time:
-              <input id="time_edit" type="time"><br>
-            </label>
-            <label>
-              Location:
-              <input id="location_edit" type="text"><br>
-            </label>
-            <button class="btn" id="button_edit">Submit</button>
-          </form>
-        </div>
-      </div>
-      <div class="col-9 float-left border p-4">
-        <table id="dataTable" border="1">
-              <tr>
-                <th>Delete</th>
-                <th>Edit</th>
-                <th>Title</th>
-                <th>Notes</th>
-                <th>URL</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Location</th>
-              </tr>
-        </table>
       </div>
     </div>
   </body>

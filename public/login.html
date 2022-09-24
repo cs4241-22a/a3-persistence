@@ -1,23 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
-    <title>Reminders Login Page</title>
+    <title>Login - CS4241 Assignment 3</title>
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Login page">
+    <meta name="description" content="login page">
     <meta charset="utf-8">
-    <link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css?family=Sora" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
   </head>
   <body>
-    <div class="Header" data-color-mode="dark" data-dark-theme="dark_dimmed">
-        <div class="Header-item">
-            <span class="Header-link f4 d-flex flex-items-center">Reminders</span>
-        </div>
-    </div>
-    <div class="p-6 mr-3">
-        <a class="btn" href="/auth/github">Sign in with GitHub</a>
+    <nav class="container-fluid">
+        <ul>
+          <li><strong>Reminders</strong></li>
+        </ul>
+      </nav>
+    <div class="container-fluid">
+        <section id="form primary">
+            <form id="primary">
+                <a role="button" href="/auth/github">Sign in with GitHub</a>
+            </form>
+        </section>
     </div>
   </body>
 </html>

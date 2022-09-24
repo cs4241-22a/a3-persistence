@@ -2,7 +2,6 @@ const express = require('express'),
       mongodb = require('mongodb'),
       cookieSession = require('cookie-session'),
       path = require('path')
-      passport = require('passport'),
       app = express(),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy,
