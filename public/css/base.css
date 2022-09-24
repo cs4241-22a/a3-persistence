@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+body {
+	display: block;
+	margin: 8px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	background-image: url("images/background.webp");
+	color: #4e4e4e;
+}
+
+main {
+	padding: 1em;
+	height: fit-content;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: rgba(255, 255, 204, 0.9);
+	align-items: center;
+}
+
+h1 {
+	text-align: center;
+	font-size: 2.5em;
+}
+
+hr {
+	width: 90%;
+	height: 0.5em;
+}
+hr.orange {
+	background-color: #ff8112;
+	border: none;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+label {
+	text-align: right;
+	margin-right: 1.5em;
+}
+
+.formGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin-right: 8%;
+}
+
+input {
+	max-width: 10em;
+	font-size: 1em;
+	padding: 0 0.5em 0 0.5em;
+	margin-bottom: 0.5em;
+}
+
+button {
+	margin: 1em 1em 0em 1em;
+	padding: 0.5em;
+	min-height: 1.5em;
+	min-width: 10em;
+	max-width: 15em;
+}
+
+h2 {
+	text-align: center;
+	font-size: 1.75em;
+	margin: 0.5em;
+}
+
+h3 {
+	text-align: center;
+	font-size: 1.25em;
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+
+p {
+	text-align: center;
+}
+
+p.error {
+	color: red;
+	margin-bottom: 0.5em;
+	max-width: 27em;
+}
+
+ul {
+	list-style-type: none;
+	padding-right: 1.5em;
+	text-align: center;
+}
+
+@media (max-width: 869px) {
+	main {
+		min-height: 98vh;
+	}
+}
+
+/* To handle centering between 692 and 869px. Without, the form is left justified after 692 until the 869 breakpoint */
+@media (min-width: 692px) {
+	.resultsContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+/* Desktop */
+@media (min-width: 868px) {
+	body {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	input {
+		max-width: 15em;
+		font-size: 1em;
+		padding: 0 0.5em 0 0.5em;
+	}
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title><%= name %>'s Birthday Tracker</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="Birthday Tracker">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/modern-css-reset/dist/reset.min.css"
+		/>
+		<link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/app.css" />
+	</head>
+	<body>
+		<main>
+			<h1>Birthday Tracker</h1>
+      <hr class="orange" />
+      <h2>Hello <%= name %></h2>
+      <form action="/logout" method="POST">
+        <button type="submit" id="logout">Log Out</button>
+      </form> 
+      <br />
+      <hr class="red" />
+      <br />
+      <h2 id="form">Add a new Birthday:</h2>
+      <form id="newBirthday" action="/newBirthday" method="POST">
+        <div class="formGrid">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" required placeholder="First Name"/>
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Last Name"/>
+            <label for="relationship">Relationship Type</label> 
+            <input type="text" id="relationship" name="relationship" required placeholder="Family" list="types"/>
+              <datalist id="types">
+                <option value="Family"></option>
+                <option value="Friend"></option>
+                <option value="Coworker"></option>
+                <option value="Acquaintance"></option>
+              </datalist>
+            <label for="birthday">Birthday</label>
+            <input type="date" id="birthday" name="birthday" required>
+            <label for="giftidea">Gift Idea</label>
+            <textarea id="giftidea" name="giftidea" placeholder="Gift Idea" rows="2" cols="10" required ></textarea>
+        </div>
+        <button type="submit" id="submitBirthday">Add new Birthday</button></td>
+      </form>
+      <h2>Your List of Saved Birthdays</h2>
+      <details>
+        <summary>View</summary>
+        <br /> <br />
+        <div class="resultsContainer">
+          <p id="nobirthdays"></p>
+          <table class="results"></table>
+        </div>
+    </details>
+		</main>
+    <script src="js/index.js"></script>
+	</body>
+</html>
