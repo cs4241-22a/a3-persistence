@@ -4,8 +4,7 @@ const express = require("express"),
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
-const hbs = require("express-handlebars").engine;
-const path = require("path");
+const exphbs = require("express-handlebars");
 const passport = require("passport");
 const fetch = require("node-fetch");
 
@@ -32,20 +31,29 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.engine("handlebars", hbs());
-app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname + "/app/views/task_manager"));
+/* ------------- HANDLEBARS AND PARTIALS CONFIG ------------- */
+
+debugger;
+
+app.engine(
+  ".hbs",
+  exphbs.engine({
+    extname: ".hbs",
+    partialsDir: __dirname + "/app/partials/",
+  })
+);
+app.set("view engine", ".hbs");
+app.set("views", __dirname + "/app/views/task_manager");
+
+/* ------------- REDIRECTS AND ROUTER CONFIG ------------- */
 
 app.use("/login", authRouter);
-app.use("/task", checkAuthentication, taskRouter);
 app.use("/css", express.static("app/css"));
 app.use("/img", express.static("app/img"));
 app.use("/js", express.static("app/js"));
+app.use("/task", checkAuthentication, taskRouter);
 app.use(["/", "/load"], checkAuthentication, async (req, res) => {
   const data = await Task.find({ user: req.user.id }).lean();
-
-  console.log(data);
-
   res.render("index", { data, layout: false });
 });
 

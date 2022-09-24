@@ -1,6 +1,7 @@
-const remove = async (evt) => {
+const remove = async (evt, element) => {
   evt.preventDefault();
-  const id = evt.target.id;
+
+  const id = element.closest(".card").id;
 
   const requestDelete = await fetch("/task", {
     method: "DELETE",
