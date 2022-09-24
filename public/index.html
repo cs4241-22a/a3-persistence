@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple app for managing your collections. Sign up to create a collection and add, delete, or update your collectables">
+    <link rel="stylesheet" href="css/pico.classless.min.css">
+    <link rel="icon" type="image/x-icon" href="/fav/favicon.ico"/>
+    <title>Home | AllYourStuff</title>
+  </head>
+  <body>
+    <main>
+      <h1>AllYourStuff</h1>
+      <div class="horflex">
+        <p id="loggedinuser"></p>
+        <a id="logout" href="/logout">logout</a>
+      </div>
+      <form id="addcollection">
+        <input name="addcollectionname" id="addcollectionname" placeholder="Start a new collection">
+        <button type="submit" id="addcollectionbtn">submit</button>
+      </form>
+      <label for="collectionchoice">Select a collection</label>
+      <select name="collectionchoice" id="collectionchoice" onchange="getItems(); showCRUDOptions(); document.getElementById('collectionnone').style.display = 'none';"></select>
+      <div class="horflex">
+        <button type="button" id="additemdrop" style="visibility: hidden;">Add Item</button>
+        <button type="button" id="deleteitemdrop" style="visibility: hidden;">Delete Item</button>
+        <button type="button" id="updateitemdrop" style="visibility: hidden;">Update Item</button>
+      </div>
+      <div id="crudspace"></div>
+      <table id="shownItems"></table>
+    </main>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
