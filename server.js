@@ -36,7 +36,6 @@ client.connect()
     collection = __collection
     return collection.find({}).toArray()
 })
-.then (console.log)
 
 // i have no idea what this does, but everything breaks when i remove it so it'll stay
 app.use((req, res, next) => {
@@ -64,14 +63,11 @@ app.post("/login", async(req, res) => {
         const usernameFound = data[0].length != 0;
         const accountFound = data[1].length != 0;
         if (accountFound) {
-            console.log("account found");
             currentId = data[0][0]._id;
-            console.log(currentId)
             res.redirect("/todo");
         }
 
         else if (!usernameFound) {
-            console.log("adding new user");
             let result = await collection.insertOne({
                 username: user,
                 password: pass,
@@ -95,7 +91,6 @@ app.get("/todo", (req, res) => {
 
 // add new todo item
 app.post("/add", (req, res) => {
-    console.log(req.body)
     collection.updateOne(
       { _id: currentId },
       { $push: { todolist: req.body }}
@@ -114,15 +109,11 @@ app.post("/delete", (req, res) => {
 
 // edits todo item
 app.post("/edit", (req, res) => {
-    console.log("edit db")
     collection.updateOne(
         { _id: currentId, "todolist.iid": req.body.iid },
         { $set: { "todolist.$.title": req.body.title } }
     )
-    .then (result => {
-        console.log(result)
-        res.json(result)
-    })
+    .then (result => res.json(result))
 })
 
 // get todolist

@@ -28,7 +28,6 @@ const addTodo = function(e) {
     }
     const data = JSON.stringify(json)
     
-    console.log("new todo: " + data);
     fetch("/add", {
         method: "POST",
         body: data,
@@ -78,7 +77,6 @@ const editTodo = function(e) {
         "iid": e.parentNode.getAttribute("id")
     }
     const data = JSON.stringify(json)
-    console.log(data)
 
     fetch("/edit", {
         method: "POST",
