@@ -8,7 +8,7 @@
     "temp": "node server.temp.js"
   }, "engines": {
     "npm": ">=8.7.0 <9.0.0",
-    "node": ">=17.0.0 <18.0.0"
+    "node": ">=16.0.0 <18.0.0"
   },
   "dependencies": {
     "connect-ensure-login": "^0.1.1",
