@@ -1,6 +1,6 @@
 <div
   class="card rounded shadow w-100 mb-3"
-  style="background-color: #2d3238"
+  style="background-color: #343a40"
   id="{{this._id}}"
 >
   <div class="card-body">
@@ -15,14 +15,14 @@
       </button>
     </div>
     <p class="card-subtitle my-2 h6">
-      <span class="badge bg-light text-black">Due on
+      <span class="badge badge-lg bg-light text-black">Due on
         {{this.deadline_date}}</span>
-      <span class="badge bg-danger">{{this.priority}} Urgency</span>
       <span class="badge bg-primary">{{type}}</span>
+      <span class="badge bg-danger">{{this.priority}} Urgency</span>
     </p>
     <p class="card-text my-3">{{{this.description}}}</p>
     <hr />
-    <div class="card-footer text-muted">Created on
+    <div class="card-text">Created on
       {{this.creation_date}}</div>
   </div>
 </div>

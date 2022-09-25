@@ -14,7 +14,7 @@ const remove = async (evt, element) => {
   });
 
   if (requestDelete.status == 200) {
-    document.getElementById(id).innerHTML = "";
+    document.getElementById(id).remove();
   } else {
     console.log("[ERROR] REST DELETE FAILED");
   }

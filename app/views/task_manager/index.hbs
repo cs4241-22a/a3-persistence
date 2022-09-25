@@ -11,125 +11,36 @@
     />
     <title>🌑🔭</title>
   </head>
-  <body>
-    <div class="bg-dark vh-100">
-      <nav class="navbar navbar-expand-lg container-fluid fg">
-        <div class="container mt-4">
-          <span class="navbar-brand mb-0 h1 text-white">.moonwatch</span>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <main class="container">
-        <div class="d-flex justify-content-between align-items-end mb-4">
-          <h1 class="mt-5 d-inline-block mb-0 fw-bold">Task Manager</h1>
-          <button
-            type="button"
-            class="btn btn-outline-light py-2 px-4"
-            data-bs-toggle="modal"
-            data-bs-target="#task-modal"
-          >
-            Add
-          </button>
-        </div>
-        {{! ================================================================================== }}
-        <div
-          class="modal fade"
-          id="task-modal"
-          tabindex="-1"
-          aria-labelledby="task-modalLabel"
-          aria-hidden="true"
+  <body class="bg-dark">
+    <nav class="navbar navbar-expand-lg container-fluid fg">
+      <div class="container mt-4">
+        <span class="navbar-brand mb-0 h1 text-white">.moonwatch</span>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <h1 class="mt-5 d-inline-block mb-0 fw-bold">Task Manager</h1>
+        <button
+          type="button"
+          class="btn btn-outline-light py-2 px-4"
+          data-bs-toggle="modal"
+          data-bs-target="#task-modal"
         >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-dark fw-bold">Add a new task</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form action="/add" method="POST" class="mx-4">
-                  <div class="row">
-                    <div class="form-outline mb-3 col-md-6">
-                      <label
-                        for="priority"
-                        class="form-label text-dark fw-bold"
-                      >Priority
-                      </label>
-                      <select
-                        id="priority"
-                        class="form-select"
-                        aria-label="Default select example"
-                      >
-                        <option selected>Choose here...</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                      </select>
-                    </div>
-                    <div class="form-outline mb-3 col-md-6">
-                      <label
-                        for="type"
-                        class="form-label text-dark fw-bold"
-                      >Type
-                      </label>
-                      <select
-                        id="type"
-                        class="form-select"
-                        aria-label="Default select example"
-                      >
-                        <option selected>Choose here...</option>
-                        <option value="MQP">MQP</option>
-                        <option value="Academic">Academic</option>
-                        <option value="Work">Work</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-outline mb-3">
-                    <label
-                      for="title"
-                      class="form-label text-dark fw-bold"
-                    >Title</label>
-                    <input
-                      id="title"
-                      type="text"
-                      class="form-control form-control-lg fs-6"
-                    />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label
-                      for="description"
-                      class="form-label text-dark fw-bold"
-                    >Description </label>
-                    <textarea
-                      id="description"
-                      type="text"
-                      class="form-control form-control-lg fs-6"
-                      style="height: 10rem"
-                    ></textarea>
-                  </div>
-                  <button type="button" class="btn btn-dark w-100 btn-lg">Save
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <section id="task-display">
+          Add
+        </button>
+      </div>
+      <section id="task-display">
+         {{> empty-task}}
           {{#each data}}
             {{> task}}
           {{/each}}
-        </section>
-      </main>
-    </div>
+      </section>
+    </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

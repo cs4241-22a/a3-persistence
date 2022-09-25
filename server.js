@@ -48,12 +48,21 @@ app.set("views", __dirname + "/app/views/task_manager");
 /* ------------- REDIRECTS AND ROUTER CONFIG ------------- */
 
 app.use("/login", authRouter);
+app.use("/logout", (req, res) => {
+  req.logOut(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
+});
+
 app.use("/css", express.static("app/css"));
 app.use("/img", express.static("app/img"));
 app.use("/js", express.static("app/js"));
 app.use("/task", checkAuthentication, taskRouter);
 app.use(["/", "/load"], checkAuthentication, async (req, res) => {
-  const data = await Task.find({ user: req.user.id }).lean();
+  const data = await Task.find({ user: req.user }).lean();
   res.render("index", { data, layout: false });
 });
 

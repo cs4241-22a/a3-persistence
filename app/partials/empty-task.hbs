@@ -1,0 +1,43 @@
+<div
+  class="card rounded shadow w-100 mb-3"
+  style="background-color: #343a40"
+  id="{{this._id}}"
+>
+  <div class="card-body">
+    <input
+      type="text"
+      class="card-title form-control bg-dark border-0 text-white"
+      placeholder="Task name"
+      aria-label="Task name"
+    />
+    <div class="card-subtitle my-3 h6 row w-100 gx-1">
+      <div class="col-md-2">
+        <input type="date" class="form-control form-control-sm" />
+      </div>
+      <div class="col-md-1">
+        <select name="type" class="form-select form-select-sm">
+          <option selected disabled>Type</option>
+          <option value="Academic">Academic</option>
+          <option value="Work">Work</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <select name="priority" class="form-select form-select-sm">
+          <option selected disabled>Priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="card-text my-3">
+      <textarea
+        type="text"
+        class="form-control bg-dark border-0 text-white"
+        placeholder="Description"
+        aria-label="Task name"
+      ></textarea>
+    </div>
+  </div>
+</div>
