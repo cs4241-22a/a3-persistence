@@ -13,8 +13,12 @@ The project of:
     Andrei Ignatiev:
         alignatiev@wpi.edu
 
-Droplet URL: http://164.90.252.100:3000 /
-Glitch link (For design tip changes): 
+
+Glitch link: https://a3-ignatiev-final.glitch.me /
+
+
+Droplet URL (does not have certain design tip changes): http://164.90.252.100:3000 
+
 
 
 
