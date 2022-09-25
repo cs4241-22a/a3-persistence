@@ -1,4 +1,10 @@
 {
+  "name": "survaye",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.17.x"
+  },
   "dependencies": {
     "bootstrap": "^5.2.1",
     "cookie-session": "^2.0.0",
