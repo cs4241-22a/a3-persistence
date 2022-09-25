@@ -1,0 +1,28 @@
+
+@import url('https://fonts.googleapis.com/css?family=Aboreto&display=swap');
+body {
+    background-color: #9FC2D7;
+    display:flex;
+    flex-flow: column;
+}
+h1{
+    font-family: "Aboreto", serif;
+}
+p {
+    color:#717069;
+    font-family: "Aboreto", serif;
+}
+button {
+  background-color: #D1AF66;
+  font-family: "Aboreto", serif;
+}
+input{
+  background-color: #9FC2D7;
+  font-family: "Aboreto", serif;
+}
+.center{
+  text-align: center;
+}
+#removeButton{
+  background-color: #F04132;
+}
