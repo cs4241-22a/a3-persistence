@@ -22,7 +22,11 @@ app.use(compression())
 
 // helmet middleware
 const helmet = require("helmet");
-app.use(helmet())
+app.use(
+    helmet({
+        contentSecurityPolicy: false
+    }),
+);
 
 const uri = "mongodb+srv://mdong:Bacon1A3@cluster0.qkeu5vg.mongodb.net/"
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true })
@@ -92,6 +96,7 @@ app.post("/login", async(req, res) => {
     })
 })
 
+// custom middleware
 // redirects unauthorized users to login. any get/post below this will go through this
 app.use(function(req, res, next) {
     if (req.session.login === true) { next(); }
