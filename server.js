@@ -44,7 +44,10 @@ app.use(cookie({
 
 // first page
 app.get("/", (req,res) => {
-    if (req.session.login === true) { res.redirect("todo") }
+    if (req.session.login === true) { 
+        req.session.status = 0;
+        res.redirect("todo") 
+    }
     else { res.render("index", { msg:"", layout:false }) }
 })
 
@@ -61,7 +64,8 @@ app.post("/login", async(req, res) => {
         if (accountFound) {
             req.session.id = data[0][0]._id.toString();
             req.session.login = true;
-            res.redirect("/todo_login");
+            req.session.status = 1;
+            res.redirect("/todo");
         }
 
         else if (!usernameFound) {
@@ -72,7 +76,8 @@ app.post("/login", async(req, res) => {
             });
             req.session.id = result.insertedId;
             req.session.login = true;
-            res.redirect("/todo_new");
+            req.session.status = 2;
+            res.redirect("/todo");
         }
 
         else {
@@ -85,7 +90,7 @@ app.post("/login", async(req, res) => {
 
 // redirects unauthorized users to login
 app.use(function(req, res, next) {
-    if (req.session.login === true) { next() }
+    if (req.session.login === true) { next(); }
     else { 
         res.sendFile(path.join(__dirname, "views", "index"), function(err) {
             if (err) {
@@ -95,19 +100,19 @@ app.use(function(req, res, next) {
     }
 })
 
+// logs out
+app.get("/logout", (req, res) => {
+    req.session.id = null;
+    req.session.login = false;
+    return res.render("index", { msg:"signed out", layout:false })
+})
+
 // send todo page
 app.get("/todo", (req, res) => {
-    res.render("todo", { msg:"", layout:false })
-})
-
-// send todo page on login
-app.get("/todo_login", (req, res) => {
-    res.render("todo", { msg:"success you have logged in", layout:false })
-})
-
-// send todo page on new account creation
-app.get("/todo_new", (req, res) => {
-    res.render("todo", { msg:"new account generated", layout:false })
+    let msg = "";
+    if (req.session.status === 1) { msg = "success you have logged in"; }
+    else if (req.session.status === 2) { msg = "new account generated"; }
+    res.render("todo", { msg:msg, layout:false })
 })
 
 // add new todo item

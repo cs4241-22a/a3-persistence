@@ -1,5 +1,5 @@
 const todoList = document.getElementById("todoitems");
-const todoForm = document.body.querySelector("form");
+const todoForm = document.getElementById("submitTodo");
 
 fetch("/todolist")
 .then(response => response.json())

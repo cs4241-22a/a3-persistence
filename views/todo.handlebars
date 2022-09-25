@@ -12,10 +12,12 @@
     <body>
         <header>
             <h1>todo</h1>
+            <form action="/logout" method="GET"><button id="logout" type="submit">logout</button></form>
+           
         </header>
         {{{msg}}}
         <main>
-            <form>
+            <form id="submitTodo">
                 <label for="todoitem">
                     new todo item:
                     <input id="todoitem" type="text" maxlength="100" required placeholder="todo">
