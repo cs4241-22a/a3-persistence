@@ -111,11 +111,8 @@ app.get("/accountPage", async (req, res) => {
     if (req.session.user.admin) {
       results = await getAllSurveyResults();
     } else {
-      console.log("ADMIN " + req.session.user.admin);
       results = await getSurveyResults(req.session.user.id);
     }
-
-    console.log(results);
     res.render("accountPage", {
       userName: req.session.user.name,
       array: results,
@@ -200,7 +197,6 @@ async function getAllSurveyResults() {
     .then((userRec) => {
       return userRec;
     });
-  console.log("ALL RECORDS " + record);
   return record;
 }
 async function getSurveyResult(id) {
@@ -223,7 +219,6 @@ async function getSurveyResult(id) {
 }
 
 async function deleteResult(id) {
-  console.log("ID: " + id);
   debugger;
   try {
     const record = await dbClient.connect().then(() => {
@@ -232,9 +227,7 @@ async function deleteResult(id) {
         .collection("surveys")
         .deleteOne({ name: "Perry", "userData.user": id.user });
     });
-    console.log(
-      "\n\nDeleted Entry " + record.acknowledged + "\t" + record.deletedCount
-    );
+
     return record;
   } catch (err) {
     console.log(err);
@@ -278,14 +271,11 @@ app.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
-        console.log(err);
-        console.log("unsuccessful log out");
         res.send(400, "Log Out Failed");
       }
     });
     res.redirect("/");
   } else {
-    console.log("no session");
     res.status(401);
     res.send("Not signed in");
   }
@@ -334,7 +324,7 @@ app.get(
       } else {
         console.log("ADMIN " + req.session.user.admin);
         console.log("GITHUB ID:" + req.session.user.id);
-        results = await getSurveyResults(req.session.user.id).then(
+        results = await getSurveyResult(req.session.user.id).then(
           (results) => {
             console.log(results);
             res.render("accountPage", {
@@ -362,7 +352,6 @@ app.post("/submitSurvey", (req, res) => {
       data.user = req.session.user.id;
       submitUserData(data).then(res.redirect("/accountPage"));
     } else {
-      console.log("user not found");
       res.status(401).redirect("/login");
     }
   });
@@ -417,7 +406,6 @@ app.post("/editEntry", (req, res) => {
     res.redirect("/");
   } else {
     req.on("data", (data) => {
-      console.log("EDIT ENTRY");
       req.session.edit = new TextDecoder("utf-8").decode(data);
       res.redirect("/edit");
     });
@@ -426,7 +414,6 @@ app.post("/editEntry", (req, res) => {
 
 app.get("/edit", async (req, res) => {
   getSurveyResult(req.session.edit).then((entry) => {
-    console.log("EDIT Entry:  " + entry);
     res.render("edit", { entry: entry, layout: false });
   });
 });
@@ -448,7 +435,6 @@ app.post("/submitEdit", (req, res) => {
 });
 
 app.post("/deleteEntry", (req, res) => {
-  console.log("delete request");
   if (req.session.user === undefined) {
     res.redirect("/");
   } else {
