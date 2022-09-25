@@ -1,4 +1,5 @@
 require("dotenv").config();
+require('https').globalAgent.options.rejectUnauthorized = false;
 const crypto = require("crypto");
 const { randomBytes } = require("crypto");
 const { MongoClient } = require("mongodb");
