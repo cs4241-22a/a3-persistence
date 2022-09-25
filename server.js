@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const { randomBytes } = require("crypto");
 const { MongoClient } = require("mongodb");
 const { request } = require("http");
-const errorHandler = require('errorHandler')
+const errorHandler = require('errorhandler')
 
 if(process.env.NODE_ENV === 'development'){
   app.use(errorHandler())
