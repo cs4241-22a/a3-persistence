@@ -14,6 +14,18 @@ require('dotenv').config()
 const GitHubStrategy = require('passport-github2').Strategy;
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+app.use( express.static('public') )
+app.use( express.static('views'))
+app.use( express.json() )
+app.use(partials());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -41,31 +53,10 @@ passport.use(new GitHubStrategy({
     }
 ));
 
-app.use( express.static('public') )
-app.use( express.static('views'))
-app.use( express.json() )
-app.use(partials());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-// Initialize Passport!  Also use passport.session() middleware, to support
-// persistent login sessions (recommended).
-app.use(passport.initialize());
-app.use(passport.session());
-
 const uri = 'mongodb+srv://'+process.env.USERNAME+':'+process.env.PASSWORD+'@'+process.env.HOST
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
-
-
-
-
-app.use( cookie({
-    name: 'session',
-    keys: ['key1', 'key2']
-}))
 
 client.connect()
     .then( () => {
@@ -88,35 +79,12 @@ app.get( '/', (req,res) => {
     }
 })
 
-app.listen( 3069 )
-
 app.use( (req,res,next) => {
     if( collection !== null ) {
         next()
     }else{
         res.status( 503 ).send()
     }
-})
-
-app.post( '/add', (req,res) => {
-    // assumes only one object to insert
-    collection.insertOne( req.body ).then( result => res.json( result ) )
-})
-
-// assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
-app.post( '/remove', (req,res) => {
-    collection
-        .deleteOne({ _id:mongodb.ObjectId( req.body._id ) })
-        .then( result => res.json( result ) )
-})
-
-app.post( '/update', (req,res) => {
-    collection
-        .updateOne(
-            { _id:mongodb.ObjectId( req.body._id ) },
-            { $set:{ name:req.body.name } }
-        )
-        .then( result => res.json( result ) )
 })
 
 app.get('/account', ensureAuthenticated, function(req, res){
@@ -127,23 +95,10 @@ app.get('/login', function(req, res){
     res.render('login', { user: req.user });
 });
 
-// GET /auth/github
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in GitHub authentication will involve redirecting
-//   the user to github.com.  After authorization, GitHub will redirect the user
-//   back to this application at /auth/github/callback
 app.get('/auth/github',
     passport.authenticate('github', { scope: [ 'user:email' ] }),
-    function(req, res){
-        // The request will be redirected to GitHub for authentication, so this
-        // function will not be called.
-    });
+    function(req, res){});
 
-// GET /auth/github/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function will be called,
-//   which, in this example, will redirect the user to the home page.
 app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
@@ -181,3 +136,5 @@ app.post('/addClimb', (req, res) => {
             res.json(climbs)
         })
 })
+
+app.listen( 3069 )
