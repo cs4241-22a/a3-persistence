@@ -1,6 +1,7 @@
 const express = require( 'express' ),
     mongodb = require( 'mongodb' ),
     path = require('path'),
+    errorhandler = require('errorhandler'),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
