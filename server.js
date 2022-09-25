@@ -169,7 +169,7 @@ async function insertUser(userCreds) {
 }
 
 async function getSurveyResults(id) {
-  console.log(id)
+  console.log("getSurveyResults: "+id)
   const record = await dbClient
     .connect()
     .then(() => {
@@ -202,7 +202,7 @@ async function getAllSurveyResults() {
   console.log("ALL RECORDS " + record);
   return record;
 }
-async function getSurveyResult(id, credJSON) {
+async function getSurveyResult(id) {
   const record = await dbClient
     .connect()
     .then(() => {
@@ -308,10 +308,15 @@ app.get(
       await insertUser(userCreds);
       userExists = await checkUser(userCreds);
     }
-    req.session.user = {
-      id: userExists[0]._id,
-      name: req.session.passport.user.displayName,
-    };
+    checkUser(userData).then((record) => {
+      if (record.length > 0) {
+        req.session.user = {
+          id: record[0]._id,
+          name: record[0].GitHubDisplayName,
+          admin: record[0].admin,
+        };
+      }
+    });
 
     if (req.session.user !== undefined) {
       if (req.session.user.admin) {
