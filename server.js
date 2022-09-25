@@ -42,10 +42,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use( express.static('public') )
 app.use( express.static('views'))
 app.use( express.json() )
-app.use(partials());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(methodOverride());
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
@@ -91,7 +88,7 @@ app.get('/auth/github',
     function(req, res){});
 
 app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
+    passport.authenticate('github', { failureRedirect: '/sesson.passportin' }),
     function(req, res) {
         res.redirect('/account.html');
     });
