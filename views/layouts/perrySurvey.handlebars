@@ -194,7 +194,8 @@
             body
           })
           .then((response)=>{
-            console.log(response)
+            if(response.redirected)
+              window.location = response.url;
           })
         }
     </script>

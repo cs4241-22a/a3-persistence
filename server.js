@@ -216,16 +216,24 @@ async function getSurveyResult(id, credJSON) {
 }
 
 async function deleteResult(id) {
+    console.log("ID: " + id)
+    debugger
+    try{
+    
     const record = await dbClient
       .connect()
       .then(() => {
         return dbClient
           .db("survAye")
           .collection("surveys")
-          .deleteOne({ name: "Perry", "userData.user": id });
+          .deleteOne({ name: "Perry", "userData.user": id.user });
       })
     console.log("\n\nDeleted Entry "+ record.acknowledged + "\t"+record.deletedCount);
     return record;
+    }
+    catch(err){
+        console.log(err)
+    }
   }
 
 // Passport session setup.
@@ -329,7 +337,7 @@ app.post("/submitSurvey", (req, res) => {
 
     if (req.session.user !== undefined) {
       data.user = req.session.user.id;
-      submitUserData(data).then(res.send(req.body));
+      submitUserData(data).then(res.redirect('/accountPage'));
     } else {
       console.log("user not found");
       res.status(401).redirect("/login");
@@ -386,8 +394,8 @@ app.post("/editEntry", (req, res) => {
     res.redirect("/");
   } else {
     req.on("data", (data) => {
+        console.log('EDIT ENTRY')
       req.session.edit = new TextDecoder("utf-8").decode(data);
-
       res.redirect("/edit");
     });
   }
@@ -395,7 +403,7 @@ app.post("/editEntry", (req, res) => {
 
 app.get("/edit", async (req, res) => {
   getSurveyResult(req.session.edit).then((entry) => {
-    console.log("Entry:  " + entry);
+    console.log("EDIT Entry:  " + entry);
     res.render("edit", { entry: entry, layout: false });
   });
 });
@@ -418,12 +426,13 @@ app.post("/submitEdit", (req, res) => {
 
 
 app.post("/deleteEntry", (req, res) => {
+    console.log('delete request')
     if (req.session.user === undefined) {
       res.redirect("/");
     } else {
       req.on("data", (data) => {
         data = JSON.parse(data);
-        submitUserData(data);
+        deleteResult(data);
         res.redirect("/accountPage");
       });
     }

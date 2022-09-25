@@ -174,16 +174,20 @@
           <source src="perryPlatypusDoof.mp3" type="audio/mp3" />
         </audio>
 
-        <button name="edit" id={{entry.userData.user}} onclick="submitEdit(this);">submit</button>
-        <button id={{entry.userData.user}} onclick="deleteEntry(this);">delete</button>
+              <button name="edit" id={{entry.userData.user}} onclick="submitEdit(this);" class="btn">submit</button>
+      <button name = "delete" id={{entry.userData.user}} onclick="deleteEntry(this);"class="btn">delete</button>
       </form>
 
-    </main>
-    {{>footer}}
 
+    </main>
     <script>
+       window.load = ()=>{
+        (document.querySelector('[name = "delete"]')).onclick = deleteEntry
+       }
 
       function submitEdit(e){
+        debugger
+        e.preventDefault()
           console.log("SENDING")
           const data = new FormData(document.getElementById("perrySurvey"));
           const json1 = Object.fromEntries(data.entries());
@@ -204,10 +208,10 @@
         }
 
         function deleteEntry(e){
+            e.preventDefault
           console.log("delete")
-          const json1;
-          json1.name = "Perry"
-          json1.user = e.id;
+          debugger
+          const json1 = {name: "Perry", user: e.id};
 
           body = JSON.stringify(json1)
           console.log(body)
@@ -223,6 +227,7 @@
           })
         }
     </script>
+    {{>footer}}
   </body>
 
 </html>
