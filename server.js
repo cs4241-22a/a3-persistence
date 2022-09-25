@@ -169,7 +169,7 @@ async function insertUser(userCreds) {
 }
 
 async function getSurveyResults(id) {
-  console.log("getSurveyResults: "+id)
+  console.log("getSurveyResults: " + id);
   const record = await dbClient
     .connect()
     .then(() => {
@@ -312,15 +312,13 @@ app.get(
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
       checkUser(userCreds).then((record) => {
-          req.session.user = {
-            id: record[0]._id,
-            name: record[0].GitHubDisplayName,
-            admin: record[0].admin,
-          };
+        req.session.user = {
+          id: record[0]._id,
+          name: record[0].GitHubDisplayName,
+          admin: record[0].admin,
+        };
       });
-
     }
-    
 
     if (req.session.user !== undefined) {
       if (req.session.user.admin) {
@@ -335,13 +333,16 @@ app.get(
       } else {
         console.log("ADMIN " + req.session.user.admin);
         console.log("GITHUB ID:" + req.session.user.id);
-        results = await getSurveyResults(req.session.user.id);
-        console.log(results);
-        res.render("accountPage", {
-          userName: req.session.user.name,
-          array: results,
-          layout: false,
-        });
+        results = await getSurveyResults(req.session.user.id).then(
+          (results) => {
+            console.log(results);
+            res.render("accountPage", {
+              userName: req.session.user.name,
+              array: results,
+              layout: false,
+            });
+          }
+        );
       }
     } else {
       res.redirect("/login");
