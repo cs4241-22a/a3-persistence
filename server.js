@@ -235,12 +235,6 @@ async function deleteResult(id) {
 }
 
 // Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete GitHub profile is serialized
-//   and deserialized.
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -324,7 +318,7 @@ app.get(
       } else {
         console.log("ADMIN " + req.session.user.admin);
         console.log("GITHUB ID:" + req.session.user.id);
-        results = await getAllSurveyResults().then(
+        results = await getSurveyResults(req.session.user.id).then(
           (results) => {
             console.log(results);
             res.render("accountPage", {
