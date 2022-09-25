@@ -4,14 +4,6 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 
 http://a3-sean-oconnor.glitch.me
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
-
 This project is a web application that allows users to play Rock Paper Scissors. Users play against the computer to get the highest score possible by winning until the computer eventually wins. Users are then able to submit a score to the server data, as well as delete scores from the shown data. Users can also modify each entry of data by choosing their favorite choice between "Rock", "Paper", and "Scissors". Users can replay the game and submit a fresh score by refreshing the page.
 
 Users will first encounter a login page. You must enter a "Name" and "Password" into the form (text type) fields, then either use "Login" or "Register" inputs (button types). If the password for the name is incorrect, or the user already exists, the login page will restart.
