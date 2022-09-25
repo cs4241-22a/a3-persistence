@@ -8,32 +8,23 @@ const express    = require('express'),
       errorHandler = require('errorhandler'),
       app        = express();
 
-const uri = 'mongodb+srv://sean:Marley07@assignment-3.xnqev8q.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://sean:Marley07@a3.3xedmfb.mongodb.net/?retryWrites=true&w=majority'
 
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let collection = null
-
+      
 client.connect()
-  .then( () => {
-    // will only create collection if it doesn't exist
-    return client.db( 'Assignment-3' ).collection( 'data' )
-  })
-  .then( __collection => {
-    // store reference to collection
-    collection = __collection
-    // blank query returns all documents
-    return collection.find({ }).toArray()
-  })
-  .then( console.log );
-  
-
-app.use( (req,res,next) => {
-    if( collection !== null ) {
-      next();
-    }else{
-      res.status( 503 ).send();
-    }
-});
+    .then( () => {
+      // will only create collection if it doesn't exist
+        return client.db( 'assignmentData' ).collection( 'names' )
+    })
+    .then( __collection => {
+        // store reference to collection
+        collection = __collection
+        // blank query returns all documents
+        return collection.find({ }).toArray()
+    })
+    .then( console.log )
 
 app.use(timeout('10s'));
 
