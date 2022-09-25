@@ -22,8 +22,6 @@
       <form
         id="perrySurvey"
         class="w-75 m-auto"
-        action="/submitSurvey"
-        method="POST"
       >
 
         <fieldset>
@@ -176,16 +174,20 @@
           <source src="perryPlatypusDoof.mp3" type="audio/mp3" />
         </audio>
 
-        <button id={{entry.userData.user}} onclick="submitEdit(this);">submit</button>
-        <button id="deleteEntry">delete</button>
+              <button name="edit" id={{entry.userData.user}} onclick="submitEdit(this);" class="btn">submit</button>
+      <button name = "delete" id={{entry.userData.user}} onclick="deleteEntry(this);"class="btn">delete</button>
       </form>
 
-    </main>
-    {{>footer}}
 
+    </main>
     <script>
+       window.load = ()=>{
+        (document.querySelector('[name = "delete"]')).onclick = deleteEntry
+       }
 
       function submitEdit(e){
+        debugger
+        e.preventDefault()
           console.log("SENDING")
           const data = new FormData(document.getElementById("perrySurvey"));
           const json1 = Object.fromEntries(data.entries());
@@ -204,7 +206,28 @@
             }
           })
         }
+
+        function deleteEntry(e){
+            e.preventDefault
+          console.log("delete")
+          debugger
+          const json1 = {name: "Perry", user: e.id};
+
+          body = JSON.stringify(json1)
+          console.log(body)
+          fetch("/deleteEntry", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            console.log(response)
+            if(response.redirected){
+                window.location = response.url
+            }
+          })
+        }
     </script>
+    {{>footer}}
   </body>
 
 </html>

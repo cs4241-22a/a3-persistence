@@ -215,6 +215,27 @@ async function getSurveyResult(id, credJSON) {
   return record;
 }
 
+async function deleteResult(id) {
+    console.log("ID: " + id)
+    debugger
+    try{
+    
+    const record = await dbClient
+      .connect()
+      .then(() => {
+        return dbClient
+          .db("survAye")
+          .collection("surveys")
+          .deleteOne({ name: "Perry", "userData.user": id.user });
+      })
+    console.log("\n\nDeleted Entry "+ record.acknowledged + "\t"+record.deletedCount);
+    return record;
+    }
+    catch(err){
+        console.log(err)
+    }
+  }
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -235,7 +256,7 @@ passport.use(
     {
       clientID: process.env.GITHUBCLIENTID,
       clientSecret: process.env.GITHUBSECRET,
-      callbackURL: "http://survaye.herokuapp.com/auth/GitHub/return",
+      callbackURL: "https://survaye.herokuapp.com/auth/GitHub/return",
     },
     function (accessToken, refreshToken, profile, cb) {
       cb(null, profile);
@@ -287,10 +308,23 @@ app.get(
       name: req.session.passport.user.displayName,
     };
 
-    res.render("accountPage", {
-      userName: req.session.passport.user.displayName,
-      layout: false,
-    });
+    if (req.session.user !== undefined) {
+        if (req.session.user.admin) {
+          results = await getAllSurveyResults();
+        } else {
+            console.log("ADMIN "+ req.session.user.admin)
+          results = await getSurveyResults(req.session.user.id);
+        }
+    
+        console.log(results);
+        res.render("accountPage", {
+          userName: req.session.user.name,
+          array: results,
+          layout: false,
+        });
+      } else {
+        res.redirect("/login");
+      }
   }
 );
 
@@ -303,7 +337,7 @@ app.post("/submitSurvey", (req, res) => {
 
     if (req.session.user !== undefined) {
       data.user = req.session.user.id;
-      submitUserData(data).then(res.send(req.body));
+      submitUserData(data).then(res.redirect('/accountPage'));
     } else {
       console.log("user not found");
       res.status(401).redirect("/login");
@@ -360,8 +394,8 @@ app.post("/editEntry", (req, res) => {
     res.redirect("/");
   } else {
     req.on("data", (data) => {
+        console.log('EDIT ENTRY')
       req.session.edit = new TextDecoder("utf-8").decode(data);
-
       res.redirect("/edit");
     });
   }
@@ -369,7 +403,7 @@ app.post("/editEntry", (req, res) => {
 
 app.get("/edit", async (req, res) => {
   getSurveyResult(req.session.edit).then((entry) => {
-    console.log("Entry:  " + entry);
+    console.log("EDIT Entry:  " + entry);
     res.render("edit", { entry: entry, layout: false });
   });
 });
@@ -389,3 +423,17 @@ app.post("/submitEdit", (req, res) => {
     });
   }
 });
+
+
+app.post("/deleteEntry", (req, res) => {
+    console.log('delete request')
+    if (req.session.user === undefined) {
+      res.redirect("/");
+    } else {
+      req.on("data", (data) => {
+        data = JSON.parse(data);
+        deleteResult(data);
+        res.redirect("/accountPage");
+      });
+    }
+  });
