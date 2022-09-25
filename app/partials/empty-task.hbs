@@ -1,7 +1,7 @@
 <div
   class="card rounded shadow w-100 mb-3"
-  style="background-color: #343a40"
-  id="{{this._id}}"
+  style="background-color: #343a40; display: none"
+  id="empty-task"
 >
   <div class="card-body">
     <input
@@ -12,18 +12,29 @@
     />
     <div class="card-subtitle my-3 h6 row w-100 gx-1">
       <div class="col-md-2">
-        <input type="date" class="form-control form-control-sm" />
+        <input
+          aria-label="deadline"
+          type="date"
+          class="form-control form-control-sm text-white border-0 bg-dark"
+        />
       </div>
-      <div class="col-md-1">
-        <select name="type" class="form-select form-select-sm">
+      <div class="col-md-2">
+        <select
+          name="type"
+          class="form-select form-select-sm text-white border-dark bg-dark"
+        >
           <option selected disabled>Type</option>
+          <option value="MQP">MQP</option>
           <option value="Academic">Academic</option>
           <option value="Work">Work</option>
           <option value="Other">Other</option>
         </select>
       </div>
-      <div class="col-md-1">
-        <select name="priority" class="form-select form-select-sm">
+      <div class="col-md-2">
+        <select
+          name="priority"
+          class="form-select form-select-sm text-white border-dark bg-dark"
+        >
           <option selected disabled>Priority</option>
           <option value="High">High</option>
           <option value="Medium">Medium</option>
@@ -36,8 +47,13 @@
         type="text"
         class="form-control bg-dark border-0 text-white"
         placeholder="Description"
-        aria-label="Task name"
+        aria-label="Description"
+        style="height: 10rem"
       ></textarea>
+    </div>
+    <div>
+      <button class="btn btn-danger" id="cancel">Cancel</button>
+      <button class="btn btn-primary">Submit</button>
     </div>
   </div>
 </div>

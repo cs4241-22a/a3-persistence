@@ -25,20 +25,15 @@
     <main class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <h1 class="mt-5 d-inline-block mb-0 fw-bold">Task Manager</h1>
-        <button
-          type="button"
-          class="btn btn-outline-light py-2 px-4"
-          data-bs-toggle="modal"
-          data-bs-target="#task-modal"
-        >
+        <button id="add" type="button" class="btn btn-outline-light py-2 px-4">
           Add
         </button>
       </div>
       <section id="task-display">
-         {{> empty-task}}
-          {{#each data}}
-            {{> task}}
-          {{/each}}
+        {{> empty-task}}
+        {{#each data}}
+          {{> task}}
+        {{/each}}
       </section>
     </main>
     <script
@@ -47,5 +42,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript" src="/js/request.js"></script>
+    <script type="text/javascript" src="/js/buttons.js"></script>
   </body>
 </html>
