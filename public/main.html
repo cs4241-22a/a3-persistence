@@ -9,26 +9,29 @@
         <script src="uikit-3.15.9/js/uikit-icons.min.js"></script>
     </head>
     <body>
-        <header class="uk-flex uk-flex-center uk-margin-large">
-          <img uk-image src="images/pikachu.jpg" alt="Pikachu" id="pikachu">
-          <h1 class="uk-heading-medium">Create your own Pokemon!</h1>
-          <img uk-image src="images/vaporeon.jpg" alt="Vaporeon" id="vaporeon">
+      <section class="uk-section">
+        <header class="uk-flex uk-flex-around">
+          <img class="uk-height-small uk-align-left" data-src="images/pikachu.jpg" alt="Pikachu" id="pikachu" uk-img>
+          <h1 class="uk-heading-medium uk-heading-divider">Create your own Pokemon!</h1>
+          <img class="uk-height-small uk-align-right" data-src="images/vaporeon.jpg" alt="Vaporeon" id="vaporeon" uk-img>
         </header>
-    
-        <form class="uk-flex uk-flex-center uk-form-stacked" id="form" uk-grid>
-            
-          <section class="uk-margin">
-            <label class="uk-form-label" for="name">What is your Pokemon's name?</label>
+      </section>
+
+      <section class="uk-section uk-width-large uk-align-center">
+        <form class="uk-form-horizontal" id="form">
+
+          <label class="uk-form-label" for="name">What is your Pokemon's name?</label>     
+          <section class="uk-margin uk-form-controls">
             <input class="uk-input" type='text' id='name' name="name" maxlength="20" required>
           </section>
-        
-          <section class="formSection">
-            <label class="uk-form-label" for="description">Describe your Pokemon</label>
+
+          <label class="uk-form-label" for="description">Describe your Pokemon</label>       
+          <section class="uk-margin uk-form-controls">
             <textarea class="uk-textarea" name="description" id='description'></textarea> 
           </section>
     
-          <section class="formSection">
-            <label class="uk-form-label">Choose your Pokemon's types</label>
+          <label class="uk-form-label">Choose your Pokemon's types</label>
+          <section class="uk-margin uk-form-controls">
             <select class="uk-select" name="type1" id="type1" required>
               <option value="">Choose a type</option>
               <option value="Normal">Normal</option>
@@ -74,11 +77,11 @@
             </select>
           </section>
     
-          <input class="uk-button uk-button-primary" type="submit" id="submit">
+          <input class="uk-button uk-button-primary uk-align-center" type="submit" id="submit">
     
           <script src="js/scripts.js"></script>
         </form>
-    
+      </section>
         <h2>Pokemon List</h2>
         <table id="table" class="uk-table">
           <thead>

@@ -1,50 +1,72 @@
 const express = require('express')
 const cookie = require('cookie-session')
+const mongodb = require('mongodb')
 const app = express()
+require('dotenv').config()
 
 app.use(express.static('public'))
-app.use( express.urlencoded({ extended:true }) )
+app.use(express.urlencoded({ extended:true }) )
+app.use(express.json())
 
 app.use( cookie({
     name: 'session',
     keys: ['key1', 'key2']
   }))
 
+app.use( (req,res,next) => {
+    if( collection_login !== null ) {
+      next()
+    }else{
+      res.status( 503 ).send()
+    }
+  })
+
+const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection_pokemon = client.db('Pokemon').collection('pokemon')
+let collection_login = client.db('Pokemon').collection('login')
+
 app.get('/', (req, res) => {
+    /*if( collection !== null ) {
+        // get array and pass to res.json
+        collection.find({ }).toArray().then( result => res.json( result ) )
+      }*/
     res.send('/index.html')
 })
 
-app.post( '/login', (req,res)=> {
-    // express.urlencoded will put your key value pairs 
-    // into an object, where the key is the name of each
-    // form field and the value is whatever the user entered
-    console.log( req.body )
-    
-    // below is *just a simple authentication example* 
-    // for A3, you should check username / password combos in your database
-    if( req.body.password === 'test' ) {
-      // define a variable that we can check in other middleware
-      // the session object is added to our requests by the cookie-session middleware
-      req.session.login = true
-      
-      // since login was successful, send the user to the main content
-      // use redirect to avoid authentication problems when refreshing
-      // the page or using the back button, for details see:
-      // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-      res.redirect( 'main.html' )
-    }else{
-      // password incorrect, redirect back to login page
-      res.sendFile( __dirname + '/public/index.html' )
-    }
+app.post( '/login', (req,res)=> { 
+    collection_login.findOne({username: req.body.username})
+    .then((result => {
+        if (result !== null) {
+            if (result.password === req.body.password) {
+                req.session.login = true
+                res.redirect('main.html')
+            }
+            else {
+                res.redirect('index.html')
+            }
+        }
+        else{
+            collection_login.insertOne(req.body).then(result => {
+                req.session.login = true
+                res.redirect( 'main.html' )
+            })
+        }
+    }))
   })
-  
-  // add some middleware that always sends unauthenicaetd users to the login page
-  app.use( function( req,res,next) {
+
+app.use( function( req,res,next) {
     if( req.session.login === true )
-      next()
+        next()
     else
-      res.sendFile( __dirname + '/public/index.html' )
-  })
+        res.sendFile( __dirname + '/public/index.html' )
+})
+
+app.post( '/submit', (req, res) => {
+    const pokemon = addTypeChart(req.body)
+    collection_pokemon.insertOne(pokemon)
+    res.send(collection_pokemon)
+})
 
 app.listen( process.env.PORT || 3000 )
 
