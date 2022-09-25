@@ -14,6 +14,7 @@
 <body>
     <div class="d-flex align-items-center justify-content-center flex-column" style="height: 100vh">
         <h1>Minesweeperdle</h1>
+        <h2>User Registration</h2>
         <form class="d-flex align-items-center justify-content-center flex-column" id="form">
             <div class="form-group">
               <label for="email">Email address</label>
@@ -29,7 +30,6 @@
             </div>
         </form>
         <button class="btn btn-primary" id="submit">Submit</button>
-        <p id="error-msg"></p>
     </div>
 </body>
 <script>
@@ -65,7 +65,7 @@
                         const jsonRes = JSON.parse(d);
                         if (jsonRes.error) {
                             document.getElementById("error-msg").innerHTML = "User already exists!";
-                            window.location = "/sign-in";
+                            window.location = "/sign-in&redirect=true";
                         } else {
                             localStorage.setItem("MS:email", jsonRes.email);
                             window.location = "/play";
