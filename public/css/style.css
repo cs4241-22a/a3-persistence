@@ -1,0 +1,88 @@
+/*Style your own assignment! This is fun! */
+
+h1 {
+	text-shadow: 3px 3px 3px #A65D03;
+	color: #D98E04;
+	font-size: 56px;
+	font-family: "Sofia", sans-serif;
+}
+
+h2 {
+	color: #D98E04;
+}
+
+#calendarTable, #tableViewTable {	
+	width: 100%;
+	background-color: #0D0D0D;
+	border-collapse: collapse;
+}
+
+summary {
+	color: #D98E04;
+	background-color: #1D1D1D;
+	!font-size: 32px;
+	!font-family: "Sofia", serif;
+	padding-left: 10px;
+}
+
+body {
+	background-color:#363636 !important;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+form {
+	color: #FFFFFF;
+	font-size: 15px;
+	font-family: "Sofia", sans-serif;
+	padding-left: 20px;
+}
+
+th{
+	
+	border: 3px double #D98E04 !important;
+	color: #F2E205;
+}
+
+td {
+	
+	border: 1px dashed #A65D03 !important;
+	color: white;
+}
+
+th, td{
+	font-family: "Times New Roman", Times, serif;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto 2fr);
+}
+.top {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  background-color: rgba(0,0,0,.5);
+}
+.mid {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  background-color: #0D0D0D;
+}
+.botleft {
+  grid-column: 1;
+  grid-row: 3;
+  background-color: #0D0D0D;
+}
+.botcent {
+  grid-column: 2;
+  grid-row: 3;
+  background-color: #0D0D0D;
+}
+.botrigt {
+  grid-column: 3;
+  grid-row: 3;
+  background-color: #0D0D0D;
+}

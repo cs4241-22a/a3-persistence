@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+	
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="schedule app">
+	
+	<link rel="stylesheet" href="style.css">
+	<script src="scripts.js"></script>
+	<link href="bootstrap-5.2.1-dist/css/bootstrap.css" rel="stylesheet">
+  </head>
+  <body class = wrapper>>
+	<style>
+		html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+	</style>
+  
+  <div class=top>
+		<h1>Weekly Schedule App</h1>
+		<h2 id = userlabel>Welcome </h2>
+		
+		<button id=logoutButton>Log Out</button>
+		
+		<details open class=top>
+			<summary>Calendar</summary>
+			<table id=calendarTable>
+				<tr>
+					<th>Time</th>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+					<th>Friday</th>
+					<th>Starurday</th>
+					<th>Sunday</th>
+				</tr>
+			</table>
+		</details>
+		<br>
+	</div>
+	
+	<details class=mid>
+		<summary>Table View</summary>
+	
+		<table id=tableViewTable>
+			<tr>
+				<th>Event Name</th>
+				<th>Location</th>
+				<th>Day(s)</th>
+				<th>Start Time (Military)</th>
+				<th>End Time (Military)</th>
+				<th>Duration (Hours)</th>
+				<th>Color</th>
+				<th>Details</th>
+			</tr>
+		</table>
+	</details>
+	
+	<details id=neweventdetails  class=botleft>
+		<summary>Add New Event...</summary>
+		<form id=EditForm action=submit>
+		
+			<label for="ename">Event Name:</label>
+			<input type="text" id="ename" name="ename" required><br>
+			
+			<label for="eloc">Location:</label>
+			<input type="text" id="eloc" name="eloc"><br>
+
+			<label for="m">M:</label>
+			<input type="checkbox" id="m" name="m">
+			
+			<label for="t">T:</label>
+			<input type="checkbox" id="t" name="t">
+			
+			<label for="w">W:</label>
+			<input type="checkbox" id="w" name="w">
+			
+			<label for="r">R:</label>
+			<input type="checkbox" id="r" name="r">
+			
+			<label for="f">F:</label>
+			<input type="checkbox" id="f" name="f">
+			
+			<label for="s">S:</label>
+			<input type="checkbox" id="s" name="s">
+			
+			<label for="u">U:</label>
+			<input type="checkbox" id="u" name="u">
+			
+			<br>
+			
+			<label for="etimestart">Event Start Time (0 - 23):</label>
+			<input type="number" id="etimestart" name="etimestart" onchange="updateduration()" required min=0 max=23>
+			<br>
+			<label for="etimeend">Event End Time (0 - 23):</label>
+			<input type="number" id="etimeend" name="etimeend" onchange="updateduration()" required min=0 max=23>
+			<br>
+			<label>Duration: </label><label id=eduration>0</label><label> hours</label>
+			
+			<br>
+			
+			<label for="ecolor">Color:</label>
+			<input type="color" id="ecolor" name="ecolor">
+			
+			<br>
+			
+			<label for="edetails">Details:</label>
+			<input type="text" id="edetails" name="edetails">
+			
+			<br>
+			
+			<button id=ecancel>Cancel</button>
+			<button id=ereset>Clear</button>
+			<button id=esubmit>Submit</button>
+			
+		</form>
+	</details>
+	
+	<details id=deleventdetails class=botcent>
+		<summary>Delete an Event...</summary>
+		<button id=removeEvent display=block> Delete Event: </button> 
+		<br>
+		<label for="delname" style="color:#FFFFFF">Event Name:</label> <input type="text" id="delname" name="delname">
+	</details>
+	
+	<details id=clreventdetails class=botrigt>
+		<summary>Delete all Events...</summary>
+		<button id=clearEvents display=block>Delete all events</button>
+	</details>
+	
+  </body>
+</html>
