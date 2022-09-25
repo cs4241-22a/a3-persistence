@@ -3,6 +3,11 @@ const crypto = require("crypto");
 const { randomBytes } = require("crypto");
 const { MongoClient } = require("mongodb");
 const { request } = require("http");
+const errorHandler = require('errorHandler')
+
+if(process.env.NODE_ENV === 'development'){
+  app.use(errorHandler())
+}
 
 //GitHub OAuth
 const passport = require("passport");
@@ -296,12 +301,13 @@ app.get(
       GitHubId: req.session.passport.user._json.id,
       GitHubDisplayName: req.session.passport.user.displayName,
     };
-    const userExists = await checkUser(userCreds);
+    let userExists = await checkUser(userCreds);
     if (userExists.length > 0) {
       console.log("USER DOES EXIST");
     } else {
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
+      userExists = await checkUser(userCreds);
     }
     req.session.user = {
       id: userExists[0]._id,
@@ -310,18 +316,27 @@ app.get(
 
     if (req.session.user !== undefined) {
         if (req.session.user.admin) {
-          results = await getAllSurveyResults();
+          results = await getAllSurveyResults().then((results)=>{
+            console.log(results);
+            res.render("accountPage", {
+              userName: req.session.user.name,
+              array: results,
+              layout: false,
+            });
+          });
         } else {
             console.log("ADMIN "+ req.session.user.admin)
-          results = await getSurveyResults(req.session.user.id);
+            results = await getSurveyResults(req.session.user.id).then((results)=>{
+              console.log(results);
+              res.render("accountPage", {
+                userName: req.session.user.name,
+                array: results,
+                layout: false,
+              });
+            });
         }
     
-        console.log(results);
-        res.render("accountPage", {
-          userName: req.session.user.name,
-          array: results,
-          layout: false,
-        });
+       
       } else {
         res.redirect("/login");
       }
