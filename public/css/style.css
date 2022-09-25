@@ -1,0 +1,264 @@
+:root{
+    --work-color:rgba(183, 0, 255, 0.3);
+    --personal-color:rgba(0, 255, 174, 0.3);
+    --work-color-bg:rgba(183, 0, 255, 0.2);
+    --personal-color-bg:rgba(0, 255, 174, 0.2);
+}
+
+
+body{
+    margin:0;
+}
+
+*{
+    font-family: 'Share Tech Mono', monospace;
+}
+
+#particles-js{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #000;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: auto;
+    
+    
+}
+
+#particles-js canvas, #app-container {
+    position: absolute;
+}
+
+#app-container {
+    margin-left: 25%;
+    margin-right: 25%;
+    position: relative;
+    margin-top: 50px;
+    z-index: 2;
+}
+
+#app-container::before {
+    content: "";
+    position: absolute;
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(7px);
+    z-index: -1;
+}
+
+
+#particles-js canvas{
+    z-index: -1;
+}
+
+.taskListItem{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 2rem;
+    border: 1px solid white;
+    margin: 5px;
+    font-size: 1.1rem;
+    text-align: center;
+    align-items: center;
+}
+.taskButtonDiv{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 0.5rem;
+    align-items: center;
+}
+
+
+#form-container{
+    z-index: 3;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.292);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    
+}
+
+
+.urgent_0 .task-urgency{
+    color:rgba(255, 0, 0, 0.8);
+}
+
+.urgent_1 .task-urgency{
+    color:rgba(255, 128, 0, 0.8);
+}
+.urgent_2  .task-urgency{
+    color:rgba(242, 255, 0, 0.8);
+}
+.urgent_3 .task-urgency{
+    color:rgba(51, 255, 0, 0.8);
+}
+
+.urgent_NA .task-urgency{
+    color:rgba(255, 255, 255, 0.8);
+}
+
+.personalTaskItem{
+    background-color: var(--personal-color-bg);
+    text-align: left;
+}
+
+
+.workTaskItem{
+    text-align: left;
+    background-color: var(--work-color-bg);
+}
+
+#task-list{
+    color:white;
+    display: flex;
+    display:block;
+    flex-direction: column;
+}
+
+p{
+    color: white
+}
+
+.task-title {
+    margin-left: 2rem;
+}
+
+#dateDiv{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+#dateDiv p{
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+#date-input{
+    width: 15%;
+    min-height: 40px;
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px dashed white;
+}
+
+
+  
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+ }
+
+#form-container input[type="text"] {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 1.5rem;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.061);
+    color: #FFF;
+    width: 80%;
+    padding: 1rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255,0.3);
+
+}
+
+#form-container #categoryDiv {
+    width: 50%;
+    min-height: 150px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:1.5rem;
+    margin-top:1.5rem;
+    justify-items: center;
+
+}
+
+#submit-button{
+    color: white;
+    background: rgba(255, 255, 255, 0.061);
+    border-radius: 0.6rem;
+    font-size: 1.2rem;
+    border: 1px solid rgba(255, 255, 255,0.3);
+    padding: 0.5rem 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#submit-button:hover{
+    background-color: rgba(255, 255, 255, 0.292);
+}
+
+#form-container #categoryDiv label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #FFF;
+    justify-content: center;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type='radio']{
+    display: none;
+}
+
+
+
+.unselectedCategory{
+    background-color: rgba(74, 74, 74, 0.292);
+}
+.unselectedCategory:hover{
+    background-color: rgba(255, 255, 255, 0.292);
+}
+
+.selectedCategoryWork{
+    background-color:var(--work-color);
+}
+
+.selectedCategoryPersonal{
+    background-color: var(--personal-color);
+}
+
+
+.editButton{
+    width: 50%;
+    height: 80%;
+    color: white;
+    background: rgba(255, 255, 255, 0.061);
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255,0.3);
+    padding: 0.5rem 0.5rem;
+    text-align: center;
+}
+
+.editButton:hover{
+    background-color: rgba(0, 76, 255, 0.8);
+}
+
+.deleteButton{
+    width: 50%;
+    height: 90%;
+    color: white;
+    background: rgba(255, 255, 255, 0.061);
+    border-radius: 0.6rem;
+    border: 1px solid rgba(255, 255, 255,0.3);
+    padding: 0.5rem 0.5rem;
+    text-align: center;
+}
+
+.deleteButton:hover{
+    background-color: rgba(255, 0, 0, 0.8);
+}

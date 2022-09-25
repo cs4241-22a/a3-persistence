@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <script src="/js/script.js"></script>
+    <link rel="stylesheet" href="/css/output.css"/>
+    <!--Retrieving Font from Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Do It!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <meta name="description" content="Simple ToDo manager, with ability to login using Github">
+    <meta name="keywords" content="todo, do it, tasks, task manager, manage tasks, todo list, list todo">
+  </head>
+  <body class="bg-gray-800" style="font-family: 'Share Tech Mono', monospace;">
+    <nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gray-900 hover:bg-gray-800">
+      <div class="flex flex-wrap justify-between items-center mx-5">
+        <a href="/" class="flex items-center">  
+            <img src="./images/doitmain.png" class="mr-3 h-6 sm:h-9" alt="Do it Logo" />
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Do it</span>
+        </a>
+        <a href="/logout" class="flex items-center">  
+          <h1 id="usernameHeading" class="text-center text-white text-lg hover:decoration-wavy underline underline-offset-4 mr-5"></h1>
+          <span class="block py-2 pr-4 pl-3 text-white hover:bg-yellow-600 rounded bg-transparent border border-yellow-600 p-0 dark:text-white">Logout</span>
+        </a>
+      </div>
+    </nav>
+    <div id="app-container" class="my-6 mt-20 mx-auto max-w-[50%] p-10 bg-gray-900 before:blur-sm border text-white border-black rounded-lg">
+      <form id="task-form">
+        <div id="form-container" class="flex flex-col justify-center">
+          <input type="text" id="task-input" class="block px-2.5 pb-2.5 pt-4 w-full text-lg text-center bg-yellow-600 rounded-lg text-black focus:bg-yellow-400 focus:text-black focus:outline-none focus:ring-0 peer placeholder:text-black" placeholder="Add task name here" />
+          <label for="task-input" class="hidden">Add task name here</label>
+            <div id="dateDiv" class="flex items-center mt-6 text-white m-auto  border-yellow-600 border rounded-full px-4">
+              <!-- <p class="mr-3 text-lg">Task is due on</p> -->
+              <label for="date-input" class="mr-3 text-lg">Task is due on</label>
+              <input type="date" class="bg-transparent focus:outline-none py-2 px-1 rounded-full text-white underline" id='date-input'>
+              
+            </div>
+            <p class="text-lg m-auto mt-6">Pick a category</p>
+            <div id="categoryDiv" class="m-auto mt-2 text-base">
+              <label class="selectedCategoryPersonal w-full text-center rounded-lg items-center flex flex-col cursor-pointer justify-center"  id="category-personalLabel" for="category-personal">
+                <input class="hidden" type="radio" id="category-personal" name="category-input" value="personal" checked>
+                Personal
+              </label>
+              <label class="unselectedCategory w-full text-center rounded-lg items-center flex flex-col cursor-pointer justify-center" id="category-workLabel" for="category-work">
+                <input class="hidden" type="radio" id="category-work" name="category-input" value="work">
+                Work
+              </label>
+            </div>
+          <button class="block py-2 pr-4 pl-3 text-white m-auto w-[20%] hover:bg-yellow-600 rounded bg-transparent border border-yellow-600 p-0 dark:text-white" id="submit-button">Add Task</button>
+        </div>
+      </form>
+
+      <div id="task-list" class="mt-10 flex flex-col gap-2"></div>
+  </div>
+  
+  </body>
+  
+ 
+</html>

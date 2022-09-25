@@ -1,116 +1,51 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
+## Do It!
+![Do it Logo](/readmeImages/doitmain_resized.png)
 
-Due: September 22nd, by 11:59 AM.
+Website link: https://a3-siddhartha-pradhan.glitch.me/
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
 
-Baseline Requirements
----
+- Do It! is a simple ToDo application.
+- Adding a task is simple, add a non-empty task name, select a deadline (optional) and select a category.
+- To Edit press the edit button in the task list, the tasks details are automatically copied to the top
+- To Delete press the delete botton in the task list
+- Log in: There are 2 ways to login, either by creating an account in /register and then loging-in, or by using github oauth.
+  - If you want to use existing accounts: usernames available:'user1','user2','user3','user4','user5'; password: 'test123' for all
 
-Your application is required to implement the following functionalities:
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+- I utilized github Authentication using passport, as well as a custom authentication that uses [salt and hash](https://www.pingidentity.com/en/resources/blog/post/encryption-vs-hashing-vs-salting.html#:~:text=Hashing%20is%20a%20one%2Dway%20process%20that%20converts%20a%20password,to%20obfuscate%20the%20actual%20password.). I really wanted to
+learn how developers implement Oauth2 and decided it was a challege I would face sooner or later, so I decided why not. It was difficult to get it working, specially because I was
+getting confused with callbacks vs promises. Another challenge I faced was creating a seamless integration between the two login strategies, which I managed using a custom Mongoose User model.
 
-Your application is required to demonstrate the use of the following concepts:  
+- I used tailwind for my CSS framework, as it integrates seamlessly with html (in the sense I do not need to create a seperate CSS file, they are auto-generated), classes are pre-designed and I simply need to
+assign a html element with the respective styling class I want. 
+  - I added a custom layout for the task list, this is because the elements were created dynamically using js, and instead of applying individual classes as tailwind intended, I had a custom class with mutiple customizations
+- The express middleware packages I used were:
+    - passport: Middleware that is used to authenticate requests, paricular routes may be protected such as the main/index/homepage, that users must be logged in to view, I used the passport-github2 strategy which redirects users to github and then to a callback in my server
+        - used passport-github2 and local strategy to authenticate users, this was integrated with my Mongoose model to ensure seamless integration between the two methods
+    - express-session: I used this middleware to create sessions between the clients and the server, this enables users to be auto-logged in given that the session is still valid (set expire to 1 hr)
+    - body-parser: Processes data sent in request body, i used it to parse urlencoded requests that contained password and username, as well as JSON objects for other form data
+    - connect-ensure-login: This middleware ensures that the client is signed in before accessing any vital documents throught the time the client is connected, it works with passport and express-session to check if a user is currently connected before handling the request
+    - express-static: to provide static files in the public directory, which automatically configures MIME types and is super convinent to provide imgs,css and js.
 
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
+- Although all the information is sent from the server to client (including derived field), they are not directly displayed as it would not make sense. Instead, they are used in more creative ways, for example task_urgency is represented as the color of due date, taskCategory is used as the background color for the taskName.
 
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
 
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: Implement OAuth authentication via Github strategy as well as a custom login method that utilizes salts and hashes, which itegrates seamlessly using a Mongoose User model. This was specially difficult due to the lack of proper documentation for the Github-strategy as well as lack of proper intro-usage examples
+- **Tech Achievement 2**: 100% on all four lighthouse tests, this was not entirely intended, in the sense I tested it at the end and fixed the reccomendations which gave me a total 100% score.
+![Lighthouse test report](/readmeImages/lighthouse_report_scaled.png)
+[Link to full image](/readmeImages/lighthouse_report.png)
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**: I followed majority of the design guidelines given by the [W3C Web Accessibility Initiative](https://www.w3.org/WAI/tips/developing/)
+    - Associate a label with every form control: Added a label for any input source, so that screen readers may access the text
+    - Include alternative text for images: Added alt text for each image, so that screen readers may access the text, and incase image is not loaded
+    - Identify page language and language changes: Added html lang tags in every page 
+    - Use mark-up to convey meaning and structure: Added most-suitable tag for each purpose
+    - Reflect the reading order in the code order: Added titles before adding image, otherwise the text is paired/grouped with the image
+    - Write code that adapts to the user’s technology: tailwind takes care of most of this, but I added content-filters to size elements correctly.
+    - Avoid CAPTCHA where possible: All CAPTCHA's avoided
+- **Design Achievement 2**: 
+    - I tried to use a consitent color pattern throughout the development, and designed my own custom logo using adobe.create. (5 points maybe?)
+    - Used fonts from google, namely: Share Tech Mono for index and Barlow for login page.
