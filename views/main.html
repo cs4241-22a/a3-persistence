@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 A3</title>
+    <meta charset="utf-8" />
+    <script src="../public/client.js"></script>
+    <link
+      href="//cdn.muicss.com/mui-latest/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+  </head>
+
+  <body style="margin: 20px">
+    
+    <h1>Grocery List</h1>
+    <p>Add a new item's details below.</p>
+
+    <form action="/add" method="POST" class="mui-form">
+      <div class="mui-textfield">
+        <label>Quantity</label>
+        <input type="text" name="quantity" value="1" class="mui-textfield mui-textfield--float-label" />
+      </div>
+      <div class="mui-textfield">
+        <label>Item name</label>
+        <input type="text" name="item_name" class="mui-textfield" />
+      </div>
+      <div class="mui-select">
+        <label>Priority</label>
+        <select name="priority">
+          <option>Need</option>
+          <option>Want</option>
+          <option>Maybe buy</option>
+        </select>
+      </div>
+      <div class="mui-row mui-col-md-4">
+        <input type="submit" value="Add item" class="mui-btn mui-btn--small mui-btn--primary" />
+      </div>
+    </form>
+
+    <table id="data_table" class="mui-table mui-table--bordered">
+      <tr>
+        <th>Quantity</th>
+        <th>Item</th>
+        <th>Priority</th>
+      </tr>
+    </table>
+  </body>
+</html>

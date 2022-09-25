@@ -114,3 +114,13 @@ add a little more detail about what it does.
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+
+Grocery List Maker
+=
+
+This app allows a user to login with an existing account to a grocery list. Items can be added, edited, and removed from the list. 
+I did a simple equality check of the username and password which corresponds to a test account made for this project. Other methods were difficult for me to complete.
+I used the MUI framework for styling because I have used MUI a little bit in the past and it sounded most familiar.
+
+Liliana Foucault
+http://a3-liliana-foucault.glitch.me
