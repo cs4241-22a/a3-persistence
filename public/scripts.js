@@ -8,14 +8,25 @@ let formB = document.getElementById("formButton");
 
 let duration = 10;
 let beginTime;
+let lastClickTime;
+let currentClickTime;
+let lastClickGap;
+let currentClickGap;
 var clickable = false;
 let score = 0;
+let similarClicks = 0;
+
 
 function beginGame() {
   begin.style.visibility = "hidden";
+  similarClicks = 0;
   score = 0;
   clickable = true;
   beginTime = new Date().getTime();
+  lastClickTime = beginTime;
+  currentClickTime = beginTime;
+  lastClickGap = 0;
+  currentClickGap = 0;
 
   let timerTracker = setInterval(function () {
     let count = (new Date().getTime() - beginTime) / 1000;
@@ -42,7 +53,13 @@ function resetGame() {
   setTimeout(function () {
     clickArea.style.backgroundColor = "hsl(171, 100%, 29%)";
     begin.style.visibility = "visible";
-    formB.style.visibility = "visible";
+    if (score < 145 && similarClicks/score < 0.86) {
+      formB.style.visibility = "visible";
+    } else {
+      formB.style.visibility = "hidden";
+      alert("No cheating! Using an auto clicker again will ban your GitHub account from participating!");
+      
+    }
     timer.textContent = duration.toFixed(3);
   }, 1000);
 }
@@ -55,5 +72,13 @@ clickArea.addEventListener("click", function (e) {
   if (clickable) {
     score++;
     result.textContent = score;
+    //ANTI AUTO-CLICKER \/
+    lastClickTime = currentClickTime;
+    currentClickTime = new Date().getTime();
+    lastClickGap = currentClickGap;
+    currentClickGap = currentClickTime - lastClickTime;
+    if (Math.abs(currentClickGap - lastClickGap) < 5) {
+      similarClicks++;
+    }
   }
 });

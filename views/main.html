@@ -90,17 +90,20 @@
               id="scoreList"
               class="table is-bordered is-striped is-narrow is-hoverable has-background-warning-light mb-1"
             >
-              <tr>
-                <th>Name</th>
-                <th>Clicks</th>
-                <th>Rating</th>
-                <th>Delete?</th>
-              </tr>
-              <tr>
-                <td>Name</td>
-                <td>-1</td>
-                <td>NA</td>
-              </tr>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Clicks</th>
+                  <th>Rating</th>
+                  <th>Delete?</th>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>-1</td>
+                  <td>NA</td>
+                  <td>NA</td>
+                </tr>
+              </thead>
             </table>
             <aside class="is-size-7">
               The average human clicks per second is around 4-7 CPS according to
@@ -171,7 +174,7 @@
     function updateTable() {
       let table = document.getElementById("scoreList");
       table.innerHTML =
-        "<tr><th>Name</th><th>Clicks</th><th>Rating</th><th>Delete?</th></tr>";
+        "<thead><tr><th>Name</th><th>Clicks</th><th>Rating</th><th>Delete?</th></tr></thead>";
       fetch("/getScores", {
         method: "GET",
       })
