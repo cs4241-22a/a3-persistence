@@ -15,17 +15,22 @@ h1, h2, h3 {
     font-weight: 100;
 }
 
-/*Body*/
+/*fit to screen*/
 html, body {
-    height: 100vh;
+    height: 100%;
     overflow: visible;
 }
 
-body {
-    margin: 0;
-    background-color: #ABCADE;
+#main-sections {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+/*Universal formatting*/
+* {
+    box-sizing: border-box;
 }
 
 /*Animate a fade-in entry for every site element*/
@@ -42,23 +47,6 @@ body {
         opacity: 1;
         transform: translateY(0pt);
     }
-}
-
-/*Section Styling*/
-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-section:nth-child(odd) {
-    background-color: #A0BED1;
-    padding: 20pt 0pt 20pt 0pt;
-}
-
-section:nth-child(even) {
-    background-color: #ABCADE;
-    padding: 20pt 0pt 20pt 0pt;
 }
 
 /*Organizational*/
@@ -82,58 +70,18 @@ section:nth-child(even) {
     justify-items: center;
 }
 
-hr {
-    margin: 40pt auto;
-}
-
-/*Message styles*/
-.message {
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 5px 0;
-    justify-content: space-between;
-}
-
-.message > p {
-    max-width: 70%;
-    word-wrap: break-word;
-}
-
-.delete-button {
-    border-radius: 50%;
-    border-color: transparent;
-    background-color: red;
-    margin-left: 20px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#messages-section {
-    overflow-y: scroll;
-    height: 65vh;
-}
-
-/*Form styles*/
-#input-section {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+/*Canvas*/
+#canvas-section {
     width: 100%;
-}
-
-#new-note-form > * {
-    margin: 0 5px;
-}
-
-#message-input {
     flex-grow: 1;
 }
 
-#submit {
-    width: auto;
-    padding: 2px 20px;
-    margin-left: 10%;
+#main-canvas {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+#canvas-container {
+    padding: 10px;
 }
