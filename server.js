@@ -215,6 +215,19 @@ async function getSurveyResult(id, credJSON) {
   return record;
 }
 
+async function deleteResult(id) {
+    const record = await dbClient
+      .connect()
+      .then(() => {
+        return dbClient
+          .db("survAye")
+          .collection("surveys")
+          .deleteOne({ name: "Perry", "userData.user": id });
+      })
+    console.log("\n\nDeleted Entry "+ record.acknowledged + "\t"+record.deletedCount);
+    return record;
+  }
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -402,3 +415,16 @@ app.post("/submitEdit", (req, res) => {
     });
   }
 });
+
+
+app.post("/deleteEntry", (req, res) => {
+    if (req.session.user === undefined) {
+      res.redirect("/");
+    } else {
+      req.on("data", (data) => {
+        data = JSON.parse(data);
+        submitUserData(data);
+        res.redirect("/accountPage");
+      });
+    }
+  });

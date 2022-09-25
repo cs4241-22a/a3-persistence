@@ -176,8 +176,8 @@
           <source src="perryPlatypusDoof.mp3" type="audio/mp3" />
         </audio>
 
-        <button id={{entry.userData.user}} onclick="submitEdit(this);">submit</button>
-        <button id="deleteEntry">delete</button>
+        <button name="edit" id={{entry.userData.user}} onclick="submitEdit(this);">submit</button>
+        <button id={{entry.userData.user}} onclick="deleteEntry(this);">delete</button>
       </form>
 
     </main>
@@ -194,6 +194,26 @@
           body = JSON.stringify(json1)
           console.log(body)
           fetch("/submitEdit", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            console.log(response)
+            if(response.redirected){
+                window.location = response.url
+            }
+          })
+        }
+
+        function deleteEntry(e){
+          console.log("delete")
+          const json1;
+          json1.name = "Perry"
+          json1.user = e.id;
+
+          body = JSON.stringify(json1)
+          console.log(body)
+          fetch("/deleteEntry", {
             method: "POST",
             body
           })
