@@ -389,7 +389,7 @@
 }
 
 .terminalize .j-c {
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .terminalize .j-l {
@@ -400,7 +400,7 @@
   justify-content: right;
 }
 
-.terminalize .j-c {
+.terminalize .j-s {
   justify-content: space-around;
 }
 
