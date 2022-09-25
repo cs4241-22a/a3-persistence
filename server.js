@@ -169,6 +169,7 @@ async function insertUser(userCreds) {
 }
 
 async function getSurveyResults(id) {
+  console.log(id)
   const record = await dbClient
     .connect()
     .then(() => {
