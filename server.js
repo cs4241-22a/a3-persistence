@@ -1,14 +1,11 @@
 const express = require( 'express' ),
     mongodb = require( 'mongodb' ),
-    cookie = require('cookie-session'),
     path = require('path'),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     GitHubStrategy = require('passport-github2').Strategy,
     favicon = require('serve-favicon'),
-    partials = require('express-partials'),
-    methodOverride = require('method-override'),
     app = express()
 require('dotenv').config()
 
@@ -38,6 +35,12 @@ app.use( (req,res,next) => {
     }
 })
 
+app.set('env', 'development')
+if (process.env.NODE_ENV === 'development') {
+    // only use in development
+    app.use(errorhandler())
+}
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use( express.static('public') )
 app.use( express.static('views'))
@@ -60,7 +63,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "http://204.48.19.41:3069/auth/github/callback"
+        callbackURL: "http://204.48.19.41/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
