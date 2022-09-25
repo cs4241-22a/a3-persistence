@@ -41,63 +41,49 @@ client.connect(function(err) {
 	//client.close();
 });
 
-
 app.post("/register", async (req, res) => {
 
 	try{
-		users.count({uname:req.body.uname }).then(r =>{
-			if(r > 0){
-				message = "Fail"
-				res.json(message);
+		users.count({username:req.body.username }).then(count =>{
+			if(count !== 0){
+				res.status(401).send("UNAUTHORIZED")
 			}
 			else{
 				bcrypt.hash(req.body.pass, 10, (err, hash) => {
-					console.log(hash);
-					users.insertOne({uname:req.body.uname, password: hash})
+					users.insertOne({username:req.body.username, pass: hash})
 				});
 				res.status(200).send("OK")
 			}
 		})
 	}
-	catch{
-		console.log("failed to register")
-		response.redirect('/register');
+	catch(e){
+		console.log("failed to register: " + e)
+		response.redirect('/register')
 	}
-});
+})
 
-//user login check with password hashing 
-app.post("/login", async(request,response) => {
+app.post("/login", async(request, res) => {
 	try{
-		let uin = request.body.uname;
-		let pin = request.body.password;
-		console.log(uin)
-		console.log(pin)
-		//check a user with that uname exist- username are unique 
-		users.count({uname: uin}).then(r => {
-			if(r > 0){
-				console.log(r)
-				users.find({uname: uin}).toArray().then(c =>{  
-					console.log(c[0].password)
-					bcrypt.compare(pin,c[0].password, function(err, res) {
-						if(res == true){
-							console.log("Autenticated")
-							response.json("succes")
-							name = uin;
-						}
-						else{
-							let m = "Wrong Password"
-							console.log(m)
-							response.json(m);
-						}
+		let name = request.body.username;
+		let pass = request.body.pass;
+		
+		users.count({username: name}).then(count => {
+			if(count === 0){
+				res.status(401).send("UNAUTHORIZED")
+			}
+			else
+			{
+				users.find({username: name}).toArray().then(arr => {  
+					bcrypt.compare(pass, arr[0].pass, function(err, valid) {
+						if(valid === true)
+							res.status(200).send("OK")
+						else
+							res.status(401).send("UNAUTHORIZED")
+						
 			   
-					});
+					})
 		   
 				})
-			}
-			else{
-				let m = "Wrong Username"
-				console.log(m)
-				response.json(m);
 			}
 		})
 	}

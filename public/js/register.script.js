@@ -1,17 +1,15 @@
 const submit = function(event){
-	event.preventDefault();
-	let newEntry = {
-		uname: document.getElementById('Uname').value,
-		pass: document.getElementById('Pass').value,
-	}
+	event.preventDefault()
+	let name = document.getElementById('name').value
+	let pass = document.getElementById('pass').value
 
-	if(!newEntry.uname || !newEntry.pass){
+	let body = JSON.stringify({username: name, pass: pass})
+
+	if(!name || !pass){
 		window.alert('Please enter in a Username and Password')
 		return -1;
 	}
 	
-	let l = document.getElementById('reg_status')
-	let body = JSON.stringify(newEntry);
 	fetch('/register',{
 		method: 'POST',
 		body,
@@ -29,6 +27,6 @@ const submit = function(event){
 }
 
 window.onload = function() {
-    const button = document.getElementById('reg_button')
+    const button = document.getElementById('register')
     button.onclick = submit
 }
