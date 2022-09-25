@@ -1,10 +1,10 @@
 require("dotenv").config();
 const crypto = require("crypto");
 const { randomBytes } = require("crypto");
-//const { dirname } = require("path");
 const { MongoClient } = require("mongodb");
 const { request } = require("http");
-//const { nextTick } = require("process");
+
+
 //GitHub OAuth
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2");
@@ -71,21 +71,16 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  if (
-    req.session.user === undefined &&
-    req.session.passport === undefined
-  ) {
+  if (req.session.user === undefined) {
     res.render("login", { msg: "", layout: false });
   } else {
+    if (req.session) console.log("logIn: " + JSON.stringify(req.session.user));
     res.redirect("/accountPage");
   }
 });
 
 app.post("/login", (req, res) => {
-  if (
-    req.session.user === undefined &&
-    req.session.passport === undefined
-  ) {
+  if (req.session.user === undefined) {
     req.on("data", (data) => {
       console.log("DATA: " + data);
       const userData = JSON.parse(data);
@@ -98,12 +93,14 @@ app.post("/login", (req, res) => {
         console.log("\n\n" + record + "\t" + record.length);
         if (record.length > 0) {
           console.log("rendering");
-          req.session.user = { id: record._id, fName: record[0].fName, lName: record[0].lName };
-          console.log(req.session.user);
+          console.log(record[0]._id);
+          req.session.user = {
+            id: record[0]._id,
+            name: record[0].fName + " " + record[0].lName,
+          };
+          console.log(JSON.stringify(req.session.user));
           res.redirect("/accountPage");
-        }
-        else{
-
+        } else {
         }
       });
     });
@@ -115,14 +112,20 @@ app.post("/login", (req, res) => {
 app.get("/accountPage", (req, res) => {
   if (req.session.user !== undefined)
     res.render("accountPage", {
-      userName: req.session.user.fName,
+      userName: req.session.user.name,
       layout: false,
     });
   else {
-    res.render("accountPage", {
-      userName: req.session.passport.user.displayName,
-      layout: false,
-    });
+    console.log("USER NOT DEFINED");
+    res.redirect("/login");
+  }
+});
+
+app.get("/submitResponse", (req, res) => {
+  if (req.session.user !== undefined || req.session.passport !== undefined) {
+    res.render("perrySurvey", { layout: false });
+  } else {
+    res.redirect("/login");
   }
 });
 
@@ -133,6 +136,10 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(port, () => {
   console.log("start up");
 });
+
+
+
+
 
 //Database Code
 async function checkUser(credJSON) {
@@ -163,6 +170,9 @@ async function insertUser(userCreds) {
   }
 }
 
+
+
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -181,8 +191,8 @@ passport.deserializeUser(function (obj, done) {
 passport.use(
   new GitHubStrategy(
     {
-      clientID: "73d93ea80973ea5b6bce",
-      clientSecret: "13ae4a573c8e6f06afeccdedb888e744c7236184",
+      clientID: process.env.GITHUBCLIENTID,
+      clientSecret: process.env.GITHUBSECRET,
       callbackURL: "/auth/GitHub/return",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -196,6 +206,23 @@ app.get(
   "/auth/GitHub",
   passport.authenticate("github", { scope: ["user:email"] })
 );
+
+app.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        console.log("unsuccessful log out");
+        res.send(400, "Log Out Failed");
+      }
+    });
+    res.redirect("/");
+  } else {
+    console.log("no session");
+    res.status(401);
+    res.send("Not signed in");
+  }
+});
 
 app.get(
   "/auth/GitHub/return",
@@ -215,6 +242,11 @@ app.get(
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
     }
+    console.log(userExists[0]._id);
+    req.session.user = {
+      id: userExists[0]._id,
+      name: req.session.passport.user.displayName,
+    };
 
     res.render("accountPage", {
       userName: req.session.passport.user.displayName,
@@ -222,3 +254,73 @@ app.get(
     });
   }
 );
+
+//Survey
+app.use(express.json());
+app.post("/submitSurvey", (req, res) => {
+  req.on("data", (data) => {
+    data = JSON.parse(data);
+    console.log("DATA: " + JSON.stringify(data));
+    data = handleMajors(data);
+
+    if (req.session.user !== undefined) {
+      data.user = req.session.user.id;
+      console.log(data);
+      submitUserData(data).then(res.send(req.body));
+    } else {
+      console.log("user not found");
+      res.status(401).redirect("/login");
+    }
+  });
+});
+
+function handleMajors(userData) {
+  let Majors = [];
+  if (userData.hasOwnProperty("majorCS")) {
+    Majors.push("majorCS");
+    delete userData.majorCS;
+  }
+  if (userData.hasOwnProperty("majorRBE")) {
+    Majors.push("majorRBE");
+    delete userData.majorRBE;
+  }
+  if (userData.hasOwnProperty("majorID")) {
+    Majors.push("majorID");
+    delete userData.majorID;
+  }
+  if (userData.hasOwnProperty("majorME")) {
+    Majors.push("majorME");
+    delete userData.majorME;
+  }
+  if (userData.hasOwnProperty("majorECE")) {
+    Majors.push("majorECE");
+    delete userData.majorECE;
+  }
+  if (userData.hasOwnProperty("majorOther")) {
+    Majors.push("majorOther");
+    delete userData.majorOther;
+  }
+  userData = { ...userData, Majors };
+  return userData;
+}
+
+async function submitUserData(userData) {
+  try {
+    const database = dbClient.db("survAye");
+    const userCredsColl = database.collection("surveys");
+    // create a document to insert
+    console.log("querying");
+    const result = await userCredsColl.updateOne(
+      { name: "Perry", "userData.user": userData.user },
+      {
+        $set: { userData },
+      },
+      {
+        upsert: true,
+      }
+    );
+    console.log("A document was inserted with the " + result);
+  } finally {
+    await dbClient.close();
+  }
+}
