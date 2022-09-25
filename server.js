@@ -106,26 +106,26 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
 }
 
-app.post('/addClimb', (req, res) => {
-    collection
-        .find({username: req.session.user })
-        .toArray()
-        .then(result => {
-            const climbs = result[0].climbs;
-            console.log(climbs)
-            climbs.push({
-                climbName: req.body.climbName,
-                grade: req.body.grade,
-                height: req.body.height
-            });
-
-            //From given update to update the array of climbs
-            collection.updateOne(
-                {_id:mondgodb.ObjectId(result[0]._id)},
-                { $set:{ climbs: climbs } }
-            )
-            res.json(climbs)
-        })
-})
+// app.post('/addClimb', (req, res) => {
+//     collection
+//         .find({username: req.session.user })
+//         .toArray()
+//         .then(result => {
+//             const climbs = result[0].climbs;
+//             console.log(climbs)
+//             climbs.push({
+//                 climbName: req.body.climbName,
+//                 grade: req.body.grade,
+//                 height: req.body.height
+//             });
+//
+//             //From given update to update the array of climbs
+//             collection.updateOne(
+//                 {_id:mondgodb.ObjectId(result[0]._id)},
+//                 { $set:{ climbs: climbs } }
+//             )
+//             res.json(climbs)
+//         })
+// })
 
 app.listen( 3069 )
