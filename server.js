@@ -133,7 +133,7 @@ app.get("/submitResponse", (req, res) => {
 // or GET requests
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log("start up");
 });
 
