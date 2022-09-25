@@ -1,1 +1,39 @@
 
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Counter: a simple counting website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Website for counting numbers">
+    <style>input { display:block }</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css"/>
+    <link id = "favicon" rel = "icon" href = "https://cdn.glitch.global/83489849-58b1-4b05-85b6-67c1babeb4c1/favicon.ico?v=1664134124646">
+  </head>
+  <body>
+    <h1>
+      Login
+    </h1>
+    <form action="/login" method="POST">
+      <label>username:<input type="text" name="username" /></label>
+      <br>
+      <label>password:<input type="password" name="password" value="password" /></label>
+      <br>
+      <input type="submit" value="Login" />
+    </form>
+    <h2>
+      Create an Account
+    </h2>
+    <form action="/createAccount" method="POST">
+      <label>username:<input type="text" name="username" /></label>
+      <br>
+      <label>password:<input type="password" name="password" /></label>
+      <br>
+      <label>
+        <input type="checkbox" name="terms" id="terms" value="test"> I agree with the terms and conditions relating with creating a new account
+      </label>
+      <br>
+      <input type="submit" value="Create Account" />
+    </form>
+    {{{msg}}}
+  </body>
+</html>
