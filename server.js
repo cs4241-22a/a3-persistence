@@ -303,20 +303,24 @@ app.get(
     let userExists = await checkUser(userCreds);
     if (userExists.length > 0) {
       console.log("USER DOES EXIST");
+      req.session.user = {
+        id: record[0]._id,
+        name: record[0].GitHubDisplayName,
+        admin: record[0].admin,
+      };
     } else {
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
-      userExists = await checkUser(userCreds);
+      checkUser(userCreds).then((record) => {
+          req.session.user = {
+            id: record[0]._id,
+            name: record[0].GitHubDisplayName,
+            admin: record[0].admin,
+          };
+      });
+
     }
-    checkUser(userData).then((record) => {
-      if (record.length > 0) {
-        req.session.user = {
-          id: record[0]._id,
-          name: record[0].GitHubDisplayName,
-          admin: record[0].admin,
-        };
-      }
-    });
+    
 
     if (req.session.user !== undefined) {
       if (req.session.user.admin) {
