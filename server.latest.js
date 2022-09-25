@@ -39,7 +39,7 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/github/callback"
+  callbackURL: "https://a3-siddhartha-pradhan.glitch.me/auth/github"
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
