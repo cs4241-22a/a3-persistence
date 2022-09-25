@@ -326,6 +326,7 @@ app.get(
           });
         } else {
             console.log("ADMIN "+ req.session.user.admin)
+            console.log("GITHUB ID:" + req.session.user.id)
             results = await getSurveyResults(req.session.user.id).then((results)=>{
               console.log(results);
               res.render("accountPage", {
