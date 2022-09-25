@@ -2,35 +2,41 @@
 <html lang='en'>
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src= "/client.js"> </script> -->
+   
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> -->
   </head>
   <body>
-    <form id = 'login' action='/login' method='POST'>
-      <input id = 'username' type='text' name='username' placeholder='username'>
-      <input  type='password' name='password' placeholder='password'>
-       <input type='submit'> <!-- submits the request? -->
-    </form>
+    
 
-    <script> //fix this to fix the login screeen
-        const form = document.querySelector('#login')
-        const userName = document.querySelector('#username')
-        
-        form.addEventListener('submit', function(e){
-          e.preventDefault()
-          
+    <div class="content unauthorized">
+      <div class="top">
+        <img class="img-github" src="github.png" />
+        <h1>Hello new User<br />👋</h1>
+      </div>
+      <div class="content-bottom">
+        <a class="btn" href="/auth">SIGN IN WITH GITHUB</a>
+        <p class="sign-in-text">in order to get started</p>
+      </div>
+    </div>
 
-            const usernameVal =  userName.value
+    
+    <!-- <div class="content authorized"> -->
+    <div class="content authorized" style="display: none">
+      <div class="top">
+        <img class="img-github" src="github.png" />
+        <h1><span class="party-popper">🎉</span><br />Awesome!<br />You're authorized 🔒</h1>
+      </div>
+    </div>
 
-            // this will be put in the local storage for your browser
-            sessionStorage.setItem('usernameKey', usernameVal)
+    <div id = 'basic login'>
+      <form id = 'login' action='/login' method='POST'>
+        <input id = 'username' type='text' name='username' placeholder='username'>
+        <input  type='password' name='password' placeholder='password'>
+         <input type='submit'> <!-- submits the request? -->
+      </form>
+    </div>
 
-            // sessionStorage.clear
-            // sessionStorage.remove('usernameKey')
-
-            window.location.href = "main.html";
-        })
-    </script>
+    <script src= "/login.js"> </script>
   </body>
 </html>

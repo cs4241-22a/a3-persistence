@@ -3,7 +3,8 @@
 const express = require( 'express' ),
       mongodb = require('mongodb'),
       responseTime = require('response-time'),
-      bodyParser = require('body-parser') // parses incoming request bodies in a middleware before handlers
+      bodyParser = require('body-parser'), // parses incoming request bodies in a middleware before handlers
+      axios = require('axios')
       app = express()
 const { MongoClient, ServerApiVersion } = require('mongodb'); 
 require("dotenv").config();
@@ -11,6 +12,7 @@ require("dotenv").config();
 console.log(process.env.HOST);
 app.use( express.static( 'public' ) )
 app.use( express.static( 'views'  ) )
+app.use(express.static('images'))
 app.use( express.json())
 app.use(responseTime())
 
@@ -30,6 +32,7 @@ app.use(bodyParser.json())
 
   // app.get( '/', ( req, res ) => res.send( 'Hello World!' ) )
 
+////////////////////////////// Mongo DB stuff
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -60,6 +63,8 @@ app.get( '/', (req,res) => {
   }
 })
 
+
+///////////// methods for sending and receiving MongoDB data
 app.post('/results', (req,res)=>{
     let usernameVal = req.body.User
     console.log(usernameVal)
@@ -95,7 +100,7 @@ app.post( '/update', (req,res) => {
     .then( result => res.json( result ) )
 })
 
-
+///////////////////// methods for basic cookies and login data
 const cookie  = require( 'cookie-session' );
 const { response } = require('express');
 // use express.urlencoded to get data sent by defaut form actions
@@ -148,5 +153,41 @@ app.use( function( req,res,next) {
     res.sendFile( __dirname + '/views/index.html' )
 })
 
+///////////////////// Github Authentication
+
+app.get('/auth', (req,res) => {
+  res.redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`,
+    );
+  })
+
+app.get('/oauth-callback', ({query:{code}}, res) =>{
+  const body ={
+    client_id: process.env.GITHUB_CLIENT_ID,
+    client_secret: process.env.GITHUB_SECRET,
+    code,
+  };
+  // opts is used for the Accept header
+  const opts = {headers: {accept: 'application/json'}};
+
+  // axios is a promise based HTTP client ( similar to fetch)
+  axios
+    .post('https://github.com/login/oauth/access_token', body, opts)
+    .then((_res) => _res.data.access_token)
+    .then((token)=> {
+
+      console.log('My token:', token)
+
+      res.redirect(`/?token = ${token}`);
+      
+    })
+    .catch((err)=> res.status(500).json({err: err.message}));
+})
+
+
+
 
 app.listen( process.env.PORT || 3000 )
+console.log("listening to port 3000")
+
+
