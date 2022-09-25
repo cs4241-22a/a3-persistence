@@ -304,9 +304,9 @@ app.get(
     if (userExists.length > 0) {
       console.log("USER DOES EXIST");
       req.session.user = {
-        id: record[0]._id,
-        name: record[0].GitHubDisplayName,
-        admin: record[0].admin,
+        id: userExists[0]._id,
+        name: userExists[0].GitHubDisplayName,
+        admin: userExists[0].admin,
       };
     } else {
       console.log("USER DOES NOT EXIST");
