@@ -10,11 +10,11 @@ function makeTable(json) {
         <th>Due</th>
         <th>Priority</th>
         <th>Tag</th>
+        <th>Edit</th>
       </tr>`;
 
   json.forEach((item) => {
     ids.push(item._id);
-    console.log(ids);
     let newTodo = table.insertRow(-1);
 
     let deleteCell = newTodo.insertCell(0);
@@ -97,7 +97,15 @@ const getTable = function () {
     method: "GET",
   }).then(async (response) => {
     console.log(response)
-    makeTable(await response.json());
+    if (response.redirected == true) {
+      window.location.href = response.url
+    }
+    else{
+      makeTable(await response.json());
+    }
+    // let obj = await response.json()
+    // console.log(obj.redirected)
+    // makeTable(await response.json());
   })
 };
 
@@ -129,7 +137,8 @@ const createTodo = function (e) {
           let obj = await response.json();
           // obj.push(newTask)
           makeTable(obj);
-        });
+          location.reload()
+        })
       });
     }
   });
@@ -160,6 +169,8 @@ const editTodo = function (e) {
   let idx = e.target.parentNode.parentNode.rowIndex - 1; 
   let table = document.getElementById('todo-table')
   const row = table.rows.item(idx + 1)
+  console.log('row')
+  console.log(row)
   
   let todo = row.cells.item(1).innerHTML
   console.log(todo)

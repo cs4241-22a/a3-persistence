@@ -65,7 +65,6 @@ app.post('/logout', (req, res, next) => {
 app.get('/table', ensureAuthenticated, (req, res) => {
   collection.find({github_id: req.user.id}).toArray().then( result => res.json( result ) )
      // res.sendFile("/public/index.html", { root: __dirname });
-
 })
 
 app.get('/table/:id', ensureAuthenticated,(req, res) => {
@@ -133,7 +132,7 @@ function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
-  console.log('redirect')
+    console.log('redirect')
 
     res.redirect('/login')
   
