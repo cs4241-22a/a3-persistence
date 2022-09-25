@@ -180,7 +180,6 @@ app.post( '/login', bodyParser.json(), (req,res)=> {
       {
         req.session.usr = req.body.usr
         req.session.login = true
-        //req.login = true
         res.json({login: true})
       }
       else{
@@ -320,14 +319,30 @@ app.post( '/submit', bodyparser.json(), function( req, res )  {
       )
       res.json(entries)
     })
-  
-  
 
   // collection.insertOne(req.body).then(dbresponse => {
   //   console.log(dbresponse);
   //   res.json(dbresponse);
   // });
 })
+
+
+app.get( '/data', function( req, res )  {
+
+  console.log("getting data...")
+
+collection.find({usr: req.session.usr}).toArray()
+  .then(result => {
+    let entries = result[0].entries
+    res.json(entries)
+    console.log("just jsoned entries:")
+    console.log(entries)
+  })
+  console.log("ending data getter")
+})
+
+
+
 
 //app.listen(3000)
 const listener = app.listen( process.env.PORT, function() {

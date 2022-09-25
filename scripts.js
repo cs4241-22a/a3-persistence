@@ -1,3 +1,5 @@
+// const { response } = require("express")
+
 console.log('in scripts')
 const songs = []
 const songList = document.getElementById('results').getElementsByTagName('tbody')[0]
@@ -8,8 +10,11 @@ const durationInput = songForm.elements['songduration']
 const albumInput = songForm.elements['album']
 
 
-const addToPlaylist = function(songData) 
+function addToPlaylist(songData)
 {  
+    console.log("adding song to playlist")
+    console.log(songData)
+
     const newRow = songList.insertRow()
     const newCell = newRow.insertCell()
     const artistCell = newRow.insertCell()
@@ -28,7 +33,19 @@ const addToPlaylist = function(songData)
     durationCell.appendChild(newDuration)
     albumCell.appendChild(newAlbum)
     playlistDurationCell.appendChild(newPlaylistDuration)
+
+
+    // Add specific update and remove buttons
+    const updateCell = newRow.insertCell()
+    const removeCell = newRow.insertCell()
+    const newUpdate = document.createElement("button")
+    const newRemove = document.createElement("button")
+    updateCell.appendChild(newUpdate)
+    removeCell.appendChild(newRemove)
   
+
+    console.log("just added a song to the playlist")
+
    // const table = document.getElementById("results")
    // table.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
 
@@ -52,9 +69,6 @@ const addToPlaylist = function(songData)
   }
 
 
-songs.forEach( function(song) {
-  addToPlaylist(song)
-})
 
 songForm.onsubmit = function(e)
 {
@@ -111,6 +125,51 @@ songForm.onsubmit = function(e)
     .then( res => res.json() )
     .then( json => console.log( json ) )
     // return false
+}
+
+
+
+
+
+let fillSongs = function(entries) {
+  console.log("in fillSongs:")
+  console.log(entries)
+
+  entries.forEach(function(entry) {
+    songs.push(entry.newsong)
+  }) 
+  console.log("songs:")
+  console.log(songs)
+}
+
+
+let addAllSongs = async() =>
+{
+  console.log(songs)
+
+  for(let i=0; i<songs.length; i++)
+  {
+    await console.log("in song loop")
+    await addToPlaylist(songs[i])
+  }
+}
+
+
+window.onload = function()
+{
+  console.log("on page load")
+
+  fetch("/data", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(entries => {
+      fillSongs(entries)
+      addAllSongs()
+    })
 }
 
 
