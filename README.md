@@ -1,15 +1,16 @@
 ## Do It!
 ![Do it Logo](/readmeImages/doitmain_resized.png)
 
-Website link: http://a3-charlie-roberts.glitch.me
+Website link: https://a3-siddhartha-pradhan.glitch.me/
 
 
 - Do It! is a simple ToDo application.
 - Adding a task is simple, add a non-empty task name, select a deadline (optional) and select a category.
 - To Edit press the edit button in the task list, the tasks details are automatically copied to the top
 - To Delete press the delete botton in the task list
-- Credentials for normal user login: TODO
-  I did not make a method for creating new users through the website, as I felt it was redundent and could be done easily.
+- Log in: There are 2 ways to login, either by creating an account in /register and then loging-in, or by using github oauth.
+  - If you want to use existing accounts: usernames available:'user1','user2','user3','user4','user5'; password: 'test123' for all
+
 
 - I utilized github Authentication using passport, as well as a custom authentication that uses [salt and hash](https://www.pingidentity.com/en/resources/blog/post/encryption-vs-hashing-vs-salting.html#:~:text=Hashing%20is%20a%20one%2Dway%20process%20that%20converts%20a%20password,to%20obfuscate%20the%20actual%20password.). I really wanted to
 learn how developers implement Oauth2 and decided it was a challege I would face sooner or later, so I decided why not. It was difficult to get it working, specially because I was
