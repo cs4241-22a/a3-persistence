@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="WPI Food Rating Website, a place to rank your favorite place to eat on campus.">
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+      integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ"
+      crossorigin="anonymous"
+    />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>WPI Food Rating</h1>
+
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <form action="">
+            <input
+              type="num"
+              id="yourgradyear"
+              placeholder="your graduation year here"
+            />
+            <select name="foodoptions" id="food">
+              <option value="DAKA">DAKA</option>
+              <option value="CC">CC</option>
+              <option value="Joy Empanadas">Joy Empanadas</option>
+              <option value="Goat's Head">Goat's Head</option>
+              <option value="Dunks">Dunkin Donuts</option>
+              <option value="Starbucks">Starbucks</option>
+              <option value="South Village">South Village</option>
+            </select>
+
+            <button class="btn btn-default" id="submit">Submit</button>
+            <a class="btn btn-default" href="/logout">Logout</a>
+            <button class="btn btn-default" id="delete">Remove Choices</button>
+            <!--<button>Delete</button> -->
+          </form>
+        </div>
+      </div>
+
+      <table class="table" id="resulttable">
+        <tr>
+          <th>Name</th>
+          <th>Graduation Year</th>
+          <th>Food Choice</th>
+        </tr>
+      </table>
+      <table class="table" id="actualResultTable"></table>
+    </div>
+  </body>
+
+  <script>
+    const submit = function (e) {
+      // prevent default form action from being carried out
+      e.preventDefault();
+
+      let yourgradyear = document.querySelector("#yourgradyear");
+      let food = document.querySelector("#food");
+
+      if ((yourgradyear.value >= 2023) & (yourgradyear.value <= 2026)) {
+      } else {
+        alert("Not a valid graduation year!");
+        return;
+      }
+
+      let json = {
+        yourgradyear: yourgradyear.value,
+        food: food.value,
+      };
+
+      let body = JSON.stringify(json);
+
+      fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+      }).then(function (response) {
+        // do something with the reponse
+        updateTable();
+      });
+
+      return false;
+    };
+
+    function updateTable(response) {
+      const table = document.getElementById("actualResultTable");
+      table.innerHTML = "";
+
+      fetch("/data", {
+        method: "GET",
+      }).then(async (response) => {
+        const data = await response.json();
+        data.forEach((element, index) => {
+          table.innerHTML +=
+            "<tr><td>" +
+            element.username +
+            "</td><td>" +
+            element.gradYear +
+            "</td><td>" +
+            element.foodChoice +
+            "</td></tr>";
+        });
+      });
+
+      /*
+         newTableInfo.forEach((element, index) => {
+           table.innerHTML +=
+             "<tr><td>" +
+             element.name +
+             "</td><td>" +
+             element.yourgradyear +
+             "</td><td>" +
+             element.food +
+             "</td><td>" +
+             element.class +
+             "</td></tr>";
+         });*/
+    }
+
+    function removeChoices() {
+      fetch("/delete", {
+        method: "POST",
+      }).then((response) => {
+        updateTable();
+      });
+    }
+
+    window.onload = function () {
+      const button = document.querySelector("#submit");
+      button.onclick = submit;
+      updateTable();
+      const remove = document.querySelector("#delete");
+      remove.onclick = removeChoices;
+    };
+  </script>
+</html>
