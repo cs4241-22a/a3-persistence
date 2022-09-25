@@ -1,6 +1,6 @@
 const path = require('path')
 const mongodb = require('mongodb')
-require('dotenv').config()
+//require('dotenv').config()
 const passport = require('passport')
 const GitHubStrategy = require('passport-github2')
 const session = require('express-session');
@@ -39,7 +39,7 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.use(new GitHubStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "https://a3-siddhartha-pradhan.glitch.me/auth/github"
+  callbackURL: "https://a3-siddhartha-pradhan.glitch.me/auth/github/callback"
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -65,17 +65,21 @@ passport.use(new GitHubStrategy({
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login', failureMessage:true }),
+  function (req, res) {
+    console.log("AUTHENTICATION: Github account")
+    res.redirect('/index');
+  });
+
 // Github authentication
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),
   function (req, res) { });
 
-app.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  function (req, res) {
-    console.log("AUTHENTICATION: Github account")
-    res.redirect('/index');
-  });
+
+
+
 
 
 // handle login attempt
