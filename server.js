@@ -235,7 +235,7 @@ passport.use(
     {
       clientID: process.env.GITHUBCLIENTID,
       clientSecret: process.env.GITHUBSECRET,
-      callbackURL: "https://survaye.herokuapp.com/auth/GitHub/return",
+      callbackURL: "http://survaye.herokuapp.com/auth/GitHub/return",
     },
     function (accessToken, refreshToken, profile, cb) {
       cb(null, profile);
