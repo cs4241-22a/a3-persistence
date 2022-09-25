@@ -1,5 +1,26 @@
 const form = document.getElementById('form')
 form.addEventListener("submit", submit)
+form.onload = onPageLoad()
+
+async function onPageLoad() {
+
+    try {
+    const response = await fetch( '/data', {
+        method:'GET',
+      })
+
+    if (!response.ok) {
+        const errorMessage = await response.text()
+        throw new Error(errorMessage)
+    }
+    const responseData = response.json()
+    console.log(responseData)
+    await updateTable(responseData)
+
+    } catch(error) {
+        console.error(error)
+    }
+}
 
 async function submit( e ) {
     e.preventDefault()
@@ -10,7 +31,7 @@ async function submit( e ) {
         const formData = new FormData(formElement)
 
         const responseData = await postFormDataAsJSON(formData)
-
+        console.log(responseData)
         await updateTable(responseData)
 
     } catch(error) {

@@ -10,7 +10,7 @@ app.use(express.json())
 
 app.use( cookie({
     name: 'session',
-    keys: ['key1', 'key2']
+    keys: ['key1', 'key2'],
   }))
 
 app.use( (req,res,next) => {
@@ -27,11 +27,13 @@ let collection_pokemon = client.db('Pokemon').collection('pokemon')
 let collection_login = client.db('Pokemon').collection('login')
 
 app.get('/', (req, res) => {
-    /*if( collection !== null ) {
-        // get array and pass to res.json
-        collection.find({ }).toArray().then( result => res.json( result ) )
-      }*/
     res.send('/index.html')
+})
+
+app.get('/data', (req, res) => {
+    collection_pokemon.find( { user: req.session.user } ).toArray().then(result => {
+        res.send(result)
+    })
 })
 
 app.post( '/login', (req,res)=> { 
@@ -40,6 +42,7 @@ app.post( '/login', (req,res)=> {
         if (result !== null) {
             if (result.password === req.body.password) {
                 req.session.login = true
+                req.session.user = req.body.username
                 res.redirect('main.html')
             }
             else {
@@ -49,6 +52,7 @@ app.post( '/login', (req,res)=> {
         else{
             collection_login.insertOne(req.body).then(result => {
                 req.session.login = true
+                req.session.user = req.body.username
                 res.redirect( 'main.html' )
             })
         }
@@ -64,8 +68,11 @@ app.use( function( req,res,next) {
 
 app.post( '/submit', (req, res) => {
     const pokemon = addTypeChart(req.body)
+    pokemon.user = req.session.user
     collection_pokemon.insertOne(pokemon)
-    res.send(collection_pokemon)
+    collection_pokemon.find( { user: req.session.user } ).toArray().then(result => {
+        res.send(result)
+    })
 })
 
 app.listen( process.env.PORT || 3000 )
