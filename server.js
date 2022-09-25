@@ -4,7 +4,6 @@ const { randomBytes } = require("crypto");
 const { MongoClient } = require("mongodb");
 const { request } = require("http");
 
-
 //GitHub OAuth
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2");
@@ -25,7 +24,6 @@ const monogOptions = {
   keepAlive: true,
   keepAliveInitialDelay: 6000,
 };
-console.log(mongoURI);
 const dbClient = new MongoClient(mongoURI, monogOptions);
 
 const app = express();
@@ -74,7 +72,6 @@ app.get("/login", (req, res) => {
   if (req.session.user === undefined) {
     res.render("login", { msg: "", layout: false });
   } else {
-    if (req.session) console.log("logIn: " + JSON.stringify(req.session.user));
     res.redirect("/accountPage");
   }
 });
@@ -82,23 +79,18 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   if (req.session.user === undefined) {
     req.on("data", (data) => {
-      console.log("DATA: " + data);
       const userData = JSON.parse(data);
       userData.password = crypto
         .createHash("sha256")
         .update(userData.password)
         .digest("hex");
-      //console.log(crypto.createHash('sha256').update(userData.password).digest('hex'))
       checkUser(userData, res).then((record) => {
-        console.log("\n\n" + record + "\t" + record.length);
         if (record.length > 0) {
-          console.log("rendering");
-          console.log(record[0]._id);
           req.session.user = {
             id: record[0]._id,
             name: record[0].fName + " " + record[0].lName,
+            admin: record[0].admin
           };
-          console.log(JSON.stringify(req.session.user));
           res.redirect("/accountPage");
         } else {
         }
@@ -109,14 +101,22 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("/accountPage", (req, res) => {
-  if (req.session.user !== undefined)
+app.get("/accountPage", async (req, res) => {
+  if (req.session.user !== undefined) {
+    if (req.session.user.admin) {
+      results = await getAllSurveyResults();
+    } else {
+        console.log("ADMIN "+ req.session.user.admin)
+      results = await getSurveyResults(req.session.user.id);
+    }
+
+    console.log(results);
     res.render("accountPage", {
       userName: req.session.user.name,
+      array: results,
       layout: false,
     });
-  else {
-    console.log("USER NOT DEFINED");
+  } else {
     res.redirect("/login");
   }
 });
@@ -137,23 +137,17 @@ app.listen(port, () => {
   console.log("start up");
 });
 
-
-
-
-
 //Database Code
 async function checkUser(credJSON) {
   const record = await dbClient
     .connect()
     .then(() => {
-      console.log("request data");
       return dbClient.db("UserCreds").collection("usercreds");
     })
     .then((__collection) => {
       return (userRec = __collection.find(credJSON).toArray());
     })
     .then((userRec) => {
-      console.log(userRec);
       return userRec;
     });
   return record;
@@ -164,14 +158,62 @@ async function insertUser(userCreds) {
     const userCredsColl = database.collection("usercreds");
     // create a document to insert
     const result = await userCredsColl.insertOne(userCreds);
-    console.log("A document was inserted with the _id: ${result.insertedId}");
   } finally {
     await dbClient.close();
   }
 }
 
-
-
+async function getSurveyResults(id) {
+  const record = await dbClient
+    .connect()
+    .then(() => {
+      return dbClient
+        .db("survAye")
+        .collection("surveys")
+        .find({ name: "Perry", "userData.user": id })
+        .project({ userData: 1 })
+        .toArray();
+    })
+    .then((userRec) => {
+      return userRec;
+    });
+  return record;
+}
+async function getAllSurveyResults() {
+  const record = await dbClient
+    .connect()
+    .then(() => {
+      return dbClient
+        .db("survAye")
+        .collection("surveys")
+        .find({ name: "Perry" })
+        .project({ userData: 1 })
+        .toArray();
+    })
+    .then((userRec) => {
+      return userRec;
+    });
+    console.log("ALL RECORDS "+record)
+  return record;
+}
+async function getSurveyResult(id, credJSON) {
+  const record = await dbClient
+    .connect()
+    .then(() => {
+      return dbClient
+        .db("survAye")
+        .collection("surveys")
+        .find({ name: "Perry", "userData.user": id })
+        .project({ userData: 1 })
+        .toArray();
+    })
+    .then((userRec) => {
+      if (userRec.length > 0) userRec = userRec[0];
+      return userRec;
+    });
+  console.log("\n\nGET SURVEY " + id + "\n" + record);
+  return record;
+}
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -196,7 +238,6 @@ passport.use(
       callbackURL: "/auth/GitHub/return",
     },
     function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
       cb(null, profile);
     }
   )
@@ -228,7 +269,6 @@ app.get(
   "/auth/GitHub/return",
   passport.authenticate("github", { failureRedirect: "/login" }),
   async (req, res) => {
-    console.log("Github login: " + req.session.passport.user._json.login);
     const userCreds = {
       type: "GitHub",
       login: req.session.passport.user._json.login,
@@ -242,7 +282,6 @@ app.get(
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
     }
-    console.log(userExists[0]._id);
     req.session.user = {
       id: userExists[0]._id,
       name: req.session.passport.user.displayName,
@@ -260,12 +299,10 @@ app.use(express.json());
 app.post("/submitSurvey", (req, res) => {
   req.on("data", (data) => {
     data = JSON.parse(data);
-    console.log("DATA: " + JSON.stringify(data));
     data = handleMajors(data);
 
     if (req.session.user !== undefined) {
       data.user = req.session.user.id;
-      console.log(data);
       submitUserData(data).then(res.send(req.body));
     } else {
       console.log("user not found");
@@ -305,12 +342,8 @@ function handleMajors(userData) {
 }
 
 async function submitUserData(userData) {
-  try {
-    const database = dbClient.db("survAye");
-    const userCredsColl = database.collection("surveys");
-    // create a document to insert
-    console.log("querying");
-    const result = await userCredsColl.updateOne(
+  await dbClient.connect().then(() => {
+    const database = dbClient.db("survAye").collection("surveys").updateOne(
       { name: "Perry", "userData.user": userData.user },
       {
         $set: { userData },
@@ -319,8 +352,40 @@ async function submitUserData(userData) {
         upsert: true,
       }
     );
-    console.log("A document was inserted with the " + result);
-  } finally {
-    await dbClient.close();
-  }
+  });
 }
+
+app.post("/editEntry", (req, res) => {
+  if (req.session.user === undefined) {
+    res.redirect("/");
+  } else {
+    req.on("data", (data) => {
+      req.session.edit = new TextDecoder("utf-8").decode(data);
+
+      res.redirect("/edit");
+    });
+  }
+});
+
+app.get("/edit", async (req, res) => {
+  getSurveyResult(req.session.edit).then((entry) => {
+    console.log("Entry:  " + entry);
+    res.render("edit", { entry: entry, layout: false });
+  });
+});
+
+app.post("/submitEdit", (req, res) => {
+  if (req.session.user === undefined) {
+    res.redirect("/");
+  } else {
+    req.on("data", (data) => {
+      data = JSON.parse(data);
+      data = handleMajors(data);
+      const reformat = data.user;
+      delete data.user;
+      data.user = reformat;
+      submitUserData(data);
+      res.redirect("/accountPage");
+    });
+  }
+});
