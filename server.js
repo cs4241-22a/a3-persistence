@@ -287,10 +287,23 @@ app.get(
       name: req.session.passport.user.displayName,
     };
 
-    res.render("accountPage", {
-      userName: req.session.passport.user.displayName,
-      layout: false,
-    });
+    if (req.session.user !== undefined) {
+        if (req.session.user.admin) {
+          results = await getAllSurveyResults();
+        } else {
+            console.log("ADMIN "+ req.session.user.admin)
+          results = await getSurveyResults(req.session.user.id);
+        }
+    
+        console.log(results);
+        res.render("accountPage", {
+          userName: req.session.user.name,
+          array: results,
+          layout: false,
+        });
+      } else {
+        res.redirect("/login");
+      }
   }
 );
 
