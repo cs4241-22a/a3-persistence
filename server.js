@@ -5,13 +5,38 @@ const express = require( 'express' ),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
+    GitHubStrategy = require('passport-github2').Strategy,
     favicon = require('serve-favicon'),
     partials = require('express-partials'),
     methodOverride = require('method-override'),
     app = express()
 require('dotenv').config()
 
-const GitHubStrategy = require('passport-github2').Strategy;
+const uri = 'mongodb+srv://'+process.env.USERNAME+':'+process.env.PASSWORD+'@'+process.env.HOST
+
+const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
+let collection = null
+
+client.connect()
+    .then( () => {
+        // will only create collection if it doesn't exist
+        return client.db( 'ClimbTracker' ).collection( 'users' )
+    })
+    .then( __collection => {
+        // store reference to collection
+        collection = __collection
+        // blank query returns all documents
+        return collection.find({ }).toArray()
+    })
+    .then( console.log )
+
+app.use( (req,res,next) => {
+    if( collection !== null ) {
+        next()
+    }else{
+        res.status( 503 ).send()
+    }
+})
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use( express.static('public') )
@@ -53,40 +78,6 @@ passport.use(new GitHubStrategy({
     }
 ));
 
-const uri = 'mongodb+srv://'+process.env.USERNAME+':'+process.env.PASSWORD+'@'+process.env.HOST
-
-const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
-let collection = null
-
-client.connect()
-    .then( () => {
-        // will only create collection if it doesn't exist
-        return client.db( 'ClimbTracker' ).collection( 'users' )
-    })
-    .then( __collection => {
-        // store reference to collection
-        collection = __collection
-        // blank query returns all documents
-        return collection.find({ }).toArray()
-    })
-    .then( console.log )
-
-// route to get all docs
-app.get( '/', (req,res) => {
-    if( collection !== null ) {
-        // get array and pass to res.json
-        collection.find({ }).toArray().then( result => res.json( result ) )
-    }
-})
-
-app.use( (req,res,next) => {
-    if( collection !== null ) {
-        next()
-    }else{
-        res.status( 503 ).send()
-    }
-})
-
 app.get('/account', ensureAuthenticated, function(req, res){
     res.render('account', { user: req.user });
 });
@@ -102,7 +93,7 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-        res.redirect('/');
+        res.redirect('/account.html');
     });
 
 app.get('/logout', function(req, res){
