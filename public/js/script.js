@@ -1,13 +1,10 @@
 // app data is {"task":"Task Name",   "dueDate": "When the task is due", "taskType":"Work or personal"}
 // self generated: {"taskID" : "Unique ID for a task", "taskCreationTime": "Based on when the request was made", "taskUrgency": "How urgent the Task is, based on (dueDate - taskCreationDate)"}
-
-
 var appdata = [];
 
 const submit = function(e) {
   // prevent default form action from being carried out
   e.preventDefault();
-  // TODO: validate input, especially the time (whether min is respected)
   const taskObj = document.querySelector('#task-input'),
     dateObj = document.querySelector('#date-input'),
     categoryPersonalObj = document.querySelector('#category-personal'),
@@ -21,7 +18,6 @@ const submit = function(e) {
   }
   
   if (!dateObj.checkValidity()){
-    // TODO: have a custom banner msg
     console.log("Entered Due Date is before today");
     dateObj.value = "";
     return true;
@@ -30,7 +26,10 @@ const submit = function(e) {
   body = JSON.stringify(json);
   // reset the inputs  
   taskObj.value = ""; dateObj.value = ""; categoryPersonalObj.checked = true; categoryWorkObj.checked = false;
-  fetch('/submit', {method: 'POST',body})
+  //            body: bodyVal.toString(),
+    //headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+
+  fetch('/tasks/add', {method: 'POST',body:body,headers:{'Content-Type': 'application/json'}})
     .then(function (response) {
       if (response.ok){
           updateTaskListDisplay();
@@ -57,35 +56,37 @@ const displayTaskList = function(tasksData){
   for (let aTask in tasksData){
     let taskJson = tasksData[aTask];
     let aTaskDiv = document.createElement("div");
-    aTaskDiv.id = "taskListItem-" + taskJson.taskID;
+    // aTaskDiv.id = "taskListItem-" + taskJson._id;
     aTaskDiv.className = "taskListItem";
     let catColorDiv = document.createElement("div");
     let tag = document.createElement("p");
-    tag.classList.toggle("task-title")
+    tag.classList.toggle("ml-2")
     let tag2 = document.createElement("p");
     tag2.classList.toggle("task-urgency")
     let taskChildNode = document.createTextNode(taskJson.task);
-    let taskDueDateChildNode = document.createTextNode(getDueDate(taskJson.dueDate,taskJson.taskCreationTime));
+    let taskDueDateChildNode = document.createTextNode(getDueDate(Number(taskJson.dueDate),Number(taskJson.taskCreationTime)));
     tag.appendChild(taskChildNode);
     catColorDiv.appendChild(tag)
     tag2.appendChild(taskDueDateChildNode);
     aTaskDiv.appendChild(catColorDiv);
     aTaskDiv.appendChild(tag2);
     aTaskDiv.classList.toggle(getClassFromUrgency(taskJson.taskUrgency))
-    catColorDiv.classList.toggle(getClassFromCategory(taskJson.taskType))
+    catColorDiv.classList.toggle("text-start")
+    aTaskDiv.classList.toggle(getClassFromCategory(taskJson.taskType))
+
     // add edit and delete buttons
     let editButton = document.createElement("button");
     editButton.classList.toggle("editButton");
 
     editButton.innerText = "Edit";
     editButton.addEventListener('click', function(){
-      sendEdit(taskJson.taskID);
+      sendEdit(taskJson._id);
   });
     let deleteButton = document.createElement("button");
     deleteButton.classList.toggle("deleteButton");
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener('click', function(){
-      sendDelete(taskJson.taskID);
+      sendDelete(taskJson._id);
   });
     var taskButtonDiv = document.createElement("div");
 
@@ -104,7 +105,6 @@ const displayTaskList = function(tasksData){
 // app data is {"task":"Task Name",   "dueDate": "When the task is due", "taskType":"Work or personal"}
 // self generated: {"taskID" : "Unique ID for a task", "taskCreationTime": "Based on when the request was made", "taskUrgency": "How urgent the Task is, based on (dueDate - taskCreationDate)"}
 
-
 const sendEdit = function(taskID){
   const taskObj = document.querySelector('#task-input'),
   dateObj = document.querySelector('#date-input'),
@@ -119,9 +119,9 @@ const sendEdit = function(taskID){
   };
   for (let aTask in appdata){
     let taskJson = appdata[aTask];
-    if (taskJson.taskID == taskID) {
+    if (taskJson._id == taskID) {
       taskObj.value = taskJson.task;
-      if (taskJson.dueDate != null) dateObj.value = (new Date(taskJson.dueDate)).toISOString().split('T')[0]
+      if (taskJson.dueDate != null) dateObj.value = (new Date(Number(taskJson.dueDate))).toISOString().split('T')[0]
       if (taskJson.taskType == "work"){
         categoryWorkObj.click()
       } else {
@@ -130,14 +130,13 @@ const sendEdit = function(taskID){
       break;
     }
   }
-  document.getElementById("particles-js").scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 const sendDelete = function(taskID){
   console.log("Trying to delete " + taskID)
   const json = {taskID: taskID},
     body = JSON.stringify(json);
-    fetch('/delete', {method: 'POST',body})
+    fetch('/tasks/delete', {method: 'POST',body:body,headers:{'Content-Type': 'application/json'}})
       .then(function (response) {
         if (response.ok){
             updateTaskListDisplay();
@@ -152,7 +151,6 @@ const confirmEdit = function(taskID){
     submitButton.innerText = "Add Task";
     // prevent default form action from being carried out
 
-    // TODO: validate input, especially the time (whether min is respected)
     const taskObj = document.querySelector('#task-input'),
       dateObj = document.querySelector('#date-input'),
       categoryPersonalObj = document.querySelector('#category-personal'),
@@ -166,17 +164,16 @@ const confirmEdit = function(taskID){
     }
     
     if (!dateObj.checkValidity()){
-      // TODO: have a custom banner msg
       console.log("Entered Due Date is before today");
       dateObj.value = "";
       return true;
     }
       
-    const json = { task: taskObj.value, dueDate: new Date(dateObj.value).getTime(), taskType: category, taskID: taskID},
+    const json = { task: taskObj.value, dueDate: new Date(dateObj.value).getTime(), taskType: category, _id: taskID},
     body = JSON.stringify(json);
     // reset the inputs  
     taskObj.value = ""; dateObj.value = ""; categoryPersonalObj.checked = true; categoryWorkObj.checked = false;
-    fetch('/edit', {method: 'POST',body})
+    fetch('/tasks/edit', {method: 'POST',body:body,headers:{'Content-Type': 'application/json'}})
       .then(function (response) {
         if (response.ok){
             updateTaskListDisplay();
@@ -190,7 +187,7 @@ const getClassFromUrgency = function(urgency){
 }
 
 const getClassFromCategory = function(type){
-  console.log(type)
+  //console.log(type)
   if (type == "work") {
     return "workTaskItem"
   } else {
@@ -199,13 +196,25 @@ const getClassFromCategory = function(type){
 }
 
 const getDueDate = function(dueDate,taskCreationDate){
-  if (dueDate == null) return "Undated"
+  if (dueDate == 0) return "Undated"
   if ((dueDate-taskCreationDate)/86400000 < 1) return "Today"
   return (new Date(dueDate)).toDateString();  
 }
 
 const fixSingleDigitString = function(digit){
   return digit < 10? "0"+digit : digit.toString();
+}
+
+const addWelcomeMessage = function(){
+  const welcomeHeading = document.getElementById('usernameHeading');
+  fetch("/username", { method: 'GET'})
+  .then(response => {
+    if (response.ok) {
+      response.json().then(json => {
+        welcomeHeading.innerText= json.username
+      })
+    }
+  });
 }
 
 window.onload = function () {
@@ -235,10 +244,10 @@ window.onload = function () {
     personalCatLabel.classList.remove("selectedCategoryPersonal")
     personalCatLabel.classList.add("unselectedCategory")
   }
-
-  particlesJS.load('particles-js', 'public/particles.json', function () {
-    console.log('particles.js config loaded');
-  });
+  addWelcomeMessage()
+  // particlesJS.load('particles-js', 'public/particles.json', function () {
+  //   console.log('particles.js config loaded');
+  // });
   updateTaskListDisplay();
 
 }

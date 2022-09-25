@@ -4,10 +4,24 @@
   "description": "",
   "author": "",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.latest.js",
+    "temp": "node server.temp.js"
   },
   "dependencies": {
+    "connect-ensure-login": "^0.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "mime": "^2.4.4",
-    "particles.js": "^2.0.0"
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.1",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
   }
 }

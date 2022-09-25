@@ -1,0 +1,39 @@
+<!doctype HTML>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Simple ToDo manager, with ability to login using Github">
+        <meta name="keywords" content="todo, do it, tasks, task manager, manage tasks, todo list, list todo">
+        <link type="text/css" rel="stylesheet" href="/css/output.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
+        <title>Login for Do It!</title>
+    </head>
+    <body class="bg-gray-900 text-white text-opacity-80 flex justify-center items-center h-screen w-screen" style="font-family: 'Barlow', sans-serif;">
+        <form id="loginForm" class="min-w-[20%]">
+            <div class="container m-auto flex flex-col justify-center border rounded-lg p-5 bg-slate-800 border-yellow-600">
+                <div class="container flex items-center justify-center">
+                    <img src="./images/doitmain.png" class="h-12" alt="Do it Logo" />
+                    <p class="my-5 ml-5 text-4xl font-extrabold">Do it!</p>
+                </div>
+                <p class="my-3 mb-5 font-bold text-3xl">Sign in</p>
+                <label for="userName"><p class="mb-2 text-sm text-slate-300 dark:text-white font-normal">Username</p></label>
+                <input id='usernameInput' class="mb-5 p-2 bg-inherit border border-yellow-600 rounded-lg focus-visible:border-blue-900" type="text" placeholder="Enter Username" name="username">
+                <label for="password"><p class="mb-2 text-sm text-slate-300 dark:text-white font-normal">Password</p></label>
+                <input id='passwordInput' class="mb-5 p-2 bg-inherit border border-yellow-600 rounded-lg" type="password" placeholder="Enter Password" name="password">
+                <div id="infoAlert" class="alert  rounded-lg py-5 px-6 mb-6 text-base bg-red-200 text-red-800 hidden items-center w-full alert-dismissible fade show" role="alert">
+                    <p class="mr-1" id="alertDialog"></p>
+                    <button id="dismissInfoButton" type="button" class="btn-close box-content w-4 h-4 p-1 ml-auto text-yellow-900 border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-yellow-900 hover:opacity-75 hover:no-underline" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <button id='loginButton' class="py-2 mb-3 bg-transparent hover:bg-yellow-600 border  border-yellow-600 hover:border-transparent text-white font-normal rounded">Login</button>
+                <a href="/auth/github" id="button_login_github" class="text-center button py-2 bg-slate-200 hover:bg-yellow-600 hover:text-white border border-black hover:border-transparent text-black font-semibold rounded">Sign in with GitHub</a>
+                <p class="mt-4 mx-auto text-slate-300 font-light text-opacity-50">or</p>
+                <a href="/user/register" id="button_register" class="text-center mx-auto text-opacity-70 hover:text-opacity-90 text-yellow-500 font-light underline hover:decoration-wavy decoration-yellow-500 hover:underline-offset-4 w-16">Register</a>
+            </div>
+        </form>
+        <script src="./js/loginScript.js"></script>
+    </body>
+
+</html>          
