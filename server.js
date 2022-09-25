@@ -181,6 +181,7 @@ async function getSurveyResults(id) {
         .toArray();
     })
     .then((userRec) => {
+      console.log('userRec:\n'+ userRec)
       return userRec;
     });
   return record;
