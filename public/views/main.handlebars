@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Counter: a simple counting website</title>
+    <meta name="viewport" content = "width=device-width, initial-scale=1">
+    <meta name="description" content="Website for counting numbers">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css"/>
+    <link id = "favicon" rel = "icon" href = "https://cdn.glitch.global/83489849-58b1-4b05-85b6-67c1babeb4c1/favicon.ico?v=1664134124646">
+  </head>
+  <body>
+    <h1>
+      Welcome to Counter
+    </h1>
+    <p>
+      This is a simple webpage for keeping track of numbers. Each submission is added to a running total. Add or subtract any numbers you wish.
+    </p>
+    
+    <form action="">
+      <label>Add a number: <input type="int" id="numToAdd" value=""></label>
+      <button>submit</button>
+      <label>Remove an index:<input type = "int" id="numToRemove" value=""></label>
+      <button id="removeButton">remove</button>
+    </form>
+    <br>
+    <form action ="/deleteAccount" method = "POST">
+      <input type="submit" value = "Delete Account">
+    </form>
+  </body>
+  <script>
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+    const input = document.querySelector( '#numToAdd' ),
+          json = { numToAdd: input.value },
+          body = JSON.stringify( json )
+    
+     fetch( '/submit', {
+      method:'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body 
+    })
+    .then( response => response.json() )
+    .then( json => {
+        let testData = !!document.getElementById("p");
+       if(testData){
+           document.getElementById("p").remove()
+           document.getElementById("p").remove()
+           document.getElementById("p").remove()
+       }
+      json.forEach( item => {
+        const p = document.createElement('p')
+        p.id = "p"
+        p.innerText = JSON.stringify( item )
+        document.body.appendChild( p )
+      })
+    })
+  }
+  
+  const remove = function(e){
+    // prevent default form action from being carried out
+    e.preventDefault()
+    const input = document.querySelector( '#numToRemove' ),
+          json = { numToRemove: input.value },
+          body = JSON.stringify( json )
+    
+     fetch( '/remove', {
+      method:'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: body 
+    })
+    .then( response => response.json() )
+    .then( json => {
+        let testData = !!document.getElementById("p");
+       if(testData){
+           document.getElementById("p").remove()
+           document.getElementById("p").remove()
+           document.getElementById("p").remove()
+       }
+      json.forEach( item => {
+        const p = document.createElement('p')
+        p.id = "p"
+        p.innerText = JSON.stringify( item )
+        document.body.appendChild( p )
+      })
+    })
+  }
+  
+  window.onload = function() {
+    const button = document.querySelector( 'button' )
+    button.onclick = submit
+    const button1 = document.getElementById('removeButton')
+    button1.onclick = remove
+  }
+
+  </script>
+</html>
