@@ -111,9 +111,9 @@ app.use(function(req, res, next) {
 
 // logs out
 app.get("/logout", (req, res) => {
-    return res.render("index", { msg:"signed out", layout:false })
     req.session.id = null;
     req.session.login = false;
+    return res.render("index", { msg:"signed out", layout:false })
 })
 
 // send todo page
