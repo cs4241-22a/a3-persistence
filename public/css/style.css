@@ -1,0 +1,167 @@
+body {
+  background-color: #c4dbf0;
+  font-family: "Baloo 2", cursive;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  background: #1a2c55;
+  color: white;
+  max-width: fit-content;
+  max-height: fit-content;
+  border-radius: 1rem;
+  border: solid 0.5rem white;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  align-items: stretch;
+  margin: 1rem;
+  max-width: fit-content;
+}
+
+#todo {
+  width: 15rem;
+  border: solid 0.2rem #1a2c55;
+  border-radius: 0.5rem;
+  margin: 0.1rem;
+  padding: 0.5rem;
+  font-family: "Baloo 2", cursive;
+}
+
+#due {
+  width: 13rem;
+  border: solid 0.2rem #1a2c55;
+  border-radius: 0.5rem;
+  margin: 0.1rem;
+  padding: 0.5rem;
+  font-family: "Baloo 2", cursive;
+}
+
+#tag {
+  width: 8rem;
+  border: solid 0.2rem #1a2c55;
+  border-radius: 0.5rem;
+  margin: 0.1rem;
+  font-family: "Baloo 2", cursive;
+}
+
+#createTodo {
+  background: #1a2c55;
+  color: white;
+  border-radius: 0.5rem;
+  width: 8rem;
+  border: solid 0.2rem #8dafc8;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  font-family: "Baloo 2", cursive;
+  font-size: 1rem;
+}
+
+.deleteTodo {
+  background: #8dafc8;
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  display: block;
+  margin: auto;
+}
+
+.editTodo {
+  background: black;
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+  display: block;
+  margin: auto;
+}
+
+#todo-table {
+  border-collapse: collapse;
+  margin: 1rem;
+  padding: 1rem;
+  border-style: hidden;
+  background: white;
+  width: 90%;
+}
+
+#todo-table td,
+#todo-table th {
+  border: 1px solid #c4dbf0;
+  padding: 8px;
+}
+
+#todo-table tr:hover {
+  background-color: #dddddd;
+}
+
+#todo-table th {
+  background-color: #1a2c55;
+  color: white;
+  border: 1px solid #c4dbf0;
+  padding: 8px;
+}
+
+.webware {
+  background: #ffa07a;
+}
+
+.deepLearning {
+  background: #eac58f;
+}
+
+.MQP {
+  background: #fff9be;
+}
+
+.businessIntelligence {
+  background: #b6dfa0;
+}
+
+.work {
+  background: #ab92b3;
+}
+
+.dotRed {
+  height: 1rem;
+  width: 1rem;
+  background-color: #b61711;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
+
+.dotYellow {
+  height: 1rem;
+  width: 1rem;
+  background-color: #e8ea1f;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
+
+.dotGreen {
+  height: 1rem;
+  width: 1rem;
+  background-color: #34891f;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
