@@ -22,7 +22,7 @@ assign a html element with the respective styling class I want.
     - passport: Middleware that is used to authenticate requests, paricular routes may be protected such as the main/index/homepage, that users must be logged in to view, I used the passport-github2 strategy which redirects users to github and then to a callback in my server
         - used passport-github2 and local strategy to authenticate users, this was integrated with my Mongoose model to ensure seamless integration between the two methods
     - express-session: I used this middleware to create sessions between the clients and the server, this enables users to be auto-logged in given that the session is still valid (set expire to 1 hr)
-    - body-parser: Processes data sent in request body, i used it to parse urlencoded requests from client
+    - body-parser: Processes data sent in request body, i used it to parse urlencoded requests that contained password and username, as well as JSON objects for other form data
     - connect-ensure-login: This middleware ensures that the client is signed in before accessing any vital documents throught the time the client is connected, it works with passport and express-session to check if a user is currently connected before handling the request
     - express-static: to provide static files in the public directory, which automatically configures MIME types and is super convinent to provide imgs,css and js.
 
