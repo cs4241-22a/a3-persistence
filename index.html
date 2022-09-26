@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Grocery List Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Grocery List Tracker" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+  </head>
+  <body>
+    <script src="js/scripts.js"></script>
+    <div id="inner-content">
+      <h1>Grocery List Tracker</h1>
+      <a id="logout-link" href="/logout">Logout</a>
+      <div id="add-food-box">
+        <h2>Add Food</h2>
+        <form id="add-food-form">
+          <h3 class="input-header">Food Name</h3>
+          <input
+            type="text"
+            id="foodname"
+            value="Food Name"
+            aria-label="Food Name"
+          /><br />
+          <h3 class="input-header">Food Type</h3>
+          <fieldset id="radio-box">
+            <input
+              type="radio"
+              name="foodtype"
+              id="meat"
+              value="Meat"
+              checked="checked"
+            />
+            <label class="radio-label" for="meat">Meat</label><br />
+            <input type="radio" name="foodtype" id="fruit" value="Fruit" />
+            <label class="radio-label" for="fruit">Fruit</label><br />
+            <input
+              type="radio"
+              name="foodtype"
+              id="vegetable"
+              value="Vegetable"
+            />
+            <label class="radio-label" for="vegetable">Vegetable</label><br />
+            <input type="radio" name="foodtype" id="dairy" value="Dairy" />
+            <label class="radio-label" for="dairy">Dairy</label><br />
+            <input type="radio" name="foodtype" id="other" value="Other" />
+            <label class="radio-label" for="other">Other</label><br />
+          </fieldset>
+          <h3 class="input-header">Food Amount (lbs)</h3>
+          <input
+            type="number"
+            id="foodweight"
+            min="0"
+            value="0"
+            aria-label="Food Weight"
+          /><br />
+          <h3 class="input-header">Price ($)</h3>
+          <input
+            type="number"
+            id="foodprice"
+            min="0"
+            value="0"
+            aria-label="Food Price"
+          /><br />
+          <div id="button-box">
+            <button
+              class="submit-button"
+              id="submit-button"
+              edit="false"
+              edit_value=""
+            >
+              Add Food
+            </button>
+            <button class="submit-button" id="delete-button">
+              Delete Selected Foods
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="food-list-box">
+        <h2 id="list-title">Food List</h2>
+        <table id="foodtable"></table>
+      </div>
+    </div>
+    <template id="foodrow">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <input
+            name="delete-select"
+            type="checkbox"
+            aria-label="Food Selector"
+          />
+        </td>
+        <td>
+          <button name="edit-button" aria-label="Edit Food Button" row="">
+            Edit
+          </button>
+        </td>
+      </tr>
+    </template>
+    <template id="table-header">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Weight (lbs)</th>
+        <th>Price ($)</th>
+        <th>$/Lbs</th>
+        <th>Select Food</th>
+        <th>Edit Food</th>
+      </tr>
+    </template>
+  </body>
+</html>
