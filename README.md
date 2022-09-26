@@ -4,9 +4,8 @@ https://webware-a3-jrkim.herokuapp.com/
 
 Small todo app with github login feature (OAuth 2.0) where it stores tasks so it saves todo tasks to each user.
 I chose OAuth 2.0 for authentication since github used it and there were many established documents and example for it.
-For CSS: ___.
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
+Usage of bootstrap was easy with the same reason.
+Lighthoue score was okay with having low SEO score, but rest were okay.
 For middleware
 - cookie-parser: secret a string or array used for signing cookies
 - path: define path and modify
@@ -19,7 +18,9 @@ For middleware
 - **Authentication**: I used OAuth authentication to be able to login
 - **Entry function**: A form entry function to add and pull data 
 - **Server**: Server to store user and todo task data
-- **Tech Achievement 4**: Middleware includes cookie-parser, path, http-errors, passport, and morgan
+- **Middleware**: Middleware includes cookie-parser, path, http-errors, passport, and morgan
+- **EJS**: offers more dynamic and freedom by using ejs in place of html
+- **Future proof**: clear organization and structure for website to expand easily
 
 ### Design/Evaluation Achievements
 **Design Achievement 1**: I followed the following tips from the W3C 
