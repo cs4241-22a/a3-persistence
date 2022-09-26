@@ -184,7 +184,6 @@
 
       function submitEdit(e){
         debugger
-        e.preventDefault()
           console.log("SENDING")
           const data = new FormData(document.getElementById("perrySurvey"));
           const json1 = Object.fromEntries(data.entries());
@@ -206,7 +205,6 @@
         }
 
         function deleteEntry(e){
-          e.preventDefault()
           console.log("delete")
           debugger
           const json1 = {name: "Perry", user: e.id};
