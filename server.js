@@ -36,14 +36,14 @@ passport.use(new GitHubStrategy({
     callbackURL: 'https://a3-hyoder.herokuapp.com/auth/github/callback' },
   function(accessToken, refreshToken, profile, done)
   {
-  /*  process.nextTick(function ()
+    process.nextTick(function ()
     {
       return collection.updateOne( { githubID:profile.id }, { $setOnInsert: { githubID:profile.id, items:[] } }, { upsert: true } )
       .then(() => { return collection.findOne( { githubID: profile.id } ) } )
       .then((result) => { return done(null, result._id) } )
-    });*/
-    User.findOrCreate({ githubId: profile.id },
-    function(err, user) { return done(err, user); });
+    });
+    //User.findOrCreate({ githubId: profile.id },
+    //function(err, user) { return done(err, user); });
   }
 ));
 app.get('/', ( req, res ) => { res.render( "index", { msg: "", layout: false } ) } );
