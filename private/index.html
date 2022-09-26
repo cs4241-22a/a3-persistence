@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <title>Main Page - CS4241 Assignment 3</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="main page">
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Sora" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/pico.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <nav class="container-fluid">
+      <ul>
+        <li><strong>Reminders</strong></li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="grid">
+        <div>
+          <div class="grid">
+            <section id="form primary">
+              <form id="primary">
+                <h4>Add a new reminder</h4>
+                <label>
+                  Title:
+                  <input id="title" type="text"><br>
+                </label>
+                <label>
+                  Notes:
+                  <textarea id="notes" type="text" rows="2" cols="40"></textarea><br>
+                </label>
+                <label>
+                  URL:
+                  <input id="url" type="text"><br>
+                </label>
+                <label>
+                  Date:
+                  <input id="date" type="date"><br>
+                </label>
+                <label>
+                  Time:
+                  <input id="time" type="time"><br>
+                </label>
+                <label>
+                  Location:
+                  <input id="location" type="text"><br>
+                </label>
+                <button class="btn">Submit</button>
+              </form>
+            </section>
+            <section id="form edit">
+              <form id="edit">
+                <h4>Edit a reminder</h4>
+                <label>
+                  Title:
+                  <input id="title_edit" type="text"><br>
+                </label>
+                <label>
+                  Notes:
+                  <textarea id="notes_edit" type="text" rows="2" cols="40"></textarea><br>
+                </label>
+                <label>
+                  URL:
+                  <input id="url_edit" type="text"><br>
+                </label>
+                <label>
+                  Date:
+                  <input id="date_edit" type="date"><br>
+                </label>
+                <label>
+                  Time:
+                  <input id="time_edit" type="time"><br>
+                </label>
+                <label>
+                  Location:
+                  <input id="location_edit" type="text"><br>
+                </label>
+                <button class="btn" id="button_edit">Submit</button>
+              </form>
+            </section>
+          </div>
+        </div>
+        <div>
+          <section id="tables">
+            <h4>Tables</h4>
+            <figure>
+              <table id="dataTable" >
+                <tr>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                  <th>Title</th>
+                  <th>Notes</th>
+                  <th>URL</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                </tr>
+              </table>
+            </figure>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/scripts.js"></script>
+</html>
