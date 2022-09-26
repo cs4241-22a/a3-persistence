@@ -37,7 +37,7 @@ app.use(passport.authenticate('session'));
 
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
+app.use('/', authRouter);
 app.use('/tasks', tasksRouter);
 // http://expressjs.com/en/starter/basic-routing.html
 

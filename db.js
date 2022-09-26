@@ -8,7 +8,7 @@ var db = new sqlite3.Database('./var/db/todos.db');
 db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS users ( \
     id INTEGER PRIMARY KEY, \
-    username TEXT UNIQUE, \
+    username TEXT, \
     hashed_password BLOB, \
     salt BLOB, \
     name TEXT \
