@@ -296,13 +296,13 @@ app.get(
     } else {
       console.log("USER DOES NOT EXIST");
       await insertUser(userCreds);
-      checkUser(userCreds).then((record) => {
+      await (checkUser(userCreds).then((record) => {
         req.session.user = {
           id: record[0]._id,
           name: record[0].GitHubDisplayName,
           admin: record[0].admin,
         };
-      });
+      }))
     }
 
     if (req.session.user !== undefined) {
