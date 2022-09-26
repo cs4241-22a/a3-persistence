@@ -1,24 +1,12 @@
-body {
-    background-color: #d9bdc5;
-    color: #231b1b;
-    font-family: "PT Sans Caption", sans-serif;
-  }
+html, body {
+  padding: 30px;
+  font-size: 14px;
+}
 h1, h2, h4 {
   text-align: center;
 }
 h2 {
   padding: 5px;
-}
-#body-box {
-  margin: 20px;
-  padding-bottom: 20px;
-  border-style: solid;
-  border-width: 3px;
-  border-color: #453636;
-}
-#login-box {
-  display: flex;
-  justify-content: center;
 }
 .container {
   display: flex;
@@ -38,18 +26,16 @@ h2 {
 .column-label {
   font-weight: bold;
   font-size: 16px;
+  text-align: center;
 }
 .add-form,
+.update-form,
 .delete-form {
   display: flex;
   justify-content: center;
 }
-input {
-  background-color: #e3e3e3;
-}
-button {
-  background-color: #e3e3e3;
-}
 .btn-center {
   text-align: center;
-}  
+}
+
+

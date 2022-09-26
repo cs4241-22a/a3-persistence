@@ -30,12 +30,8 @@ const uri = `mongodb+srv://abbyghyde:QJB8YySPahsy794G@cluster0-a3.fy7bqls.mongod
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 let collection = null
 
-// // const connect = async function() {
-// //   await client.connect()
-// //   const collection = await client.db("groceries").collection("devices")
-// //   const results = await collection.find({}).toArray()
-// //   console.log(results)
-// // }
+const appdata = [];
+const currentUser = "";
 
 client.connect()
   .then( () => {
@@ -67,8 +63,6 @@ app.post( '/login', (req,res)=> {
     // use redirect to avoid authentication problems when refreshing
     // the page or using the back button, for details see:
     // https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
-    res.sendFile( __dirname + '/public/style.css' )
-    //res.sendFile( __dirname + '/public/script.js' )
     res.redirect( 'main.html' )
   }else{
     // cancel session login in case it was previously set to true
@@ -76,6 +70,31 @@ app.post( '/login', (req,res)=> {
     // password incorrect, send back to login page
     res.render('index', { msg:'login failed, please try again', layout:false })
   }
+  // below is *just a simple authentication example* 
+  // for A3, you should check username / password combos in your database
+//   const findUser = function( user ) {
+//        if (req.body.password === user.password && req.body.username === user.username) {
+//          currentUser = req.body.username;
+//          req.session.login = true;
+//          res.redirect( 'main.html' );
+//        }
+//   }
+//   appdata.forEach(findUser);
+
+//   if (req.session.login != true) {
+//     // cancel session login in case it was previously set to true
+//     req.session.login = true;
+//     let json = {
+//       username: req.body.username,
+//       password: req.body.password
+//     };
+//     let newUser = JSON.stringify(json);
+//     console.log( newUser );
+//     appdata.push(newUser);
+    
+//     // password incorrect, send back to login page
+//     res.redirect( 'main.html' );
+//   }
 })
 
 app.get( '/', (req,res) => {
@@ -96,7 +115,7 @@ app.use( function( req,res,next) {
 })
 
 app.get( '/main.html', ( req, res) => {
-  res.render( 'main', { msg:'success you have logged in', layout:false })
+  res.render( 'main', { msg: currentUser, layout:false })
 })
 
 // app.use( (req,res,next) => {
@@ -114,22 +133,43 @@ app.post( '/submit', (req,res) => {
 })
 
 // app get all data from table fcn
-app.get( '/alldata', (res) => {
-  collection.find().then(result => res.json( result ))
+app.get( '/alldata', (req,res) => {
+  collection.find({ }).toArray().then( result => res.json( result ) )
+  .catch(function(err) {
+        console.error("Error in fetching data: ", err);
+      })
 })
 
+// app.post('/singleentry', (req,res) => {
+//   //console.log ( req.body.item );
+//   collection.find({ item: req.body.item }).toArray().then( result => res.json( result ) )
+//   .catch(function(err) {
+//         console.error("Error in fetching data: ", err);
+//       })
+// })
+
 // assumes req.body takes form { _id:5d91fb30f3f81b282d7be0dd } etc.
-app.post( '/remove', (req,res) => {
+app.post( '/delete', (req,res) => {
+  // collection
+  //   .findOneAndDelete({ _id:mongodb.ObjectId( req.body._id ) })
+  //   .then( result => res.json( result ) )
   collection
-    .deleteOne({ _id:mongodb.ObjectId( req.body._id ) })
-    .then( result => res.json( result ) )
+    .find({ item: req.body.item })
+    .toArray()
+    .then(result => {
+      collection.deleteOne( { _id: mongodb.ObjectId(result._id) }, { item: req.body.item } );
+    }).catch(function(err) {
+        console.error("Error in fetching data: ", err);
+    });
 })
 
 app.post( '/update', (req,res) => {
+  console.log ( "hopefully ID: ");
+  console.log ( req.body._id );
   collection
     .updateOne(
       { _id:mongodb.ObjectId( req.body._id ) },
-      { $set:{ name:req.body.name } }
+      { $set:{ item:req.body.item } }
     )
     .then( result => res.json( result ) )
 })
