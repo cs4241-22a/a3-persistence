@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+
+* {
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.hero {
+  object-fit: cover;
+  object-position: right;
+}
+
+.complete-st {
+  display: flex;
+  flex-direction: row;
+}
+
+.complete-st:before,
+.complete-st:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  margin: auto;
+  margin: auto 10px;
+}
+
+.fg {
+  background-color: #343a40;
+}
+
+.card ~ input {
+  background-color: transparent;
+  border: none;
+}

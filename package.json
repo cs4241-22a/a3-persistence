@@ -1,0 +1,34 @@
+{
+  "name": "a3-persistence",
+  "version": "1.0.0",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template\r ===",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quinguyen-dev/a3-persistence.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quinguyen-dev/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/quinguyen-dev/a3-persistence#readme",
+  "dependencies": {
+    "bootstrap-icons": "^1.9.1",
+    "connect-mongo": "^4.6.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.6.1",
+    "node-fetch": "^2.6.7",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12"
+  },
+  "devDependencies": {
+    "bootstrap": "^5.2.1",
+    "nodemon": "^2.0.20"
+  }
+}
