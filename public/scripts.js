@@ -80,9 +80,9 @@ function updatercanceller( _movID )
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[6].innerHTML,
-                    genre: document.getElementById( _movID ).children[7].innerHTML,
-                     year: document.getElementById( _movID ).children[8].innerHTML
+                    title: document.getElementById( _movID ).children[7].children[0].value,
+                    genre: document.getElementById( _movID ).children[8].children[0].value,
+                     year: document.getElementById( _movID ).children[9].children[0].value
                  },
           body = JSON.stringify(json);
     console.log( json.title );
