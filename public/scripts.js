@@ -58,22 +58,22 @@ function updater( _movID, title, genre, year )
         newRow += '<th><input type="number" value="' +  year + '"></th>'
         newRow += '<th></th>';
         newRow += '<th><button onclick="updatersubmitter(\'' + _movID + '\')">submit</button></th></tr>';
-        newRow += '<th><button onclick="updatercanceller()">cancel?</button></th>';
+        newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
     tempElement.innerHTML = newRow;
 };
-function updatercanceller()
+function updatercanceller( _movID )
 {
-    let    id  = tempID,
-        title  = tempElement.title,
-        genre  = tempElement.genre,
-         year  = tempElement.year,
+    let element  = document.getElementById( _movID ),
+        title  = element.title,
+        genre  = element.genre,
+         year  = element.year,
        newRow  = '<tr id = "' + id + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
        newRow += '<th>' + zackcheck(title, genre) + '<\th>';
-       newRow += '<th><button onclick="updater(\'' + id + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
-       newRow += '<th><button onclick="deleter(\'' + id + '\');">delete?</button></th>';
+       newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
+       newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
@@ -81,9 +81,9 @@ function updatercanceller()
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById( 'title-'+_movID ).value,
-                    genre: document.getElementById( 'genre-'+_movID ).value,
-                     year: document.getElementById(  'year-'+_movID ).value
+                    title: document.getElementById( _movID ).title,
+                    genre: document.getElementById( _movID ).genre,
+                     year: document.getElementById( _movID ).year
                  },
           body = JSON.stringify(json);
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
