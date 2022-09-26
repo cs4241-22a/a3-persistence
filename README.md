@@ -23,9 +23,13 @@ I used Bootstraap 5 as the CSS framework due to its robust set of features and o
 
 ### Middleware
 1.express-session establishes session cookies for servers to maintain information between requests
+
 2.express-handlebars is a system for server-side rendering of pages.
+
 3.express-crypto is a set of cryptological algorithms to enhance secruity of data. I used it to hash user passwords before sending to DB
+
 4.passport is a middleware used as a platform for authentication strategies to connect a platform to accounts from other sites
+
 5.errorhandler is a middleware used to assist error logging and handling in different environments. Its helpful when the terminal isnt set as the output for console.log
 
 ## Technical Achievements
