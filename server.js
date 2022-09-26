@@ -3,13 +3,14 @@
 const express = require( 'express' ),
       mongodb = require( 'mongodb' )
       cookie = require ( 'cookie-session' ),
+      favicon = require('serve-favicon'),
       app = express()
 
 require('dotenv').config()
 
 app.use(express.static('public'))
-app.use(express.static('views'))
 app.use(express.json())
+app.use(favicon(__dirname + '/public/favicon.ico'))
 
 const uri = 'mongodb+srv://'+process.env.USER_NAME+':'+process.env.PASSWORD+'@'+process.env.HOST
 
@@ -34,7 +35,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use( cookie({
   name: 'session',
-  keys: ['key1', 'key2']
+  keys: ['key32423432543', 'key32429932543']
 }))
 
 app.post( '/login', (req,res)=> {
@@ -56,7 +57,7 @@ app.post( '/login', (req,res)=> {
       //if the username matches an existing account but the password is wrong, send back to login screen
       seen = true
       // password incorrect, redirect back to login page
-      res.sendFile( __dirname + '/views/index.html' )
+      res.sendFile( __dirname + '/public/index.html' )
     }
   })
   .then( function( e ) {
@@ -80,6 +81,10 @@ app.get( '/', (req,res) => {
     // get array and pass to res.json
     collection.find({ }).toArray().then( result => res.json( result ) )
   }
+})
+
+app.use((err, req, res, next) => {
+  app.use(errorhandler(err))
 })
 
 function compare( a, b ) {
