@@ -40,6 +40,7 @@ add a little more detail about what it does.
 
 - **Hosting on Render**: The process of setting up a project on Render was straight forward and fast. In connection with GitHub, you can easily set up a pipeline for continuous deploys. Once set up, it deploys every single commit to your main branch. The downside of using it with the free plan, is that it takes almost 10min to deploy and much longer to load the site than with glitch. So Glitch is the better option for developing, although most people will develop locally with "real" IDEs.
 
+- **Lighthouse Test**: 3x 100% 1x 92% because not using https.
 
 ### Design/Evaluation Achievements
 - **W3C Web Accessibility**:  <ol>
