@@ -2,7 +2,23 @@ var express = require('express');
 var passport = require('passport');
 var FacebookStrategy = require('passport-github');
 var db = require('../db');
+const User = require('../models/User');
 
+// passport.use(new FacebookStrategy({
+//   clientID: 'd0a65adde69becb6a6e7',
+//   clientSecret: '413a9e09e63ed43b76e87da988451361f948322a',
+//   callbackURL: "/oauth2/redirect/github"
+// },
+// function(accessToken, refreshToken, profile, cb) {
+//   findOrCreateUser({ facebookId: profile.id }, function (err, user) {
+//     return cb(err, user);
+//   });
+// }
+// ));
+
+// function findOrCreateUser() {
+//   // post to db using User model
+// }
 
 passport.use(new FacebookStrategy({
   clientID: 'd0a65adde69becb6a6e7',
