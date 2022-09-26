@@ -3,7 +3,7 @@
 const express = require("express"),
   mongodb = require("mongodb"),
   responseTime = require("response-time"),
-  // bodyParser = require('body-parser'), // parses incoming request bodies in a middleware before handlers
+   bodyParser = require('body-parser'), // parses incoming request bodies in a middleware before handlers
   axios = require("axios"),
   app = express();
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -19,10 +19,10 @@ app.use(responseTime());
 // body parser middle ware - do I need to add this?
 // parse application/x-www-form-urlencoded
 
-// app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-// app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
 // logger function
 // const logger = (req,res,next) => {
@@ -97,13 +97,19 @@ app.post("/remove", (req, res) => {
     .then((result) => res.json(result));
 });
 
+debugger
 app.post("/update", (req, res) => {
+  console.log(req.body._id)
+  console.log(req.body.json)
+  jsonUpdates = req.body.json;
   collection
+  
     .updateOne(
-      { _id: mongodb.ObjectId(req.body._id) },
-      { $set: { json: req.body } }
+      { _id: mongodb.ObjectId(req.body._id)},
+      
+      { $set: {json: req.body.json}}
     )
-    .then((result) => res.json(result));
+    .then(result => res.json(result));
 });
 
 ///////////////////// methods for basic cookies and login data

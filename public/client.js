@@ -43,11 +43,14 @@ const add = function( e ) {
     // // clears values on client side each time submit is pressed
     // TaskBase.innerText = " "
 
-    
     const input = document.querySelector( '#newTask' ) 
     const field1 = document.querySelector( '#TypeOfTask')
     const field2 = document.querySelector('#Difficulty')
     const field3= document.querySelector("#Semester")
+    if ( input.value === "" || field1.value === "Default" || field2.value === "Default" || field3.value === "Default"){
+      alert('Error: Task is missing a field')
+    }
+    else{
       json  = { 
         User: usernameVal,
         Task: input.value,
@@ -92,6 +95,7 @@ const add = function( e ) {
       //   })
       // })
     return false
+    } 
   }
 
 const results = function(e)
@@ -134,9 +138,17 @@ const remove = function(e)
   e.preventDefault()
   // get the ID of the task that we want to delete
   const itemToDelete = document.querySelector( '#deleteTaskInput' ) 
+  if(itemToDelete.value.length != 24){
+    alert(" ID has invalid length")
+  }
+  else{
+
+
   
+  console.log(),
   jsonID = {_id:itemToDelete.value},
-  console.log(jsonID)
+
+
   fetch('/remove',{
     method:'POST',
     headers: { 'Content-Type': 'application/json'}, 
@@ -144,37 +156,37 @@ const remove = function(e)
   })
   .then(res=>res.json)
   .then(json => console.log(json))
+}
 
-  console.log("Hello Again")
 }
 
 const update = function(e)
 { 
   e.preventDefault()
   // get all of the updated fields and but them inside a JSON
-
   const _id = document.querySelector("#idForUpdate")
   const newInput = document.querySelector("#TaskInputUpdate")
   const newType = document.querySelector("#typeOfTaskUpdate")
   const newDifficulty = document.querySelector("#difficultyUpdate")
-  const newSemester = document.querySelector("#difficultyUpdate")
+  const newSemester = document.querySelector("#semesterUpdate")
 
   jsonUpdate = {
-    _id:_id.value, 
-    User:username,
+    User:usernameVal,
     newInput:newInput.value,
     newType: newType.value,
     newDifficulty:newDifficulty.value,
-    newSemester: newSemester.value}
+    newSemester: newSemester.value
+  }
+    TaskJsonUpdate = {_id:_id.value, json:jsonUpdate}
 
   fetch('/update',{
     method:'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(jsonUpdate)
+    body: JSON.stringify(TaskJsonUpdate)
   })
-  .then(res=>res.json)
-
+  .then(res=>console.log())
   
+
 
 }
 
