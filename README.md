@@ -1,7 +1,7 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 Cooper Dean
-http://a3-dooober-glitch.me
+http://a3-dooober.glitch.me
 
 ## Custom Pokemon v2
 This application allows users to create a pokemon by giving it a name, description, and types. The server then generates the pokemon's weaknesses, resistances, and immunities and returns all of the user's pokemon in a table.
