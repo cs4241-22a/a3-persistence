@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <title>Main Page</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Add your players to your roster">
+    <link rel="stylesheet" href="/styleMain.css">
+    <script src="/script.js"></script>
+    
+  </head>
+  <body>
+    <h1>
+      Player Roster
+    </h1>
+    <div id="PlayerTable">
+            <table id="dataTable">
+             <tr><th>Player Name</th><th>Jersey Number</th><th>Position</th><th>Class Year</th></tr>
+       </table> 
+   <!-- <table>
+    <tr><th>Player Name</th><th>Jersey Number</th><th>Position</th><th>Class Year</th></tr>
+      </table> -->
+    </div>
+    
+    <br>
+    <button id="loadTable">Load Roster</button>
+    
+    <br><br>
+    <form class="formClass" style="width:300px; height:auto; float:left; display:inline">
+      <h2>
+        Add Player
+      </h2>
+      <label> Player Name:</label>
+      <input type="text" onfocus="this.value=''" id="fplayerName" placeholder = "player name">
+      <label>Jersey Number: </label>
+      <input type="number" onfocus="this.value=''" id="fjerseyNumber" placeholder ="jersey#">
+      <label> Position:</label>
+      <input type="text" onfocus="this.value=''" id="fposition" placeholder = "position they play">
+      <label>Class Year:</label>
+      <br>
+       <select id ="fclassYear">
+            <option value="first year">Freshman</option>
+            <option value="second year">Sophomore</option>
+            <option value="third year">Junior</option>
+            <option value="fourth year">Senior</option>
+            <option value="grad year">Grad Student</option>
+          </select>
+      <br><br>
+      <button id="addButton">Add Player</button>
+    </form>
+    
+    
+     <form class="formClass" style="width:300px; height:auto; float:left; display:inline">
+      <h2>
+        Update Player
+      </h2>
+      <label> Player Name</label>
+      <input type="text" onfocus="this.value=''" id="newplayerName" placeholder = "player name">
+      <label>Jersey Number: </label>
+      <input type="number" onfocus="this.value=''" id="newjerseyNumber" placeholder="jersey#">
+      <label> Position:</label>
+      <input type="text" onfocus="this.value=''" id="newposition" placeholder = "position they play">
+       <label>Class Year:</label>
+       <br>
+       <select id ="newclassYear">
+            <option value="first year">Freshman</option>
+            <option value="second year">Sophomore</option>
+            <option value="third year">Junior</option>
+            <option value="fourth year">Senior</option>
+            <option value="grad year">Grad Student</option>
+          </select>
+       <br><br>
+      <button id="updateButton">Update Player</button>
+    </form>
+    
+    
+    
+     <form class="formClass" style="width:300px; height:auto; float:left; display:inline">
+      <h2>
+        Delete Player
+      </h2>
+       <label> Player Name</label>
+       <input type="text" onfocus="this.value=''" id="dplayerName" placeholder="name of player you want to delete">
+       <button id="deleteButton">
+         Delete Player
+       </button>
+    
+    </form>
+
+    
+  </body>
+</html>
