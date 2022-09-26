@@ -53,7 +53,7 @@ function resetGame() {
   setTimeout(function () {
     clickArea.style.backgroundColor = "hsl(171, 100%, 29%)";
     begin.style.visibility = "visible";
-    if (score < 145 && similarClicks/score < 0.86) {
+    if ((score < 145 && similarClicks/score < 0.86) || score == 1) {
       formB.style.visibility = "visible";
     } else {
       formB.style.visibility = "hidden";
