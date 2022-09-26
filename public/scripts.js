@@ -80,9 +80,9 @@ function updatercanceller( _movID )
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById('title-'+id).value,
-                    genre: document.getElementById('genre-'+id).value,
-                     year: document.getElementById( 'year-'+id).value
+                    title: document.getElementById( 'title-'+_movID ).value,
+                    genre: document.getElementById( 'genre-'+_movID ).value,
+                     year: document.getElementById(  'year-'+_movID ).value
                  },
           body = JSON.stringify(json);
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
