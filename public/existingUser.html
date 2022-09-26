@@ -26,8 +26,11 @@
             </div>
         </form>
         <button class="btn btn-primary" id="submit">Submit</button>
-        <div class="alert alert-warning hidden" role="alert" id="error-msg">
-          User already registered! Sign in here.
+        <div class="alert alert-danger hidden" role="alert" id="error-msg">
+          Username or password is incorrect!
+        </div>
+        <div class="alert alert-warning hidden" role="alert" id="redirect-msg">
+          User already exists!
         </div>
     </div>
 </body>
@@ -63,7 +66,7 @@
                         const jsonRes = JSON.parse(d);
                         console.log(jsonRes);
                         if (jsonRes.error) {
-                            document.getElementById("error-msg").innerHTML = "Email or password is incorrect.";
+                            document.getElementById("error-msg").classList.remove("hidden");
                         } else {
                             localStorage.setItem("MS:email", jsonRes.email);
                             window.location = "/play";
@@ -76,7 +79,7 @@
         // Display alert if url params
         const search = window.location.search.toString();
         if (search.includes("redirect")) {
-            errorMsg.classList.remove("hidden");
+            document.getElementById("redirect-msg").classList.remove("hidden");
         }
         localStorage.removeItem("MS:email");
     }
