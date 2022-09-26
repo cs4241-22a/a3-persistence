@@ -63,9 +63,9 @@ function updater( _movID, title, genre, year )
 };
 function updatercanceller( _movID )
 {
-    let title  = document.getElementById( _movID ).children[0].text,
-        genre  = document.getElementById( _movID ).children[1].text,
-         year  = document.getElementById( _movID ).children[2].text;
+    let title  = document.getElementById( _movID ).children[0].innerHTML,
+        genre  = document.getElementById( _movID ).children[1].innerHTML,
+         year  = document.getElementById( _movID ).children[2].innerHTML;
          console.log(title);
     let  newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
