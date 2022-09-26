@@ -57,7 +57,7 @@ function updater( _movID, title, genre, year )
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
         newRow += '<th></th>';
-        newRow += '<th><button onclick="updatersubmiter(\'' + _movID + '\')">submit</button></th></tr>';
+        newRow += '<th><button onclick="updatersubmitter(\'' + _movID + '\')">submit</button></th></tr>';
         newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
     tempElement.innerHTML = newRow;
 };
@@ -71,8 +71,8 @@ function updatercanceller( _movID )
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
        newRow += '<th>' + zackCheck(title, genre) + '<\th>';
-       newRow += '<th><button onclick="updater(\'${entry._movID}\', \'${entry.title}\', \'${entry.genre}\', \'${entry.year}\');">edit?</button></th>';
-       newRow += '<th><button onclick="deleter(\'${entry._movID}\');"">delete?</button></th></tr>';
+       newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
+       newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
