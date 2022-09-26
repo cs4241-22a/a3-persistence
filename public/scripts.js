@@ -52,7 +52,7 @@ function updater( _movID, title, genre, year )
     if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
     tempID = _movID;
     tempElement = document.getElementById(_movID);
-    let newRow  = '<tr id = "' + _movID + '">';
+    let newRow  = '<br><tr id = "' + _movID + '">';
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
@@ -71,7 +71,7 @@ function updatercanceller( _movID )
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
-       newRow += '<th>' + zackcheck(title, genre) + '<\th>';
+       newRow += '<th>' + zackcheck(title, genre) + '</th>';
        newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
        newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     tempElement.innerHTML = newRow;
