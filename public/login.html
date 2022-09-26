@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./login.css">
+    <script src="./login.js"></script>
     <title>MINESWEEPERDLE | Login</title>
 </head>
 <body>
@@ -24,15 +25,4 @@
         </div>
     </div>
 </body>
-<script>
-    window.onload = () => {
-        document.getElementById("create-acct-button").onclick = () => {
-            window.location = "/new-user";
-        };
-        document.getElementById("sign-in-button").onclick = () => {
-            window.location = "/sign-in";
-        };
-        localStorage.removeItem("MS:email");
-    }
-</script>
 </html>

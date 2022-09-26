@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./login.css">
+    <script src="./existingUser.js"></script>
     <title>MINESWEEPERDLE | Sign In</title>
 </head>
 <body>
@@ -34,54 +35,4 @@
         </div>
     </div>
 </body>
-<script>
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const errorMsg = document.getElementById("error-msg");
-    const submitButton = document.getElementById("submit");
-
-    function emailValid() {
-        const hasAt = emailInput.value.includes("@");
-        const afterAt = hasAt ? (emailInput.value.indexOf("@") + 1 < emailInput.value.length) : false;
-        return hasAt && afterAt;
-    }
-
-    window.onload = () => {
-        submitButton.onclick = () => {
-
-            const data = {
-                email: emailInput.value,
-                password: passwordInput.value,
-            }
-
-            console.log(data);
-
-            if (emailValid()) {
-                fetch("/existing-user", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                }).then((response) => {
-                    response.json().then((d) => {
-                        const jsonRes = JSON.parse(d);
-                        console.log(jsonRes);
-                        if (jsonRes.error) {
-                            document.getElementById("error-msg").classList.remove("hidden");
-                        } else {
-                            localStorage.setItem("MS:email", jsonRes.email);
-                            window.location = "/play";
-                        }
-                    })
-                });
-            }
-        }
-
-        // Display alert if url params
-        const search = window.location.search.toString();
-        if (search.includes("redirect")) {
-            document.getElementById("redirect-msg").classList.remove("hidden");
-        }
-        localStorage.removeItem("MS:email");
-    }
-</script>
 </html>
