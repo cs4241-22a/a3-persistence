@@ -1,5 +1,5 @@
 "use strict";
-const util = require('util');
+const util = require("util");
 global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
 
@@ -113,10 +113,6 @@ let appdata = [
   //{ 'eventname': '', 'location': '', 'day': , 'time': 1987, 'timeend': 14, 'duration': , 'deatils': }
 ];
 
-app.post("/clr", (req, res) => {
-  collection.deleteMany({ username: name });
-  res.status(200).send("OK");
-});
 
 app.post("/new", (req, res) => {
   collection
@@ -138,21 +134,16 @@ app.post("/new", (req, res) => {
 });
 
 app.post("/del", (req, res) => {
-  const data = res.json(req.body);
-  let appdata2 = [];
-  for (let i = 0; i < appdata.length; i++) {
-    let datastring = data.name.toLowerCase().trim();
-    let appastring = Object.values(appdata[i])[0].trim().toLowerCase();
-    //console.log("datastring" + "/" + appastring)
-    if (datastring !== appastring) {
-      appdata2.push(appdata[i]);
-      //console.log("delete")
-    }
-  }
-  appdata = appdata2;
+  let username = req.body.username;
+  let eventname = req.body.eventname;
+  collection.deleteMany({ $and: [ { username: username }, { eventname: eventname } ] }).then(x => res.status(200).send("OK"));
   //res.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-  res.end();
 });
+
+app.post("/clr", (req, res) => {
+  let username = req.body.username;
+  collection.deleteMany({ username: username}).then(x => res.status(200).send("OK"));
+})
 
 app.get("/logout", (req, res) => {
   //name = ""
@@ -168,7 +159,6 @@ app.post("/getsch", (req, res) => {
       .find({ username: username })
       .toArray()
       .then((ret) => {
-        console.log(ret);
         res.json(ret);
       });
   }
