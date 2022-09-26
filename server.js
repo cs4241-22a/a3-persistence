@@ -94,7 +94,7 @@ app.get('/auth/github',
     passport.authenticate('github', { scope: [ 'user:email' ] }));
 
 app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/sesson.passportin' }),
+    passport.authenticate('github', { failureRedirect: '/session.passportin' }),
     function(req, res) {
         res.redirect('/account.html');
     });
