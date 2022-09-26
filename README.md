@@ -75,4 +75,6 @@ add a little more detail about what it does.
    - I used bootstrap grids to make things nicely aligned
  - *Proximity* :
    - Proximity was one of the most important aspects when it came to deciding how to break up my website into a variety of pages, as well as order information within a page.
+
+This assignment has driven me to the brink of insanity, made me contemplate dropping this major in my senior year, and has robbed me of all joy for the time being. Goodnight!
  
