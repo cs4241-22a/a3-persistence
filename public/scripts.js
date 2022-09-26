@@ -9,6 +9,7 @@ function builder ( json )
 {
     const tbl = document.getElementById( 'datatable' );
     tbl.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Zack Snyder?</th><th>edit?</th><th>delete?</th></tr>';
+    console.log('ok?');
     if( json != null )
     {
         console.log('ok!');
