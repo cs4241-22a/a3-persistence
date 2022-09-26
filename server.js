@@ -1,4 +1,3 @@
-const PORT = process.env.PORT || 3000;
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -20,8 +19,8 @@ const { rmSync } = require('fs');
 const uri = "mongodb+srv://r2pen2:nim26Jmd!@cluster0.clsagc1.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-app.listen(PORT, () => {
-    console.log('Now listening on port ' + PORT);
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Now listening on port ' + process.env.PORT || 3000);
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
