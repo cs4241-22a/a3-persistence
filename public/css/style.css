@@ -272,3 +272,7 @@ input.shares {
     align-items: center;
     display: block;
 }
+
+#loginbutton, #registerbutton {
+    color: black;
+}
