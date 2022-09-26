@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Track Your Notes</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0"/>
+    <meta name="description"
+          content="Notes tracker">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <script src="scripts.js"></script>
+    <style>
+    body{
+  background: url("https://cdn.discordapp.com/attachments/1013617417735381032/1021651057228660786/a3background-3.png");
+  background-repeat:repeat;
+  background-size: 100%, 100%;
+  
+  color: #32292f;
+}
+h1{
+  text-align: center;
+  width: 100%;
+  color: #32292F;
+}
+h3, h5{
+  text-align: center;
+  width: 100%;
+  color: #32292F;
+  font-size: 1.2em;
+}
+h2, h4{
+  text-align: center;
+  width: 100%;
+  color: #32292f;
+  font-size: 1.7em;
+}
+input[type=text]{
+  padding: 5px, 15px;
+  border: 1;
+  background: #F0F7F4;
+  cursor:text;
+  border-radius: 4px;
+}
+input[type=submit]{
+  padding: 5px, 15px;
+  border: 1;
+  background: #F0F7F4;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+table, th, td{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width:75%;
+  border: 2px solid;
+  Border-collapse: collapse;
+  color: #32292f;
+  background: #F0F7F4;
+}
+
+    </style> 
+  </head>
+  <body>
+    <h1>
+      Track Your Notes
+    </h1>
+    <h2>
+      <label>Add a note</label>
+    </h2>
+    <h3>
+      <form action="/newitem" method="POST">
+        <label for="title">Note title</label>
+        <input type="text" name="title" id="title">
+        <label for="contents"><br>Note contents</label>
+        <input type="text" name="contents" id="contents">
+        <br>
+        <button id="add">Add</button>
+      </form>
+      <br>
+    </h3>
+    <h4>
+      <label>Delete a note</label>
+    </h4>
+    <h5>
+      
+      <form action="/remove" method="POST">
+        <label for="index">Note table index</label>
+        <input type="number" name="index" id="index">
+        <br>
+        <button id="delete">Delete</button>
+      </form>
+      
+    </h5>
+    
+    <table id = "list">
+      <tr>
+        <div class="div-1">
+          <th>Title</th>
+          <th>Contents</th>
+        </div>
+      </tr>
+      <tr>
+      </tr>
+    </table>
+  </body>
+</html>
