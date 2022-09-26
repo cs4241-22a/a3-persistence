@@ -4,22 +4,27 @@ require("dotenv").config();
 //use express to create a server
 const express = require("express");
 const app = express();
-const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const compression = require("compression");
+const favicon = require("serve-favicon");
 const port = 3000;
 const mime = require("mime");
 const fs = require("fs");
 const dir = "public/";
+const path = require("path");
+
 const session = require("express-session");
 const GitHubStrategy = require("passport-github2").Strategy;
-//create a custom strategy
-const CustomStrategy = require("passport-custom").Strategy;
 const oneDay = 1000 * 60 * 60 * 24;
 
 let loggedIn = false;
 let stocks = [];
 let user = null;
+
+app.use(compression());
+
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 app.use(bodyParser.json());
 app.use(
@@ -59,21 +64,8 @@ passport.use(
   )
 );
 
-//create a custom strategy
-// passport.use(
-//   "custom",
-//   new CustomStrategy(function (req, done) {
-//     //for debugging, skip checking the username and password
-//     return done(null, { username: "admin", password: "admin" });
-//   })
-// );
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.use(express.static("public"));
-
-// const isLoggedIn = require("./Middleware/auth");
 
 const uri = process.env.MONGO_URI;
 

@@ -141,12 +141,15 @@ function Stock(symbol, dateAdded, shares) {
     this.addSection(summaryTag, "Change Percent", "change-percent");
     this.addSection(summaryTag, "Last Update", "last-update");
 
-    const dataSection = document.createElement("div");
+    const dataSection = document.createElement("label");
     const dataHeading = document.createElement("h3");
     const dataValue = document.createElement("input");
     //add type = number
     dataValue.type = "number";
     dataValue.value = this.shares;
+    //for and id
+    dataValue.id = this.symbol + "-shares";
+
     dataSection.classList.add("data-section");
     dataHeading.classList.add("data-heading");
     dataValue.classList.add("shares");
