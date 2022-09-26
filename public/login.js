@@ -1,11 +1,13 @@
 ////////////////// for basic token
 
-const form = document.querySelector('#login')
+const form = document.querySelector('#loginBasic')
 const userName = document.querySelector('#username')
 
 form.addEventListener('submit', function(e){
+
   e.preventDefault()
   
+  sessionStorage.removeItem('usernameKey') // this gets rid of any lingering values in the sessionStorage
 
     const usernameVal =  userName.value
 
@@ -13,12 +15,12 @@ form.addEventListener('submit', function(e){
     sessionStorage.setItem('usernameKey', usernameVal)
 
     // sessionStorage.clear
-    // sessionStorage.remove('usernameKey')
+    
 
     window.location.href = "main.html";
 })
 
-// for Github
+// for Github User
 const url = window.location.search  // returns "?token%20=%20______________________"
 // the spaces ( %20) in the url are making URLSearchParams().get return null, so I just decided to remove the spaces from the url
 const urlNoSpaces = url.replaceAll('%20', '') // returns "?token=______________________"
@@ -43,4 +45,8 @@ const hide = (selector) => {
 if (TOKEN) {
   hide('.content.unauthorized');
   show('.content.authorized');
+  sessionStorage.removeItem('usernameKey') // this gets rid of any lingering values in the sessionStorage
+  const userNameGitHub = "GithubUser"
+  sessionStorage.setItem('usernameKey',userNameGitHub)
 }
+

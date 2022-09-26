@@ -116,7 +116,7 @@ app.use( cookie({
 
 // this variable represents the authenticated user's username:
 
-app.post( '/login', (req,res)=> {
+app.post( '/loginBasic', (req,res)=> {
   // express.urlencoded will put your key value pairs 
   // into an object, where the key is the name of each
   // form field and the value is whatever the user entered
@@ -184,7 +184,10 @@ app.get('/oauth-callback', ({query:{code}}, res) =>{
     .catch((err)=> res.status(500).json({err: err.message}));
 })
 
-
+// redirects Github User to main.html
+app.post( '/loginGitHub', (req,res)=> {
+  res.redirect( 'main.html' )
+})
 
 
 app.listen( process.env.PORT || 3000 )
