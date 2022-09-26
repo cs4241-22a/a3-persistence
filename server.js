@@ -28,7 +28,7 @@ app.use( ( req, res, next ) =>
 });
 app.engine( 'handlebars', hbs() );
 app.set( 'view engine', 'handlebars' );
-app.set( 'views', './views' );
+app.set( 'views', './public/views' );
 //app.use( cookie ({ name: 'session', keys: [ 'key1', 'key2' ] }) );
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
