@@ -2,18 +2,28 @@
 <html lang="en">
   <head>
     <title>login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login for simple todo application with add, edit, and delete functionality.">
-    <style>input { display:block }</style>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" 
+          integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" 
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <form action="/login" method="POST">
-      <label for="username">username:</label>
-      <input type="text" id="username" name="username" />
-      <label for="password">password:</label>
-      <input type="password" id="password" name="password" />
-      <input type="submit" value="login" />
-    </form>
-    {{{msg}}}
+    <header>
+          <h1>todo</h1>
+    </header>
+    <div id="logincontainer">
+      <form action="/login" method="POST" class="pure-form pure-form-stacked">
+        <label for="username">username:</label>
+        <input type="text" id="username" name="username" autocomplete="off" />
+        <label for="password">password:</label>
+        <input type="password" id="password" name="password" />
+        <button type="submit" value="login" class="pure-button pure-button-primary">login</button>
+      </form>
+      <p>{{{msg}}}</p>
+    </div>
+    
   </body>
 </html>

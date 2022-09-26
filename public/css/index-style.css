@@ -1,0 +1,45 @@
+:root {
+    --off-white: #FAF9F6;
+    --off-black: #313639;
+    --off-gray:  #e5e4e2;
+}
+
+.pure-button {
+    background-color: #0066cc;
+}
+
+body {
+    background-color: var(--off-gray);
+    color: var(--off-black);
+}
+
+header {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 2em 2em 0;
+    border-bottom: 1px solid #eee;
+}
+header h1 {
+    margin: 0.2em 0;
+    font-size: 3em;
+    font-weight: 300;
+}
+
+#logincontainer {
+    margin: 0 auto;
+    padding: 2em 2em;
+    max-width: 600px;
+    margin-bottom: 50px;
+    line-height: 1.6em;
+
+    background-color:white;
+}
+
+button {
+    margin: 10px 0px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}

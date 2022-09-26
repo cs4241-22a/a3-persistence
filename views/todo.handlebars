@@ -5,28 +5,41 @@
         <meta name="description" content="Simple todo application with add, edit, and delete functionality.">
 
         <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" 
+            integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" 
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="css/todo-style.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <script src="script.js" defer></script>
     </head>
 
     <body>
         <header>
             <h1>todo</h1>
-            <form action="/logout" method="GET"><button id="logout" type="submit">logout</button></form>
-           
+            <div id="logoutcontainer" class="pure-g">
+                <div class="pure-u-20-24" id="loginmsgcontainer">
+                    <p id="msgcontainer">{{{msg}}}</p>
+                </div>
+                <form action="/logout" method="GET" class="pure-u-4-24">
+                    <button id="logout" type="submit" 
+                        class="pure-button pure-button-primary">logout</button>
+                </form>
+            </div>
         </header>
-        {{{msg}}}
+        
         <main>
-            <form id="submitTodo">
-                <label for="todoitem">
-                    new todo item:
+            <form id="submitTodo" class="pure-g">
+                <label for="todoitem" class="pure-u-20-24">
                     <input id="todoitem" type="text" maxlength="100" required placeholder="todo">
                 </label>
-                <button type="submit">add todo item</button>
+                <button id="todoitembutton" class="pure-u-4-24 pure-button pure-button-primary" 
+                    type="submit">add</button>
             </form>
             
             <ul id="todoitems">
                 
             </ul>
         </main>
-</body>
+    </body>
+</html>

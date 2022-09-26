@@ -97,13 +97,17 @@ const editTodo = function(e) {
 // adds item to html
 const appendItem = function(item) {
     const newLi = document.createElement("li");
+    const div = document.createElement("div");
     const p = document.createElement("p");
     p.innerText = item.title;
 
     newLi.setAttribute("id", item.iid)
+    newLi.setAttribute("class", "pure-g")
     p.setAttribute("contenteditable", false);
+    div.setAttribute("class", "pure-u-20-24");
 
-    newLi.appendChild(p);
+    div.appendChild(p);
+    newLi.appendChild(div);
     newLi.appendChild(makeEditButton())
     newLi.appendChild(makeDeleteButton())
 
@@ -120,6 +124,7 @@ const makeDeleteButton = function() {
     const buttonDelete = document.createElement("button");
     buttonDelete.setAttribute("class", "delete");
     buttonDelete.setAttribute("onclick", "deleteTodo(this)");
+    buttonDelete.setAttribute("class", "pure-u-2-24");
     buttonDelete.innerText = "X";
     return buttonDelete;
 }
@@ -128,6 +133,7 @@ const makeEditButton = function() {
     const buttonEdit = document.createElement("button");
     buttonEdit.setAttribute("class", "edit");
     buttonEdit.setAttribute("onclick", "makeEditable(this)");
+    buttonEdit.setAttribute("class", "pure-u-2-24");
     buttonEdit.innerText = "E";
     return buttonEdit;
 }
@@ -135,19 +141,21 @@ const makeEditButton = function() {
 // make text editable, turns edit button to submit button, delete button to cancel
 const makeEditable = function(e) {
     const element = document.getElementById(e.parentNode.getAttribute("id"))
-    const p = element.querySelector("p")
+    const div = element.querySelector("div")
+    const p = div.querySelector("p")
     p.setAttribute("contenteditable", true);
     p.focus();
 
-    const buttonEdit = element.querySelector(".edit")
+    const buttonEdit = element.querySelectorAll("button").item(0)
     buttonEdit.setAttribute("onclick", "submitEdit(this)");
     buttonEdit.innerText = "S"
 }
 
 const submitEdit = function(e) {
     const element = document.getElementById(e.parentNode.getAttribute("id"))
-    const p = element.querySelector("p")
-    const buttonEdit = element.querySelector(".edit")
+    const div = element.querySelector("div")
+    const p = div.querySelector("p")
+    const buttonEdit = element.querySelectorAll("button").item(0)
     buttonEdit.setAttribute("onclick", "makeEditable(this)");
     buttonEdit.innerText = "E";
     p.setAttribute("contenteditable", false);

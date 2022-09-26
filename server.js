@@ -96,16 +96,14 @@ app.post("/login", async(req, res) => {
     })
 })
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // custom middleware
 // redirects unauthorized users to login. any get/post below this will go through this
 app.use(function(req, res, next) {
     if (req.session.login === true) { next(); }
     else { 
-        res.sendFile(path.join(__dirname, "views", "index"), function(err) {
-            if (err) {
-                res.status(err.status).end();
-            }
-        });
+        res.render("index", { msg:"please login first", layout:false })
     }
 })
 
@@ -157,7 +155,6 @@ app.get("/todolist", (req, res) => {
     .then(result => res.json(result[0].todolist))
 })
 
-app.use(express.static("public"))
 const port = 3000;
 const listener = app.listen(port, () => {
   console.log("Your app is listening on port " + listener.address().port);
