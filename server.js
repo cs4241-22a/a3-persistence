@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://users:users@main-cluster.ck9ebum.mongodb.net/?retryWrites=true&w=majority";
@@ -45,7 +46,8 @@ const appdata = {
   }
 };
 
-app.use(logRequests);
+app.use(morgan('dev'));
+app.use(logTokenRequests);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -53,14 +55,20 @@ app.get('/', (req, res) => {
   res.sendFile('/public/index.html', {root: __dirname});
 });
 
-app.get('/api/users/*', (req, res) => {
-  console.log(req.url.slice(11));
-  console.log(req.query);
-  res.send(JSON.stringify(appdata['Feathercrown']));
+app.get('/api/favorites', (req, res) => {
+  //console.log(req.query);
+  //console.log(activeUsers);
+  const collection = client.db("users").collection("users");
+  var username = activeUsers[req.query.token];
+  collection.findOne({user:username}).then(userData => {
+    delete userData.password; //No security breaches that easily lmao
+    res.send(JSON.stringify(userData));
+  });
+  
 });
 
 app.post('/api/login', (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const collection = client.db("users").collection("users");
   collection.findOne({user:req.body.username}).then(user => {
     if(user == null){
@@ -83,7 +91,7 @@ app.post('/api/login', (req, res) => {
         console.log('Active users:', activeUsers);
         res.send(JSON.stringify({
           login: 'success',
-          token: randToken.generate(16)
+          token: token
         }));
       } else {
         res.send(JSON.stringify({
@@ -98,12 +106,38 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+
+app.post('/api/new', (req, res) => {
+  console.log(req.body);
+  const collection = client.db("users").collection("users");
+  collection.findOne({user:activeUsers[req.body.token]}).then(user => {
+    console.log(user);
+    var newUser = user;
+    newUser.favorites.push({
+      key: req.body.key,
+      value: req.body.value,
+      category: req.body.newcategory || req.body.category, //Custom category overrides existing categories
+      description: req.body.description
+    });
+    collection.replaceOne({user:activeUsers[req.body.token]},newUser).then(()=>{
+      res.end();
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Favoritizer listening on port ${port}`);
 });
 
 //Custom middleware
-function logRequests(req, res, next){
-  //console.log(req); //TODO: Improve
+function logTokenRequests(req, res, next){
+  try {
+    var token = req.query.token || req.body.token;
+    if(token){
+      console.log(`\n${req.method} request made by user with token ${token}`);
+    }
+  } catch(e){
+    //Ignore
+  }
   next();
 }

@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', async function(){
-    fetch('/api/users/Feathercrown', {
+    document.forms['new-favorite-form'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        var formData = new FormData(event.target);
+        formData.append('token', localStorage.getItem('a3-token'));
+        fetch(event.target.action, {
+            method: event.target.method,
+            body: new URLSearchParams(formData)
+        }).then((response) => {
+            window.location.reload();
+        }).catch((error) => {
+            console.error(error);
+        });
+        return false;
+    });
+
+    fetch('/api/favorites?token='+localStorage.getItem('a3-token'), {
         method:'GET',
         headers: {
           'Accept': 'application/json',
@@ -7,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         }
     })
     .then(async function(response){
+        console.log(response);
         var body = await response.json();
         console.log(body);
         init(body);
@@ -37,5 +53,10 @@ async function init(userData){
         });
         favoritesElement.removeChild(dummyFavorite);
         list.appendChild(categoryElement);
+        //Also add it as an option to the categories dropdown for new favorites
+        var option = document.createElement('option');
+        option.value = categoryName;
+        option.innerText = categoryName;
+        document.getElementById("categories-dropdown").appendChild(option);
     });
 }
