@@ -86,7 +86,7 @@
               </div>
             </div>
             <table
-              style="width: 100%"
+              style="width: 100%;"
               id="scoreList"
               class="table is-bordered is-striped is-narrow is-hoverable has-background-warning-light mb-1"
             >
@@ -107,7 +107,7 @@
             </table>
             <aside class="is-size-7">
               The average human clicks per second is around 4-7 CPS according to
-              research by Google.
+              research by&nbsp <a style="max-height: 1.65em; max-width: 10em;" target="_blank" rel="noreferrer noopener" href="https://www.clickspersecond.com/#:~:text=The%20average%20CPS%20for%20a%20player%20is%204%2D7%20CPS%20which%20is%20considered%20normal%20for%20Clicks%20Per%20Second%20Test." class="button is-link is-small is-outlined">clickspersecond.com</a>.
             </aside>
           </section>
         </div>
@@ -172,6 +172,7 @@
     // }
 
     function updateTable() {
+      let lastSpot = document.documentElement.scrollTop || document.body.scrollTop;
       let table = document.getElementById("scoreList");
       table.innerHTML =
         "<thead><tr><th>Name</th><th>Clicks</th><th>Rating</th><th>Delete?</th></tr></thead>";
@@ -213,8 +214,8 @@
               })(response.Name);
               End.appendChild(btn);
             }
-            
           }
+        window.scrollTo(0,lastSpot);
         });
     }
 
