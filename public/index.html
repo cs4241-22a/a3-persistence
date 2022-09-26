@@ -24,7 +24,19 @@
     </button></div>
   
   <form>
-    <input type='text' id='stockinput' placeholder="Add a stock. Ex: GME">
+    <input type='text' id='stockinput' placeholder="Symbol. Ex: GME">
+    <!-- radio buttons for selecting long or short -->
+    <div class="radio-container">
+      <input type="radio" id="long" name="position" value="long" checked>
+      <label for="long">Long</label>
+      <input type="radio" id="short" name="position" value="short">
+      <label for="short">Short</label>
+    </div>
+
+    
+    <!-- text area for num shares -->
+    <input type='number' id='sharesinput' placeholder="# of Shares">
+
     <button class="buy" id="buybutton">ADD</button>
   </form>
   <div id="stock-list">

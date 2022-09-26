@@ -16,7 +16,10 @@ const GitHubStrategy = require("passport-github2").Strategy;
 //create a custom strategy
 const CustomStrategy = require("passport-custom").Strategy;
 const oneDay = 1000 * 60 * 60 * 24;
+
 let loggedIn = false;
+let stocks = [];
+let user = null;
 
 app.use(bodyParser.json());
 app.use(
@@ -25,7 +28,6 @@ app.use(
   })
 );
 
-let user = null;
 //use the session middleware
 app.use(
   session({
@@ -97,7 +99,7 @@ async function addUser(client, username, password = null) {
     .insertOne({
       username: username,
       password: password,
-      stocks: getDefaults(),
+      stocks: [],
     });
   return result;
 }
@@ -248,16 +250,6 @@ async function listDatabases(client) {
   databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
 }
 
-let stocks = [];
-
-function getDefaults() {
-  return [
-    { symbol: "tsla", price: 0, dateAdded: new Date() },
-    { symbol: "tqqq", price: 0, dateAdded: new Date() },
-    { symbol: "qqq", price: 0, dateAdded: new Date() },
-  ];
-}
-
 const yahooFinance = require("yahoo-finance2").default;
 
 app.get("/", (req, res) => {
@@ -356,7 +348,6 @@ const handlePost = async function (request, response) {
     } catch (error) {
       console.log("Error parsing JSON");
     }
-    // console.log(dataObject);
 
     if (request.url === "/submit") {
       //if the stock is not already in the array, add it
@@ -382,6 +373,7 @@ const handlePost = async function (request, response) {
             symbol: dataObject.stockinput.toLowerCase(),
             price: stockData.regularMarketPrice, //derived field
             dateAdded: new Date(),
+            shares: dataObject.sharesinput,
           };
           stocks.push(newStock);
 
@@ -404,6 +396,20 @@ const handlePost = async function (request, response) {
         updateUsersStocks(stocks);
         response.writeHead(200, "OK", { "Content-Type": "text/plain" });
         response.end("Removed stock from array");
+      } else {
+        response.writeHead(404, "Not Found", { "Content-Type": "text/plain" });
+        response.end("Stock not found in array");
+      }
+    } else if (request.url === "/updateShares") {
+      //update the shares of the stock to the new value in the database and array
+      //new value and ticker are in the body of the request
+      let stock = stocks.find((stock) => stock.symbol === dataObject.symbol);
+      if (stock) {
+        stock.shares = dataObject.shares;
+        //set the stock array in the database
+        updateUsersStocks(stocks);
+        response.writeHead(200, "OK", { "Content-Type": "text/plain" });
+        response.end("Updated shares");
       } else {
         response.writeHead(404, "Not Found", { "Content-Type": "text/plain" });
         response.end("Stock not found in array");

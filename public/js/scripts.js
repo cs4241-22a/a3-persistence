@@ -4,13 +4,16 @@ const submitbuy = function (e) {
 
   console.log("buy button clicked");
 
-  const input = document.querySelector("#stockinput"),
-    json = { stockinput: input.value },
-    body = JSON.stringify(json);
+  const stockInput = document.querySelector("#stockinput");
+  const sharesInput = document.querySelector("#sharesinput");
+  const shortRadio = document.querySelector("#short");
 
   fetch("/submit", {
     method: "POST",
-    body,
+    body: JSON.stringify({
+      stockinput: stockInput.value,
+      sharesinput: sharesInput.value * (shortRadio.checked ? -1 : 1),
+    }),
   }).then(function (response) {
     // if the response is ok, then add the stock to the list and clear the input
     if (response.ok) {
@@ -18,8 +21,9 @@ const submitbuy = function (e) {
       //get response data
       response.json().then((data) => {
         //add the stock to the list
-        addStockToList(data.symbol, data.dateAdded);
-        input.value = "";
+        addStockToList(data.symbol, data.dateAdded, data.shares);
+        stockInput.value = "";
+        sharesInput.value = "";
       });
     }
   });
@@ -27,13 +31,13 @@ const submitbuy = function (e) {
   return false;
 };
 
-function addStockToList(ticker, dateAdded) {
+function addStockToList(ticker, dateAdded, shares) {
   //use the data from the server to populate the div stock-list with stocks
   //copy the template from the html
   const template = document.querySelector("#stock-template");
   //get the div to put the stocks in
   const stockList = document.querySelector("#stock-list");
-  const stock = new Stock(ticker, dateAdded);
+  const stock = new Stock(ticker, dateAdded, shares);
   stock.init(template);
   stock.startUpdating();
 
@@ -94,7 +98,7 @@ window.onload = async function () {
   for (let i = 0; i < data.length; i++) {
     //add the clone to the div
     //create a stock object and call init
-    const stock = new Stock(data[i].symbol, data[i].dateAdded);
+    const stock = new Stock(data[i].symbol, data[i].dateAdded, data[i].shares);
     stock.init(template);
     stock.startUpdating();
 
@@ -113,10 +117,11 @@ window.onload = async function () {
 };
 
 //create a stock object
-function Stock(symbol, dateAdded) {
+function Stock(symbol, dateAdded, shares) {
   this.symbol = symbol;
   this.dateAdded = dateAdded;
   this.price = 0;
+  this.shares = shares;
   this.html = null;
 
   this.init = async function (template) {
@@ -136,6 +141,41 @@ function Stock(symbol, dateAdded) {
     this.addSection(summaryTag, "Change Percent", "change-percent");
     this.addSection(summaryTag, "Last Update", "last-update");
 
+    const dataSection = document.createElement("div");
+    const dataHeading = document.createElement("h3");
+    const dataValue = document.createElement("input");
+    //add type = number
+    dataValue.type = "number";
+    dataValue.value = this.shares;
+    dataSection.classList.add("data-section");
+    dataHeading.classList.add("data-heading");
+    dataValue.classList.add("shares");
+    dataHeading.textContent = "Shares";
+    dataSection.appendChild(dataHeading);
+    dataSection.appendChild(dataValue);
+    summaryTag.appendChild(dataSection);
+
+    // when shares is changed, update the server
+    dataValue.onchange = async () => {
+      //get the new value
+      const newShares = dataValue.value;
+      //update the server
+      const response = await fetch("/updateShares", {
+        method: "POST",
+        body: JSON.stringify({
+          symbol: this.symbol,
+          shares: newShares,
+        }),
+      });
+      //if the response is ok, then update the shares
+      if (response.ok) {
+        this.shares = newShares;
+      } else {
+        //if the response is not ok, then revert the value
+        dataValue.value = this.shares;
+      }
+    };
+
     const detailsTag = this.html.querySelector(".detailed-data");
 
     //create the elements using addSection
@@ -152,10 +192,10 @@ function Stock(symbol, dateAdded) {
 
     const summaryBlock = this.html.querySelector("summary");
     //on click, toggle the expansion indicator from side arrow to down arrow
-    summaryBlock.onclick = function () {
-      expansionIndicator.innerHTML =
-        expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
-    };
+    // summaryBlock.onclick = function () {
+    //   expansionIndicator.innerHTML =
+    //     expansionIndicator.innerHTML == "▶" ? "▼" : "▶";
+    // };
 
     const symbolHTML = this.html.querySelector(".symbol");
     symbolHTML.innerHTML = this.symbol.toUpperCase();
@@ -234,6 +274,7 @@ function Stock(symbol, dateAdded) {
     this.html.querySelector(".last-update").innerHTML = lastUpdate;
     this.html.querySelector(".price").innerHTML = data.regularMarketPrice;
     this.html.querySelector(".full-name").innerHTML = data.longName;
+    this.html.querySelector(".shares").innerHTML = this.shares;
     let change = data.regularMarketChange;
     //format the change to 2 decimal places and add a $ and + if it is positive
     change = change.toFixed(2);
