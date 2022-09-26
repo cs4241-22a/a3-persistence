@@ -19,8 +19,10 @@ form.addEventListener('submit', function(e){
 })
 
 // for Github
-debugger
-const URL_PARAMS = new URLSearchParams(window.location.search);
+const url = window.location.search  // returns "?token%20=%20______________________"
+// the spaces ( %20) in the url are making URLSearchParams().get return null, so I just decided to remove the spaces from the url
+const urlNoSpaces = url.replaceAll('%20', '') // returns "?token=______________________"
+const URL_PARAMS = new URLSearchParams(urlNoSpaces);
 const TOKEN = URL_PARAMS.get('token');
 
 //[Exception: TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them at Function.invokeGetter (<anonymous>:3:28) at http://localhost:3000/login.js:24:15]
