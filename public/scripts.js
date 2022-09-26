@@ -20,7 +20,7 @@ function builder ( json )
                     newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
                     newRow += '<th>' + entry.year + '</th>';
                     newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
-                    newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
+                    newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">edit?</button></th>';
                     newRow += '<th><button onclick="deleter(' + entry._movID + ');">delete?</button></th>';
                 datatable.innerHTML += newRow;
             });
@@ -56,8 +56,8 @@ function updater( _movID, title, genre, year )
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
-        newRow += '<th><button onclick="updatercanceller(' + id + ')>cancel?</button></th>';
-        newRow += '<th><button onclick="updatersubmiter(' + id + ')>submit</button></th>';
+        newRow += '<th><button onclick="updatercanceller(' + _movID + ')>cancel?</button></th>';
+        newRow += '<th><button onclick="updatersubmiter(' + _movID + ')>submit</button></th>';
     tempElement.innerHTML = newRow;
 };
 function updatercanceller( _movID )
