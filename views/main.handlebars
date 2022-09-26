@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  </head>
+  <body>
+    <h1>Planner</h1>
+    <h3>Allows you to add items you need to do in your planner.
+    </h3>
+    {{{msg}}}
+
+    <div id="wrap">
+      <form action="/add" method="POST">
+        <label for="task1">Add an item:</label><br>
+        <input class="textbox" type='text' name='task1' id='input1' value="task1"><br>
+        <input type="submit" value="add" />
+      </form>
+    </div>
+
+    <div id="wrap2">
+      <form action="/delete" method="POST">
+        <label for="deleteTasks">Delete an item:</label><br>
+        <input class="textbox" type='text' id='delInput1' value="task1"><br>
+        <input type="submit" value="delete" />
+      </form>
+    </div>
+    
+    <section class="tasks">
+        <ul id="tasks"></ul>
+      </section>
+    <table id="formData">
+    </table>
+  </body>
+  <script src="/scripts.js">
+  </script>
+</html>
