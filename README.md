@@ -3,7 +3,7 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 
 ## myNotes
 
-Link: http://a3-charlie-roberts.glitch.me
+Link: https://morning-reaches-44384.herokuapp.com/
 
 The goal of this application was to develop a simple CRUD note taking app. This webapp demonstrates a simple implementation of CRUD operations with node using express, passport.js, and mongodb.
 Some challenges I faced in getting this app working included difficulties learning express and ejs files, working with passport/OAuth, and sending requests from JS (client side) while still using a csrf token.
