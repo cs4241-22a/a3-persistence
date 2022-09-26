@@ -41,8 +41,8 @@ passport.use(new GitHubStrategy({
     function(err, user) { return done(err, user); });
   }
 ));
-app.get('/', ( req, res ) => { res.render( 'index' ) });
-app.get('/login', ( req, res ) => { res.render( 'main' ); });
+app.get('/', ( req, res ) => { res.render( "index", { msg: "", layout: false } ) } );
+app.get('/login', ( req, res ) => { res.render( "main", { msg: "", layout: false } ); } );
   //res.sendFile('index.html', { user: req.user, root: Path2D.join(__dirname, 'public')});
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) { res.render('main'); });
