@@ -34,7 +34,7 @@
     </div>
   </section>
      <!-- find way to remove this when github user logs in -->
-    <section   class ="basicAuthorization" "id = 'basic login' style = "display:block" >
+    <section class ="basicAuthorization" id = 'basic login' style = "display:block" >
       <Header> <h2> You can use basic login credentials here</h2> </Header>
       <form id = 'loginBasic' action='/loginBasic' method='POST'>
         <div class = "grid">
@@ -45,11 +45,11 @@
 
         <label for = 'password'> 
           Password: 
-          <input  type='password' name='password' placeholder='password'>
+          <input  id = 'password' type='password' name='password' placeholder='password'>
         </label>
         <label for = 'submitBasic'>
           Click here:
-          <input id = 'submitBasic' type='submit'> <!-- submits the request? -->
+          <input id = 'submitBasic' type='submit' value = "Sign in"> <!-- submits the request? -->
         </label>
       </div>  
       </form>

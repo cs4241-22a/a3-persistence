@@ -2,22 +2,22 @@
 
 const form = document.querySelector('#loginBasic')
 const userName = document.querySelector('#username')
+const password = document.querySelector('#password')
 
 form.addEventListener('submit', function(e){
-
   e.preventDefault()
-  
-  sessionStorage.removeItem('usernameKey') // this gets rid of any lingering values in the sessionStorage
-
+  if ( (userName.value =="tester")&& (password.value == "test")){
+    sessionStorage.removeItem('usernameKey') // this gets rid of any lingering values in the sessionStorage
     const usernameVal =  userName.value
-
     // this will be put in the local storage for your browser
     sessionStorage.setItem('usernameKey', usernameVal)
-
     // sessionStorage.clear
-    
-
     window.location.href = "main.html";
+  }
+  else{
+    alert("Error: You entered the wrong credentials")
+  }
+
 })
 
 // for Github User
