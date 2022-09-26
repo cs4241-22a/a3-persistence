@@ -1,0 +1,61 @@
+/*Style your own assignment! This is fun! */
+body{
+    background-color: #b1ec89;
+    font-family: 'Quicksand', sans-serif;
+}
+h1{ 
+    font-family: "Michroma", sans-serif;
+    text-align: center;
+    text-decoration: underline;
+}
+
+p{
+    text-align: center;
+    text-size-adjust: auto
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+.inputInfoTable{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f1f1c1;
+    align-items: center;
+}
+#storedData {
+    font-family: arial, sans-serif;
+    border:1px solid black;
+    /*border-collapse: collapse;*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    background-color: #f1f1c1;
+}
+
+.item1 { grid-area: header; }
+.item2 { grid-area: inputForm; }
+.item3 { grid-area: table; }
+.item4 { grid-area: space; }
+.item5 { grid-area: intro; }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'intro'
+    'inputForm'
+    'table';
+    
+  gap: 5px;
+  /*background-color: #eb6e39;*/
+  padding: 5px;
+}
+
+.grid-container > div {
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  text-align: center;
+  padding: 10px 0;
+  /* font-size: 10px; */
+}
