@@ -1,0 +1,35 @@
+{
+  "name": "a3-persistence",
+  "version": "1.0.0",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template ===",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobias-mack/a3-persistence.git"
+  },
+  "keywords": [],
+  "author": "Tobias Mack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tobias-mack/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/tobias-mack/a3-persistence#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongodb": "^4.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

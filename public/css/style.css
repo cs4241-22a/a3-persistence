@@ -1,0 +1,24 @@
+#task-input {
+  margin-top: 25px;
+}
+
+#tasks {
+  margin-top: 40px;
+}
+
+#new-task-form {
+  display: flex;
+}
+
+#task {
+  margin-top: 15px;
+}
+
+
+#message {
+  margin-top: 25px;
+}
+
+:root {
+  display: grid;
+}

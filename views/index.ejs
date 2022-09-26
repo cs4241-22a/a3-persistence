@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="description"
+        content="Author: T.Mack, Category: TodoList, Usage: free, Description: build a personal todo list">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href=" https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css" />
+</head>
+
+<body>
+    <h1>Todo List of <%= name %>
+    </h1>
+    <div id="task-input">
+        <form action="/add" method="post" id="new-task-form">
+            <input type="hidden" id="name" name="name" value="<%= name %>">
+            <input type="text" name="new-task-input" id="new-task-input" placeholder="What do you have planned?" />
+            <input type="submit" id="new-task-submit" value="&#x2795" />
+        </form>
+    </div>
+    <hr>
+
+    <div id="tasks">
+        <ul>
+            <% for(var i=0; i<results.length; i++) { %>
+                <div id="task">
+                    <form action="/edit" id="edit" method="post">
+                        <input type="hidden" id="name" name="name" value="<%= name %>">
+                        <input type="hidden" id="oldValue" name="oldValue" value='<%= results[i]["new-task-input"] %>'>
+                        <input type="text" name="edited" id="edited" value='<%= results[i]["new-task-input"] %>' />
+                        <button id="save" name="save">Save</button>
+                        <button id="delete" name="delete">&#x1F5D1</button>
+                    </form>
+                </div>
+                <% } %>
+        </ul>
+    </div>
+</body>
+<footer> <a href="#">Back to top ⬆</a> </footer>
+
+</html>
