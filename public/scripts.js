@@ -70,7 +70,7 @@ function updatercanceller( _movID )
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
-       newRow += '<th>' + zackCheck(title, genre) + '<\th>';
+       newRow += '<th>' + zackcheck(title, genre) + '<\th>';
        newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
        newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     tempElement.innerHTML = newRow;
