@@ -137,11 +137,4 @@ app.post('/removeClimb', (req, res) => {
     ).then(result => res.json(result))
 })
 
-app.post( '/remove', (req,res) => {
-
-    collection
-        .deleteOne({user: req.session.passport.user})
-        .then( result => res.json( result ) )
-})
-
 app.listen( 3069 )
