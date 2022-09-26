@@ -120,12 +120,12 @@
       e.preventDefault();
 
       const input = document.querySelector("#yourname"),
-        clicks = document.querySelector("#clicks"),
+        //clicks = document.querySelector("#clicks"),
         CPS = document.querySelector("#result");
       let json = {
           Name: input.value,
-          Clicks: clicks.textContent,
-          CPS: CPS.textContent,
+          Clicks: score,
+          CPS: (score / duration).toFixed(1),
           Rating: 0,
           User: 0,
           Delete: 0,
@@ -133,8 +133,8 @@
         body = JSON.stringify(json);
 
       if (
-        clicks.textContent != 0 &&
-        clicks.textContent == CPS.textContent * 10
+        score !== 0 &&
+        score === parseFloat(CPS.textContent) * 10
       ) {
         fetch("/add", {
           method: "POST",
