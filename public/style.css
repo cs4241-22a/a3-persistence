@@ -1,0 +1,9 @@
+img{
+    border-radius:10px;
+    max-width: 100%;
+    height: auto;
+    position: relative;
+}
+#IdWarning{
+    color:#d81b60;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 3</title>
+    <title>a3 Task Manager </title>
     <meta
       charset="utf-8"
       name="viewport"
@@ -14,125 +14,176 @@
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <!-- lets Google know what the webpage is about-->
     <link rel="stylesheet" href="/style.css" />
-
   </head>
   <body >
-    <header> 
-      <h1>Task Manager</h1>
-      <h4>Add a Task here</h4>
-    </header>
-    <section id="Actions">
-      <form action="">
-        <header id="header"></header>
-        
-        <div id="inputs" class="inputsAndButtons">
-          <label for="newTask">New Task:</label>
-          <input type="text" id="newTask" placeholder="Type task here" />
-          <div id="dropDowns">
-            <label for="TypeOfTask">Type:</label>
-            <select id="TypeOfTask">
-              <option value="School">School</option>
-              <option value="Work">Work</option>
-              <option value="Other">Other</option>
-            </select>
+    
+    <main class = "grid">
+    <section id="Task Actions">
+      <form > 
+        <h1>Task Manager</h1>
+        <section id = "addTask">
+          <header id="header"><h4>Add a Task here</h4></header>
+          <p>Type in the box below and select the appropiate fields</p>
+          <div class="grid" >
 
-            <label for="Difficulty">Difficulty:</label>
-            <select id="Difficulty">
-              <option value="Easy">Easy</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
-            </select>
+          <label for="newTask"> 
+            New Task:
+            <input type="newTask" id="newTask" placeholder="Type task here" />
+          </label>
+          <!-- <div  id="dropDowns"> -->
+            <label for="TypeOfTask">
+              Type:
+              <select id="TypeOfTask">
+                <option value="School">School</option>
+                <option value="Work">Work</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
 
-            <label for="Semester">Semester:</label>
-            <select id="Semester">
-              <option value="Fall">Fall</option>
-              <option value="Spring">Spring</option>
-              <option value="Summer">Summer</option>
-            </select>
-          </div>
+            <label for="Difficulty">
+              Difficulty:
+              <select id="Difficulty">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </label>
+
+            <label for="Semester">
+              Semester:
+              <select id="Semester">
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+            </label>
+          <!-- </div> -->
         </div>
-        <div class="inputsAndButtons">
-          <br />
-          <div id="buttons" class="inputsAndButtons">
-            <label for="addButton">Add a Task Here:</label>
+        <label for="addButton">Press "add" below:</label>
             <button id="addButton">add</button>
-            <label for="resultsButton">See all of your Tasks:</label>
-            <button id="resultsButton">results</button>
-          </div>
-          <p class="guides">
-            Click 'Submit' look at all of your task ( 1 task is already premade
-            for you)
-            <br />
-            <br />
-
-          </p>
-
-          <header> 
             <h4>Delete a Task here</h4>
-          </header>
-          <div id="deleteTask">
-            <p>Insert your 24 character Task ID and click "remove" to delete a Task</p>
-            <p> Example ID: 632db9d762fe7a74fb35d900 </p>
-            <label for="deleteTaskInput">Task ID:</label>
-            <input type="text" id="deleteTaskInput" placeholder="Object ID" />
-            <label for="removeButton">Delete Task:</label>
-            <button id="removeButton">remove</button>
+          </section>   
+          <section id="deleteTask">
+            <p>Insert your ID and click "remove" to delete a Aask</p>
+            <div class="grid">
+            <label for="deleteTaskInput">
+              Task ID:
+              <input type="text" id="deleteTaskInput" placeholder="Object ID"/>
+              <small>Example ID: 632db9d762fe7a74fb35d900</small>
+              <small id ="IdWarning">Every ID should be 24 characters long*</small>
+            </label>
+            <label for="removeButton">
+              Delete Task:
+              <button id="removeButton">remove</button>
+            </label>
           </div>
-
+        </section>
+        <section id = "updateTask">
           <header> 
             <h4>Change a Task here</h4>
           </header>
           <p>Insert your  Task ID, and updated information below. Click "update" to associate new info with the inserted ID </p>
-          <div id="updateTask">
-            <label for="idForUpdate">Task ID :</label>
+          <div class = "grid" id="updateTask">
+            <label for="idForUpdate">
+              Task ID :
             <input
               type="text"
               id="idForUpdate"
               placeholder="Insert same Object ID"
             />
-            <label for="TaskInputUpdate">Task Name:</label>
-            <input
+          </label>
+            <label for="TaskInputUpdate">
+              Task Name:
+              <input
               type="text"
               id="TaskInputUpdate"
-              placeholder="edit task input here"
-            />
-            <!-- <div id="updateDropdowns"> -->
+              placeholder="edit task input here"/>
+            </label>
 
-            <label for="typeOfTaskUpdate">Type</label>
+            <!-- <div id="updateDropdowns"> -->
+            <label for="typeOfTaskUpdate">
+              Type:
+            
             <select id="typeOfTaskUpdate">
               <option value="School">School</option>
               <option value="Work">Work</option>
               <option value="Other">Other</option>
             </select>
-            <label for="difficultyUpdate">Difficulty</label>
+          </label>
+            <label for="difficultyUpdate">
+              Difficulty:
             <select id="difficultyUpdate">
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
             </select>
-            <label for="semsterUpdate">Type</label>
+          </label>
+            <label for="semsterUpdate">
+              Semester
+            
             <select id="semesterUpdate">
               <option value="Fall">Fall</option>
               <option value="Spring">Spring</option>
               <option value="Summer">Summer</option>
             </select>
+          </label>
             <!-- </div> -->
+          </div>
             <label for="updateButton">Press to Update:</label>
             <button id="updateButton">update</button>
-          </div>
           <div class="toDoList" id="toDoList">
           </div>
-        </div>
+        </section>
+      
       </form>
     </section>
-<br>
 
-    <section id="Results">
+    <section id="Showing Tasks">
+      <!-- <img class="lofiGirl" src="LofiGirl.jpg" alt = "Photo of person studying" /> -->
       <header>
         <h1> Tasks to Complete</h1>
       </header>
-      <table id="TaskBase"></table>
+      <label for="resultsButton">Click "results" to see all your tasks:</label>
+      <button id="resultsButton">results</button>
+    
+      <table id="TaskBaseHeaders">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">User</th>
+            <th scope="col">Task</th>
+            <th scope="col">Type</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Semester</th>
+          </tr>
+        </thead>
+        <tbody id="TaskBase">
+
+        </tbody>
+        <!-- <tfoot>
+          <tr>
+            <th scope="col">#</th>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+          </tr>
+        </tfoot> -->
+      </table>
+<!-- 
+     <table id="TaskBase">
+
+      </table>  -->
+  
     </section>
+  </main>
+
+  <footer class = "grid">
+    <article>Creator: Caleb Talley</article>
+    <article>Email: Cctalley@wpi.edu</article>
+    <article>Github: https://github.com/CalebTalley2024</article>
+  </footer>
 
     <script src="/client.js"></script>
     <!-- when you use exprss.static on public, you dont need to write public in the client.js link-->

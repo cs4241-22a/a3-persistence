@@ -37,7 +37,7 @@ const show = (selector) => {
 // Hides an element
 const hide = (selector) => {
   document.querySelector(selector).style.display = 'none'; // none will hide the element
-  
+  debugger
 };
 
 // if you have a token, show the authorized content. Otherwise show the unauthorized content.\
@@ -45,6 +45,7 @@ const hide = (selector) => {
 if (TOKEN) {
   hide('.content.unauthorized');
   show('.content.authorized');
+  hide(".basicAuthorization")
   sessionStorage.removeItem('usernameKey') // this gets rid of any lingering values in the sessionStorage
   const userNameGitHub = "GithubUser"
   sessionStorage.setItem('usernameKey',userNameGitHub)

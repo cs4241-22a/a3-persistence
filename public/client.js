@@ -58,10 +58,7 @@ const add = function( e ) {
       // body = JSON.stringify( json )
 
       // add JSON to client side
-      let tr = document.createElement('tr')
-      tr.innerText = JSON.stringify(json)
 
-      TaskBase.appendChild(tr)
 
       // tr.addEventListener('dblclick',function(){
       // TaskBase.removeChild(tr); })
@@ -74,8 +71,13 @@ const add = function( e ) {
     .then(resjson =>{
     
       //adds field in JSON task for object ID
-    json.objId = resjson.insertedId
+    json._id = resjson.insertedId
     console.log(json)
+
+    let tr = document.createElement('tr')
+    // tr.innerText = JSON.stringify(json)
+     tr.innerHTML=`<td>${json._id}</td>  <td>${json.User}</td>   <td>${json.Task}</td> <td>${json.TypeOfTask}</td> <td>${json.Difficulty}</td> <td>${json.Semester}</td>`
+     TaskBase.appendChild(tr)
     
     })
     //
@@ -116,11 +118,12 @@ const results = function(e)
     console.log(json)
     json.forEach( item =>{
       //////////MAKE initial elements in a div clear before adding new data
-      let tr = document.createElement('tr')
+      let tr = document.createElement('tr') 
         // tr.innerText = JSON.stringify(item)
        tr.innerHTML = 
-       `<strong>ID:</strong> ${item._id},  <strong> User:</strong>${item.json.User}, <strong> Task:</strong> ${item.json.Task}, <strong> Type:</strong> ${item.json.TypeOfTask}, <strong> Difficulty:</strong> ${item.json.Difficulty} <strong>Semester:</strong> ${item.json.Semester}`
-      TaskBase.appendChild(tr)
+      //  `<strong>ID:</strong> ${item._id},  <strong> User:</strong>${item.json.User}, <strong> Task:</strong> ${item.json.Task}, <strong> Type:</strong> ${item.json.TypeOfTask}, <strong> Difficulty:</strong> ${item.json.Difficulty} <strong>Semester:</strong> ${item.json.Semester}`
+      `<td>${item._id}</td>  <td>${item.json.User}</td>   <td>${item.json.Task}</td> <td>${item.json.TypeOfTask}</td> <td>${item.json.Difficulty}</td> <td>${item.json.Semester}</td>`
+      TaskBase.appendChild(tr) 
   })
 })
 }
