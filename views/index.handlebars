@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta  name="description" content="Main page for the website. Allows users to input, delete, and modify their shopping list as they see fit." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+  </head>
+  <body>
+    {{{msg}}}
+    <h1>Shopping List! Create a list!</h1>
+    <form action="" id="testForm">
+      <input type='text' type="submit" id='shoppingitem' placeholder="Enter shopping item here..." maxlength="50" size="50">
+      <br>
+      <input type='text' type="submit" id='quantity' placeholder="Enter quantity here..." maxlength="50" size="50">
+      <br>
+      <input type='text' type="submit" id='price' placeholder="Enter price (per singular item) here..." maxlength="50" size="50">
+      <br>
+      <input type="hidden" id="username" value={{{username}}}>
+      <button id="submitButton">submit</button>
+    </form>
+
+    <h2>Shopping List</h2>
+    <table WIDTH="50%" id="tableShop"> 
+      <thead>
+        <tr>
+          <td align="center"> Item </div></td>
+          <td align="center"> Quantity </td>
+          <td align="center"> Price (per singular item) </td>
+        </tr>
+      </thead>
+      <tbody id="insertInfo">
+      </tbody>
+    </table>
+
+  <h3> Delete </h3>
+    <form action="">
+    <input type='text' type="submit" id='delete' placeholder="Enter the row of the item you want to delete..." maxlength="50" size="50">
+    <br>
+    <input type="hidden" id="username" value={{{username}}}>
+    <button id="deleteButton">submit</button>
+    </form>
+
+  <h3> Modify </h3>
+    <form action="">
+    <input type='text' type="submit" id='modify' placeholder="Enter the row of the item you want to modify..." maxlength="50" size="50">
+    <br>
+    <input type='text' type="submit" id='shoppingitemNew' placeholder="Enter shopping item here..." maxlength="50" size="50">
+    <br>
+    <input type='text' type="submit" id='quantityNew' placeholder="Enter quantity here..." maxlength="50" size="50">
+    <br>
+    <input type='text' type="submit" id='priceNew' placeholder="Enter price (per singular item) here..." maxlength="50" size="50">
+    <br>
+    <input type="hidden" id="username" value={{{username}}}>
+    <button id="modifyButton">modify</button>
+    </form>
+
+  <h3> Total Price: </h3>
+  <p id="totalInsert">$</p>
+  </body>
+  <script src="./js/scripts.js"></script>
+</html>
