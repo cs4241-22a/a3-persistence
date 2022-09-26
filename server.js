@@ -76,7 +76,7 @@ passport.use(new GitHubStrategy({
                 .then(() => {
                     return collection.findOne({githubEmail:profile.email})
                 }).then((result) => {
-                    return done(null, result.user)
+                    return done(null, result._id)
                 })
         });
     }
