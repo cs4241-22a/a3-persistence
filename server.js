@@ -26,7 +26,6 @@ client.connect()
         // blank query returns all documents
         return collection.find({ }).toArray()
     })
-    .then( console.log )
 
 app.use( (req,res,next) => {
     if( collection !== null ) {
