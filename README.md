@@ -5,24 +5,30 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 
 ## The Alfie Images Board
 
-Visit the Alfie Images board here: link e.g. http://a3-charlie-roberts.glitch.me
+Visit the Alfie Images board here: link e.g. [https://a3-sophiastrano.glitch.me/login]
 
 For this assignment, I decided to resurrect my failed plans from assignment 2. The goal of this application was to create a 
 cute webpage with pictures of my adorable cat while addressing the need to be able to add, 
 modify and delete unique responses to create a full-fledged application. I settled on a board of images of Alfredo,
 which allows users to choose and nickname their favorite picture of Alfie. This application offered a myriad of challenges for countless reasons
 To address concerns about lighthouse performance, the Alfie images were converted from .img files to .avif files to avoid slowing load times. 
-- challenges you faced in realizing the application
 
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
+
+Rerouting pages after sending login information was highly challenging because of the nature of POST requests.
+I chose to add user data to the database via custom middleware and the mongodb connection because it seemed easiest to do.
 
 I chose to use bootstrap for this assignment as it seemed the most conducive to the way I'd been learning CSS up to this point, and was widely accessible.
 I was able to use bootstrap's grid framework to re-organaize the elements on each of my pages, and found this to be much cleaner and easier to use than the flexboxes 
+
 I struggled with previously. I only slightly modified the bootstrap framework to quickly include background colors, as this was a very minor change
 that was more straightforward to style myself based on the available boostrap documentation about the addition of background colors. 
 
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+
+ 1. Express-sessions: This middleware allows express to more easily interact with user sessions
+ 2. Cookie-sessions: This middleware allows for sessions to be managed via cookies in broswer
+ 3. mongodb: This middleware allows for easy connection to the database 
+ 4. express-handlebars: This middleware allows for popups and other rendering
+ 5. The custom middleware I built tracks user authentication
 
 **I chose to focus on design achievemnts for this assignment due to difficulty level**
 
