@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const paper_1 = __importDefault(require("paper"));
+import paper from "paper";
 //*********
 //* Setup *
 //*********
 // Set up paper canvas
-const paperView = new paper_1.default.PaperScope();
+const paperView = new paper.PaperScope();
 const canvas = document.getElementById('main-canvas');
 const canvasHolder = canvas.parentElement;
 // Set initial canvas size before adding paperView
@@ -26,8 +21,8 @@ let currentPath;
 //*********************
 // Boilerplate for a new path with stroke color and width
 function initPath() {
-    const newPath = new paper_1.default.Path();
-    newPath.strokeColor = new paper_1.default.Color("black");
+    const newPath = new paper.Path();
+    newPath.strokeColor = new paper.Color("black");
     newPath.fullySelected = true;
     newPath.strokeWidth = 10;
     newPath.strokeCap = "round";
@@ -36,8 +31,8 @@ function initPath() {
 // Convert canvas local position to position in canvas
 function getMousePos(x, y) {
     const rect = canvas.getBoundingClientRect();
-    const canvasRes = new paper_1.default.Point(canvas.width, canvas.height);
-    return new paper_1.default.Point(x - rect.left - 15, y - rect.top - 15);
+    const canvasRes = new paper.Point(canvas.width, canvas.height);
+    return new paper.Point(x - rect.left - 15, y - rect.top - 15);
 }
 //***********************
 //* Handle Mouse Events *
@@ -74,6 +69,7 @@ window.addEventListener("mouseup", ev => {
                 paths.pop();
                 currentPath.remove();
             }
+            console.log(JSON.parse(currentPath.exportJSON()));
             currentPath = null;
             break;
         case 1: // Middle mouse button

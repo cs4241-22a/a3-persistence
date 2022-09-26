@@ -89,6 +89,8 @@ window.addEventListener("mouseup", ev => {
 				currentPath!.remove();
 			}
 
+			console.log(JSON.parse(currentPath!.exportJSON()));
+
 			currentPath = null;
 			break;
 		case 1: // Middle mouse button

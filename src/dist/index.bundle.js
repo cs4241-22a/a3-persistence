@@ -33,10 +33,10 @@ eval("var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPAC
 /*!***************************!*\
   !*** ./src/js/scripts.js ***!
   \***************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nconst paper_1 = __importDefault(__webpack_require__(/*! paper */ \"./node_modules/paper/dist/paper-full.js\"));\r\n//*********\r\n//* Setup *\r\n//*********\r\n// Set up paper canvas\r\nconst paperView = new paper_1.default.PaperScope();\r\nconst canvas = document.getElementById('main-canvas');\r\n// Set initial canvas size before adding paperView\r\ncanvas.width = canvas.parentElement?.clientWidth - 100;\r\ncanvas.height = canvas.width / 2;\r\npaperView.setup(canvas);\r\n// Track all paths currently in the scene\r\nconst paths = [];\r\nlet currentPath;\r\n//*********************\r\n//* Utility Functions *\r\n//*********************\r\n// Boilerplate for a new path with stroke color and width\r\nfunction initPath() {\r\n    const newPath = new paper_1.default.Path();\r\n    newPath.strokeColor = new paper_1.default.Color(\"black\");\r\n    newPath.fullySelected = true;\r\n    newPath.strokeWidth = 10;\r\n    newPath.strokeCap = \"round\";\r\n    return newPath;\r\n}\r\n// Convert canvas local position to position in canvas\r\nfunction getMousePos(x, y) {\r\n    const rect = canvas.getBoundingClientRect();\r\n    const canvasRes = new paper_1.default.Point(canvas.width, canvas.height);\r\n    return new paper_1.default.Point(x - rect.left - 15, y - rect.top - 15);\r\n}\r\n//***********************\r\n//* Handle Mouse Events *\r\n//***********************\r\n// Check for mouse dragging\r\nlet leftMouseDown = false;\r\nlet middleMouseDown = false;\r\nlet rightMouseDown = false;\r\ncanvas.addEventListener(\"mousedown\", ev => {\r\n    switch (ev.button) {\r\n        case 0: // Left mouse button\r\n            leftMouseDown = true;\r\n            // Init path\r\n            currentPath = initPath();\r\n            paths.push(currentPath);\r\n            currentPath.add(getMousePos(ev.x, ev.y));\r\n            break;\r\n        case 1: // Left mouse button\r\n            middleMouseDown = true;\r\n            break;\r\n        case 2: // Left mouse button\r\n            rightMouseDown = true;\r\n            break;\r\n    }\r\n});\r\nwindow.addEventListener(\"mouseup\", ev => {\r\n    switch (ev.button) {\r\n        case 0: // Left mouse button\r\n            leftMouseDown = false;\r\n            // Simplify line with fewer points\r\n            currentPath.simplify();\r\n            if (currentPath.segments.length <= 1) {\r\n                paths.pop();\r\n                currentPath.remove();\r\n            }\r\n            currentPath = null;\r\n            break;\r\n        case 1: // Middle mouse button\r\n            middleMouseDown = false;\r\n            break;\r\n        case 2: // Right mouse button\r\n            rightMouseDown = false;\r\n            break;\r\n    }\r\n});\r\n// Draw line when mouse is dragged\r\ncanvas.addEventListener(\"mousemove\", ev => {\r\n    if (leftMouseDown) {\r\n        currentPath?.add(getMousePos(ev.x, ev.y));\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://cs4241_assignment_3/./src/js/scripts.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var paper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! paper */ \"./node_modules/paper/dist/paper-full.js\");\n/* harmony import */ var paper__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(paper__WEBPACK_IMPORTED_MODULE_0__);\n\r\n//*********\r\n//* Setup *\r\n//*********\r\n// Set up paper canvas\r\nconst paperView = new (paper__WEBPACK_IMPORTED_MODULE_0___default().PaperScope)();\r\nconst canvas = document.getElementById('main-canvas');\r\nconst canvasHolder = canvas.parentElement;\r\n// Set initial canvas size before adding paperView\r\ncanvas.width = canvasHolder.clientWidth - 100;\r\ncanvas.height = canvas.width / 2;\r\npaperView.setup(canvas);\r\n// Track all paths currently in the scene\r\nconst paths = [];\r\nlet currentPath;\r\n//**************\r\n//* Networking *\r\n//**************\r\n//*********************\r\n//* Utility Functions *\r\n//*********************\r\n// Boilerplate for a new path with stroke color and width\r\nfunction initPath() {\r\n    const newPath = new (paper__WEBPACK_IMPORTED_MODULE_0___default().Path)();\r\n    newPath.strokeColor = new (paper__WEBPACK_IMPORTED_MODULE_0___default().Color)(\"black\");\r\n    newPath.fullySelected = true;\r\n    newPath.strokeWidth = 10;\r\n    newPath.strokeCap = \"round\";\r\n    return newPath;\r\n}\r\n// Convert canvas local position to position in canvas\r\nfunction getMousePos(x, y) {\r\n    const rect = canvas.getBoundingClientRect();\r\n    const canvasRes = new (paper__WEBPACK_IMPORTED_MODULE_0___default().Point)(canvas.width, canvas.height);\r\n    return new (paper__WEBPACK_IMPORTED_MODULE_0___default().Point)(x - rect.left - 15, y - rect.top - 15);\r\n}\r\n//***********************\r\n//* Handle Mouse Events *\r\n//***********************\r\n// Check for mouse dragging\r\nlet leftMouseDown = false;\r\nlet middleMouseDown = false;\r\nlet rightMouseDown = false;\r\ncanvas.addEventListener(\"mousedown\", ev => {\r\n    switch (ev.button) {\r\n        case 0: // Left mouse button\r\n            leftMouseDown = true;\r\n            // Init path\r\n            currentPath = initPath();\r\n            paths.push(currentPath);\r\n            currentPath.add(getMousePos(ev.x, ev.y));\r\n            break;\r\n        case 1: // Left mouse button\r\n            middleMouseDown = true;\r\n            break;\r\n        case 2: // Left mouse button\r\n            rightMouseDown = true;\r\n            break;\r\n    }\r\n});\r\nwindow.addEventListener(\"mouseup\", ev => {\r\n    switch (ev.button) {\r\n        case 0: // Left mouse button\r\n            leftMouseDown = false;\r\n            // Simplify line with fewer points\r\n            currentPath.simplify();\r\n            // If the path is empty, remove it immediately (this happens if the user just clicks)\r\n            if (currentPath.segments.length <= 1) {\r\n                paths.pop();\r\n                currentPath.remove();\r\n            }\r\n            console.log(JSON.parse(currentPath.exportJSON()));\r\n            currentPath = null;\r\n            break;\r\n        case 1: // Middle mouse button\r\n            middleMouseDown = false;\r\n            break;\r\n        case 2: // Right mouse button\r\n            rightMouseDown = false;\r\n            break;\r\n    }\r\n});\r\n// Draw line when mouse is dragged\r\ncanvas.addEventListener(\"mousemove\", ev => {\r\n    if (leftMouseDown) {\r\n        currentPath?.add(getMousePos(ev.x, ev.y));\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://cs4241_assignment_3/./src/js/scripts.js?");
 
 /***/ }),
 
@@ -87,10 +87,51 @@ eval("/* (ignored) */\n\n//# sourceURL=webpack://cs4241_assignment_3/./node/self
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/js/scripts.js");
 /******/ 	
 /******/ })()
