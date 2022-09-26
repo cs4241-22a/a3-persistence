@@ -14,13 +14,11 @@ which allows users to choose and nickname their favorite picture of Alfie. This 
 To address concerns about lighthouse performance, the Alfie images were converted from .img files to .avif files to avoid slowing load times. 
 
 
-Rerouting pages after sending login information was highly challenging because of the nature of POST requests.
-I chose to add user data to the database via custom middleware and the mongodb connection because it seemed easiest to do.
+This assignment was a massive learning curve due to my lacking any experience whatsoever with setting up a server and no networking background- "persistence" was a great name choice. For example, rerouting pages after sending login information was highly challenging because of the nature of POST requests.
+I chose to add user data to the database via custom middleware and the mongodb connection as it was the easiest to implement. 
 
 I chose to use bootstrap for this assignment as it seemed the most conducive to the way I'd been learning CSS up to this point, and was widely accessible.
-I was able to use bootstrap's grid framework to re-organaize the elements on each of my pages, and found this to be much cleaner and easier to use than the flexboxes 
-
-I struggled with previously. I only slightly modified the bootstrap framework to quickly include background colors, as this was a very minor change
+I was able to use bootstrap's grid framework to re-organaize the elements on each of my pages, and found this to be much cleaner and easier to use than the flexboxes I struggled with previously. I only slightly modified the bootstrap framework to quickly include background colors, as this was a very minor change
 that was more straightforward to style myself based on the available boostrap documentation about the addition of background colors. 
 
 
@@ -37,40 +35,41 @@ that was more straightforward to style myself based on the available boostrap do
  I followed the following tips from the W3C Web Accessibility Initiative:
  
  - Provide sufficient contrast between foreground and background 
-   - I was sure to use strongly contrasting shades of orange on these pages to ensure visible contrast
+   - I was sure to use strongly contrasting shades of pale and dark orange on these pages to ensure visible contrast between text and background, and to ensure that
+   meaning would not be lost if the user had difficulty recognizing colors. 
  
  - Provide informative, unique page titles
-   - I took care to ensure each page was clearly labeled for its specific purpose
+   - I took care to ensure each page was clearly labeled for its specific purpose, and broke up pages to be clear and direct. Each page informs you of its purpose, i.e. "Create a new user" , "view your previous responses", and clearly directs you to other desired pages
    
  - Use headings to convey meaning and structure
-   - Headings are used to break-up the view on each page for readability
+   - Headings are used to break-up the view on each page for readability, and to highlight areas that the user is encouraged to interact with to improve readability.
    
  - Make link text meaningful
-   - All link text brings you to the specified place it's describing
+   - All link text brings you to the specified place being described, and each link is placed in large, centrally located font
    
  - Provide clear instructions
-   - Detailed instructions for new users are included on the create-an-account page
+   - Detailed instructions and the purpose of the application for new users are included on the create-an-account page, as well as brief more concise instructions on the main page once logged in to direct returning users. 
    
  - Keep content clear and concise
-    - All content is shorthand and descriptive to convey critical ideas but not crowded
+    - All content is shorthand and descriptive to convey critical ideas but not crowded on the primary pages users are served, with longer-format information being consolidated to a single emphasized text box. 
     
  - Ensure that interactive elements are easy to identify
-   - All forms and links are clearly labeled
+   - All forms and links are clearly labeled as to their purpose, and as to how to enter/submit that information through the use of field text and well-labeled buttons. 
    
  - Provide clear and consistent navigation options
-   -  Each page contains some kind of clearly marked return link in large text to ease navigation
+   -  Each page contains some kind of clearly marked return link in large text to ease navigation between pages, so that users aren't forced to manually navigate in browser. 
    
  - Ensure that form elements include clearly associated labels
-   - user log in, edit and delete fields are all labeled
+   - user log in, edit and delete fields are all labeled clearly in each form, with each form field having a unique identifer with a meaningful name describing the expected input.
    
  - Use headings and spacing to group related content
-   - headers are spaced accordingly to group related content in sections
+   - headers are spaced accordingly to group related content in sections on each page, with boxes being centered, emphasized, and ordered to logically and easily direct users through the application appropriately. 
    
  - Include alternative text for images
-   - Alt text is provided for each image of alfie
+   - Alt text is provided for each image of alfie in the event that image cannot be rendered, although it does make it difficult for the user to submit their opinion if they cannot see the image.
    
  - Identify page language and language changes
-    - All languages are clearly defined
+    - All languages are clearly defined to indicate any changes between HTML/JS, and english is clearly labeled as the primary language. 
     
  - **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
  - *Contrast* :
