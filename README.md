@@ -1,116 +1,56 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
-Due: September 22nd, by 11:59 AM.
-
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+Project Link
+---
+Link: https://a3-hao-chen.herokuapp.com/ 
 
 Baseline Requirements
 ---
 
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
+- a `Server`: Using express.
+- a `Results`: username, win and loss will be displayed accordingly for each user.
+- a `Form/Entry`: As the nature of a game application, the player are allowed to create, modify, delete user-related data(unfortunately, password modification is not yet implemented) but not the in game data such as win and loss.
+- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html).
+  1. cookie-session 
+  2. passport
+  3. express-session
+  4. express-handlebars
+  5. mongoose
+  6. bcryptjs 
 - Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks): Template used from [TylerPotts Login Template](https://github.com/TylerPottsDev/node-login-passport/blob/main/public/main.css)
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: 
+1. I used OAuth authentication via providing a dummy account (also your  can register your own account.)
+2. Dummy Account -- Username: grader | password: 123
 
-### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Tech Achievement 2**:   
+For all three of my pages, I get 100% in all four lighthouse tests.
+1. Login page
+![Login full score](/images/FullScore2.png)
+2. Register page
+![Register full score](/images/FullScore3.png)
+3. Game page
+![Game page full score](/images/FullScore.png)
+
+- **Tech Achievement 3**:   
+I spent way too much time trying to deploy my project to Heroku. But it just doesn't like the Mongodb atlas and some of my other external modules. With hours of research and debugging, I finally get it working.   
+Despite all the hassles, I actually really like Heroku. Once you set up the deployment method as Github, it allows automatic deployment where any changes on the github repo will be deploy in real time. This is very useful and it also tracks all the update in the activity tab. Glitch on the other hand doesn't have the ability to auto-deploy changes from github repo, the user will have to make a new project for any new updates on the repo or simply adding the updates to glitch manually. 
+
+
+## Design Achievements
+- **Design Achievement 1**: 
+1. Use headings to convey meaning and structure - Table is structure with two input fields and you can direct from login to register and visa versa.
+2. Provide informative, unique page titles - all three of my pages have title associated with the content, such as login, register and simple RPS
+3. Ensure that all interactive elements are keyboard accessible - You may use tab and enter to navigate the website
+4. Don’t use color alone to convey information - I use handlebars error message to inform the user with incorrect input and I also have a confirm function to have user confirm with their action
+5. Ensure that form elements include clearly associated labels - The labels and placeholders to the all input fields clearly tell you what you should input
+6. Provide clear instructions - The webpage is designed so that the user should be able to read the fields and understand how the website works, especially in the game page all instructions is informed
+7. Use headings and spacing to group related content - In game/main page, the proximity is demonstrated as well as the logic grouping. All related information are grouped together with consideration.
+8. Provide easily identifiable feedback - By using handlebars error messages allows the user to get very identifiable feedback
+9. Ensure that interactive elements are easy to identify - in login and register page, the submit buttons really stand out with a blue color and same concepts applpied to the game page
+10. Keep content clear and concise - all three pages are consistence in style and they are all easy to use. No useless information is put in any of the pages.
+11. Provide clear and consistent navigation options - all navigation links are implemented with different colors and are underlined.
+12. Help users avoid and correct mistakes - the handlebars error message is case specific and will inform the cause of the error so that user can correct mistakes as well as avoiding them for the next use

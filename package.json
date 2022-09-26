@@ -1,0 +1,36 @@
+{
+  "name": "a3-persistence",
+  "version": "1.0.0",
+  "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template\r ===",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hao-OliverChen/a3-persistence.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hao-OliverChen/a3-persistence/issues"
+  },
+  "homepage": "https://github.com/Hao-OliverChen/a3-persistence#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

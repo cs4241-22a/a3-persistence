@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A page that allows you play Rock Paper Scissors with the computer">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <link rel="stylesheet" href="game.css">
+    <title>Simple RPS</title>
+    <style>
+        body {
+            font-family: 'Abel';
+            font-size: 18px;
+            background-color: #5d602f;
+            background-image: linear-gradient(#beab93 20%, #af712b);
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid;
+            border-collapse: collapse;
+            text-align: center;
+            color: rgb(26, 34, 105);
+        }
+
+        th {
+            background-color: #FA9E4B;
+        }
+
+        input[type=text] {
+            width: 10%;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #FA7150;
+            border-radius: 4px;
+        }
+
+        .err-msg {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: red;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body class="center">
+    <div class="coloredBorder">
+        <h1>A Simple Game of Rock Paper Scissors</h1>
+    </div>
+    <h2 style="text-align:left ;">
+        <b>Game Introduction: </b>
+    </h2>
+    <p>A classic two-person game. Players start each round by selecting one of the three following options</p>
+    <ul>
+        <li>Rock</li>
+        <li>Paper</li>
+        <li>Scissors</li>
+    </ul>
+    <p style="text-align: center; font-size:x-large; color: #a8322c;">Counter Relations: Rock crushes scissors, scissors
+        cut paper, and paper covers rock. See who wins each round!</p>
+
+    <h3>
+        <b style="font-size:x-large ;">Welcome, {{{playerName}}} !</b>
+        <br><a href="/logout">Log Out</a>
+    </h3>
+    <table style="width:100%">
+        <tr>
+            <th>Username</th>
+            <th>Win</th>
+            <th>Loss</th>
+        </tr>
+        <tr>
+            <td>{{{playerName}}}</td>
+            <td>{{{playerWin}}}</td>
+            <td>{{{playerLoss}}}</td>
+        </tr>
+    </table>
+    <p><strong>Action --- Edit current username</strong></p>
+    <div>
+        {{#if error}}
+        <p class="err-msg">Username already exists</p>
+        {{/if }}
+    </div>
+    <form action="/edit" , method="post">
+        <label for="currentUser">Current User</label>
+        <input type='text' id="currentUser" value={{{playerName}}} disabled>
+        <label for="newUsername">Edit Username</label>
+        <input type='text' id='newUsername' name="newUsername" placeholder="New Username..." required>
+        <button type="submit">update</button>
+    </form>
+    <p><strong>Action --- Delete current user</strong></p>
+    <form>
+        <label for="currentUser_D">Current User</label>
+        <input type='text' id="currentUser_D" value={{{playerName}}} disabled>
+        <button onclick="handleDelete()">delete</button>
+    </form>
+    <div class="gameContainer">
+        <!-- <iframe src="game.html" style="border:none;" title="Game"></iframe> -->
+        <section class="game">
+            <!--Title -->
+            <div class="title" style="color:rgb(148, 255, 138);text-align: center;">Rock Paper Scissors</div>
+
+            <!--Display Score of player and computer -->
+            <div class="score">
+                <div class="playerScore">
+                    <h2 style="color: #cac18c ;">Player</h2>
+                    <p class="p-count count">0</p>
+
+                </div>
+                <div class="computerScore">
+                    <h2 style="color: #cac18c ;">Computer</h2>
+                    <p class="c-count count">0</p>
+
+                </div>
+            </div>
+
+            <div class="move" style="text-align:center;">Decide Your Move</div>
+            <br>
+
+            <!--Number of moves left before game ends -->
+            <div class="movesleft" style="margin-top: 1rem; font-size: large; text-align: center;">Moves Left: 5 </div>
+
+            <!--Options available to player to play game -->
+            <div class="options">
+                <button class="rock" style="color: rgb(70, 66, 63);">Rock</button>
+                <button class="paper" style="color: rgb(70, 66, 63);">Paper</button>
+                <button class="scissor" style="color: rgb(70, 66, 63);">Scissors</button>
+            </div>
+
+            <!--Final result of game -->
+            <div class="result" style="text-align:center ;"></div>
+
+            <!--Reload the game -->
+            <button class="reload"></button>
+        </section>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
