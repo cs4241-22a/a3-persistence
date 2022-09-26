@@ -35,3 +35,11 @@ I used Bootstraap 5 as the CSS framework due to its robust set of features and o
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
 - **Tech Achievemnet 2**: I used Heroku web hosting instead of Glitch
+- **Tech Achievement 3**: Lighthouse testing 100%
+
+<img width="1727" alt="Screen Shot 2022-09-25 at 9 05 04 PM" src="https://user-images.githubusercontent.com/48425319/192175347-89e29051-e2bd-4607-9fb2-672debb8276e.png">
+
+
+
+<img width="1727" alt="Screen Shot 2022-09-25 at 9 04 37 PM" src="https://user-images.githubusercontent.com/48425319/192175356-136161da-ddaf-49cc-af7d-3d8d325ed7b6.png">
+
