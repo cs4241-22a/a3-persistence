@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3 MainPage</title>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" class="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/base-min.css">
+  </head>
+  <body class="container">
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="/">Kurtz's Cars</a>
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="/userupdate" class="pure-menu-link">Update Profile</a></li>
+                <li class="pure-menu-item"><a href="/signout" class="pure-menu-link">Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+    <p></p>
+    <p></p>
+    <h1>Kurtz's Cars</h1>
+    <h1>Dealer Portal</h1>
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+          Manage your lineup: <b id="uEmail"></b>
+          <table>
+            <tr>
+              <td>
+                <img class="myimg" src="car.jpeg" alt="a car">
+              </td>
+            </tr>
+          </table>
+      </div>
+      <div class="pure-u-1-2">
+        <form>
+          <div class='main'>
+            <input type="text" maxlength="5" size="5" placeholder="YYYY" id="year">
+            <input type="text" placeholder="make and model" size="16" id="model">
+            <input type="text" size="12" placeholder="enter mileage" id="mileage">
+            <button type="submit" class="pure-button" id="add">add!</button>
+          </div>
+          <div>
+            <ul id="outT" class="pure-menu-list"></ul>
+          </div>
+        </form>
+      </div>
+     </div>
+  <script>
+  const submit = function( e ) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+    //console.log("HI")
+    var userId = e.target.getAttribute("id")
+
+    var jsonCopy = {action: "na", year: 00000, model: "Unknown", mileage: 00000}
+    if(userId === "add"){
+      jsonCopy.action = "add"
+      var newYear = document.getElementById("year")
+      var newModel = document.getElementById("model")
+      var newMileage = document.getElementById("mileage")
+      if(newModel != ""){
+        jsonCopy.model = newModel.value
+      }
+      if(newMileage != ""){
+        jsonCopy.mileage = newMileage.value
+      }
+      if(newYear != ""){
+        jsonCopy.year = newYear.value
+      }
+    }
+    if(userId == "delete"){
+      //console.log("I am here")
+      jsonCopy.action = "delete"
+      var index = e.target.getAttribute("index")
+      jsonCopy.index = index
+    }
+    body = JSON.stringify( jsonCopy)
+
+    fetch( '/submit', {
+      method:'POST',
+      body 
+    })
+    .then( function( response ) {
+      // do something with the reponse 
+      return response.json();
+    })
+    .then(function(data){
+      appendData(data)
+    })
+
+    function appendData(data){
+      var mt = document.getElementById("outT")
+      while(mt.firstChild){
+        mt.removeChild(mt.lastChild)
+      }
+      for(f = 0; f<data.length; f++){
+        var element = document.createElement("li")
+        var bt = document.createElement("pure-button")
+        bt.setAttribute("id","delete")
+        bt.setAttribute("index", f)
+        bt.setAttribute("value","Delete")
+        bt.setAttribute("class","pure-button");
+        bt.textContent = "Delete Entry"
+        bt.addEventListener("click",submit)
+        var derivedField = data[f].mileage / ((new Date().getFullYear()) - data[f].year)
+        const theYear = new Date().getFullYear()
+        //console.log(theYear)
+        element.innerHTML = "A " + data[f].year + " " + data[f].model + " with " + data[f].mileage + " miles. Miles driven per year:  " + data[f].milesPerYear + "   "
+        element.appendChild(bt)
+        mt.appendChild(element)
+      }
+    }
+    return false
+  }
+
+  // show user data
+  const showuser = function() {
+    console.log("showuser")
+    fetch( '/showuser', {
+      method:'GET'
+    })
+    .then( function( response ) {
+      // do something with the reponse 
+      return response.json();
+    })
+    .then(function(data){
+      appendData(data)
+    })
+
+    // update user's email
+
+    function appendData(data){
+      var em = document.getElementById("uEmail")
+      em.innerHTML=data.email
+      var cars = data.cars
+      var mt = document.getElementById("outT")
+      while(mt.firstChild){
+        mt.removeChild(mt.lastChild)
+      }
+      for(f = 0; f<cars.length; f++){
+        var element = document.createElement("li")
+        var bt = document.createElement("pure-button")
+        bt.setAttribute("id","delete")
+        bt.setAttribute("index", f)
+        bt.setAttribute("value","Delete")
+        bt.setAttribute("class","pure-button");
+        bt.textContent = "Delete Entry"
+        bt.addEventListener("click",submit)
+        var derivedField = cars[f].mileage / ((new Date().getFullYear()) - cars[f].year)
+        const theYear = new Date().getFullYear()
+        //console.log(theYear)
+        element.innerHTML = "A " + cars[f].year + " " + cars[f].model + " with " + cars[f].mileage + " miles. Miles driven per year:  " + cars[f].milesPerYear + "   "
+        element.appendChild(bt)
+        mt.appendChild(element)
+      }
+    }
+    return false
+  }
+  window.onload = function() {
+    /*
+    bilbos = document.getElementsByClassName("button")
+    const button1 = document.getElementById('add' )
+    button1.onclick = submit
+    const button2 = document.getElementById('delete')
+    button2.onclick = submit
+    */
+    showuser()
+    bilbos = document.getElementsByClassName("pure-button")
+    for(var i = 0; i<bilbos.length; i++){
+      //console.log(bilbos[i])
+      bilbos[i].addEventListener("click",submit)
+      var id = bilbos[i].id
+      //console.log(id)
+    }  
+  }
+  </script>
+  </body>
+</html>

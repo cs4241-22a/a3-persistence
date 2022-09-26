@@ -1,116 +1,70 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
+Assignment 3
 ===
 
 Due: September 22nd, by 11:59 AM.
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
 
-Baseline Requirements
----
-
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+---
+The project of:
+    Andrei Ignatiev:
+        alignatiev@wpi.edu
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+Glitch link: https://a3-ignatiev-final.glitch.me /
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+
+Droplet URL (does not have certain design tip changes): http://164.90.252.100:3000 
+
+
+
+
+
+
+## Kurtz's Cars Auction Management Service
+
+I built upon my idea from the second project. The business, Kurtz's Cars has evolved into an auction manager. The website acts as a portal for sellers who wish to show their cars at a hypothetical auction. Once a client creates an accout, they can add, remove, and modify cars that comprise their sellable inventory. Furthermore, users can alter essential data associated with their account. Namely, their name and password. There were many challenges in this project. Overall, it was a slog from start to finish. Difficulties that stood out include synchronizing server actions with mongodb and the subsequent handling of promises that required adding async and await to and into the bodies of functions. I chose to not deal with any fancy authentication strategies and stuck with the email + password combination for simplicity. I also chose to make things easy by implementing a fairly bare bones CSS template. I selected the pure framework. I found that it was easy to include in html, user-friendly, and easy on the eye. Some of the colors, fonts, and dimensions were carried over from the A2 iteration of the website. 
+
+The five middleware packages that were used are listed below: \
+    serve-static: load html pages, CSS \
+    body-parse: interpret http requests \
+    body-parseJSON: interpret JSON data \
+    cookie-session: maintain user session upon succesful login \
+    env: process environment variables and mongoDB
+
+
+
+
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Tech Achievement 1**: Using a combination of...
+
+I hosted my site on DigitalOcean instead of Glitch. Compared to the latter, it took a long time to set up. Negatives about the service involve the financial aspect and the significant setup needed to get the droplet into working order. I needed to install the necessary software (nodeJS, middleware packages) and copy over all of the code onto the virtual machine. However, on the positive side, you do not have to use your personal IP address for hosting purposes and you have full access to the entire application stack.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**: 
+
+(I followed 6 design tips in the hopes of getting 5 points as opposed to 12 for 10):
+
+
+
+Unique Page Titles - Each of my four pages has a title reflective of its function. The login, update, main, and sign-up pages are identified as such in their corresponding browser tab.
+
+Clear and Concise Content - The components of my website convey information with a minimal amount of text. Only the bare essentials are stated: log-in, manage you lineup, modify your account information, etc. Further, the image I selected is themetacially relevant and does not conflict with the interactive elements of the webpage.
+
+Sufficient Contrast - Achieving proper levels of contrast took a bit of work. The default text color for my CSS template was far too similar to the web-page background color. I inserted inline CSS that overrode the stylistic framework and changed the color of affected elements.
+
+Easily Identifable Interactive Elemenets - All of the website's buttons and links have a hover effect attached to them. The update and log-in buttons are big, blue, and impossible to miss. The automobile management buttons, 'go' and 'delete entry', are similarly conspicious. Finally, the links in the overhanging tab above the webpage attract the user's attention. They need to be clicked in order to travel to different parts of the website so I gave them a pleasant blue color. Conversely, a link is blacked out when it is of no use given where a user is inside the site.
+
+
+Clear and Consistent Navigation Options - As stated above, the buttons and links that transport the user from page to page are denoted by a flamboyant color (often blue) to draw attention. Each page has a heading in the top left that states the page's purpose. This is accompanied by a little blurb that elaborates slightly on its use. The combination of clear links and description should be enough to help the user's orientation.
+
+Clear Labels - Many of the forms have labels associated with them. These include, the login, signup, and update elements. In places where there aren't any labels, the whitespace inside of the form textboxes tells the reader what needs to go there.  
+
+
+
+
+
