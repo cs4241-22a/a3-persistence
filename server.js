@@ -125,7 +125,7 @@ app.post('/addClimb', (req, res) => {
     }
 
     collection.updateOne(
-        {_id: req.session.passport.user},
+        {_id: mongodb.ObjectId(req.session.passport.user)},
         {$push:{ climbs: body }})
         .then(result => res.json(result))
 })
