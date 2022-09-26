@@ -3,7 +3,7 @@ function dothething()
 {
     fetch('/data', { method: 'GET', headers: { "Content-Type": "application/json" } })
     .then( response => response.json() )
-    .then( json => builder( json[ 0 ].entries ));
+    .then( json => builder( json[ 0 ].items ));
 };
 function builder ( json )
 {
