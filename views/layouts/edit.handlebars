@@ -179,7 +179,8 @@
     </main>
     <script>
        window.load = ()=>{
-        (document.querySelector('[name = "delete"]')).onclick = deleteEntry
+        const delete btn = (document.querySelector('[name = "delete"]'))
+        delete.onclick = deleteEntry
        }
 
       function submitEdit(e){
@@ -206,6 +207,26 @@
         }
 
         function deleteEntry(e){
+          e.preventDefault()
+          console.log("delete")
+          debugger
+          const json1 = {name: "Perry", user: e.id};
+
+          body = JSON.stringify(json1)
+          console.log(body)
+          fetch("/deleteEntry", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            console.log(response)
+            if(response.redirected){
+                window.location = response.url
+            }
+          })
+        }
+
+        const  deleteEntry = function(e){
           e.preventDefault()
           console.log("delete")
           debugger
