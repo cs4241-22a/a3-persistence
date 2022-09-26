@@ -3,6 +3,8 @@
   <head>
     <title>CS4241 Assignment 3</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="To Do List Generator">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="./js/scripts.js"></script>
   </head>
@@ -10,14 +12,14 @@
     <div class="d-flex flex-column align-items-center">
       <h1 class="child">To Do List Generator</h1>
       <form class="child">
-        <label>Item:</label>
+        <label for="item">Item:</label>
         <input type="text" id="item" class="form-control" value="">
-        <label>Due Date:</label>
+        <label for="date">Due Date:</label>
         <input type="date" id="date" class="form-control" value="">
         <div class="mt-2"></div>
           <div class="row">
             <div class="col text-center">
-              <label class="form-check-label" for="flexCheckDefault">Priority?</label>
+              <label class="form-check-label" for="priority">Priority?</label>
               <input type="checkbox" id="priority" class="form-check-input" name="priority">
             </div>
           </div>

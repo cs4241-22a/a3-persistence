@@ -29,7 +29,6 @@ client.connect()
     collection = __collection
     return collection.find({ }).toArray()
   })
-  .then( console.log )
 
 app.use(express.urlencoded({extended:true}))
 
@@ -40,7 +39,6 @@ app.use( cookie({
 
 app.post( '/login', (req,res)=> {
   let seen = false
-  console.log( req.body )
 
   client.db( 'Test' ).collection( 'DataTest' ).find().forEach(element => {
     if (element.username === req.body.username && element.password === req.body.password) {
@@ -122,7 +120,6 @@ app.post( '/submit', express.json(), ( req, res ) => {
     req.body.id = itemId
     itemId++
 
-    console.log(req.body)
     userdata.push(req.body)
     
     userdata.sort( compare );

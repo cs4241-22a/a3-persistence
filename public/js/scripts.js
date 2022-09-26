@@ -77,79 +77,130 @@ const submit = function( e ) {
     tbl = document.getElementById( 'list_table' )
     tableBody = document.getElementById('table_body')
 
-    if (i == 0) {
-      originalHTML = tbl.innerHTML
-      bodyHTML = tableBody.innerHTML
-      i++
-    } else {
-      tbl.innerHTML = originalHTML
-      tableBody.innerHTML = bodyHTML
-    }
-
-    //iterate over each item and add it to table
-    items.forEach( json => {
-      const newRow = document.createElement('tr')
-
-      const item = document.createElement('td')
-      item.scope = 'row'
-      const itemText = document.createElement('input')
-      itemText.type = 'text'
-      itemText.value = json.item
-      item.appendChild(itemText)
-      //item.innerText = json.item
-  
-      const dueDate = document.createElement('td')
-      const dateText = document.createElement('input')
-      dateText.type = 'date'
-      dateText.value = json.date
-      dueDate.appendChild(dateText)
-      //dueDate.innerText = json.date
-      
-      const priority = document.createElement('td')
-      const priorityText = document.createElement('input')
-      priorityText.type = 'text'
-      priorityText.value = json.priority
-      priority.appendChild(priorityText)
-      //priority.innerText = json.priority
-  
-  
-      const actions = document.createElement('td')
-
-      const saveButton = document.createElement('button')
-      saveButton.className = 'btn btn-success'
-      saveButton.id = 'save_button'
-      saveButton.onclick = function ( e ) {
-        json.item = itemText.value
-        json.date = dateText.value
-        json.priority = priorityText.value
-        saveRow(json)
+    // for (let j = 0; j < rowIndex; j++) {
+    //   const itemLabel = document.getElementById("itemLabel" + j)
+    //   itemLabel.remove()
+    //   const dateLabel = document.getElementById("dateLabel" + j)
+    //   dateLabel.remove()
+    //   const priorityLabel = document.getElementById("priorityLabel" + j)
+    //   priorityLabel.remove()
+    // }
+    if (tbl != null) {
+      if (rowIndex != 0) {
+        const divLabel = document.getElementById("divLabel")
+        divLabel.remove()
       }
-      saveButton.innerText = 'Save Changes'
-
-      const deleteButton = document.createElement('button')
-      deleteButton.className = 'btn btn-danger'
-      deleteButton.id = 'delete_button'
-      deleteButton.onclick = function ( e ) {
-        deleteRow(json)
+  
+  
+      rowIndex = 0
+  
+      if (i == 0) {
+        originalHTML = tbl.innerHTML
+        bodyHTML = tableBody.innerHTML
+        i++
+      } else {
+        tbl.innerHTML = originalHTML
+        tableBody.innerHTML = bodyHTML
       }
-      deleteButton.innerText = 'Delete'
   
-      actions.appendChild(saveButton)
-      actions.appendChild(deleteButton)
+      const divLabel = document.createElement('div')
+      divLabel.className = "text-center"
+      divLabel.id = "divLabel"
   
-      newRow.appendChild(item)
-      newRow.appendChild(dueDate)
-      newRow.appendChild(priority)
-      newRow.appendChild(actions)
+      //iterate over each item and add it to table
+      items.forEach( json => {
+        const newRow = document.createElement('tr')
   
-      tableBody.appendChild(newRow)
-      tbl.appendChild(tableBody)
-    })
+        const item = document.createElement('td')
+        item.scope = 'row'
+        const itemText = document.createElement('input')
+        itemText.type = 'text'
+        itemText.value = json.item
+        itemText.id = "item" + rowIndex
+        item.appendChild(itemText)
+        //item.innerText = json.item
+    
+        const dueDate = document.createElement('td')
+        const dateText = document.createElement('input')
+        dateText.type = 'date'
+        dateText.value = json.date
+        dateText.id = "date" + rowIndex
+        dueDate.appendChild(dateText)
+        //dueDate.innerText = json.date
+        
+        const priority = document.createElement('td')
+        const priorityText = document.createElement('input')
+        priorityText.type = 'text'
+        priorityText.value = json.priority
+        priorityText.id = "priority" + rowIndex
+        priority.appendChild(priorityText)
+        //priority.innerText = json.priority
+  
+        const itemLabel = document.createElement('label')
+        itemLabel.id = "itemLabel" + rowIndex
+        itemLabel.htmlFor = "item" + rowIndex
+        //itemLabel.hidden = true
+        itemLabel.textContent = "-"
+        const dateLabel = document.createElement('label')
+        dateLabel.htmlFor = "date" + rowIndex
+        dateLabel.id = "dateLabel" + rowIndex
+        dateLabel.textContent = "-"
+        //dateLabel.hidden = true
+        const priorityLabel = document.createElement('label')
+        priorityLabel.id = "priorityLabel" + rowIndex
+        priorityLabel.htmlFor = "priority" + rowIndex
+        priorityLabel.textContent = "-"
+        //priorityLabel.hidden = true
+        divLabel.appendChild(itemLabel)
+        divLabel.appendChild(dateLabel)
+        divLabel.appendChild(priorityLabel)
+  
+        document.body.appendChild(divLabel)
+    
+        // document.body.appendChild(itemLabel)
+        // document.body.appendChild(dateLabel)
+        // document.body.appendChild(priorityLabel)
+    
+        const actions = document.createElement('td')
+  
+        const saveButton = document.createElement('button')
+        saveButton.className = 'btn btn-success'
+        saveButton.id = 'save_button' + rowIndex
+        saveButton.onclick = function ( e ) {
+          json.item = itemText.value
+          json.date = dateText.value
+          json.priority = priorityText.value
+          saveRow(json)
+        }
+        saveButton.innerText = 'Save Changes'
+  
+        const deleteButton = document.createElement('button')
+        deleteButton.className = 'btn btn-danger'
+        deleteButton.id = 'delete_button' + rowIndex
+        deleteButton.onclick = function ( e ) {
+          deleteRow(json)
+        }
+        deleteButton.innerText = 'Delete'
+    
+        actions.appendChild(saveButton)
+        actions.appendChild(deleteButton)
+    
+        newRow.appendChild(item)
+        newRow.appendChild(dueDate)
+        newRow.appendChild(priority)
+        newRow.appendChild(actions)
+    
+        tableBody.appendChild(newRow)
+        tbl.appendChild(tableBody)
+  
+        rowIndex++
+      })
 
-    if (tbl.rows.length == 1) {
-      tbl.hidden = true
-    } else {
-      tbl.hidden = false
+      if (tbl.rows.length == 1) {
+        tbl.hidden = true
+      } else {
+        tbl.hidden = false
+      }
     }
   }
 
@@ -167,5 +218,9 @@ const submit = function( e ) {
       renderTable(json)
     })
     const submit_button = document.getElementById( 'submit_button' )
-    submit_button.onclick = submit
+
+    if (submit_button != null) {
+      submit_button.onclick = submit
+    }
+
   }
