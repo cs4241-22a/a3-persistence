@@ -1,13 +1,9 @@
 
 const express = require('express'),
     app = express(),
-    mongoose = require("mongoose"),
-    passport = require("passport"),
     cookie  = require( 'cookie-session' ),
     hbs     = require( 'express-handlebars' ).engine,
-    mongodb = require('mongodb'),
-    LocalStrategy = require("passport-local"),
-    passportLocalMongoose = require("passport-local-mongoose")
+    mongodb = require('mongodb')
 
 
 app.use( express.urlencoded({ extended:true }) )
@@ -16,13 +12,6 @@ const bodyparser = require('body-parser')
 const { request } = require('express')
 
 app.use(bodyParser.urlencoded({extended: false}))
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
 
 const uri = "mongodb+srv://rmbrunelle2:rmb2001%40cs@webwarea3.fsoijsj.mongodb.net/?retryWrites=true&w=majority"
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:true })
