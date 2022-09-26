@@ -54,12 +54,12 @@ add a little more detail about what it does.
  - Identify page language and language changes
     - All languages are clearly defined
  - **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
- - *Contrast :
+ - *Contrast* :
     - I made sure that the primary header had the highest contrast on the page, followed by the images. 
- - *Repitition : 
+ - *Repitition* : 
    - I repeatedly chose the same shades of orange to ensure high contrast with consistency to prevent the page from becoming busy.
- - *Alignment :
+ - *Alignment* :
    - I used bootstrap grids to make things nicely aligned
- - *Proximity :
+ - *Proximity* :
    - Proximity was one of the most important aspects when it came to deciding how to break up my website into a variety of pages, as well as order information within a page.
  
