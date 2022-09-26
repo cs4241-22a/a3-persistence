@@ -8,14 +8,14 @@ function dothething()
 function builder ( json )
 {
     const tbl = document.getElementById( 'datatable' );
-    tbl.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Todd Phillips?</th><th>edit?</th><th>delete?</th></tr>';
+    tbl.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Zack Snyder?</th><th>edit?</th><th>delete?</th></tr>';
     json.forEach(entry => 
     {
         let newRow  = '<tr id = "' + entry.id + '">';
             newRow += '<th>' + entry.title.toString().toUpperCase() + '</th>';
             newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
             newRow += '<th>' + entry.year + '</th>';
-            newRow += '<th>' + toddcheck( entry.title, entry.year ) + '</th>';
+            newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
             newRow += '<th><button onclick="updater(' + entry.id + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
             newRow += '<th><button onclick="deleter(' + entry.id + ');">delete?</button></th>';
         datatable.innerHTML += newRow;
@@ -64,7 +64,7 @@ function updatercanceller( id )
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
-       newRow += '<th>' + toddCheck(title, genre) + '<\th>';
+       newRow += '<th>' + zackCheck(title, genre) + '<\th>';
        newRow += '<th><button onclick="updater(\'${entry.id}\', \'${entry.title}\', \'${entry.genre}\', \'${entry.year}\');">edit?</button></th>';
        newRow += '<th><button onclick="deleter(\'${entry.id}\');"">delete?</button></th>';
     tempElement.innerHTML = newRow;
@@ -85,10 +85,14 @@ function updatersubmitter( id )
     tempID = null;
     tempElement = null;
 }
-const toddcheck = function( title, year ) {
-    const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
-    const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
-                     'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
+const zackcheck = function( title, year ) {
+  //const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
+  //const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
+  //                 'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
+    const years = [ 2004, 2007, 2009, 2010, 2011, 2013, 2016, 2017, 2021, 2021 ];
+    const titles = [ 'DAWN OF THE DEAD', '300', 'WATCHMEN', 'LEGEND OF THE GUARDIANS: THE OWLS OF GA\'HOOLE',
+                     'SUCKER PUNCH', 'MAN OF STEEL', 'BATMAN V SUPERMAN: DAWN OF JUSTICE', 'JUSTICE LEAGUE',
+                     'ZACK SNYDER\'S JUSTICE LEAGUE', 'ARMY OF THE DEAD']
     const numFilms = 10;
     title = title.toString().toUpperCase();
     for ( let i = 0 ;  i < numFilms ; i++ ) { if( year == years[ i ] && title == titles[ i ] ) { return 'YES!'; } }
