@@ -71,7 +71,7 @@ passport.use(new GitHubStrategy({
         process.nextTick(function () {
 
             return collection.updateOne({githubEmail:profile.email},
-                {$setOnInsert:{githubID:profile.email, climbs:[]}},
+                {$setOnInsert:{githubEmail:profile.email, climbs:[]}},
                 {upsert:true})
                 .then(() => {
                     return collection.findOne({githubEmail:profile.email})
