@@ -29,8 +29,7 @@ add a little more detail about what it does.
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I chose to focus on accessibility for the majority of my achievements in this assignment.
  I followed the following tips from the W3C Web Accessibility Initiative:
- - Provide sufficient contrast between foreground and background
- -- I ensured to use strongly contrasting shades of orange on these pages to ensure visible contrast
+ - Provide sufficient contrast between foreground and background - I ensured to use strongly contrasting shades of orange on these pages to ensure visible contrast
  - Provide informative, unique page titles
  - - I took care to ensure each page was clearly labeled for its specific purpose
  - Use headings to convey meaning and structure
