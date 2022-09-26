@@ -2,21 +2,42 @@ require('dotenv').config()
 
 // Express
 const express = require( 'express' ),
-  cookie  = require( 'cookie-session' ),
+  mongodb = require('mongodb'),
+  cookieparser  = require( 'cookie-parser' ),
+  session  = require( 'express-session' ),
   passport = require('passport'),
   bodyparser = require('body-parser'),
-  cookieparser = require('cookie-parser'),
   morgan = require('morgan'),
+  responseTime = require('response-time'),
+  StatsD = require('node-statsd'),
   hbs     = require( 'express-handlebars' ).engine,
-  app = express()
+  app = express(),
+  stats = new StatsD()
+
+
+// Stats and Response time usage
+stats.socket.on('error', function (error) {
+  console.error(error.stack)
+})
+
+app.use(responseTime(function (req, res, time) {
+  var stat = (req.method + req.url).toLowerCase()
+    .replace(/[:.]/g, '')
+    .replace(/\//g, '_')
+  stats.timing(stat, time)
+}))
+
+// serve up static files in the directory public
+app.use( '/public' , express.static('public'))
 
 // use express.urlencoded to get data sent by defaut form actions
 // or GET requests
 app.use( express.urlencoded({ extended:true }) )
-app.use(cookieparser())
 app.use(passport.initialize())
 app.use(bodyparser.urlencoded({ extended:true }) )
-app.use(morgan())
+app.use(morgan('tiny'))
+app.use(responseTime())
+app.use(cookieparser());
 
 // Handlebars setup
 app.engine( 'handlebars',  hbs() )
@@ -50,37 +71,105 @@ app.get('/auth/github/callback',
 
 // cookie middleware! The keys are used for encryption and should be
 // changed
-app.use( cookie({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
+app.use(
+  session({
+    key: "user_id",
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 600000,
+    },
+  })
+);
 
-app.post( '/delete', (req,res)=> {
+// Check if cookie is still saved in browser
+app.use((req, res, next) => {
+  if (req.cookies.user_id && !req.session.user) {
+    res.clearCookie("user_id");
+  }
+  next();
+});
+
+app.post( '/delete', bodyparser.json(), (req,res)=> {
+  console.log("/delete")
+  collection.deleteOne({_id:mongodb.ObjectId(req.body._id)})
+  .then(result => res.json(result))
 })
 
-app.post( '/edit', (req,res)=> {
+app.post( '/edit', bodyparser.json(), (req,res)=> {
+  console.log("/edit")
+  collection.updateOne(
+    {_id: mongodb.ObjectId(req.body._id)},
+    {$set: {task: req.body.task}}
+    )
+  .then(result => res.json(result))
 })
 
-app.post( '/login', (req,res)=> {
-  // express.urlencoded will put your key value pairs 
-  // into an object, where the key is the name of each
-  // form field and the value is whatever the user entered
+app.post("/add", bodyparser.json(), function(req,res) {
+  console.log("/add" , " : ", req.body)
+  // assumes only one object to insert
+  collection.insertOne(req.body)
+  .then(dbresponse => {
+    console.log(`dbresponse: ${dbresponse}`)
+    res.json(dbresponse.ops[0])})
+})
+
+// Middleware to check connection
+app.use( (req,res,next) => {
+  if( collection !== null ) {
+    next()
+  }else{
+    res.status( 503 ).send()
+  }
+})
+
+// ----------------- LOGIN FORM --------------
+//const loginForm = document.getElementById('login-form')
+//const username = loginForm.username.value;
+//const password = loginForm.password.value;
+
+app.post( '/login', bodyparser.json(), (req,res)=> {
   console.log( req.body )
-  
+  let username = req.body.username
+  let password = req.body.password
+  let pair = {username: username, password: password}
   // for A3, you should check username / password combos in your database
-  if( req.body.password === 'test' ) {
+  /*
+  if( req.body.password ===  'test1' && req.body.username === "user1"
+  || req.body.password ===  'test2' && req.body.username === "user2") {
+    */
+   /*
+  if(userCollection.findOne(pair).toArray()) {
     // define a variable that we can check in other middleware
     // the session object is added to our requests by the cookie-session middleware
     req.session.login = true
-    
-    // since login was successful, send the user to the main content
     res.redirect( 'index.handlebars' )
   }else{
-    // password incorrect, redirect back to login page
     req.session.login = false
     res.render('login', { msg:'login failed, please try again', layout:false })
   }
 })
+*/
+userCollection.find(pair).toArray(function(err, data) {
+  if (err) {
+    throw err;
+  } else if (data.length >= 1) {
+    //LOGIN SUCCESS
+    req.session.login = true
+    res.redirect( 'index.handlebars' )
+  } else {
+    // USER DOESN'T EXIST YET
+    userCollection
+      .insertOne({ username: username, password: password})
+      .then(req.session.username = username)
+      .then(function() {
+        req.session.login = false
+        res.render('login', { msg:'login failed, please try again', layout:false })
+      });
+  }
+});
+});
 
 app.get( '/', (req,res) => {
   res.render( 'login', { msg:'', layout:false })
@@ -98,23 +187,33 @@ app.get( '/index.handlebars', ( req, res) => {
     res.render( 'index', { msg:'success you have logged in', layout:false })
 })
 
-// serve up static files in the directory public
-app.use( '/public' , express.static('public'))
-
 app.listen( 3005 )
 
+const e = require('express')
 // ----------------- Database --------------
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, MongoDBNamespace, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
 //const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+let collection = client.db( 'A3-Database' ).collection( 'A3-Test' );
+let userCollection = client.db( 'A3-Database' ).collection( 'Users' );
+
 client.connect()
   .then( () => {
     // will only create collection if it doesn't exist
     return client.db( 'A3-Database' ).collection( 'A3-Test' )
   })
-  .then( collection => {
+  .then( __collection => {
+    // store reference to collection
+    collection = __collection
     // blank query returns all documents
-    return collection.find({ }).toArray()
+    return collection.find({}).toArray()
   })
   .then( console.log )
+  // route to get all docs
+app.get( '/', (req,res) => {
+  if( collection !== null ) {
+    // get array and pass to res.json
+    collection.find({ }).toArray().then( result => res.json( result ) )
+  }
+})

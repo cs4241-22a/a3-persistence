@@ -12,8 +12,13 @@ Include a very brief summary of your project here. Images are encouraged, along 
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
 - I used the Pico template at <https://picocss.com/>. I thought it had a good use of colors and kept the design very sleek.
   - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please
-add a little more detail about what it does.
+- The Expresss middleware packages I use are: body-parser(), express-session(), serve-static(), morgan(), response-time(), cookie-parser(), and an attempt with passport().
+Body-parser parses incoming request bodies before handlers (I mainly used bodyparser.json()).
+Express-session creates a session.
+Cookie-parser parses the cookie header and populates req.cookies with an object.
+Serve-static serves files from within a root directory depending on what url is requested. It sends a 404 response when a file isn't found.
+Morgan prints the HTTP request to the console.
+Response-time records the HTTP response time. Passport is used for the OAuth authentication strategy.
 
 ## Technical Achievements
 

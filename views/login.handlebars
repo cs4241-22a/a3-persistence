@@ -11,11 +11,13 @@
     <body>
         <h1>Samara's To Do List</h1>
         <h2>Login</h2>
+        <h3>If you login with incorrect credentials, a new account will be made</h3>
         {{{msg}}}
-        <form action='/login' method='POST'>
+        <form id = "login-form" action='/login' method='POST'>
             <input type='text' name='username' placeholder="username">
             <input type='password' name='password' placeholder="password">
             <input type='submit' id = "submitBtn">
         </form>
     </body>
+    <footer>Visit <a href="https://samaraholmes.bitbucket.io/"> this website</a> to learn more about the programmer</footer>
 </html>
