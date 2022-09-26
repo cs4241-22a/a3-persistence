@@ -1,3 +1,5 @@
+hi this is kate and i'm trying to do this assignment
+
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
