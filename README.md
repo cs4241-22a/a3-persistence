@@ -1,5 +1,7 @@
 ## Genshin Impact Character Tracker
 
+https://glitch.com/~a3-tia-mehta
+
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
 The goal of my application was to create a genshin impact team builder. Users will be able to make an account if they don't have one, and once an account is created they can log in and access their roster of characters. Users will be able to delete, add and modify existing characters in the table. 
