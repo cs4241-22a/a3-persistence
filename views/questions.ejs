@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    
+    <title>Welcome to Unemployment Benefits!</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/database.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Unemployment Benefits Forum</h1>
+    </header>
+
+    <main>
+      <h2>Welcome! SS#: 123456789 </h2>
+      <form action="/questions" method="post">
+        <label>
+          Please post your questions or concerns here! 
+          <input name="text" type="text" maxlength="100" required placeholder="">
+        </label>
+            <button type="submit" id="submit-entry">Submit Post</button>
+      </form>
+      <section class="entries">
+        <ul id="entries">
+          <% if(questions.length ===0){%>
+          <li>No questions found </li>
+          <% } %>
+        <% questions.map(question=>{ %>
+          <li><%=question.text%>
+            <a href="/questions/<%=question._id%>/edit">Edit Question</a>
+            <form method="post" action="/questions/<%=question._id%>/delete">
+              <button type="submit">Delete</button>
+            </form>
+          </li> 
+       <% }) %>
+        </ul>
+      </section>
+    </main>
+
+    <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+</html>
