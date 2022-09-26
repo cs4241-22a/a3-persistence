@@ -158,21 +158,6 @@
   font-weight: bold;
 }
 
-.terminalize .form-popup{
-  background-color: var(--color-quaternary);
-  position:absolute !important;
-  display: flex;
-  border: 3px solid var(--color-primary);
-  justify-self: center;
-  align-content: center;
-}
-
-.terminalize .from-container{
-  max-width: 300px;
-  padding: 10px;
-  border: var(--color-primary);
-}
-
 .terminalize blockquote {
 	white-space: pre-line; 
 	display: block; 
@@ -408,7 +393,7 @@
   justify-content: space-between;
 }
 
-.terminalize .j-s{
+.terminalize .j-st{
   justify-content: flex-start !important;
 }
 
@@ -424,8 +409,18 @@
   width: 100%;
 }
 
+.terminalize .nb{
+  border: 0;
+}
+
 
 /* COMPONENTS */
+.terminalize .currencyinput {
+    border: 1px inset;
+}
+.terminalize .currencyinput input {
+    border: 0;
+}
 
 .terminalize .checkbox {
   display: block;

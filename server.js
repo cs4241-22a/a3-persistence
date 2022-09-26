@@ -1,14 +1,15 @@
 const express = require("express"),
+  path = require("path"),
   mongodb = require("mongodb"),
-  cookie = require("cookie-session"),
   dotenv = require("dotenv"),
-  helmet = require("helmet"),
   passport = require("passport"),
+  compression = require("compression"),
+  helmet = require("helmet"),
   session = require("express-session"),
   GitHubStrategy = require("passport-github").Strategy,
   app = express();
 
-dotenv.config();
+require("dotenv").config();
 
 //=========DATABASE===========
 const uri = process.env.DB_URI;
@@ -16,6 +17,7 @@ const client = new mongodb.MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 let collection = null;
 
 client
@@ -35,13 +37,6 @@ client
 //========COOKIES============
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cookie({
-    name: "session",
-    keys: ["key1", "key2"],
-  })
-);
-
 //=======MIDDLEWARE=========
 //To check connection
 app.use((req, res, next) => {
@@ -54,101 +49,131 @@ app.use((req, res, next) => {
 
 //To serve static files and serve json
 app.use(express.json());
-app.use(express.static("public"));
-app.use(express.static("views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "views")));
 
 //To check if the user is authenticated
 const checkAuthenticated = (req, res, next) => {
   if (req.user) {
     next();
   } else {
-    res.redirect('/login.html')
+    res.redirect("/login.html");
   }
-}
+};
+
+app.use(compression());
+app.use(helmet());
 
 //=========AUTHENTICATION==========
+
 //Passport stuff
-let gitId = null
-app.use(helmet())
+let gitId = null;
 
 app.use(
-  session({secret: 'secret', resave: false, saveUninitialized: false, cookie: {httpOnly: true, secure: true, maxAge: 60 * 1000,},})
-)
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { httpOnly: true, secure: true, maxAge: 60 * 1000 },
+  })
+);
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
 passport.serializeUser(function (user, callback) {
   callback(null, user.id);
-})
+});
 
 passport.deserializeUser(function (id, callback) {
   callback(null, id);
-})
+});
 
 passport.use(
-  new GitHubStrategy({
+  new GitHubStrategy(
+    {
       clientID: process.env.ID,
       clientSecret: process.env.SECRET,
-      callbackURL: 'https://a3-arman-saduakas.glitch.me/auth/github/callback',
+      callbackURL: "https://a3-arman-saduakas.glitch.me/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, callback) {
       callback(null, profile);
     }
   )
-)
+);
 
-app.get('/auth/github', passport.authenticate('github'));
+app.get("/auth/github", passport.authenticate("github"));
+
 app.get(
-    '/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login.html' }),
-    function (req, res) {
-      githubid = req.user.id;
-      res.redirect('/main.html')
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login.html" }),
+  function (req, res) {
+    gitId = req.user.id;
+    res.redirect("/main.html");
   }
-)
+);
 
 //Routes
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/views/login.html')
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/views/login.html");
+});
+
+app.get("/main", checkAuthenticated, function (req, res) {
+  res.sendFile("main.html");
+});
+
+app.get("/logout", function (req, res) {
+  res.redirect("/");
+});
+
+app.post("/table", express.json(), function (req, res) {
+  collection
+    .find({ user: gitId })
+    .toArray()
+    .then((result) => res.json(result));
+});
+
+app.post("/submit", express.json(), function (req, res) {
+  collection
+    .insertOne({
+      user: gitId,
+      category: req.body.category,
+      partNumber: req.body.partNumber,
+      partName: req.body.partName,
+      installed: req.body.installed,
+      price: req.body.price,
+    })
+    .then(() => collection.find({ user: gitId }).toArray())
+    .then((result) => res.json(result));
+});
+
+app.post('/delete', express.json(), function (req, res) {
+  collection
+    .deleteOne({ _id: mongodb.ObjectId(req.body.id) })
+    .then(() => {
+      return collection.find({ creator: gitId }).toArray()
+    })
+    .then((result) => res.json(result));
 })
 
-app.get('/main', checkAuthenticated, function (req, res) {
-  res.sendFile(__dirname + '/views/main.html')
-})
+app.post("/edit", express.json(), function (req, res) {
+  collection
+    .updateOne(
+      { _id: mongodb.ObjectId(req.body.id) },
+      {
+        $set: {
+          user: gitId,
+          category: req.body.category,
+          partNumber: req.body.partNumber,
+          partName: req.body.partName,
+          installed: req.body.installed,
+          price: req.body.price,
+        },
+      }
+    )
+    .then(() => collection.find({ user: gitId }).toArray())
+    .then((result) => res.json(result));
+});
 
-app.get('/logout', function (req, res) {
-  res.redirect('/')
-})
 
-// //Add a user
-// app.post("/signUp", (req, res) => {
-// 	console.log(req.body);
-// 	collection.insertOne(req.body).then((result) => res.json(result));
-//   });
-
-// //Remove a user
-// app.post("/delete", (req, res) => {
-//   collection
-//     .deleteOne({ _id: mongodb.ObjectId(req.body._id) })
-//     .then((result) => res.json(result));
-// });
-
-//Update a user
-// app.post("/update", (req, res) => {
-//   collection
-//     .updateOne(
-//       { _id: mongodb.ObjectId(req.body._id) },
-//       { $set: { name: req.body.name } }
-//     )
-//     .then((result) => res.json(result));
-// });
-
-app.use(function(req,res,next){
-	if(req.session.login === true)
-		next()
-	else
-		res.sendFile( __dirname + '/views/login.html')
-})
-
-app.listen(3000, () => console.log("Server started succesfully!"));
+app.listen(process.env.PORT || 3000);
