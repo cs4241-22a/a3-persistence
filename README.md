@@ -6,6 +6,7 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 ## The Alfie Images Board
 
 Visit the Alfie Images board here: link e.g. [https://a3-sophiastrano.glitch.me/login]
+![image](SiteScreenshot.JPG)
 
 For this assignment, I decided to resurrect my failed plans from assignment 2. The goal of this application was to create a 
 cute webpage with pictures of my adorable cat while addressing the need to be able to add, 
