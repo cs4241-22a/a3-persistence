@@ -1,11 +1,10 @@
 require('dotenv').config();
 const express = require( 'express' ),
       app = express(),
-//      cookie = require( 'cookie-session' ),
+      cookie = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       bodyp = require( 'body-parser' ),
       favicon = require( 'serve-favicon' ),
-      session = require( 'express-session' ),
       path = require( 'path' ),
       mongodb = require( 'mongodb' ),
       uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
@@ -45,7 +44,7 @@ app.get('/', ( req, res ) => { res.render( "index", { msg: "", layout: false } )
 app.get('/login', ( req, res ) => { res.render( "main", { msg: "", layout: false } ); } );
   //res.sendFile('index.html', { user: req.user, root: Path2D.join(__dirname, 'public')});
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) { res.render('main'); });
+app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), function(req, res) { res.render( "main", { msg: "", layout: false } ); } );
 app.get('/data', checkAuth, ( req, res ) =>
 {
   collection.find({ id:mongodb.ObjectId() })
@@ -75,6 +74,6 @@ app.post('/update', checkAuth, ( req, res ) =>
 function checkAuth( req, res, next )
 {
   if ( req.isAuthenticated()) { return next(); }
-  res.render( 'index' );
+  res.render( "index", { msg: "", layout: false } );
 };
 app.listen( process.env.PORT || 51201 );
