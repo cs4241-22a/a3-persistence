@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>a3 Task Manager </title>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="This is a user authenticated task manager application"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <!-- lets Google know what the webpage is about-->
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body >
+    
+    <main class = "grid">
+    <section id="Task Actions">
+      <form > 
+        <h1>Task Manager</h1>
+        <section id = "addTask">
+          <header id="header"><h2>Add a Task here</h2></header>
+          <p>Type in the box below and select the appropiate fields</p>
+          
+          <div class="grid" >
+
+          <label for="newTask"> 
+            New Task:
+            <input type="newTask" id="newTask" placeholder="Type task here" />
+            
+          </label>
+          <!-- <div  id="dropDowns"> -->
+            <label for="TypeOfTask">
+              Type:
+              <select id="TypeOfTask">
+                <option value="Default">Type</option>
+                <option value="School">School</option>
+                <option value="Work">Work</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label for="Difficulty">
+              Difficulty:
+              <select id="Difficulty">
+                <option value="Default">Difficulty</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </label>
+
+            <label for="Semester">
+              Semester:
+              <select id="Semester">
+                <option value="Default">Semester</option>
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+            </label>
+          <!-- </div> -->
+        </div>
+        <small class ="warning">Every ID should be 24 characters long*</small>
+        <label for="addButton">Press "add" below:</label>
+            <button id="addButton">add</button>
+           
+          </section>   
+          <section id="deleteTask">
+             <h2>Delete a Task here</h2>
+            <p>Insert your ID and click "remove" to delete a Aask</p>
+            <div class="grid">
+            <label for="deleteTaskInput">
+              Task ID:
+              <input type="text" id="deleteTaskInput" placeholder="Object ID"/>
+              <small>Example ID: 632db9d762fe7a74fb35d900</small>
+              <small class = "warning" >Every ID should be 24 characters long*</small>
+            </label>
+            <label for="removeButton">
+              Delete Task:
+              <button id="removeButton">remove</button>
+            </label>
+          </div>
+        </section>
+        <section id = "updateTask">
+          <header> 
+            <h2>Change a Task here</h2>
+          </header>
+          <p>Insert your  Task ID, and updated information below. Click "update" to associate new info with the inserted ID </p>
+          <div class = "grid" id="updateTask">
+            <label for="idForUpdate">
+              Task ID :
+            <input
+              type="text"
+              id="idForUpdate"
+              placeholder="Insert same Object ID"
+            />
+          </label>
+            <label for="TaskInputUpdate">
+              Task Name:
+              <input
+              type="text"
+              id="TaskInputUpdate"
+              placeholder="edit task input here"/>
+            </label>
+
+            <!-- <div id="updateDropdowns"> -->
+            <label for="typeOfTaskUpdate">
+              Type:
+            
+            <select id="typeOfTaskUpdate">
+              <option value="School">School</option>
+              <option value="Work">Work</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+            <label for="difficultyUpdate">
+              Difficulty:
+            <select id="difficultyUpdate">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </label>
+            <label for="semesterUpdate">
+              Semester
+            <select id="semesterUpdate">
+              <option value="Fall">Fall</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+            </select>
+          </label>
+            <!-- </div> -->
+          </div>
+            <label for="updateButton">Press to Update:</label>
+            <button id="updateButton">update</button>
+          <div class="toDoList" id="toDoList">
+          </div>
+        </section>
+      
+      </form>
+    </section>
+
+    <section id="Showing Tasks">
+      <!-- <img class="lofiGirl" src="LofiGirl.jpg" alt = "Photo of person studying" /> -->
+      <header>
+        <h1> Tasks to Complete</h1>
+      </header>
+      <label for="resultsButton">Click "results" to see all your tasks:</label>
+      <button id="resultsButton">results</button>
+    
+      <table id="TaskBaseHeaders">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">User</th>
+            <th scope="col">Task</th>
+            <th scope="col">Type</th>
+            <th scope="col">Difficulty</th>
+            <th scope="col">Semester</th>
+          </tr>
+        </thead>
+        <tbody id="TaskBase">
+
+        </tbody>
+        <!-- <tfoot>
+          <tr>
+            <th scope="col">#</th>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+            <td scope="col">Total</td>
+          </tr>
+        </tfoot> -->
+      </table>
+<!-- 
+     <table id="TaskBase">
+
+      </table>  -->
+  
+    </section>
+  </main>
+
+  <footer class = "grid">
+    <article>Creator: Caleb Talley</article>
+    <article>Email: Cctalley@wpi.edu</article>
+    <article>Github: https://github.com/CalebTalley2024</article>
+  </footer>
+
+    <script src="/client.js"></script>
+    <!-- when you use exprss.static on public, you dont need to write public in the client.js link-->
+  </body>
+</html>

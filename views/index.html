@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <title>a3 Login</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> -->
+  </head>
+  <body>
+<!-- <main class= "grid">  -->
+
+<section id = "GitHub login" >
+
+    <div class="content unauthorized" style = "display:block">
+      <div class = "grid">
+        <img class="img-github" src="github.png" alt = "github logo image" />
+      <article> <h1>Login with your <a class="btn" href="/auth">GitHub Account</a> </h1></article>
+      </div>
+    </div>
+
+    <!-- <div class="content authorized"> -->
+    <div class="content authorized" style="display: none">
+      <div class="grid">
+        <img class="img-github" src="github.png" />
+        <article>
+          <h1>You are now authorized 🔒</h1>
+          <form id = 'loginGitHub' action='/loginGitHub' method='POST'>
+            <label for = "submitGithub" >Click "next" to see and edit tasks</label>
+            <input id = "submitGithub" type='submit' value = next >
+          </form>
+        </article>
+      </div>
+    </div>
+  </section>
+     <!-- find way to remove this when github user logs in -->
+    <section class ="basicAuthorization" id = 'basic login' style = "display:block" >
+      <Header> <h2> You can use basic login credentials here</h2> </Header>
+      <form id = 'loginBasic' action='/loginBasic' method='POST'>
+        <div class = "grid">
+          <label for = 'username'>
+            Username:
+            <input id = 'username' type='text' name='username' placeholder='username'>
+          </label>
+        <label for = 'password'> 
+          Password: 
+          <input  id = 'password' type='password' name='password' placeholder='password'>
+        </label>
+        <label for = 'submitBasic'>
+          Click here:
+          <input id = 'submitBasic' type='submit' value = "Sign in"> <!-- submits the request? -->
+        </label>
+      </div>  
+      </form>
+    </section>
+  </main>
+    <script src= "/login.js"> </script>
+  </body>
+</html>
