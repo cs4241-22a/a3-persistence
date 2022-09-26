@@ -18,6 +18,7 @@ const e = require('express');
 const { rmSync } = require('fs');
 const uri = "mongodb+srv://r2pen2:nim26Jmd!@cluster0.clsagc1.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const helmet = require('helmet');
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Now listening on port ' + process.env.PORT || 3000);
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(cors());
+app.use(helmet());
 
 app.use(bodyParser.json());
 
