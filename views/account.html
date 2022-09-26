@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/client.js"></script>
+    <meta name="description" content="Main page of the website">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.css">
+
+
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="header">
+        <h1>Climbing Tracker</h1>
+        <h2>Insert Climber name, the grade they climbed, and the height of the climb for the difficulty to be automatically
+            calculated. Climbers can also be removed by typing their name into the box and clicking remove.</h2>
+    </div>
+    <div class="forms">
+        <form action="" id="addForm">
+            <label for="climbName">Climb Name</label>
+            <input type="text" id="climbName" placeholder="Climb Name" class="inputField">
+            <label for="grade">Grade 5.</label>
+            <input type="number" id="grade" placeholder="Grade" class="inputField">
+            <label for="height">Height</label>
+            <input type="number" id="height" placeholder="Height (in feet)" class="inputField">
+            <button id="submitButton">Submit</button>
+        </form>
+
+        <form action="" id="removeForm">
+            <p>Type a name to remove.</p>
+            <label for="removeName">Remove: </label>
+            <input type="text" id="removeName" placeholder="Name" class="inputField">
+            <button id="removeButton">Remove</button>
+        </form>
+    </div>
+    <div class="chart">
+        <table id="dataTable">
+            <tr>
+                <th>Climb Name</th>
+                <th>Climb Grade</th>
+                <th>Climb Height</th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
