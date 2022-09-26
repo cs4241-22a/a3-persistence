@@ -1,0 +1,40 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Login</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/login.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Your Daily Journal</h1>
+    </header>
+
+    <main>
+
+      <form>
+        <label>
+          <input name="username" type="text" maxlength="100" required placeholder="Username">
+        </label>
+         <label>
+          <input name="password" type="password" maxlength="100" required placeholder="Password">
+        </label>
+        <button type="submit" id="login">Login</button>
+        <button type="submit" id="signup">Create Acount</button>
+      </form>
+    </main>
+  </body>
+</html>
