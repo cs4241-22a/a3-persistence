@@ -24,35 +24,48 @@ that was more straightforward to style myself based on the available boostrap do
 - the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
 add a little more detail about what it does.
 
-- **I chose to focus on design achievemnts for this assignment due to difficulty level**
+**I chose to focus on design achievemnts for this assignment due to difficulty level**
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I chose to focus on accessibility for the majority of my achievements in this assignment.
+**Design Achievement 1**: I chose to focus on accessibility for the majority of my achievements in this assignment.
  I followed the following tips from the W3C Web Accessibility Initiative:
+ 
  - Provide sufficient contrast between foreground and background 
    - I was sure to use strongly contrasting shades of orange on these pages to ensure visible contrast
+ 
  - Provide informative, unique page titles
    - I took care to ensure each page was clearly labeled for its specific purpose
+   
  - Use headings to convey meaning and structure
    - Headings are used to break-up the view on each page for readability
+   
  - Make link text meaningful
    - All link text brings you to the specified place it's describing
+   
  - Provide clear instructions
    - Detailed instructions for new users are included on the create-an-account page
+   
  - Keep content clear and concise
     - All content is shorthand and descriptive to convey critical ideas but not crowded
+    
  - Ensure that interactive elements are easy to identify
    - All forms and links are clearly labeled
+   
  - Provide clear and consistent navigation options
    -  Each page contains some kind of clearly marked return link in large text to ease navigation
+   
  - Ensure that form elements include clearly associated labels
    - user log in, edit and delete fields are all labeled
+   
  - Use headings and spacing to group related content
    - headers are spaced accordingly to group related content in sections
+   
  - Include alternative text for images
    - Alt text is provided for each image of alfie
+   
  - Identify page language and language changes
     - All languages are clearly defined
+    
  - **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
  - *Contrast* :
     - I made sure that the primary header had the highest contrast on the page, followed by the images. 
