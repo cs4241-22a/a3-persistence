@@ -25,6 +25,8 @@ Middleware used:
 ## Technical Achievements
 - **Tech Achievement 1**: GitHub OAuth inplemented
 - **Tech Achievement 2**: Hosted on Vultr behind Cloudflare
+- **Tech Achievement 3**:
+![A screenshot from a third party user showing all 100% in lighthouse test](lighthouse.png)
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
