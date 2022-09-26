@@ -15,4 +15,4 @@ https://a3-serena-mower-qaazh.ondigitalocean.app/
 
 ## Technical Achievements
 - **Tech Achievement 1**: I hosted my website using Digital Ocean instead of Glitch. This was better because it pulled my code directly from GitHub rather than me having to go in and copy the code into Glitch. 
-- **Tech Achievement 2**: I got 100% on the Lighthouse tests for the three different pages of my website. 
+- **Tech Achievement 2**: I got 100% on the Lighthouse tests for the three different pages of my website (screenshots included in repo). 
