@@ -81,9 +81,9 @@ function updatercanceller( _movID )
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[6],
-                    genre: document.getElementById( _movID ).children[7],
-                     year: document.getElementById( _movID ).children[8]
+                    title: document.getElementById( _movID ).children[6].value,
+                    genre: document.getElementById( _movID ).children[7].value,
+                     year: document.getElementById( _movID ).children[8].value
                  },
           body = JSON.stringify(json);
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
