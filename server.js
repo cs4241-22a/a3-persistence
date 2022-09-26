@@ -13,12 +13,13 @@ const express = require( 'express' ),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
-app.use( express.static( path.join( __dirname + '../public' ) ) );
-app.use( express.static( 'views' ) );
-app.use( express.json() );
+app.use( express.favicon() );
+app.use( express.bodyp() );
+app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
-app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
+app.use( express.static( path.join( __dirname + '../public' ) ) );
+app.use( express.static( 'views' ) );
 passport.serializeUser(   function( user, done ) { done( null, user ); } );
 passport.deserializeUser( function(  obj, done ) { done( null,  obj ); } );
 client.connect().then( () => { collection = client.db( 'a3' ).collection( 'a3' ) } );
