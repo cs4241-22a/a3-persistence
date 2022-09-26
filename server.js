@@ -1,14 +1,14 @@
 require('dotenv').config();
 const express = require( 'express' ),
-      cookie = require( 'cookie-session' ),
+      app = express(),
+//      cookie = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       bodyp = require( 'body-parser' ),
       mongodb = require( 'mongodb' ),
       uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
       client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true}),
       passport = require('passport'),
-      GitHubStrategy = require('passport-github2').Strategy,
-      app = express();
+      GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
 app.use( express.static( 'public' ) );
 app.use( express.static( 'views' ) );
@@ -24,7 +24,7 @@ app.use( ( req, res, next ) =>
 app.engine( 'handlebars', hbs() );
 app.set( 'view engine', 'handlebars' );
 app.set( 'views', './views' );
-app.use( cookie ({ name: 'session', keys: [ 'key1', 'key2' ] }) );
+//app.use( cookie ({ name: 'session', keys: [ 'key1', 'key2' ] }) );
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
