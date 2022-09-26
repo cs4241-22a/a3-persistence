@@ -2,8 +2,8 @@ gabriel camacho
 
 ## Secure Todo List!
 
-github:
-link:
+github: https://github.com/gabestuf/a3-persistence
+heroku link: https://powerful-sea-37997.herokuapp.com/
 
 middleware used:
 lazydebug, a middleware function I wrote that console logs whereever you call it
