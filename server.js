@@ -70,11 +70,11 @@ passport.use(new GitHubStrategy({
         // asynchronous verification, for effect...
         process.nextTick(function () {
 
-            return collection.updateOne({githubEmail:profile.email},
-                {$setOnInsert:{githubEmail:profile.email, climbs:[]}},
+            return collection.updateOne({githubEmail:profile.id},
+                {$setOnInsert:{githubEmail:profile.id, climbs:[]}},
                 {upsert:true})
                 .then(() => {
-                    return collection.findOne({githubEmail:profile.email})
+                    return collection.findOne({githubEmail:profile.id})
                 }).then((result) => {
                     return done(null, result._id)
                 })
