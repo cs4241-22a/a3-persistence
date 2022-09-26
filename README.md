@@ -1,6 +1,6 @@
-## No Stock Garage
-# Link: https://a3-arman-saduakas.glitch.me 
-# Brief Summary
+# No Stock Garage
+## Link: https://a3-arman-saduakas.glitch.me 
+## Brief Summary
 The goal of this application is to keep track of custom car parts that a user might order.
 Definitely one of the challenges that I've faced was the github authentication. Since developing on Glitch, my user id sometime would just read as null because I would constantly authenticate and de-authenticate. Another challenge was working with different inputs inside of my table div and sending the over to the server, and unpacking them on the server too. Dealing with a custom CSS template that I've found, learning how it works and customizing it took me quite a while too.
 I chose github as my authentication challenges, just because nobody really knows fully how github works, but now I know a little more.
