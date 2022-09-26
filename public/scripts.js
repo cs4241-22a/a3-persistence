@@ -63,9 +63,9 @@ function updater( _movID, title, genre, year )
 };
 function updatercanceller( _movID )
 {
-    let title  = document.getElementById( _movID ).children[0],
-        genre  = document.getElementById( _movID ).children[1],
-         year  = document.getElementById( _movID ).children[2],
+    let title  = document.getElementById( _movID ).children[0].text,
+        genre  = document.getElementById( _movID ).children[1].text,
+         year  = document.getElementById( _movID ).children[2].text,
        newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
@@ -81,9 +81,9 @@ function updatercanceller( _movID )
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[0],
-                    genre: document.getElementById( _movID ).children[1],
-                     year: document.getElementById( _movID ).children[2]
+                    title: document.getElementById( _movID ).children[6],
+                    genre: document.getElementById( _movID ).children[7],
+                     year: document.getElementById( _movID ).children[8]
                  },
           body = JSON.stringify(json);
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
