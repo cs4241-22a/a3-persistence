@@ -11,7 +11,7 @@ app.engine('handlebars', hbs({
   defaultLayout: 'index',
 }));
 
-app.set('views', './src/views')
+app.set('views', './views')
 var path = require('path');
 
 app.set('view engine', 'handlebars')
