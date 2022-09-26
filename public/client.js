@@ -82,7 +82,7 @@ const showData = function() {
         method:'GET'
     })
         .then( response => response.json())
-        .then( json => initTable(json[0]))
+        .then( json => initTable(json))
 
     return false
 
@@ -91,7 +91,7 @@ const showData = function() {
 
 
 const initTable = function (json) {
-    console.log("Initializing table with " + json)
+    console.log("Initializing table with " + JSON.stringify(json))
 
     // Find a <table> element with id="myTable":
     var table = document.getElementById("dataTable");
