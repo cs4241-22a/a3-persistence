@@ -61,8 +61,6 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-console.log(process.env.GITHUB_CLIENT_ID)
-
 passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -71,13 +69,14 @@ passport.use(new GitHubStrategy({
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
+
             return collection.updateOne({githubEmail:profile.email},
                 {$setOnInsert:{githubID:profile.email, climbs:[]}},
                 {upsert:true})
                 .then(() => {
                     return collection.findOne({githubEmail:profile.email})
                 }).then((result) => {
-                    return done(null, result._id)
+                    return done(null, result.user)
                 })
         });
     }
