@@ -24,7 +24,20 @@ let currentPath: paper.Path | null
 //* Networking *
 //**************
 
+function submitPath(path: paper.Path) {
 
+	const body = path.exportJSON();
+
+	fetch('/submit', {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'},
+		body: body
+	})
+		.then((response) => response.json())
+		.then((json) => {
+			console.log(json);
+		});
+}
 
 //*********************
 //* Utility Functions *
@@ -90,6 +103,7 @@ window.addEventListener("mouseup", ev => {
 			}
 
 			console.log(JSON.parse(currentPath!.exportJSON()));
+			submitPath(currentPath!);
 
 			currentPath = null;
 			break;

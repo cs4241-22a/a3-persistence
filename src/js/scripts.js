@@ -16,6 +16,18 @@ let currentPath;
 //**************
 //* Networking *
 //**************
+function submitPath(path) {
+    const body = path.exportJSON();
+    fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body
+    })
+        .then((response) => response.json())
+        .then((json) => {
+        console.log(json);
+    });
+}
 //*********************
 //* Utility Functions *
 //*********************
@@ -70,6 +82,7 @@ window.addEventListener("mouseup", ev => {
                 currentPath.remove();
             }
             console.log(JSON.parse(currentPath.exportJSON()));
+            submitPath(currentPath);
             currentPath = null;
             break;
         case 1: // Middle mouse button

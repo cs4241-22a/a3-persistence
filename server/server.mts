@@ -1,19 +1,19 @@
 import express from "express";
 import * as mongodb from "mongodb";
 import { promises as fs } from "fs";
+import paper from "paper";
 
 process.env.PORT = '3000';
 
-// get mongodb credentails from mongodb.config.json
+// get mongodb credentials from mongodb.config.json
 const credentials = JSON.parse(await fs.readFile('./mongodb.config.json', 'utf-8'));
-process.env.USER = 'cjacobson32';
-process.env.PASS = credentials.password;
-process.env.HOST = 'canvas.ng8r68j.mongodb.net/?retryWrites=true&w=majority';
-const uri = "mongodb+srv://"+process.env.USER+':'+process.env.PASS+'@'+process.env.HOST
+const uri = "mongodb+srv://"+credentials.username+':'+credentials.password+'@'+credentials.host;
 
 // Setup static express
 const app = express(),
-    dreams: string[] = [];
+    paths: paper.Path[] = [];
+
+paper.setup(new paper.Size(200, 100));
 
 app.use(express.static('src'));
 app.use(express.json());
@@ -43,9 +43,13 @@ app.get( '/canvas', (req,res) => {
 });
 
 app.post('/submit', (req, res) => {
-    dreams.push(req.body.newdream);
+    const newPath = new paper.Path()
+    console.log(req.body);
+    newPath.importJSON(req.body);
+
+    paths.push(newPath);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(dreams));
+    res.end(JSON.stringify(paths));
 });
 
 app.listen( process.env.PORT );
