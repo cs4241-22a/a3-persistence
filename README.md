@@ -7,6 +7,16 @@ Glitch: https://a3-neha-kuchipudi.glitch.me/
 
 - Application Goal: This web app acts as a vitural bookshelf for users. Users can login, access/view books on their own booksheld and add/edit/delete books on their bookshelf. The app helps them keep track of how many more pages they need to read in the book as they can enter the total pages and pages read in the book. They can update the book as they read by editing it. If they finish a book they can delete it off the bookshelf. 
 - Challenges: The main challenges I faced when creating the app was making the cookies store book data attached to a certain user. The cookies would not store the UserID. I also faced a challenge with the app only showing data from MongoDB in the preview pane of Glitch but not in the actual link. 
+- Authentication Strategy: I collected the input from the username and password box and upon click of the login button I stored the input and checked if the combination matched a combination in the user collection.
+- CSS Framework: I used Bootstrap for a framework, I thought it looked the best and was a responsive framework. The main changes I made to the framework was some font changes and layout changes.
+- 5 Express Middleware Packages:
+1. Cookie-session: storing username/password information
+2. Express.json: Data formatting of books
+3. Body-parser: data in HTTP request
+4. Express.static: serving express files
+5. Cookie-parser: parsing data in cookies
+- Flavors of inputs: I used number, text and password flavors for inputs.
+
 @@ -24,10 +23,11 @@ Tech Achievements:
 ## Technical Achievements
 **Tech Achievement 3**: Received 100% on all lighthouse tests required
