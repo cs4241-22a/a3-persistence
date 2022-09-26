@@ -1,0 +1,77 @@
+/*Style your own assignment! This is fun! */
+
+body 
+{background-color: #FFAD42;
+ text-align: center;}
+
+
+ p{text-align: center;
+	font-weight: bold;
+    border: 10px solid #E87C31;
+    padding: 10px;
+    background-origin: content-box;
+    background-color: #FFC980;
+    border-radius: 25px;
+    display: inline-block;
+	margin-bottom: 10px;}
+
+form {
+ display: inline-block;
+ padding: 10px;}
+
+h1{ color: #FF7042;
+    text-align: center;
+    border: 10px solid #E87C31;
+    padding: 10px;
+    background-origin: content-box;
+    background-color: #FFC980;
+    border-radius: 25px;
+    display: inline-block;
+	margin-bottom:10px;
+}
+
+h2{
+color:#FF7042;
+background-color: #FFBE66;
+padding: 10px;
+border-radius: 25px;
+text-align: center;
+font-weight:bold;
+display: inline-block;}
+
+h3{ color:#FF7042;
+background-color: #FFBE66;
+padding: 10px;
+border-radius: 25px;
+text-align: center;
+font-weight:bold;
+margin-bottom:10px;
+display: inline-block;
+}
+
+.response-container{padding: 5px;
+		border: 10px solid #E87C31;
+		border-radius: 25px;
+		background-color: #FFBE66;
+		margin-bottom: 10px;}
+		
+.account-container{margin-bottom: 10px;}
+		
+.button-container{ color:#FF7042;
+background-color: #FFBE66;
+padding: 10px;
+border-radius: 25px;
+text-align: center;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.Alfie_Image {
+    width:245px;
+    float: center;
+    height:245px;
+    background-color: #E87C31;
+    border: 10px solid #E87C31;
+    background-origin: content-box;
+    border-radius: 25px;
+}
