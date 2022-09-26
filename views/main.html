@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Parts tracker" />
+    <link rel="stylesheet" type="text/css" href="terminalize.css" />
+    <script src="client.js"></script>
+    <title>No Stock</title>
+  </head>
+  <body
+    class="terminalize"
+    style="padding: 0rem; margin: 0rem; background: black"
+  >
+    <div class="screen scanlines">
+      <div class="pannel nb">
+        <div class="pannel-header">
+          <h1>No Stock Garage</h1>
+          <div class="controls">
+            <a href="/logout" type="button" class="btn control">Logout</a>
+          </div>
+        </div>
+        <div id = "bodyPannel" class="pannel-body a-c j-c">
+          
+          <div class="pannel nb">
+            <div class="pannel-body">
+              <select id="category">
+                <option value="">--Please choose a category--</option>
+                <option value="clearance">Clearance</option>
+                <option value="performance">Performance</option>
+                <option value="exterior">Exterior</option>
+                <option value="interior">Interior</option>
+              </select>
+            <input id = "partNumber" type="number" placeholder="Part Number">
+            <input id = "partName" type="text" placeholder="Part Name">
+            <label for = "installed">Installed?</label>
+            <input id="installed" type="checkbox">
+            <input id="price" type="number" placeholder="Price"></div>
+            <div id = "submit" class="btn">Submit</div>
+          </div>
+          
+          <table id="tbl"></table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
