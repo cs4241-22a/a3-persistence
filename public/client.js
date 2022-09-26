@@ -55,14 +55,14 @@ const remove = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const name = document.querySelector( '#removeName' ),
+    const climbName = document.querySelector( '#removeName' ),
         json = { nameToRemove: name.value },
         body = JSON.stringify( json )
 
-    name.value = ''
+    climbName.value = ''
 
-    fetch( '/remove', {
-        method:'DELETE',
+    fetch( '/removeClimb', {
+        method:'POST',
         headers: {
             "Content-Type": "application/json"
         },

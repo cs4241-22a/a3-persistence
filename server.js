@@ -71,12 +71,14 @@ passport.use(new GitHubStrategy({
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
         process.nextTick(function () {
-
-            // To keep the example simple, the user's GitHub profile is returned to
-            // represent the logged-in user.  In a typical application, you would want
-            // to associate the GitHub account with a user record in your database,
-            // and return that user instead.
-            return done(null, profile);
+            return collection.updateOne({githubEmail:profile.email},
+                {$setOnInsert:{githubID:profile.email, climbs:[]}},
+                {upsert:true})
+                .then(() => {
+                    return collection.findOne({githubEmail:profile.email})
+                }).then((result) => {
+                    return done(null, result._id)
+                })
         });
     }
 ));
@@ -95,7 +97,6 @@ app.get('/auth/github',
 app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/sesson.passportin' }),
     function(req, res) {
-        console.log(req.session.clientID)
         res.redirect('/account.html');
     });
 
@@ -109,26 +110,43 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
 }
 
-// app.post('/addClimb', (req, res) => {
-//     collection
-//         .find({username: req.session.user })
-//         .toArray()
-//         .then(result => {
-//             const climbs = result[0].climbs;
-//             console.log(climbs)
-//             climbs.push({
-//                 climbName: req.body.climbName,
-//                 grade: req.body.grade,
-//                 height: req.body.height
-//             });
-//
-//             //From given update to update the array of climbs
-//             collection.updateOne(
-//                 {_id:mondgodb.ObjectId(result[0]._id)},
-//                 { $set:{ climbs: climbs } }
-//             )
-//             res.json(climbs)
-//         })
-// })
+app.get('/show', (req, res) => {
+    collection.find({_id:mongodb.ObjectId(req.session.passport.user)})
+        .project({_id:0, climbs:1})
+        .toArray()
+        .then(result => res.json(result));
+})
+
+app.post('/addClimb', (req, res) => {
+
+    const body = {
+        climbName: req.body.climbName,
+        grade: req.body.grade,
+        height: req.body.height
+    }
+
+    collection.updateOne(
+        {user: req.session.passport.user},
+        {$push:{ climbs: body }})
+        .then(result => res.json(result))
+})
+
+app.post('/removeClimb', (req, res) => {
+    const body = {
+        climbName: req.body.climbName
+    }
+
+    collection.update(
+        { user: req.session.passport.user },
+        { $pull: { climbs: { climbName: body } } }
+    );
+})
+
+app.post( '/remove', (req,res) => {
+
+    collection
+        .deleteOne({user: req.session.passport.user})
+        .then( result => res.json( result ) )
+})
 
 app.listen( 3069 )
