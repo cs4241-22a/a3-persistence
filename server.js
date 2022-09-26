@@ -211,7 +211,10 @@ collection.find({usr: req.session.usr}).toArray()
 })
 
 
-//app.listen(3000)
-const listener = app.listen( process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port )
-})
+// //app.listen(3000)
+// const listener = app.listen( process.env.PORT, function() {
+//   console.log('Your app is listening on port ' + listener.address().port )
+// })
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('listening on port 3000'))
