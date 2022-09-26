@@ -12,6 +12,7 @@ No username needed, to log in use password "test"
 ## Technical Achievements
 - log in page reached 100% on all four lighthouse tests, main page
   reached 100% on all but best practices
+  images of both tests in the github
 
 ### Design/Evaluation Achievements
 - used middleware to send unauthenticated users to login screen, in the server.js
