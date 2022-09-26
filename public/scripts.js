@@ -51,7 +51,7 @@ function updater( _movID, title, genre, year )
 {
     if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
     tempID = _movID;
-    tempElement = document.getElementById('row-'+id);
+    tempElement = document.getElementById('row-'+_movID);
     let newRow  = '<th>' + _movID + '</th>';
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
