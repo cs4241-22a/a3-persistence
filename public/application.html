@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Passage of Time</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic" />
+    <script src="/js/app.js" defer></script>
+  </head>
+
+  <body>
+    <h1>Years since a day</h1>
+    <div class="text">
+      <b>
+        Enter the year, month and day of an event and I'll tell you how many
+        years since that date.
+      </b>
+      <br />
+      <a
+        >Month can be either word or numeric, needs at least month and year, day
+        is optional</a
+      >
+    </div>
+    <form id="formElems">
+      <table class="inputs">
+        <tr>
+          <td>Month</td>
+          <td>
+            <input
+              class="textBox"
+              type="text"
+              id="month"
+              name="month"
+              value=""
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Day</td>
+          <td>
+            <input class="textBox" type="text" id="day" name="day" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>Year</td>
+          <td>
+            <input class="textBox" type="text" id="year" name="year" value="" />
+          </td>
+        </tr>
+      </table>
+
+      <button type="button" id="submit">submit</button>
+    </form>
+    <table id="heldData"></table>
+
+    <section class="entries">
+      <div id="entries">
+        <em>loading entries&hellip;</em>
+      </div>
+    </section>
+  </body>
+</html>
