@@ -7,11 +7,11 @@ Basic todolist that starts on a login page. If username isn't found in db, makes
 - very basic authorization - just checks for a username + password match in db. seemed easiest
 - used Pure.css. Originally started with Milligram but that brought down Best Practices, so swapped to another minimal framework. Modified pure-button to be a darker blue so its contrast was high enough with the white text
 - middleware packages:
--- serve-favicon: serves favicon
--- compression: compresses http responses
--- helmet: sets http headers for security. had to override contentSecurityPolicy because of my buttons using setAttribute - would've preferred to refactor it and keep contentSecurityPolicy, but I ran out of time
--- cookie-session: sets cookies to keep track of user's _id and if they're authorized
--- custom middleware: redirects unauthorized users to the login page. everything above it that doesn't require authorization (logging in, the login page, etc) doesn't have to go through that middleware
+  - serve-favicon: serves favicon
+  - compression: compresses http responses
+  - helmet: sets http headers for security. had to override contentSecurityPolicy because of my buttons using setAttribute - would've preferred to refactor it and keep contentSecurityPolicy, but I ran out of time
+  - cookie-session: sets cookies to keep track of user's _id and if they're authorized
+  - custom middleware: redirects unauthorized users to the login page. everything above it that doesn't require authorization (logging in, the login page, etc) doesn't have to go through that middleware
 
 ## Technical Achievements
 - **Tech Achievement 1**: Achieved 100 in every Lighthouse category
