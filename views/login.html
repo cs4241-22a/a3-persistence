@@ -1,0 +1,77 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Login Page">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <style>
+        input {
+            display: block;
+            margin: 5px;
+        }
+
+        body {
+            padding: 20px;
+            margin: 3px;
+        }
+
+        .button-primary {
+            background: #285cff;
+            color: #fff6e5;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Welcome. Please log in.
+    </h1>
+    <form action="/login" method="POST" class="pure-form pure-form-stacked">
+        Username: <input type="text" name="username" label="username"  placeholder="username"/>
+        Password: <input type="password" name="password" value="password" label="password" placeholder="password"/>
+        <input type="submit" class="button-primary pure-button pure-button-active" value="login" />
+    </form>
+</body>
+</html>
+<!--!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Login Page</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style.css">
+
+    <script src="loginclient.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Website Name</h1>
+    </header>
+
+    <main>
+      <h2>Login</h2>
+
+      <form>
+        <label>
+          Username
+          <input name="username" type="text" maxlength="100" required placeholder="Username">
+        </label>
+        
+        <label>
+          Password
+          <input name="password" type="text" maxlength="100" required placeholder="Password">
+        </label>
+        
+        <button type="submit" id="login">Login</button>
+      </form>
+      
+      
+    </main>
+  
+  </body>
+</html-->

@@ -1,0 +1,103 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 3 Main Page</title>
+    <meta charset="utf-8">
+    <!--meta name="viewport" content="initial-scale=2.0,width=device-width" /-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Todo List">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="/style.css">
+
+    <script src="/clientog.js" defer></script>
+</head>
+<body>
+    <h1>
+        Todo List
+    </h1>
+    <form id="inputItem" class="pure-form pure-form-stacked">
+        <h2>Input</h2>
+        <input type="text" id="listItem" placeholder="Add todo here" >
+        <input type="text" id="dueDate" placeholder="Enter a 4 digit number e.g. 0908" />
+        <input type="text" id="priority" placeholder="High, medium or low" />
+        <button class="pure-button button-primary pure-button-active" id="inputSubmit">Submit</button>
+    </form>
+    <form id="modifyItem" class="pure-form pure-form-stacked">
+        <h2>Modify</h2>
+        <input type="text" id="modlistItem" placeholder="change todo">
+        <input type="text" id="moddueDate" placeholder="change due date" />
+        <input type="text" id="modpriority" placeholder="change priority" />
+        <button class="pure-button button-primary pure-button-active" id="modifySubmit">Submit</button>
+    </form>
+    <button class="pure-button pure-button-active" id="delButton">Remove</button>
+    <table id="todoList" class="pure-table pure-table-bordered">
+        <tr>
+            <th>Username</th>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Most Urgent</th>
+        </tr>
+    </table>
+</body>
+</html>
+
+<!--pardon the mess but the code stops working without this, I don't know why-->
+<!--DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>Todo List</title>
+
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/style.css">
+
+
+    <script src="/client.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Todo list</h1>
+    </header>
+
+    <main>
+        <h2>Enter to do here</h2>
+
+        <form>
+            <label>
+                New Dream
+                <input name="dream" type="text" maxlength="100" required placeholder="Dreams!">
+                <input name="dueDate" type="text" placeholder="Enter a 4 digit number e.g. 0908" />
+                <input name="priority" type="text" placeholder="High, medium or low" />
+            </label>
+
+            <button type="submit" id="submit-dream">Add Dream</button>
+        </form>
+
+        <div><button id="remove-dream">Remove Dream</button></div>
+        <form>
+            <label>
+                Modify Dream
+                <input name="dreamModify" type="text" maxlength="100" required placeholder="Change Dream">
+            </label>
+            <button type="submit" id="modify-dream">Change Dream</button>
+        </form>
+        <table id="todoList" class="todoTable">
+            <tr>
+                <th>Username</th>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Most Urgent</th>
+            </tr>
+        </table>
+    </main>
+</body>
+</html>
