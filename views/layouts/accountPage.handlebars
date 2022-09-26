@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Account information and survey result page" />
+    <title>SurvAye:Account</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100 overflow-auto">
+    {{>header}}
+    <main class="w-75 m-auto d-flex flex-column py-2">
+        <p class="fs-4">Welcome back {{{userName}}}</p>
+        <a href="/logOut" class="pb-2"><button type="button" class="btn btn-primary">Log Out</button></a>
+
+        <section class="jumbotron">
+            <p class="fs-3">Survey Results</p>
+            <table class = "table overflow-scroll">
+                <thead>
+                    <tr>
+                        {{#each array.0.userData}}
+                            <th>{{@key}}</th>
+                        {{/each}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each array}}
+                    <tr>
+                        {{#each this.userData}}
+                            <td>{{this}}</td>
+                        {{/each}}
+                        <td><button class="btn" id={{this.userData.user}} name="edit" onclick="editEntry(this);">Edit</button></td> 
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    {{>footer}}
+
+
+    <script>
+        function editEntry(e){
+            console.log(e.id)
+            body = e.id
+            fetch("/editEntry", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            if(response.redirected)
+              window.location = response.url;
+          })
+        }
+    </script>
+
+  </body>
+
+</html>

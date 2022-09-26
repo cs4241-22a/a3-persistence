@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SurvAye:Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="login into your SurvAye account or use GitHub to sign in" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+     <link href="/css/bootstrap.css" rel="stylesheet"/>
+  </head>
+
+  
+  <body class="d-flex flex-column min-vh-100 overflow-auto">
+    {{>header}}
+    <main class="w-50 m-auto d-flex justify-content-center py-2">
+
+      <div>
+      <form id="userCreds" action="/login" method="POST">
+        <fieldset class=" m-auto">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" name="email"/>
+        </div>
+
+        <div class="form-outline mb-4 h-25 m-auto" >
+          <label class="form-label" for="loginPassword" >Password</label>
+          <input type="password" id="loginPassword" class="form-control" name="password"/>
+          
+        </div>
+      </form>
+      <div class="w-50 m-auto d-flex justify-content-center py-2">
+        <button id="login" type="login" value = "login" class="btn btn-primary btn-block my-4">Sign In</button>
+        </fieldset>
+        <hr class="my-4">
+        <section class="m-auto">
+          <p>Sign in using another account:</p>
+          <a href="/auth/GitHub" class="btn btn-outline-transparent btn-sm m-1 pb-1 text-primary" aria-label="Log in with GitHub"><i class="fa-brands fa-github fa-xl" alt="GitHub Logo (select to sign in with GitHub)"></i></a>
+          
+        </section>
+      </div>
+      </div>
+    </main>
+
+      {{>footer}}
+
+
+
+
+      <script>
+        window.onload = function(){
+          const submitBtn = document.querySelector("[id = 'login']")
+          submitBtn.onclick = requestLogin;
+        }
+
+
+        const requestLogin = (e)=>{
+          console.log("SENDING")
+          e.preventDefault();
+          const data = new FormData(document.getElementById("userCreds"));
+          const json1 = Object.fromEntries(data.entries());
+          body = JSON.stringify(json1)
+          fetch("/login", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            if(response.redirected)
+              window.location = response.url;
+          })
+        }
+      </script>
+  </body>
+
+</html>

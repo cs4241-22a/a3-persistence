@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="edit responses to survey" />
+    <title>SurvAye:Edit</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    {{>header}}
+    <main>
+      <p class="fs-3">CS4241 Class Survey</p>
+      <form
+        id="perrySurvey"
+        class="w-75 m-auto"
+      >
+
+        <fieldset>
+          <legend>Particpant Infromation</legend>
+          <div class="name">
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" name="fName" value={{entry.userData.fName}} />
+            <br /><br />
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" name="lName" value={{entry.userData.lName}} />
+            <br /><br />
+          </div>
+        </fieldset>
+        <fieldset
+          class="m-auto d-flex flex-column justify-content-center py-2 form-group"
+        >
+          <legend>Major</legend>
+
+          <div
+            class="m-auto d-flex flex-column justify-content-center py-2"
+            style="width:95%"
+          >
+            <label for="majorCS" class="form-check-label">
+              <input
+                id="majorCS"
+                type="checkbox"
+                name="majorCS"
+                value="true"
+                class="form-check-input"
+              />
+              Computer Science
+            </label>
+            <label for="majorRBE" class="form-check-label">
+              <input
+                id="majorRBE"
+                type="checkbox"
+                name="majorRBE"
+                value="true"
+                class="form-check-input"
+              />
+              Robotics Engineering
+            </label>
+            <label for="majorME" class="form-check-label">
+              <input
+                id="majorME"
+                type="checkbox"
+                name="majorME"
+                value="true"
+                class="form-check-input"
+              />
+              Mechanical Engineering
+            </label>
+            <label for="majorECE" class="form-check-label">
+              <input
+                id="majorECE"
+                type="checkbox"
+                name="majorECE"
+                value="true"
+                class="form-check-input"
+              />
+              Electrical and Computer Engineering
+            </label>
+            <label for="majorID" class="form-check-label">
+              <input
+                id="majorID"
+                type="checkbox"
+                name="majorID"
+                value="true"
+                class="form-check-input"
+              />
+              Interpretative Dance
+            </label>
+            <label for="majorOther" class="form-check-label">
+              <input
+                id="majorOther"
+                type="checkbox"
+                name="majorOther"
+                value="true"
+                class="form-check-input"
+              />
+              Other
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="radioIOSCont">
+          <legend>How Likely are You to Recommend Outlook for IOS?</legend>
+          <label><input type="radio" id="hUn" name="outlookRadio" value="0" />
+            Highly Unlikely</label>
+          <label><input type="radio" id="un" name="outlookRadio" value="1" />
+            Unlikely</label>
+          <label><input type="radio" id="li" name="outlookRadio" value="2" />
+            Likely</label>
+          <label><input type="radio" id="hLi" name="outlookRadio" value="3" />
+            Highly Likely</label>
+        </fieldset>
+
+        <br />
+        <fieldset class="radioPlatypus">
+          <legend>Please Identify the Following</legend>
+          <img src="aPlatypus.png" alt="a normal platypus" />
+
+          <div
+            class="m-auto d-flex flex-column justify-content-center py-2"
+            style="width:95%"
+          >
+            <label><input
+                type="radio"
+                id="platypus"
+                name="platypus"
+                value="3"
+              />
+              a platypus?</label>
+            <label><input type="radio" id="niceB" name="platypus" value="2" />
+              a nice boi</label>
+            <label><input type="radio" id="trustA" name="platypus" value="1" />
+              a trustworthy acquaintance</label>
+            <label><input type="radio" id="unsure" name="platypus" value="0" />
+              unsure</label>
+          </div>
+        </fieldset>
+
+        <br />
+        <fieldset class="radioPerry">
+          <legend>Please Identify the Following</legend>
+          <img
+            src="perryThePlatypus.png"
+            alt="Perry the Platypus from the Disney Channel show Phineas and Ferb."
+          />
+          <div
+            class="m-auto d-flex flex-column justify-content-center py-2"
+            style="width:95%"
+          >
+            <label><input type="radio" id="shiftyB" name="perry" value="0" />
+              a shifty boi</label>
+            <label><input type="radio" id="PERRY" name="perry" value="3" />
+              PERRY THE PLATYPUS!!</label>
+            <label><input type="radio" id="panda" name="perry" value="2" />
+              a panda bear</label>
+            <label><input
+                type="radio"
+                id="unsurePerry"
+                name="perry"
+                value="1"
+              />
+              unsure</label>
+          </div>
+        </fieldset>
+
+              <button name="edit" id={{entry.userData.user}} onclick="submitEdit(this);" class="btn">submit</button>
+      <button name = "delete" id={{entry.userData.user}} onclick="deleteEntry(this);"class="btn">delete</button>
+      </form>
+
+
+    </main>
+    <script>
+       const formDoc = document.getElementById('perrySurvey')
+       function handleDefault(event){event.preventDefault();}
+       formDoc.addEventListener('submit', handleDefault);
+
+      function submitEdit(e){
+        debugger
+          console.log("SENDING")
+          const data = new FormData(document.getElementById("perrySurvey"));
+          const json1 = Object.fromEntries(data.entries());
+          json1.user = e.id
+
+          body = JSON.stringify(json1)
+          console.log(body)
+          fetch("/submitEdit", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            console.log(response)
+            debugger
+            if(response.redirected){
+                window.location = response.url
+            }
+          })
+        }
+
+        function deleteEntry(e){
+          console.log("delete")
+          debugger
+          const json1 = {name: "Perry", user: e.id};
+
+          body = JSON.stringify(json1)
+          console.log(body)
+          fetch("/deleteEntry", {
+            method: "POST",
+            body
+          })
+          .then((response)=>{
+            console.log(response)
+            if(response.redirected){
+                window.location = response.url
+            }
+          })
+        }
+
+    </script>
+    {{>footer}}
+  </body>
+
+</html>
