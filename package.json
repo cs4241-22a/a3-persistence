@@ -4,7 +4,7 @@
   "description": "Sleep Tracker",
   "author": "memerson12",
   "scripts": {
-    "start": "node server.improved.js",
+    "start": "node server.js",
     "test": "nodemon --watch . server.js -e html,css,js",
     "dev": "nodemon server.js",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch"
