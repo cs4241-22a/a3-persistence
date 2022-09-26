@@ -15,4 +15,22 @@ router.delete("/", express.json(), async (req, res) => {
   }
 });
 
+router.post("/", express.json(), async (req, res) => {
+  const newTask = new Task({
+    user: req.user,
+    ...req.body,
+  });
+
+  console.log(newTask);
+
+  Task.findOneAndUpdate({ _id: newTask._id }, newTask, {
+    new: true,
+    upsert: true,
+  })
+    .then((task) => {
+      res.json(task);
+    })
+    .catch((err) => res.status(400).json(err));
+});
+
 module.exports = router;

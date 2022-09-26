@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 module.exports = new mongoose.Schema({
-  user_id: String,
+  user: String,
   title: String,
   description: String,
   priority: String,

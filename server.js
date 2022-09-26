@@ -33,8 +33,6 @@ app.use(express.json());
 
 /* ------------- HANDLEBARS AND PARTIALS CONFIG ------------- */
 
-debugger;
-
 app.engine(
   ".hbs",
   exphbs.engine({
@@ -63,6 +61,7 @@ app.use("/js", express.static("app/js"));
 app.use("/task", checkAuthentication, taskRouter);
 app.use(["/", "/load"], checkAuthentication, async (req, res) => {
   const data = await Task.find({ user: req.user }).lean();
+
   res.render("index", { data, layout: false });
 });
 

@@ -30,11 +30,6 @@
   background-color: #343a40;
 }
 
-select,
-option {
-  color: #000000;
-}
-
 .card ~ input {
   background-color: transparent;
   border: none;

@@ -1,13 +1,19 @@
 const toggleForm = (state) => {
   const emptyDOM = document.getElementById("empty-task");
 
+  document.getElementById("form").reset();
+  document.getElementById("description-edit").innerHTML = "";
+
   emptyDOM.style.display = state ? "block" : "none";
 };
 
 window.onload = () => {
-  const addBtn = document.getElementById("add");
-  const cancelBtn = document.getElementById("cancel");
+  const add = document.getElementById("add");
+  const cancel = document.getElementById("cancel");
 
-  addBtn.addEventListener("click", () => toggleForm(true));
-  cancelBtn.addEventListener("click", () => toggleForm(false));
+  add.addEventListener("click", () => toggleForm(true));
+  cancel.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    toggleForm(false);
+  });
 };
