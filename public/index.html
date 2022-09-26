@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <meta charset="utf-8">
+        <meta name="description" content="Author: Gabriel M. Buonomano">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Favoritizer</title>
         <link rel="stylesheet" href="style.css">
-        <script src="index.js"></script>
+        <script async src="index.js"></script>
         <!--Bootstrap-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link async href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     </head>
     <body class="text-dark">
-        <header class="w-100 text-center bg-primary">
+        <header class="w-100 text-center text-white bg-primary">
             <h1>Favoritizer</h1>
         </header>
-        <main class="w-100">
-            Hello, world!
-            <ul id="favorites-list" class="container"></ul>
+        <main class="w-100 p-3">
+            <span id="welcome-message">Hello!</span>
+            <br/>
+            <h1 class="w-100 text-center">Favorites</h1>
+            <ul id="favorites-list" class="container w-50"></ul>
+            <br/>
+            <h1 class="w-100 text-center">New Favorite</h1>
             <form id="new-favorite-form" action="/api/new" method="POST">
-                <label for="key">Subject:</label><input type="text" name="key"/>
-                <label for="value">Item:</label><input type="text" name="value"/>
-                <label for="category">Existing Category:</label><select name="category" id="categories-dropdown">
+                <label for="key">Subject:</label><input type="text" name="key" id="key" class="form-control w-100"/>
+                <label for="value">Item:</label><input type="text" name="value" id="value" class="form-control w-100"/>
+                <label for="categories-dropdown">Existing Category:</label><select name="category" id="categories-dropdown" class="form-control w-100">
                     <option value="" selected="true">[No Category]</option>
                 </select>
-                <label for="category">Custom Category:</label><input type="text" name="newcategory"/>
-                <label for="description">Reasoning:</label><textarea name="description"></textarea>
-                <button type="submit">Submit</button>
+                <label for="newcategory">Custom Category:</label><input type="text" name="newcategory" id="newcategory" class="form-control w-100"/>
+                <label for="description">Reasoning:</label><textarea name="description" id="description" class="form-control w-100"></textarea>
+                <button type="submit" class="mt-2">Submit</button>
             </form>
         </main>
-        <footer class="w-100 text-center bg-primary">
+        <footer class="w-100 text-center bg-primary font-weight-bold text-white">
             Created by Gabriel Buonomano for Webware A22 at WPI
         </footer>
         <li id="dummy-category">

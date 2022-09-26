@@ -40,14 +40,14 @@ async function init(userData){
         //For each unique category, clone a dummy category and modify it as necessary
         var categoryElement = dummyCategory.cloneNode(true);
         categoryElement.removeAttribute('id');
-        categoryElement.getElementsByTagName('h2')[0].innerText = categoryName;
+        categoryElement.getElementsByTagName('h2')[0].innerText = categoryName || "Uncategorized";
         var favoritesElement = categoryElement.getElementsByTagName('ul')[0];
         var dummyFavorite = favoritesElement.getElementsByTagName('li')[0];
         //Add all favorites of that category to it
         userData.favorites.forEach(favorite => {
             if(favorite.category == categoryName){
                 var favoriteElement = dummyFavorite.cloneNode(true);
-                favoriteElement.innerText = `${favorite.key}: ${favorite.value}`;
+                favoriteElement.innerHTML = `<span style="font-weight:bold;">${favorite.key}: ${favorite.value}</span><br/><div>${favorite.description}</div>`;
                 favoritesElement.appendChild(favoriteElement);
             }
         });
@@ -59,4 +59,20 @@ async function init(userData){
         option.innerText = categoryName;
         document.getElementById("categories-dropdown").appendChild(option);
     });
+
+    //Hide the original dummy category
+    dummyCategory.style.display = 'none';
+
+    //Set the user's name and registered/logged in confirmation
+    var message = `Hello, ${userData.user}!`
+    switch(localStorage.getItem('a3-loginType')){
+        case 'newUser':
+            message += ' Your new account has been registered.';
+            break;
+        case 'success':
+        default:
+            message += ' You are now logged in.';
+            break;
+    }
+    document.getElementById('welcome-message').innerText = message;
 }

@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', async function(){
             if(body.login == "success" || body.login == "newUser"){
                 console.log("Successful login!");
                 localStorage.setItem('a3-token', body.token);
+                localStorage.setItem('a3-loginType', body.login);
                 window.location.href = './index.html';
+            } else {
+                console.error('Password incorrect!');
             }
         }).catch((error) => {
             console.error(error);

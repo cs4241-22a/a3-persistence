@@ -6,3 +6,15 @@ html, body {
 ol, ul {
   list-style: none;
 }
+
+#new-favorite-form {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login-form {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,11 +1,12 @@
 var md5 = require('md5');
 var randToken = require('rand-token');
-
+var path = require('path');
 const express = require('express');
 const app = express();
 const port = 3000;
-var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var favicon = require('serve-favicon')
+var bodyParser = require('body-parser');
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://users:users@main-cluster.ck9ebum.mongodb.net/?retryWrites=true&w=majority";
@@ -48,20 +49,26 @@ const appdata = {
 
 app.use(morgan('dev'));
 app.use(logTokenRequests);
+//app.use(favicon(path.join(__dirname, 'public', 'favicon-32x32.png')))
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.sendFile('/public/index.html', {root: __dirname});
+  res.sendFile('/public/login.html', {root: __dirname});
 });
 
 app.get('/api/favorites', (req, res) => {
+  //if(!activeUsers[req.body.token]){res.end();return;}
   //console.log(req.query);
   //console.log(activeUsers);
   const collection = client.db("users").collection("users");
   var username = activeUsers[req.query.token];
   collection.findOne({user:username}).then(userData => {
-    delete userData.password; //No security breaches that easily lmao
+    try {
+      delete userData.password; //No security breaches that easily lmao
+    } catch(e){
+      //Ignore
+    }
     res.send(JSON.stringify(userData));
   });
   
@@ -108,6 +115,7 @@ app.post('/api/login', (req, res) => {
 
 
 app.post('/api/new', (req, res) => {
+  //if(!activeUsers[req.body.token]){res.end();return;}
   console.log(req.body);
   const collection = client.db("users").collection("users");
   collection.findOne({user:activeUsers[req.body.token]}).then(user => {
@@ -134,7 +142,7 @@ function logTokenRequests(req, res, next){
   try {
     var token = req.query.token || req.body.token;
     if(token){
-      console.log(`\n${req.method} request made by user with token ${token}`);
+      console.log(`\n${req.method} request made by user with token ${token} for url ${req.url}`);
     }
   } catch(e){
     //Ignore
