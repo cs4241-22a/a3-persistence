@@ -6,6 +6,7 @@ Deployment in heroku.
 Small todo app with github login feature (OAuth 2.0) where it stores tasks so it saves todo tasks to each user.
 I chose OAuth 2.0 for authentication since github used it and there were many established documents and example for it.
 Usage of bootstrap was easy with the same reason.
+Used deleteOne method meaning it requires to only have one row with specific task value.
 Lighthoue score was okay with having low SEO score, but rest were okay.
 For middleware
 - cookie-parser: secret a string or array used for signing cookies
