@@ -1,0 +1,21 @@
+.data-card {
+    margin-bottom: 20px;
+    width: 50vw;
+}
+
+.scrolling-row {
+    overflow-x: scroll;
+}
+
+.setting-flex {
+    margin-top: 1em;
+}
+
+.setting-flex button {
+    height: 50%;
+    margin-left: 20px;
+}
+
+.hidden {
+    display: none;
+}

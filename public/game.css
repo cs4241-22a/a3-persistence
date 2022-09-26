@@ -100,3 +100,7 @@ li:hover {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.btn-footer {
+    width: 40%;
+}

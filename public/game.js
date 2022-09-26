@@ -10,6 +10,7 @@ let gameOver = false;
 let timerRunning = false;
 let puzzleClicks = [];
 let puzzleFlags = [];
+let currentBoard = "";
 
 window.onload = () => { 
     redirectIfNotLoggedIn();
@@ -21,6 +22,7 @@ window.onload = () => {
     });
     loadPuzzleList();
     loadLogoutButton();
+    loadDataButton();
 }
 
 function redirectIfNotLoggedIn() {
@@ -35,6 +37,17 @@ function loadLogoutButton() {
     document.getElementById("logout-button").onclick = () => {
         window.location = "/";
     }
+}
+
+function loadDataButton() {
+    fetch("/user-id?email=" + localStorage.getItem("MS:email")).then((res) => {
+        res.json().then((d) => {
+            const userId = JSON.parse(d).id;
+            document.getElementById("data-button").onclick = () => {
+                window.location = "/user?id=" + userId;
+            }
+        })
+    })
 }
 
 function resetBoard() {
@@ -52,18 +65,27 @@ function resetBoard() {
 
 function loadPuzzleList() {
     fetch("/puzzle-list").then((res) => {
-        res.json().then((oldPuzzles) => {
+        res.json().then(async (oldPuzzles) => {
             if (oldPuzzles) {
                 const puzzleObjects = JSON.parse(oldPuzzles);
-                console.log(puzzleObjects);
                 const puzzleList = document.getElementById("puzzle-list");
                 for (const p of puzzleObjects) {
                     const puzzleLink = document.createElement("li");
-                    puzzleLink.innerHTML = p.title;
                     puzzleLink.addEventListener("mousedown", () => {
                         loadOldPuzzle(p.id);
                     });
                     puzzleList.appendChild(puzzleLink);
+                    puzzleLink.innerHTML = p.title + " 🎮";
+                    const queryString = "/game-result?user=" + localStorage.getItem("MS:email") + "&puzzle=" + p.id;
+                    await fetch(queryString).then((res) => {
+                        res.json().then((d) => {
+                            const currentBoardData = JSON.parse(d)
+                            if (currentBoardData) {
+                                puzzleLink.innerHTML = p.title + " " + (currentBoardData.result ? "✔️" : "❌");
+                            }
+                        })
+                        puzzleList.appendChild(puzzleLink);
+                    })
                 }
             }
         })
@@ -94,6 +116,7 @@ function endGame(won) {
     document.getElementById("modal-button").innerHTML = won ? "Close" : "Close >:(";
     document.getElementById("modal-button").onclick = () => {
         $('#modal').modal('hide');
+        window.location = window.location;
     }
     $('#modal').modal('show');
     for (const space of spaces) {
@@ -101,6 +124,22 @@ function endGame(won) {
             puzzleFlags.push(space.index);
         }
     }
+    sendGameToDatabase(won);
+}
+
+function sendGameToDatabase(won) {
+    const gameData = {
+        puzzle: currentBoard,
+        flags: puzzleFlags,
+        clicks: puzzleClicks,
+        user: localStorage.getItem("MS:email"),
+        won: won
+    }
+    fetch('/send-game', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(gameData)
+    });
 }
 
 function revealMines(won) {
@@ -121,8 +160,6 @@ function stopTimer() {
 }
 
 function startTimer() {
-
-    console.log("Starting timer...");
 
     const timerP = document.getElementById("time");
     timerRunning = true;
@@ -344,43 +381,39 @@ function loadBoardFromJSON(boardId) {
         res.json().then((boardData) => {
             if (boardData) {
                 const data = JSON.parse(boardData);
+                currentBoard = (boardId !== -1 ? boardId : data.board);
                 document.getElementById("title").innerHTML = data.title;
                 parseMines(data.mines);
                 allMines = data.mines;
                 placeSpaces();
                 loadMineCounts();
                 loadWinConditions();
-                checkStatus();
+                checkCurrentStatus();
             }
         })
     })
 }
 
-function checkStatus() {
+function checkCurrentStatus() {
     const userStatus = "";
     
-    switch (userStatus) {
-        case "failed":
-            for (const click of userClicks) {
+    const queryString = "/game-result?user=" + localStorage.getItem("MS:email") + "&puzzle=" + currentBoard;
+
+    fetch(queryString).then((res) => {
+        res.json().then((d) => {
+            const currentBoardData = JSON.parse(d)
+            if (!currentBoardData) {
+                return;
+            }
+            for (const click of currentBoardData.clicks) {
                 spaces[click].reveal({button: 0});
             }
-            for (const flag of userFlags) {
+            for (const flag of currentBoardData.flags) {
                 spaces[flag].toggleFlag();
             }
-            showResult(false);
-            break;
-        case "won":
-            for (const click of userClicks) {
-                spaces[click].reveal({button: 0});
-            }
-            for (const flag of userFlags) {
-                spaces[flag].toggleFlag();
-            }
-            showResult(true);
-            break;
-        default: 
-            break;
-    }
+            showResult(currentBoardData.result);
+        })
+    })
 }
 
 function showResult(won) {

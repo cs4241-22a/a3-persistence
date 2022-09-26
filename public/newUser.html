@@ -64,8 +64,7 @@
                     response.json().then((d) => {
                         const jsonRes = JSON.parse(d);
                         if (jsonRes.error) {
-                            document.getElementById("error-msg").innerHTML = "User already exists!";
-                            window.location = "/sign-in&redirect=true";
+                            window.location = "/sign-in?redirect=true";
                         } else {
                             localStorage.setItem("MS:email", jsonRes.email);
                             window.location = "/play";
@@ -74,6 +73,7 @@
                 });
             }
         }
+        localStorage.removeItem("MS:email");
     }
 </script>
 </html>

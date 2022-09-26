@@ -50,11 +50,16 @@
             </div>
             <div class="d-flex align-items-center justify-content-start flex-column" style="width: 60vh">
                 <p id="user-info"></p>
-                <button class="btn btn-outline-primary" id="logout-button" data-toggle="button" aria-pressed="false" autocomplete="off">Sign Out</button>
+                <div class="d-flex align-items-center justify-content-between flex-row" style="width: 70%">
+                  <button class="btn btn-footer btn-outline-primary" id="logout-button" data-toggle="button" aria-pressed="false" autocomplete="off">Sign Out</button>
+                  <div class="d-flex">or</div>
+                  <button class="btn btn-footer btn-outline-primary" id="data-button" data-toggle="button" aria-pressed="false" autocomplete="off">View My Data</button>
+                </div>
             </div>
         </div>
         <div class="border">
             <h2>Previous puzzles:</h2>
+            <p>🎮 = unplayed, ✔️ = won, ❌ = lost</p>
             <ul id="puzzle-list">
 
             </ul>
