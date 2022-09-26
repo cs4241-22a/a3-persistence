@@ -12,6 +12,7 @@ const express = require( 'express' ),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
+app.use( bodyp.json() );
 app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
