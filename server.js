@@ -44,7 +44,6 @@ if (process.env.NODE_ENV === 'development') {
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use( express.static('public') )
 app.use( express.static('views'))
-app.use(express.static(__dirname + '/public'));
 app.use( express.json() )
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
