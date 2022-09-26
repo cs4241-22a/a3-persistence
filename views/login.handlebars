@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Track Your Notes - Log In</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0"/>
+    <meta name="description"
+          content="Login for the notes tracker"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <style>
+      body{
+        background: url("https://cdn.discordapp.com/attachments/1013617417735381032/1022209250740666520/a3background-4.png");
+        background-repeat: repeat;
+        size: 100%, 100%;
+        
+        color: #32292F;
+      }
+      h1{
+        text-align: center;
+        width: 100%;
+        color: #32292F;
+      }
+      h2{
+        text-align: center;
+        width:100%;
+        color: #32292F;
+        font-size: 1.3em;
+      }   
+      input[type=text]{
+        padding: 5px, 15px;
+        border: 1;
+        background: #F0F7F4;
+        cursor:text;
+        border-radius: 4px;
+      }
+      input[type=password]{
+        padding: 5px, 15px;
+        border: 1;
+        background: #F0F7F4;
+        cursor:text;
+        border-radius: 4px;
+      }
+      input[type=submit]{
+        padding: 5px, 15px;
+        border: 1;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    
+  <h1>
+    Log In To The Page
+  </h1>
+  <h2>
+    <form action="/login" method="POST">
+      <label for="username"> Username </label><br><input type="text" name="username" id="username">
+      <br>
+      <label for="password">Password</label><br><input type="password" name="password" id="password">
+      <br>
+      <input type="submit">
+    </form>
+    {{{msg}}}
+  </h2>
+    </body>
+</html>

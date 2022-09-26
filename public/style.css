@@ -1,0 +1,56 @@
+/* unfortunately the css sheets would not really connect
+to the actual html, so the ta had me */
+/*
+body{
+  background: url("https://cdn.discordapp.com/attachments/1013617417735381032/1021651057228660786/a3background-3.png");
+  background-repeat:repeat;
+  background-size: 100%, 100%;
+  
+  color: #32292f;
+}
+h1{
+  text-align: center;
+  width: 100%;
+  font-family: "Oswald", sans-serif;
+  color: #32292F;
+  font-size: 3em;
+}
+h2{
+  text-align: center;
+  width: 100%;
+  font-family: "Kanit", sans-serif;
+  color: #32292F;
+  font-size: 1.5em;
+}
+input[type=text]{
+  padding: 5px, 15px;
+  border: 1;
+  background: #F0F7F4;
+  cursor:text;
+  font-family: "Rubik", sans-serif;
+  border-radius: 4px;
+  font-size: .75em;
+}
+input[type=submit]{
+  padding: 5px, 15px;
+  border: 1;
+  background: #F0F7F4;
+  font-family: "Rubik", sans-serif;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: .6em;
+}
+
+table, th, td{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width:75%;
+  border: 2px solid;
+  Border-collapse: collapse;
+  color: #32292f;
+  background: #F0F7F4;
+  font-family: "Rubik", sans-serif;
+  font-size: 1em;
+}
+*/

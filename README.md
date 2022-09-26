@@ -1,116 +1,107 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
+## The Note Keeper
 
-Due: September 22nd, by 11:59 AM.
+glitch (or alternative server) link e.g. http://a3-alexandra-mcfann.glitch.me
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
-
-Baseline Requirements
----
-
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+For this project, I made a simple list of notes and note titles,
+that can be added or deleted. Due to difficulties with the project, same problems
+as with A2, I could not figure out a way to alter the data entries, and the website
+does not do what I would hope it does, somehow it downloads the data rather
+than sending it? However I did the best I could.
+No username needed, to log in use password "test"
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- log in page reached 100% on all four lighthouse tests, main page
+  reached 100% on all but best practices
+  images of both tests in the github
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- used middleware to send unauthenticated users to login screen, in the server.js
+- used cookie-session to handle sessions
+- used express handlebars to handle movement between two pages
+- used mongoose to connect to mongodb
+- used favicon middleware to give site an icon
+
+- used the picnic css framework, made changes to justifications,
+text color, and text box color to make a pretty, and unified image,
+added a background to make the page interesting, and altered h2
+font size to differentiate it from h1
+
+
+-Provide informative, unique page titles
+  I gave the titles to the pages names that were descriptive
+  of the website and the page
+-Use headings to convey meaning and structure
+  I gave each part of the website a heading, and in the second page, a subheading.
+  The heading in the first page instructs the user to log in, and is a higher font size
+  to make it stand out from the other text, and the heading in the main page is a description
+  of the page, and there are subheadings over each form, and then text about each form
+-Provide clear instructions
+  When logging in, if the user uses a wrong password, the message
+  tells the user to try to log in again. And the descriptions about the forms in
+  the main page are clear.
+-Keep content clear and concise
+  I made my website with as little text as possible on the screen without making it unclear
+  to the user
+-Provide sufficient contrast between foreground and background
+  I created an interesting background without making it the center of attention, and by using
+  a coolors pallet I could get contrassting colors that also work together, so the text is a
+  different color that stands out form the other colors
+-Ensure that interactive elements are easy to identify
+  I created text boxes that have outlines and are a different color than most of the background,
+  and the mouse cursor will change as it hovers over it. The submitting buttons are in the 
+  basic css framework style, and are different from everything else too
+-Ensure that form elements include clearly associated labels
+  The labels are right above each form element and are descriptive of what that form is for
+-Use headings and spacing to group related content
+  Different forms are spaced apart from each other, and the form pieces that are
+  related have less space between them 
+-Dont use color alone to convey information
+  While I use color to help make the website fit together, it does not dictate
+  how the user is supposed to interract with the website, and the website does
+  not rely on the usage of color
+-Associate a label with every form control
+  Every part of a form has a visible label and an id that is in code
+-Reflect the reading order in the code order
+  The page is coded in the order that it is meant to be read in
+-Ensure that all interactuve elements are keyboard accessable
+  all parts of the form can be accessed by tabbing in and out without disruption
+  
+-Contrast
+  In making parts of the page have contrast with another, while not messing too much 
+  with the css framework and while trying to make the website visually pleasing, I had 
+  some difficulty. By changing the font sizes for the headers, I could make the top 
+  header larger than the other text on the screen, and create subheaders for content 
+  as well. The framework doesn’t allow for different fonts for different headers, and 
+  it felt like that would be too much change on the framework, so I worked with the 
+  font sizes and colors instead. I used a Coolors palette to get some colors that would 
+  work well as background colors, and a color that contrasted yet worked well with the 
+  rest of the screen as text.
+
+-Repetition
+  It is difficult at first to get both contrast and repetition in a webpage when making 
+  it look good. By using the same color and font for all the text on the screen, I could 
+  ensure it all looks like it belongs together on the same page, and contrasts against 
+  the rest of the color palette on the screen. Top headers on both pages are the same 
+  size, and both describe the page use. On the main page, subheaders that describe the 
+  forms are both the same size, but are smaller than the main header. The text that labels 
+  the form inputs are all the same size as well, but are the smallest text pieces on the 
+  screen. By keeping pieces of text that perform the same job as the same size, but different 
+  from text that does a different job, I create repetition that acts to help my page.
+
+-Alignment
+  I align all text to the center, since I don’t have much text on my page, and the text 
+  acts as a descriptor for fields for a form. If I were writing a lot of text to a screen, 
+  I would put non-header text as left justified. By putting all my text in the middle, I 
+  create a better looking page that a user would want to look at for longer, and by having 
+  all the text in the middle, the text all looks like it belongs on the same web page. The 
+  center justified text also works well with the background I have created for the website, 
+  looking like the background is centered on the page rather than just placed randomly.
+
+-Proximity
+  I place all items that have similar jobs or apply to the same thing next to each other. In 
+  the main page, the pieces to the form that creates a new note are all near each other. Right 
+  under the text box for creating a note title is the text box for giving that note content, 
+  and then right under that is the submitting button. The next form isn’t directly underneath 
+  that form, it is separated by a line break, then a subheader, showing the user that this 
+  form is a separate one from the main adding form. The table to display the list of notes is 
+  also separated by a line break, so it is clear it is not part of the forms.
