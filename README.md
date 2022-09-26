@@ -3,6 +3,8 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 The app is a schedule app designed to let users create their own weekly schedules in their browser
 Example user: {"User", "a"}
 
+https://a3-greg-klimov.glitch.me/login
+
 A significant challenge I faced in making the application was the difficulty associated with enabling multiple html and css files to remember which user is currently logged in. Inifially it was up to the server to remember which user was logged in, but after doing some research, I decided to enable the window object to save the username after the user logs in (and only after the user logs in)
 
 A simple username/password check with the window saving was easy to implement, and the bcrypt back end encryption was was a simple addition to that.
