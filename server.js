@@ -306,29 +306,7 @@ app.get(
     }
 
     if (req.session.user !== undefined) {
-      if (req.session.user.admin) {
-        results = await getAllSurveyResults().then((results) => {
-          console.log(results);
-          res.render("accountPage", {
-            userName: req.session.user.name,
-            array: results,
-            layout: false,
-          });
-        });
-      } else {
-        console.log("ADMIN " + req.session.user.admin);
-        console.log("GITHUB ID:" + req.session.user.id);
-        results = await getSurveyResults(req.session.user.id).then(
-          (results) => {
-            console.log(results);
-            res.render("accountPage", {
-              userName: req.session.user.name,
-              array: results,
-              layout: false,
-            });
-          }
-        );
-      }
+      res.render('GitHubSignInSucc', {user: req.session.user.name, layout: false})
     } else {
       res.redirect("/login");
     }
