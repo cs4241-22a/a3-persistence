@@ -1,37 +1,27 @@
-<!doctype html>
-<html lang="en" xmlns:visibility="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-    <link href="css/style.css" rel="stylesheet">
 
-  </head>
-  
-  <body>
-    <h1 id="page_title">TO DO</h1>
-    <main id = "everything">
-    <form action="/">
-      <input type="text" id="to_do" placeholder="add tasks">
-      <input type="date" id="date">
-      <select id="priority">
-          <option value="none" selected disabled hidden>Select</option>
-          <option >High</option>
-          <option>Medium</option>
-          <option>Low</option>
-        </select>
-      <button id="add">+</button> 
-    </form>
-     <div>
-        <table align="center" id="results">
-          <tr>
-          <th>Tasks</th> 
-          <th>Date</th>
-          <th>Priority</th>
-          <th>Modify</th>
-          </tr>
-        </table>
-      </div>
-    </main>
-    <script src="js/scripts.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="public/index.html" rel="">
+    <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <title>Login</title>
+</head>
+<body>
+<div class="container-fluid">
+    <h1 id="page_title" class="p-3"> LOGIN PAGE</h1>
+    <div class="row">
+        <div class= col-3>
+            <form action="/login" method = "POST" class="form-check">
+                <input class="form-control" name="username" type="text" placeholder="Username">
+                <input class="form-control" name="password" type="password" placeholder="Password">
+                <input class="form-control" type="submit" value="LOGIN">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
 </html>
