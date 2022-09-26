@@ -1,6 +1,7 @@
 let rowIndex = 0
 let i = 0
 let originalHTML = ''
+let bodyHTML = ''
 
 const submit = function( e ) {
     // prevent default form action from being carried out
@@ -74,12 +75,15 @@ const submit = function( e ) {
 
   function renderTable(items) {
     tbl = document.getElementById( 'list_table' )
+    tableBody = document.getElementById('table_body')
 
     if (i == 0) {
       originalHTML = tbl.innerHTML
+      bodyHTML = tableBody.innerHTML
       i++
     } else {
       tbl.innerHTML = originalHTML
+      tableBody.innerHTML = bodyHTML
     }
 
     //iterate over each item and add it to table
@@ -87,6 +91,7 @@ const submit = function( e ) {
       const newRow = document.createElement('tr')
 
       const item = document.createElement('td')
+      item.scope = 'row'
       const itemText = document.createElement('input')
       itemText.type = 'text'
       itemText.value = json.item
@@ -111,7 +116,7 @@ const submit = function( e ) {
       const actions = document.createElement('td')
 
       const saveButton = document.createElement('button')
-      saveButton.className = 'tableButtons'
+      saveButton.className = 'btn btn-success'
       saveButton.id = 'save_button'
       saveButton.onclick = function ( e ) {
         json.item = itemText.value
@@ -119,10 +124,10 @@ const submit = function( e ) {
         json.priority = priorityText.value
         saveRow(json)
       }
-      saveButton.innerText = 'Save'
+      saveButton.innerText = 'Save Changes'
 
       const deleteButton = document.createElement('button')
-      deleteButton.className = 'tableButtons'
+      deleteButton.className = 'btn btn-danger'
       deleteButton.id = 'delete_button'
       deleteButton.onclick = function ( e ) {
         deleteRow(json)
@@ -137,8 +142,9 @@ const submit = function( e ) {
       newRow.appendChild(priority)
       newRow.appendChild(actions)
   
-      tbl.appendChild(newRow)
-    })    
+      tableBody.appendChild(newRow)
+      tbl.appendChild(tableBody)
+    })
 
     if (tbl.rows.length == 1) {
       tbl.hidden = true

@@ -1,5 +1,5 @@
 body {
-    background-color: #E0FFFF;
+    background-color: #E1F5FE !important;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,6 +7,7 @@ body {
 .child {
     order: 1;
 }
+/*
 h1, label, button, input {
     font-family: "Montserrat", serif;
 }
@@ -26,13 +27,14 @@ td {
     text-align: center;
     font-size: 90%;
 }
-table {
+*/
+/* table {
     border: 2px solid;
     border-collapse: collapse;
     width: 50%;
     margin-top: 25px;
-    font-family: "Montserrat", serif;
-}
+}  */
+/*
 .bold {
     font-weight: bold;
 }
@@ -44,5 +46,5 @@ table {
 }
 .tableButtons{
     display:inline;
-    width: 100%;
-}
+    width: 50%;
+} */

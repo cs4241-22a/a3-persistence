@@ -8,6 +8,7 @@ const express = require( 'express' ),
 require('dotenv').config()
 
 app.use(express.static('public'))
+app.use(express.static('views'))
 app.use(express.json())
 
 const uri = 'mongodb+srv://'+process.env.USER_NAME+':'+process.env.PASSWORD+'@'+process.env.HOST
@@ -55,7 +56,7 @@ app.post( '/login', (req,res)=> {
       //if the username matches an existing account but the password is wrong, send back to login screen
       seen = true
       // password incorrect, redirect back to login page
-      res.sendFile( __dirname + '/public/index.html' )
+      res.sendFile( __dirname + '/views/index.html' )
     }
   })
   .then( function( e ) {
@@ -71,21 +72,6 @@ app.post( '/login', (req,res)=> {
       }) 
     }
   })
-})
-
-// add some middleware that always sends unauthenicated users to the login page
-app.use( function( req,res,next) {
-  if( loggedIn === true ) {
-    next()
-  } else {
-    res.sendFile(__dirname + '/public/index.html', function (err) {
-      if (err) {
-        next(err)
-      } else {
-        console.log('Sent:', __dirname + '/public/index.html')
-      }
-    })
-  }
 })
 
 // route to get all docs
