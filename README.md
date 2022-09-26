@@ -73,7 +73,7 @@ that was more straightforward to style myself based on the available boostrap do
     
  - **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
  - *Contrast* :
-    - I made sure that the primary header had the highest contrast on the page, followed by the images. 
+    - Contrast is one of the most important features in ensuring clarity, accessibility and general readability of a page, and was taken into strong consideration when styling each page and individual element of the Alfie Images board. I made sure that the primary header had the highest contrast on the page by altering the original color scheme I created to include paler, creme shades of orange and darker brown tones to bring emphasis to certain sections. The contrast between the text, borders, and background on my primary site headers is much higher than that of the secondary headers, to encourage the user to examine the page’s title/primary purpose before moving on to other aspects of the page. I chose to add a lighter contrast around the Alfie images as their size and color variety is already eye-catching, ideally further leading users to naturally read the page title and instructions before proceeding.
  - *Repitition* : 
    - I repeatedly chose the same shades of orange to ensure high contrast with consistency to prevent the page from becoming busy.
  - *Alignment* :
