@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/scripts.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple node.js app built with express, passport, and mongodb. Showcases OAuth login with github and CRUD operations using mongodb to persist data.">
+</head>
+<body class="bg-light">
+<header class="p-3 mb-3 border-bottom bg-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                MyNotes
+            </a>
+
+<!--            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">-->
+<!--                <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>-->
+<!--            </ul>-->
+
+            <%if (user) {%>
+            <div class="dropdown text-end">
+                <input type="hidden" value="<%= user.id %>" id="user">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src=<%= user.profilePhoto %> alt="mdo" width="32" height="32" class="rounded-circle">
+                    <%= user.username %>
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form action="/logout" method="post">
+                        <button class="dropdown-item" type="submit">Sign out</button>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        </form>
+                    </li>
+<!--                    <li><a class="dropdown-item" href="/logout">Sign out</a></li>-->
+                </ul>
+            </div>
+            <% } else { %>
+                <a href="/login/federated/github" class="btn btn-info"><span class="fa fa-github"></span> Github Login</a>
+            <% } %>
+        </div>
+    </div>
+</header>

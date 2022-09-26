@@ -1,0 +1,71 @@
+<%- include('header', { title: 'Authentication Example' }) -%>
+<input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrf">
+<div class="px-4 py-5 my-5 text-center">
+<!--    <img class="d-block mx-auto mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
+    <h1 class="display-5 fw-bold">myNotes</h1>
+    <div class="col-lg-auto mx-auto">
+        <p class="lead mb-4">Take your notes here! Simply enter anything on your mind below!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <%if (user) {%>
+                <form id="noteForm">
+                    <div class="mb-3">
+                        <label for="note" class="form-label">Note:</label>
+                        <input autofocus type="text" id="note" name="note" class="form-control" aria-describedby="Input a note here" required>
+                        <input type="hidden" value="<%= user.id %>" name="owner_id">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Note</button>
+                </form>
+            </div>
+    <!--        <p class="lead mb-lg-4" style="padding-top: 3rem">Notes:</p>-->
+            <div class="card" style="margin-top: 4rem;">
+                <div class="card-body">
+                    <table class="table table-hover" style="margin-top: 1rem">
+                        <col style="width:10%">
+                        <col>
+                        <col style="width:15%">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <p id="noData">No Data!</p>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="card" style="margin-top: 4rem;">
+                <div class="card-body">
+                    <p class="card-title lead">Please Log in above!</p>
+                </div>
+            </div>
+            <% } %>
+        
+    </div>
+
+    <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit Note</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="editedText">
+                    <input type="hidden" id="editId" value="-1">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') -%>
+
