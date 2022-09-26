@@ -4,7 +4,6 @@ const express = require( 'express' ),
       cookie = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       bodyp = require( 'body-parser' ),
-      favicon = require( 'serve-favicon' ),
       session = require( 'express-session' ),
       path = require( 'path' ),
       mongodb = require( 'mongodb' ),
@@ -13,7 +12,6 @@ const express = require( 'express' ),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
-app.use( express.favicon() );
 app.use( express.bodyp() );
 app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
