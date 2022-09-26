@@ -65,9 +65,8 @@ function updatercanceller( _movID )
 {
     let title  = document.getElementById( _movID ).children[0].innerHTML,
         genre  = document.getElementById( _movID ).children[1].innerHTML,
-         year  = document.getElementById( _movID ).children[2].innerHTML;
-         console.log(title);
-    let  newRow  = '<tr id = "' + _movID + '">';
+         year  = document.getElementById( _movID ).children[2].innerHTML,
+       newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
@@ -86,6 +85,7 @@ function updatersubmitter( _movID )
                      year: document.getElementById( _movID ).children[8].value
                  },
           body = JSON.stringify(json);
+    console.log( body );
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
     .then( response => response.json() )
     .then( dothething() );
