@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="sign in">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <title>Sign In Page</title>
+  </head>
+  <body class="text-center" data-new-gr-c-s-check-loaded="14.1080.0" data-gr-ext-installed="">
+    <main class="form-signin w-25 m-auto">
+      <h1 class="h1 mt-5 fw-bold">Your Little Library</h1>
+      <form action="/login" method="POST" class="row gy-2 gx-2 align-items-center">
+        <h2 class="h3 mb-3 fw-normal">Sign in here!</h2>
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required/>
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-2 align-items-center">
+          <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required/>
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      </form>
+      {{{msg}}}
+    </main>
+    <div>
+      <form action="/createNewAccount" method="GET">
+        <p class="m-3 fw-normal">No account? <a href="/createNewAccount" class="pe-auto">Create one here!</a></p>
+      </form>
+    </div>
+  </body>
+</html>
