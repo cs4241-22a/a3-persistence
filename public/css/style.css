@@ -1,0 +1,130 @@
+
+body
+{
+    text-align: center;
+
+    font-family: 'Roboto', sans-serif;
+
+    background-color: #5F6F94 ;
+   
+    margin: 0; /* keep boy at the top of the page*/
+}
+
+h1 
+{
+    color: white;
+}
+
+.topbar { /* sticky topbar */
+
+   
+    position: sticky;
+    top: 0px;
+    padding: 10px 0px;
+
+    background-color: #25316D;
+    
+  }
+
+h1:hover {
+
+    color: black;
+  }
+
+.group{
+    display: inline-block;
+    padding: 10px 15px 15px 0;
+   
+}
+
+#loginSection
+{
+ 
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  
+}
+
+#TodoFields
+{
+    justify-content:center;
+    
+   
+}
+#Buttons
+{
+    justify-content:center;
+    gap: 100px
+   
+}
+.flex 
+{   
+    display: flex;
+    flex-wrap: nowrap;
+   
+ 
+}
+button
+{
+    font-size: larger;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+#clearBTN
+{background-color: #E27d60;
+    
+}
+#addBTN
+{
+    background-color: #85DCBA;
+}
+
+#log-in
+{ margin-top: 20px;
+
+    background-color: #85DCBA;
+}
+#register
+
+{
+  margin-top: 20px;
+  background-color: #E27d60;
+    
+}
+
+
+#logoutBTN
+{
+    background-color: red;
+   
+}
+
+input 
+{
+    font-size: large;
+  
+}
+
+table {
+    text-align: center;
+    font-size:larger;
+
+    background-color: #85DCBA;
+    border-radius: 10px;
+   
+    padding: 10px;
+    margin: 0 auto;  
+    color: black;
+  }
+
+  th  
+  {
+    background-color:#E8A87C;
+  }
+  td 
+  {
+    padding:8px ;
+    width:125px;
+  }

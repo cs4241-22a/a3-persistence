@@ -1,0 +1,63 @@
+<body>
+  
+
+  <div>
+    <p>
+      Add/Remove Items below
+    </p>
+    <form action="">
+
+      <section id="TodoFields" class="flex">
+        <div class="group">
+          <label for="todoName">To Do Item:</label> <br />
+          <input type='text' id='todo' value="">
+
+        </div>
+
+        <div class="group">
+          <label for="todoDesc">Description:</label> <br />
+          <input type='text' id='desc' value="">
+
+        </div>
+
+        <div class="group">
+          <label for="todoDue">Due Date:</label> <br />
+          <input type='date' id='dueDate' value="">
+
+        </div>
+
+
+      </section>
+
+
+      <section id="Buttons" class="flex">
+        <button type="submit" id="addBTN">Add</button>
+
+        <button type="submit" id="clearBTN">Clear All</button>
+<button type="submit" id="logoutBTN">Log Out</button>
+      </section>
+    </form>
+  </div>
+
+  <div>
+    <table class="dataTable" id="resultTable">
+
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Description</th>
+          <th>Due Date</th>
+          <th>Days left</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+      <tr></tr>
+      </tbody>
+
+    </table>
+
+  
+  </div>
+
+
+</body>

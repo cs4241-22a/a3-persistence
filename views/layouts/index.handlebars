@@ -1,0 +1,32 @@
+
+<html lang="en">
+
+<head>
+    <style>
+        input {
+            display: block
+        }
+    </style>
+
+    <link type= "css" rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css">
+    <link  rel="stylesheet" href="css/style.css">
+    {{#each scripts}}
+    <script src="{{script}}" defer></script>
+    {{/each}}
+
+    
+</head>
+
+<body>
+    <div class="topbar">
+    <h1>
+      Todo List <span style="color: red; font-size: 50pt;  vertical-align: middle;">X</span>Treme
+    </h1>
+
+    <hr>
+
+  </div>
+    {{{body}}}
+</body>
+
+</html>
