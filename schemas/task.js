@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * Mongoose schema for Task.
+ */
 module.exports = new mongoose.Schema({
   user: String,
   title: String,

@@ -4,7 +4,7 @@ const { User, Task } = require("../models");
 const router = express.Router();
 
 /**
- * Get all the task with a given user id
+ * Delete a task with a given id using DELETE.
  */
 router.delete("/", express.json(), async (req, res) => {
   const query = await Task.findOneAndDelete({ _id: req.body._id });
@@ -15,6 +15,9 @@ router.delete("/", express.json(), async (req, res) => {
   }
 });
 
+/**
+ * Create or update a task with a POST.
+ */
 router.post("/", express.json(), async (req, res) => {
   const newTask = new Task({
     user: req.user,

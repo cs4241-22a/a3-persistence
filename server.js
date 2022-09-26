@@ -12,6 +12,8 @@ const { router: authRouter, checkAuthentication } = require("./routes/auth");
 const { User, Task } = require("./models");
 const taskRouter = require("./routes/task");
 
+/* ------------- MONGOOSE AND PASSPORT ------------- */
+
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log("Connected!");
 });

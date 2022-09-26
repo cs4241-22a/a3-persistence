@@ -1,3 +1,8 @@
+/**
+ * Transfer information from a card to the empty editable layout
+ * @param {Event} evt Event.
+ * @param {Element} element
+ */
 const edit = (evt, element) => {
   evt.preventDefault();
 
@@ -29,6 +34,11 @@ const edit = (evt, element) => {
   document.getElementById("deadline-edit").value = deadline;
 };
 
+/**
+ * Remove a task from the view and database.
+ * @param {Event} evt Event.
+ * @param {Element} element
+ */
 const remove = async (evt, element) => {
   evt.preventDefault();
 
@@ -51,6 +61,10 @@ const remove = async (evt, element) => {
   }
 };
 
+/**
+ * Add a task to the database and view.
+ * @param {Event} evt Event.
+ */
 const add = async (evt) => {
   evt.preventDefault();
 
