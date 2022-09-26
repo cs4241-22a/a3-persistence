@@ -11,3 +11,8 @@ The goal of this project was to be able to make a shopping list for anyone who n
 
 - **Tech Achievement 3**: I passed all four lighthouse tests and got 100%. The challenge for this section was simply making the minor adjustments that the lighthouse test recommended. The biggest challenge of the lighthouse tests was the SEO section, mostly because it had the most problems with my website. On my computer, I get 100s on all the lighthouse tests. I will post screenshots of this. Other students in the class have tried my website and told me it does not get 100, so I am posting these screenshots.
 
+![image](https://user-images.githubusercontent.com/44264516/192317966-5f9bd53d-5098-4925-8bbc-a5f6eed74ded.png)
+
+![image](https://user-images.githubusercontent.com/44264516/192318465-d83eff37-086d-42d3-bd89-a16cbca3a3c9.png)
+
+
