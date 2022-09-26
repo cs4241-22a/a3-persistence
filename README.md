@@ -9,4 +9,5 @@ The goal of this project was to be able to make a shopping list for anyone who n
 ## Technical Achievements
 - **Tech Achievement 2**: I hosted my server on heroku instead of glitch. I felt that it was pretty different from glitch. I used my github account to push from my repository, and although settings up my account for heroku and fixing some minor bugs was tedious, it worked easily once I got past that boundary. I think that it is better than glitch because it is very easy to push my data locally to heroku. 
 
-- **Tech Achievement 3**: I passed all four lighthouse tests and got 100%. The challenge for this section was simply making the minor adjustments that the lighthouse test recommended. The biggest challenge of the lighthouse tests was the SEO section, mostly because it had the most problems with my website.
+- **Tech Achievement 3**: I passed all four lighthouse tests and got 100%. The challenge for this section was simply making the minor adjustments that the lighthouse test recommended. The biggest challenge of the lighthouse tests was the SEO section, mostly because it had the most problems with my website. On my computer, I get 100s on all the lighthouse tests. I will post screenshots of this. Other students in the class have tried my website and told me it does not get 100, so I am posting these screenshots.
+
