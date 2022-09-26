@@ -1,16 +1,25 @@
 
 
 ---
-https://a2-othniel9.glitch.me/
+https://a3-othniel9.glitch.me/
 
 ## TO DO App
-I created a to do list app. I created a Css with forms which when input creates a table result.
+The goal of the application was to implement a to-do list app that you can add to delete and also modify. This implementation was done both in the client and server(MONGODB)
+For my CSS framework I used Bootstrap.
+5 middleware packages:
+app.use(express.urlencoded({extended:true}))
+app.use(express.static("public"))
+app.use(express.json())
+app.set('trust proxy', 1)
+app.use(cookie({
+name: 'session',
+keys:["key1","key2"]
+}))
+
 # Technical Achievements
-- **Tech Achievement **: Got a 100 in all 4 lighthouse test 
+
+- **Tech Achievement **: 
+1.Got a 100 in all 4 lighthouse test 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
-1. Last name: Li
-2.Table Center and missing derived field 
-3.Alert on empty fields and color Scheme.
-4.Center tables adjust alignment.

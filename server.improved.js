@@ -17,7 +17,8 @@ app.use(cookie({
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const {response} = require("express");
-const uri = "mongodb+srv://test:test@a3-persistence.nraftwq.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://test:test@a3-persistence.nraftwq.mongodb.net/?retryWrites=true&w=majority"
+//const uri = 'mongodb+srv://'+process.env.USER+':'+process.env.PASS+'@'+process.env.HO
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 let collection = null
 let id
@@ -111,4 +112,7 @@ app.get( '/main.html', ( req, res) => {
     })
 
 
+
+
     app.listen( 3000 )
+
