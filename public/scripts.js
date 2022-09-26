@@ -9,17 +9,21 @@ function builder ( json )
 {
     const tbl = document.getElementById( 'datatable' );
     tbl.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Zack Snyder?</th><th>edit?</th><th>delete?</th></tr>';
-    json.forEach(entry => 
+    if( json != null )
     {
-        let newRow  = '<tr id = "' + entry._movID + '">';
-            newRow += '<th>' + entry.title.toString().toUpperCase() + '</th>';
-            newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
-            newRow += '<th>' + entry.year + '</th>';
-            newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
-            newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
-            newRow += '<th><button onclick="deleter(' + entry._movID + ');">delete?</button></th>';
-        datatable.innerHTML += newRow;
-    });
+        console.log('ok!');
+        json.forEach(entry => 
+            {
+                let newRow  = '<tr id = "' + entry._movID + '">';
+                    newRow += '<th>' + entry.title.toString().toUpperCase() + '</th>';
+                    newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
+                    newRow += '<th>' + entry.year + '</th>';
+                    newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
+                    newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
+                    newRow += '<th><button onclick="deleter(' + entry._movID + ');">delete?</button></th>';
+                datatable.innerHTML += newRow;
+            });
+    }
 };
 function submitter( e )
 {
