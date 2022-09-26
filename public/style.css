@@ -1,0 +1,3 @@
+tr:not(.hrow):hover {
+    text-decoration: line-through;
+}
