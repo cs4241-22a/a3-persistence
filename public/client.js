@@ -8,6 +8,7 @@ const add = function( e ) {
         json = { name: name.value, grade: grade.value, height: height.value},
         body = JSON.stringify( json )
 
+    console.log(climbName)
     climbName.value = ''
     grade.value = ''
     height.value = ''
