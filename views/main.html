@@ -2,97 +2,139 @@
 <html lang="en">
   <head>
     <title>CS4241 Assignment 3</title>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name = "description" content="This is a user authenticated task manager application"/> <!-- lets Google know what the webpage is about-->
-    <link rel = "stylesheet" href="/style.css"/>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="This is a user authenticated task manager application"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <!-- lets Google know what the webpage is about-->
+    <link rel="stylesheet" href="/style.css" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-   
   </head>
-  <body class="p-3 mb-2 bg-dark text-white">
-  
-    <form action="">
-      <h1> Task Manager</h1>
-      <div >
+  <body >
+    <header> 
+      <h1>Task Manager</h1>
+      <h4>Add a Task here</h4>
+    </header>
+    <section id="Actions">
+      <form action="">
+        <header id="header"></header>
+        
         <div id="inputs" class="inputsAndButtons">
           <label for="newTask">New Task:</label>
           <input type="text" id="newTask" placeholder="Type task here" />
           <div id="dropDowns">
+            <label for="TypeOfTask">Type:</label>
             <select id="TypeOfTask">
               <option value="School">School</option>
               <option value="Work">Work</option>
               <option value="Other">Other</option>
             </select>
 
+            <label for="Difficulty">Difficulty:</label>
             <select id="Difficulty">
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
             </select>
 
+            <label for="Semester">Semester:</label>
             <select id="Semester">
               <option value="Fall">Fall</option>
               <option value="Spring">Spring</option>
               <option value="Summer">Summer</option>
             </select>
-
           </div>
         </div>
         <div class="inputsAndButtons">
           <br />
           <div id="buttons" class="inputsAndButtons">
-            <button  id="addButton">add</button>
-
-            <button  id="resultsButton">results</button>
-            
+            <label for="addButton">Add a Task Here:</label>
+            <button id="addButton">add</button>
+            <label for="resultsButton">See all of your Tasks:</label>
+            <button id="resultsButton">results</button>
           </div>
           <p class="guides">
             Click 'Submit' look at all of your task ( 1 task is already premade
             for you)
             <br />
             <br />
-            Click 'Delete' will delete the task identical to the one that you
-            have in your field.
+
           </p>
 
-          <div id = "deleteTask">
-            <h2 for="deleteTaskInput"> Delete your task here</h2>
-            <input type = "text" id="deleteTaskInput" placeholder = "Object ID"/>
+          <header> 
+            <h4>Delete a Task here</h4>
+          </header>
+          <div id="deleteTask">
+            <p>Insert your 24 character Task ID and click "remove" to delete a Task</p>
+            <p> Example ID: 632db9d762fe7a74fb35d900 </p>
+            <label for="deleteTaskInput">Task ID:</label>
+            <input type="text" id="deleteTaskInput" placeholder="Object ID" />
+            <label for="removeButton">Delete Task:</label>
             <button id="removeButton">remove</button>
           </div>
-          <div id =  "updateTask">
-              <h2>Update one of your tasks here</h2> 
-              <input type = "text" id="idForUpdate" placeholder = "Insert same Object ID">
-              <input type = "text" id ="TaskInputUpdate" placeholder = "edit task input here">
-              <!-- <div id="updateDropdowns"> -->
-              <select id="typeOfTaskUpdate">
-                <option value="School">School</option>
-                <option value="Work">Work</option>
-                <option value="Other">Other</option>
-              </select>
-              <select id="difficultyUpdate">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
-              </select>
-  
-              <select id="semesterUpdate">
-                <option value="Fall">Fall</option>
-                <option value="Spring">Spring</option>
-                <option value="Summer">Summer</option>
-              </select>
+
+          <header> 
+            <h4>Change a Task here</h4>
+          </header>
+          <p>Insert your  Task ID, and updated information below. Click "update" to associate new info with the inserted ID </p>
+          <div id="updateTask">
+            <label for="idForUpdate">Task ID :</label>
+            <input
+              type="text"
+              id="idForUpdate"
+              placeholder="Insert same Object ID"
+            />
+            <label for="TaskInputUpdate">Task Name:</label>
+            <input
+              type="text"
+              id="TaskInputUpdate"
+              placeholder="edit task input here"
+            />
+            <!-- <div id="updateDropdowns"> -->
+
+            <label for="typeOfTaskUpdate">Type</label>
+            <select id="typeOfTaskUpdate">
+              <option value="School">School</option>
+              <option value="Work">Work</option>
+              <option value="Other">Other</option>
+            </select>
+            <label for="difficultyUpdate">Difficulty</label>
+            <select id="difficultyUpdate">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+            <label for="semsterUpdate">Type</label>
+            <select id="semesterUpdate">
+              <option value="Fall">Fall</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+            </select>
             <!-- </div> -->
-              <button id = "updateButton">update</button>
+            <label for="updateButton">Press to Update:</label>
+            <button id="updateButton">update</button>
           </div>
           <div class="toDoList" id="toDoList">
-            <h1><u>Tasks to Complete</u></h1>
-            <hr/>
           </div>
         </div>
-      </div>
-    </form>
-    <table id="TaskBase"></table>
-    <script src= "/client.js"> </script> <!-- when you use exprss.static on public, you dont need to write public in the client.js link-->
+      </form>
+    </section>
+<br>
+
+    <section id="Results">
+      <header>
+        <h1> Tasks to Complete</h1>
+      </header>
+      <table id="TaskBase"></table>
+    </section>
+
+    <script src="/client.js"></script>
+    <!-- when you use exprss.static on public, you dont need to write public in the client.js link-->
   </body>
 </html>

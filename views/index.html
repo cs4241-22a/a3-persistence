@@ -2,46 +2,52 @@
 <html lang='en'>
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script> -->
   </head>
   <body>
-    
+<main class= "grid"> 
 
-    <div class="content unauthorized">
+<section id = "GitHub login" >
+  
+    <div class="content unauthorized" style = display:block>
+      <Header> <h1>If you want, you can log in with your <a class="btn" href="/auth">GitHub Account</a> </h1></Header>
       <div class="top">
-        <img class="img-github" src="github.png" />
-        <h1>Hello new User<br />👋</h1>
+        <img class="img-github" src="github.png" alt = "github logo image" />
       </div>
-      <div class="content-bottom">
-        <a class="btn" href="/auth">SIGN IN WITH GITHUB</a>
-        <p class="sign-in-text">in order to get started</p>
-      </div>
+
     </div>
 
-    
     <!-- <div class="content authorized"> -->
     <div class="content authorized" style="display: none">
       <div class="top">
         <img class="img-github" src="github.png" />
         <h1><span class="party-popper">🎉</span><br />Congrats!<br />You are now authorized 🔒</h1>
-      click the next button to go to the task manager
+      
+
       <form id = 'loginGitHub' action='/loginGitHub' method='POST'>
-        <input type='submit' >
+        <label for = "submitGithub" >Click "next" to see and edit tasks</label>
+        <input id = "submitGithub" type='submit' value = next >
 
       </form>
       </div>
     </div>
+  </section>
 
-    <div id = 'basic login'>
+     <!-- find way to remove this when github user logs in -->
+    <section  id = 'basic login' style = display:block >
+      <Header> <h1>Other wise you can use basic login credentials here</h1> </Header>
       <form id = 'loginBasic' action='/loginBasic' method='POST'>
+        <label for = 'username'>Username:</label>
         <input id = 'username' type='text' name='username' placeholder='username'>
+        <label for = 'password'>Password:</label>
         <input  type='password' name='password' placeholder='password'>
-         <input type='submit'> <!-- submits the request? -->
+        <label for = 'submitBasic'>Click here:</label>
+         <input id = 'submitBasic' type='submit'> <!-- submits the request? -->
       </form>
-    </div>
-
+    </section>
+  </main>
     <script src= "/login.js"> </script>
   </body>
 </html>

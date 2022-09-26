@@ -3,22 +3,23 @@
 // https://www.youtube.com/watch?v=x0VcigW9kN0&ab_channel=OpenJavaScript
  const usernameVal = sessionStorage.getItem('usernameKey')
   console.log(usernameVal)
-  
+
   
   window.onload = function() {
 
-    
-    
+
     username = document.querySelector("#userName")
    
     const button = document.querySelector( '#addButton' )
     button.onclick = add
+    
 
     const button2 = document.querySelector('#removeButton')
     button2.onclick = remove
 
 
     const button3 = document.querySelector('#resultsButton')
+
     button3.onclick = results
 
     
@@ -26,7 +27,6 @@
     button4.onclick = update
 
    
-
 
     // from tutorial -https://www.youtube.com/watch?v=MkESyVB4oUw&ab_channel=TylerPotts
 
@@ -117,13 +117,9 @@ const results = function(e)
     json.forEach( item =>{
       //////////MAKE initial elements in a div clear before adding new data
       let tr = document.createElement('tr')
-       tr.innerText = JSON.stringify(item)
-      // tr.innerText = "ID:" + item._id + " " 
-      //                 // + "User:" item.User + " "
-      //                 + "Task:" + item.Task + " " 
-      //                 + "Type:" + item.TypeOfTask + " "
-      //                 + "Difficulty:" + item.Difficulty + " "
-      //                 + "Semester:" + item.Semester + " "
+        // tr.innerText = JSON.stringify(item)
+       tr.innerHTML = 
+       `<strong>ID:</strong> ${item._id},  <strong> User:</strong>${item.json.User}, <strong> Task:</strong> ${item.json.Task}, <strong> Type:</strong> ${item.json.TypeOfTask}, <strong> Difficulty:</strong> ${item.json.Difficulty} <strong>Semester:</strong> ${item.json.Semester}`
       TaskBase.appendChild(tr)
   })
 })
@@ -178,3 +174,8 @@ const update = function(e)
   
 
 }
+
+
+
+
+
