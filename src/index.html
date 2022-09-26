@@ -3,18 +3,23 @@
 <head>
 	<title>Inkboard</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="css/styles.css" />
-
-	<!--	webpack bundle	-->
-	<script src="dist/index.bundle.js" defer></script>
 
 	<!--	MUI		-->
 	<link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
 	<script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+
+	<!--	Styles		-->
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/canvas.css" />
+
+	<!--	webpack bundle	-->
+	<script src="dist/index.bundle.js" defer></script>
 </head>
 <body>
 	<div id="main-sections">
-		<section class="mui-appbar">
+
+		<!--	Top Bar	-->
+		<section class="mui-appbar" style="padding-bottom: 20px">
 			<div class="mui-container">
 				<h2>Welcome to Inkboard!</h2>
 				<p>Use your ink (on the right) to contribute to the canvas or type in text</p>
