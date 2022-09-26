@@ -2,9 +2,9 @@
   "name": "cs4241_assignment_3",
   "version": "1.0.0",
   "description": "Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template",
-  "main": "index.js",
+  "main": "/server/server.mjs",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/server.mjs",
     "build": "tsc && webpack",
     "prestart": "npm run build"
   },
