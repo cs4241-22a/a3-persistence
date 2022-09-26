@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A page that allows you play Rock Paper Scissors with the computer">
     <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
     <link rel="stylesheet" href="game.css">
     <title>Simple RPS</title>
@@ -13,7 +14,7 @@
             font-family: 'Abel';
             font-size: 18px;
             background-color: #5d602f;
-            background-image: linear-gradient(to bottom right, #b16f39 30%, #968e22);
+            background-image: linear-gradient(#beab93 20%, #af712b);
         }
 
         table,
@@ -36,6 +37,15 @@
             border: 1px solid #FA7150;
             border-radius: 4px;
         }
+
+        .err-msg {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: red;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -43,61 +53,46 @@
     <div class="coloredBorder">
         <h1>A Simple Game of Rock Paper Scissors</h1>
     </div>
-    <h3>
+    <h2 style="text-align:left ;">
         <b>Game Introduction: </b>
-    </h3>
+    </h2>
     <p>A classic two-person game. Players start each round by selecting one of the three following options</p>
     <ul>
         <li>Rock</li>
         <li>Paper</li>
         <li>Scissors</li>
     </ul>
-    <p style="text-align: center; font-size:x-large; color: #F0463E;">Counter Relations: Rock crushes scissors, scissors
+    <p style="text-align: center; font-size:x-large; color: #a8322c;">Counter Relations: Rock crushes scissors, scissors
         cut paper, and paper covers rock. See who wins each round!</p>
-    <h3>
-        <b>All Players --> this is a magic button</b>
-        <button id="display">refresh</button>
-    </h3>
-    <table style="width:100%">
-        <tr>
-            <th>Username</th>
-            <th>Win</th>
-            <th>Loss</th>
-            <th>Winrate</th>
-        </tr>
-        <tbody id="myTable">
-        </tbody>
-    </table>
-    <p><strong>Action --- add new user or delete existing user</strong></p>
-    <form action="">
-        <label>Add User</label>
-        <input type='text' id='newUsername_2'>
-        <button id="add">add</button>
-        <label>Delete User</label>
-        <input type='text' id='unwanted'>
-        <button id="delete">delete</button>
-    </form>
 
     <h3>
-        <b>Current Player *if not specified, will pick the first user in the table*</b>
+        <b style="font-size:x-large ;">Welcome, {{{playerName}}} !</b>
+        <br><a href="/logout">Log Out</a>
     </h3>
     <table style="width:100%">
         <tr>
             <th>Username</th>
             <th>Win</th>
             <th>Loss</th>
-            <th>Winrate</th>
         </tr>
-        <tbody id="currentTable">
-        </tbody>
+        <tr>
+            <td>{{{playerName}}}</td>
+            <td>{{{playerWin}}}</td>
+            <td>{{{playerLoss}}}</td>
+        </tr>
     </table>
-    <p><strong>Action --- edit current username or switch to an existing user</strong></p>
-    <form action="">
-        <label>Current User</label>
-        <input type='text' id='currentUsername' disabled>
-        <label>Edit Username/Select User</label>
-        <input type='text' id='newUsername'>
-        <button id="updateUsername">update</button>
+    <p><strong>Action --- edit current username</strong></p>
+    <div>
+        {{#if error}}
+        <p class="err-msg">Username already exists</p>
+        {{/if }}
+    </div>
+    <form action="/edit" , method="post">
+        <label for="currentUser">Current User</label>
+        <input type='text' id="currentUser" value={{{playerName}}} disabled>
+        <label for="newUsername">Edit Username</label>
+        <input type='text' id='newUsername' name="newUsername" placeholder="New Username..." required>
+        <button type="submit">update</button>
     </form>
     <div class="gameContainer">
         <!-- <iframe src="game.html" style="border:none;" title="Game"></iframe> -->
@@ -139,6 +134,7 @@
             <button class="reload"></button>
         </section>
     </div>
+    <script src="scripts.js"></script>
 </body>
 
 </html>

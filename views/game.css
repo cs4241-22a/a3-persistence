@@ -14,15 +14,15 @@
 h1,
 h2 {
     text-align: center;
-    color: #FA9E4B;
+    color: #ad5641;
 }
 
 h3 {
-    color: #FA7150;
+    color: #c0593f;
 }
 
 div.coloredBorder {
-    border: 2px solid #F0B151;
+    border: 2px solid #91621c;
     border-radius: 30px;
 }
 
@@ -32,7 +32,7 @@ ul {
 
 ul li::before {
     content: "\2022";
-    color: #F0463E;
+    color: #c23931;
     font-weight: bold;
     display: inline-block;
     width: 1em;

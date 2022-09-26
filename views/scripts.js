@@ -109,14 +109,14 @@ const game = () => {
             result.innerText = 'You Won The Game'
             result.style.color = '#308D46';
             gameStatus = 1;
-           
+
         }
         else if (playerScore < computerScore) {
             result.style.fontSize = '2rem';
             result.innerText = 'You Lost The Game';
             result.style.color = 'red';
             gameStatus = 0;
-           
+
         }
         else {
             result.style.fontSize = '2rem';
@@ -125,15 +125,15 @@ const game = () => {
         }
         reloadBtn.innerText = 'Restart';
         reloadBtn.style.display = 'flex';
-        // if (gameStatus === 0) {
-        //     reloadBtn.onclick = handleGameLose
-        // }
-        // if (gameStatus === 1) {
-        //     reloadBtn.onclick = handleGameWin
-        // }
-        reloadBtn.addEventListener('click', () => {
-            window.location.reload();
-        })
+        if (gameStatus === 0) {
+            reloadBtn.onclick = handleGameLose
+        }
+        if (gameStatus === 1) {
+            reloadBtn.onclick = handleGameWin
+        }
+        if (gameStatus === 2) {
+            reloadBtn.onclick = handleGameTie
+        }
     }
 
 
@@ -146,52 +146,58 @@ const game = () => {
 game();
 
 // called when win
-const handleGameWin = function(e) {
+const handleGameWin = function (e) {
     // prevent default form action from being carried out
     e.preventDefault()
 
-    const newUser = document.querySelector('#currentUsername'),
-        json = { currentuser: "_WinCondition_", newusername: newUser.value },
+    const json = { result: "_Win_" },
         body = JSON.stringify(json)
 
-    fetch('/submit', {
+    fetch('/endGame', {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
-        .then(async function (response) {
-            let data = await response.json()
-            const currentUser = document.querySelector('#currentUsername')
-            if (currentUser.value !== null) {
-                const pos = findDataIndex(data, newUser.value)
-                makeCurrentTable(data,pos)
-                makeTable(data);
-            }
-            else{alert("Please choose a user!")}
+        .then(() => {
+            window.location.reload();
         })
-    return false
+
 }
 
 // called when lose
 const handleGameLose = function (e) {
-     // prevent default form action from being carried out
-     e.preventDefault()
+    // prevent default form action from being carried out
+    e.preventDefault()
 
-     const newUser = document.querySelector('#currentUsername'),
-         json = { currentuser: "_LossCondition_", newusername: newUser.value },
-         body = JSON.stringify(json)
- 
-     fetch('/submit', {
-         method: 'POST',
-         body
-     })
-         .then(async function (response) {
-             let data = await response.json()
-             if (currentUser.value !== null) {
-                const pos = findDataIndex(data, newUser.value)
-                makeCurrentTable(data,pos)
-                makeTable(data);
-            }
-            else{alert("Please choose a user!")}
-         })
-     return false
- }
+    const json = { result: "_Loss_" },
+        body = JSON.stringify(json)
+
+    fetch('/endGame', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+    })
+        .then(() => {
+            window.location.reload();
+        })
+
+}
+
+// called when tie
+const handleGameTie = function (e) {
+    // prevent default form action from being carried out
+    e.preventDefault()
+
+    const json = { result: "_Tie_" },
+        body = JSON.stringify(json)
+
+    fetch('/endGame', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body
+    })
+        .then(() => {
+            window.location.reload();
+        })
+
+}

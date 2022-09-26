@@ -1,13 +1,16 @@
 const express = require('express');
 const session = require('express-session');
-const dotenv = require('dotenv')
-const cookie = require('cookie-session')
+const dotenv = require('dotenv');
+const cookie = require('cookie-session');
 const hbs = require('express-handlebars').engine;
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const app = express();
+var currentLogin = "";
+var playerWin = 0;
+var playerLoss = 0;
 dotenv.config();
 
 // use mongoose to connect to database
@@ -83,16 +86,22 @@ passport.use(new localStrategy(function (username, password, done) {
       if (err) return done(err);
       if (res === false) return done(null, false, { message: 'Incorrect password.' });
 
+      // store the valid user game info
+      currentLogin = username;
+      playerWin = user.win;
+      playerLoss = user.loss;
       return done(null, user);
     });
   });
 }));
 
+// login check
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect('/login');
 }
 
+// log out check
 function isLoggedOut(req, res, next) {
   if (!req.isAuthenticated()) return next();
   res.redirect('/');
@@ -100,7 +109,18 @@ function isLoggedOut(req, res, next) {
 
 // ROUTES
 app.get('/', isLoggedIn, (req, res) => {
-  res.render("index", {layout: false});
+  console.log("------------------------------------------------");
+  console.log("Current Login: " + currentLogin);
+  console.log("Current Win: " + playerWin);
+  console.log("Current Loss: " + playerLoss);
+  const response = {
+    title: "Simple RPS", 
+    error: req.query.error, 
+    playerName: currentLogin,
+    playerWin: playerWin,
+    playerLoss: playerLoss
+  }
+  res.render("index", response);
 });
 
 app.get('/login', isLoggedOut, (req, res) => {
@@ -126,19 +146,23 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/login?error=true'
 }));
 
+// swap to post if have time
 app.get('/logout', function (req, res) {
-  req.logout();
-  res.redirect('/');
+  req.logout(function (err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+  currentLogin = ""
 });
 
 // handle register
 app.post('/register', async (req, res) => {
   // check for duplicate
   const exists = await User.exists({ username: req.body.username });
-	if (exists) {
-		res.redirect('/register?error=true');
-		return;
-	};
+  if (exists) {
+    res.redirect('/register?error=true');
+    return;
+  };
 
   // encrypt the password
   const hashedPwd = await bcrypt.hash(req.body.password, 10);
@@ -156,6 +180,51 @@ app.post('/register', async (req, res) => {
 
 });
 
+// handle username update
+app.post('/edit', async (req, res) => {
+  // check for duplicate
+  const exists = await User.exists({ username: req.body.newUsername });
+  if (exists) {
+    res.redirect('/?error=true');
+    return;
+  };
+
+  // get the data
+  const doc = await User.findOne({ username: currentLogin });
+  // update the username
+  doc.username = req.body.newUsername;
+  await doc.save();
+  currentLogin = req.body.newUsername;
+
+  // after update redirect back to game page
+  res.redirect('/')
+})
+
+// handle game result
+app.post('/endGame', async (req, res) => {
+  // get the data
+  const doc = await User.findOne({ username: currentLogin });
+
+  // check the result
+  if (req.body.result === "_Win_") {
+    console.log("------WIN------");
+    doc.win = doc.win + 1;
+    await doc.save();
+    playerWin = doc.win;
+  }
+  if (req.body.result === "_Loss_") {
+    console.log("------LOSS------");
+    doc.loss = doc.loss + 1;
+    await doc.save();
+    playerLoss = doc.loss;
+  }
+  console.log("Directing...");
+  // after update redirect back to game page
+  // res.redirect('/');
+  res.end("Result proccess is finished!");
+})
+
+// check connection and port
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
   app.listen(3000, () => {
