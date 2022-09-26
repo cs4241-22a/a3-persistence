@@ -5,10 +5,10 @@ const add = function( e ) {
     const climbName = document.querySelector( '#climbName' ),
         grade = document.querySelector( '#grade' ),
         height = document.querySelector( '#height' ),
-        json = { name: name.value, grade: grade.value, height: height.value},
+        json = { climbName: climbName.value, grade: grade.value, height: height.value},
         body = JSON.stringify( json )
 
-    console.log(climbName)
+    console.log(climbName.value)
     climbName.value = ''
     grade.value = ''
     height.value = ''
