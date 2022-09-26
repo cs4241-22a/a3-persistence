@@ -16,4 +16,4 @@ Basic todolist that starts on a login page. If username isn't found in db, makes
 ## Technical Achievements
 - **Tech Achievement 1**: Achieved 100 in every Lighthouse category
 ![image](https://user-images.githubusercontent.com/96454091/192310256-2a225ae8-777f-46df-a8b0-1d4747e436fe.png)
-![image](https://user-images.githubusercontent.com/96454091/192310454-3ce5ab73-994c-4f00-827d-0a0d9b9d8047.png
+![image](https://user-images.githubusercontent.com/96454091/192310454-3ce5ab73-994c-4f00-827d-0a0d9b9d8047.png)
