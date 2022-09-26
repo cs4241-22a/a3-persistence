@@ -138,7 +138,7 @@ app.post('/removeClimb', (req, res) => {
     collection.update(
         { user: req.session.passport.user },
         { $pull: { climbs: { climbName: body } } }
-    );
+    ).then(result => res.json(result))
 })
 
 app.post( '/remove', (req,res) => {
