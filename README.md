@@ -1,5 +1,3 @@
-https://a3-zaq-humphrey.herokuapp.com/
-
 ## Shopping List Creator
 
 https://a3-zaq-humphrey.herokuapp.com/
