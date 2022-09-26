@@ -6,13 +6,14 @@ const express = require( 'express' ),
       bodyp = require( 'body-parser' ),
       favicon = require( 'serve-favicon' ),
       session = require( 'express-session' ),
+      path = require( 'path' ),
       mongodb = require( 'mongodb' ),
       uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
       client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true}),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
-app.use( express.static( 'public' ) );
+app.use( express.static( path.join( __dirname + '../public' ) ) );
 app.use( express.static( 'views' ) );
 app.use( express.json() );
 app.use( session({ secret: 'poop time', resave: false, saveUninitialized: false }) );
