@@ -54,27 +54,26 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
   function(req, res) { res.render( "main", { msg: "", layout: false } ); } );
 app.get('/data', checkAuth, ( req, res ) =>
 {
-  collection.find({ id:mongodb.ObjectId() })
-  .project({ id: 0, items: 1 }).toArray()
+  collection.find({ _id:mongodb.ObjectId( req.session.passport.user ) })
+  .project({ _id: 0, items: 1 }).toArray()
   .then( result => res.json( result ) );
 });
 app.post('/submit', checkAuth, ( req, res ) =>
 {
-  let body = { id: mongodb.ObjectId(), title: req.body.title, genre: req.body.genre, year: req.body.year };
-  collection.updateOne({ id: mongodb.ObjectId() }, 
-                       { $push: { items: body } })
+  let body = { _movID: mongodb.ObjectId(), title: req.body.title, genre: req.body.genre, year: req.body.year };
+  collection.updateOne({ _id: mongodb.ObjectId( req.session.passport.user ) }, { $push: { items: body } })
   .then( result => res.json( result ) );
 });
 app.post('/delete', checkAuth, ( req, res ) =>
 {
-  collection.updateOne({ id: mongodb.ObjectId() },
-                       { $pull: { items: { id: mongodb.ObjectId( req.body.id ) } } })
+  collection.updateOne({ _id: mongodb.ObjectId( req.session.passport.user ) },
+                       { $pull: { items: { _movID: mongodb.ObjectId( req.body._movID ) } } })
   .then( result => res.json( result ) );
 });
 app.post('/update', checkAuth, ( req, res ) =>
 {
-  let changer = { id: mongodb.ObjectId( req.body.id ), title: req.body.title, genre: req.body.genre, year: req.body.year };
-  collection.updateOne({ id: mongodb.ObjectId(), "items.id":mongodb.ObjectId( req.body.id ) },
+  let changer = { _movID: mongodb.ObjectId( req.body._movID ), title: req.body.title, genre: req.body.genre, year: req.body.year };
+  collection.updateOne({ _id: mongodb.ObjectId(), "items._movID":mongodb.ObjectId( req.body._movID ) },
                        { $set:  "items.$", changer })
   .then( result => res.json( result ) );
 });

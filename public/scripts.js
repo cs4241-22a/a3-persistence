@@ -11,13 +11,13 @@ function builder ( json )
     tbl.innerHTML = '<tr><th>title</th><th>genre</th><th>year</th><th>directed by Zack Snyder?</th><th>edit?</th><th>delete?</th></tr>';
     json.forEach(entry => 
     {
-        let newRow  = '<tr id = "' + entry.id + '">';
+        let newRow  = '<tr id = "' + entry._movID + '">';
             newRow += '<th>' + entry.title.toString().toUpperCase() + '</th>';
             newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
             newRow += '<th>' + entry.year + '</th>';
             newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
-            newRow += '<th><button onclick="updater(' + entry.id + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
-            newRow += '<th><button onclick="deleter(' + entry.id + ');">delete?</button></th>';
+            newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">submit</button></th>';
+            newRow += '<th><button onclick="deleter(' + entry._movID + ');">delete?</button></th>';
         datatable.innerHTML += newRow;
     });
 };
@@ -33,21 +33,21 @@ function submitter( e )
     .then(dothething());
     return false;
 };
-function deleter( id )
+function deleter( _movID )
 {
-    const json = { id: x.id }, 
+    const json = { _movID: x._movID }, 
           body = JSON.stringify( json );
     fetch( '/delete', { method: 'POST', headers: { "Content-Type": "application/json" }, body } )
     .then( response => { response.json() })
     .then( dothething() );
     return false;
 };
-function updater( id, title, genre, year )
+function updater( _movID, title, genre, year )
 {
     if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
-    tempID = id;
+    tempID = _movID;
     tempElement = document.getElementById('row-'+id);
-    let newRow  = '<th>' + id + '</th>';
+    let newRow  = '<th>' + _movID + '</th>';
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
@@ -55,7 +55,7 @@ function updater( id, title, genre, year )
         newRow += '<th><button onclick="updatersubmiter(' + id + ')>submit</button></th>';
     tempElement.innerHTML = newRow;
 };
-function updatercanceller( id )
+function updatercanceller( _movID )
 {
     let title  = document.getElementById( 'title-${tempID}' ).value,
         genre  = document.getElementById( 'genre-${tempID}' ).value,
@@ -65,18 +65,18 @@ function updatercanceller( id )
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
        newRow += '<th>' + zackCheck(title, genre) + '<\th>';
-       newRow += '<th><button onclick="updater(\'${entry.id}\', \'${entry.title}\', \'${entry.genre}\', \'${entry.year}\');">edit?</button></th>';
-       newRow += '<th><button onclick="deleter(\'${entry.id}\');"">delete?</button></th>';
+       newRow += '<th><button onclick="updater(\'${entry._movID}\', \'${entry.title}\', \'${entry.genre}\', \'${entry.year}\');">edit?</button></th>';
+       newRow += '<th><button onclick="deleter(\'${entry._movID}\');"">delete?</button></th>';
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
 };
-function updatersubmitter( id )
+function updatersubmitter( _movID )
 {
-    const json = {    id: id,
-                   title: document.getElementById('title-'+id).value,
-                   genre: document.getElementById('genre-'+id).value,
-                    year: document.getElementById( 'year-'+id).value
+    const json = { _movID: _movID,
+                    title: document.getElementById('title-'+id).value,
+                    genre: document.getElementById('genre-'+id).value,
+                     year: document.getElementById( 'year-'+id).value
                  },
           body = JSON.stringify(json);
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
@@ -86,9 +86,6 @@ function updatersubmitter( id )
     tempElement = null;
 }
 const zackcheck = function( title, year ) {
-  //const years = [ 2000, 2003, 2004, 2006, 2009, 2010, 2011, 2013, 2016, 2019 ];
-  //const titles = [ 'ROAD TRIP', 'OLD SCHOOL', 'STARSKY & HUTCH', 'SCHOOL FOR SCOUNDRELS', 'THE HANGOVER',
-  //                 'DUE DATE', 'THE HANGOVER PART II', 'THE HANGOVER III', 'WAR DOGS', 'JOKER' ];
     const years = [ 2004, 2007, 2009, 2010, 2011, 2013, 2016, 2017, 2021, 2021 ];
     const titles = [ 'DAWN OF THE DEAD', '300', 'WATCHMEN', 'LEGEND OF THE GUARDIANS: THE OWLS OF GA\'HOOLE',
                      'SUCKER PUNCH', 'MAN OF STEEL', 'BATMAN V SUPERMAN: DAWN OF JUSTICE', 'JUSTICE LEAGUE',

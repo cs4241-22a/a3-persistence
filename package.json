@@ -1,8 +1,8 @@
 {
-  "title": "",
-  "genre": "",
-  "year": "",
-  "scripts": { "start": "node server.js" },
+  "scripts":
+  {
+    "start": "node server.js"
+  },
   "dependencies":
   {
     "cookie-session": "2.0.0",
@@ -17,5 +17,8 @@
     "passport-github2": "0.1.12",
     "path": "0.12.7"
   },
-  "engines": { "node": "16.17.0" }
+  "engines":
+  {
+    "node": "16.17.0"
+  }
 }
