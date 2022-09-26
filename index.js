@@ -2,7 +2,8 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const session = require('express-session');
 const passport = require('passport');
-const express = require('express')
+const express = require('express');
+const favicon = require('serve-favicon');
 const {v4: uuidv4} = require("uuid");
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -26,7 +27,7 @@ const defaultSleepData = {
 }
 
 app.use(express.static('public'));
-// app.use(express.urlencoded({extended: true}))
+app.use(favicon(`${__dirname}/favicon/favicon.ico`));
 app.use(express.json())
 
 app.use(session({

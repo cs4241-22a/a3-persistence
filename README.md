@@ -1,28 +1,38 @@
-## Sleep Tracker
-https://a2-memerson12.glitch.me/
+Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
+===
 
-In this app you can record some simple aspects of your sleep and it will calculate some statistics about it. In order to
-layout the page, I used a combination of flexboxs and a CSS grid.
+## Sleep Tracker
+
+https://webware-a3.herokuapp.com/
+
+- Application Goal
+    - The goal of the application is to allow users to track some simple metrics about their sleep and get basic metrics
+      based on that data.
+- Challenges
+    - One challenge I faced in creating this application were not changing the Github Oauth callback url from local host
+      when deploying to Heroku.
+- Authentication Strategy
+    - I chose to implement the Github authentication strategy as it allowed me to not have to store user passwords in
+      my database.
+- CSS Framework
+    - I used TailwindCSS in combination with DaisyUI. I used Tailwind because I am both familiar with it, and it's
+      trimming of unused styles leads to smaller bundle sizes. In addition, DaisyUI was used for its prebuilt
+      components.
+- Middlewares
+  - express.static('public')
+    - Used to serve the static files that do not require authentication.
+  - express.json()
+    - Used to parse the json body of incoming web requests.
+  - session
+    - Used to keep track of the cookies an user session.
+  - isLoggedIn
+    - Used to check if a user is logged in.
+  - favicon
+    - Used to serve the favicon.
 
 ## Technical Achievements
 
-- **Single-Page App**: All aspects of the app, from the inputting of data to the displaying of data and derived fields
-  is on the one webpage. This is done by loading the data from a separate endpoint on load. In
-
-## Design/Evaluation Achievements
-
-- **UX Feedback**:
-    - Jacob Adams
-        - Problems
-            - Did not like the color scheme
-        - Surprising Comments
-            - Thought I should add more statistics
-        - What would I change
-            - Change the color scheme to be more pleasing
-    - Nathan Pollock
-        - Problems
-            - Didn't like how much empty space there was in the input fields
-        - Surprising Comments
-            - Really enjoyed the font
-        - What would I change
-            - Restyle the input fields to fill more of the space
+- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy to provide the login functionality.
+- **Tech Achievement 2**: I used Heroku to host my site.
+- **Tech Achievement 3**: I scored 100 on all applicable lighthouse criteria
+  - ![Lighthouse Scores](lighthouse-scores.png)
