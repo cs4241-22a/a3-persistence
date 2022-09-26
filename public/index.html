@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"
+      integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+    background-color: #cbc3e3;
+    font-family: 'Philosopher', sans-serif;
+  }
+  
+  /* Aligns the heading text to the center. */
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .body {
+    width: 800px;
+    margin: 90px auto;
+    color: black;
+    background-color: white;
+    padding: 45px 45px;
+  }
+  
+  .body .container {
+    position: relative;
+    margin: 10px 10px;
+  }
+  
+  
+  .body .label {
+    position: relative;
+    padding: 10px 0;
+    font-size: 30px;
+    color: black;
+  }
+  
+  /* Adds a horizontal line between the contents */
+  
+  .body hr {
+    width: 100;
+    margin-left: 0;
+    border: 1px solid grey;
+  }
+  
+  
+  .buttonMain {
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    float:left;
+    padding:10px;
+    text-align:center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  
+  }
+  
+  .buttonSubmit{
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    float:left;
+    padding:10px;
+    text-align:center;
+    margin: 5px;
+    position: absolute;
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  }
+  
+  .buttonDelete{
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    padding:3px;
+    text-align:center;
+    margin: 5px;
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  }
+  
+  table, th, td {
+    border-collapse: collapse;
+    table-layout: auto;
+    margin: auto;
+    border: 1px solid black;
+    padding: 10px;
+  }
+    </style>
+  </head>
+  <body>
+    <div class="body">
+      <h1>Genshin Impact Character Tracker</h1>
+      <hr />
+      <div class="container">
+        <div class="label">Add New Character</div>
+        Click the button to add a new character.
+        <h2>Character Information</h2>
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <label for="name"> Name:</label>
+            <input type="text" id="name" />
+
+            <label for="weapon"> Weapon Type:</label>
+            <select id="weapon">
+              <option>Bow</option>
+              <option>Catalyst</option>
+              <option>Claymore</option>
+              <option>Polearm</option>
+              <option>Sword</option>
+            </select>
+
+            <label for="element"> Element:</label>
+            <select id="element">
+              <option>Pyro</option>
+              <option>Geo</option>
+              <option>Dendro</option>
+              <option>Cryo</option>
+              <option>Electro</option>
+              <option>Anemo</option>
+              <option>Hydro</option>
+            </select>
+            <label for="level"> Level:</label>
+            <input type="number" id="level" />
+          </fieldset>
+        </form>
+      </div>
+      <br />
+      <button class="pure-button" id="buttonSubmit">Submit</button>
+      <br />
+      <br />
+      <div class="container">
+        <div class="label">View/Edit Characters</div>
+        <div class="chars">
+          <table class="pure-table-bordered" id="table"></table>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <script src="js/scripts.js" type="text/javascript"></script>
+  </body>
+</html>

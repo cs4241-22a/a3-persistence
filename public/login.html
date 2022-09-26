@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"
+      integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+    background-color: #cbc3e3;
+    font-family: 'Philosopher', sans-serif;
+  }
+  
+  /* Aligns the heading text to the center. */
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .body {
+    width: 800px;
+    margin: 90px auto;
+    color: black;
+    background-color: white;
+    padding: 45px 45px;
+  }
+  
+  .body .container {
+    position: relative;
+    margin: 10px 10px;
+  }
+  
+  
+  .body .label {
+    position: relative;
+    padding: 10px 0;
+    font-size: 30px;
+    color: black;
+  }
+  
+  /* Adds a horizontal line between the contents */
+  
+  .body hr {
+    width: 100;
+    margin-left: 0;
+    border: 1px solid grey;
+  }
+  
+  
+  .buttonMain {
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    float:left;
+    padding:10px;
+    text-align:center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  
+  }
+  
+  .buttonSubmit{
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    float:left;
+    padding:10px;
+    text-align:center;
+    margin: 5px;
+    position: absolute;
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  }
+  
+  .buttonDelete{
+    background-color: #6a0dad;
+    color: #ffffff;
+    border-radius: 40px;
+    padding:3px;
+    text-align:center;
+    margin: 5px;
+    font-family: 'Philosopher', sans-serif;
+    cursor:pointer;
+  }
+  
+  table, th, td {
+    border-collapse: collapse;
+    table-layout: auto;
+    margin: auto;
+    border: 1px solid black;
+    padding: 10px;
+  }
+    </style>
+  </head>
+  
+  <body>
+    <div class="body">
+      <h1>
+        Genshin Impact Character Tracker
+      </h1>
+      <hr />
+      <div class="container">
+        <div class="label">
+          Login to existing account
+        </div>
+        You must already have an account.
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <label for="preusername"> Username:</label>
+            <input type="text" id="preusername" />
+            
+            <label for="prepassword"> Password:</label>
+            <input type="text" id="prepassword" />
+          </fieldset>
+        </form>
+        <a href="\public\index.html">
+        <button class="pure-button" id="buttonLogin">Login</button>
+      </a>
+        
+        <div class="label">
+          Make a new account
+        </div>
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <label for="newusername"> Username: </label>
+            <input type="text" id="newusername" />
+            
+            <label for="newpassword"> Password: </label>
+            <input type="text" id="newpassword" />
+          </fieldset>
+        </form>
+        <button class="pure-button" id="buttonNewAcc">Done</button>
+      </div>
+    </div>
+  </body>
+  
+</html>
