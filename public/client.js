@@ -81,8 +81,8 @@ const showData = function() {
     fetch( '/show', {
         method:'GET'
     })
-        .then( response => response.json()[0].climbs)
-        .then( json => initTable(json))
+        .then( response => response.json())
+        .then( json => initTable(json[0].climbs))
 
     return false
 
