@@ -82,7 +82,7 @@ const showData = function() {
         method:'GET'
     })
         .then( response => response.json())
-        .then( json => initTable(json[0].climbs))
+        .then( json => initTable(json[0]))
 
     return false
 
