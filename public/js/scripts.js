@@ -92,23 +92,16 @@ function makeTable(json) {
 }
 
 const getTable = function () {
-  
   fetch("/table", {
     method: "GET",
   }).then(async (response) => {
-    console.log(response)
     if (response.redirected == true) {
-      window.location.href = response.url
-    }
-    else{
+      window.location.href = response.url;
+    } else {
       makeTable(await response.json());
     }
-    // let obj = await response.json()
-    // console.log(obj.redirected)
-    // makeTable(await response.json());
-  })
+  });
 };
-
 
 const createTodo = function (e) {
   // prevent default form action from being carried out
@@ -137,8 +130,8 @@ const createTodo = function (e) {
           let obj = await response.json();
           // obj.push(newTask)
           makeTable(obj);
-          location.reload()
-        })
+          location.reload();
+        });
       });
     }
   });
@@ -151,56 +144,40 @@ const createTodo = function (e) {
 };
 
 const deleteTodo = function (e) {
-  console.log(e);
   let idx = e.target.parentNode.parentNode.rowIndex - 1;
-  console.log(idx);
   fetch("/table/" + ids[idx], {
     method: "DELETE",
   }).then(async (response) => {
     let obj = await response.json();
-    document.getElementById("todo-table").deleteRow(idx+1);
+    document.getElementById("todo-table").deleteRow(idx + 1);
     ids.splice(idx, 1);
   });
   return false;
 };
 
 const editTodo = function (e) {
-  console.log(e);
-  let idx = e.target.parentNode.parentNode.rowIndex - 1; 
-  let table = document.getElementById('todo-table')
-  const row = table.rows.item(idx + 1)
-  console.log('row')
-  console.log(row)
-  
-  let todo = row.cells.item(1).innerHTML
-  console.log(todo)
-  let due = row.cells.item(2).innerHTML
-  let json = {"todo":todo,"tag":"N/A","due":due};
+  let idx = e.target.parentNode.parentNode.rowIndex - 1;
+  let table = document.getElementById("todo-table");
+  const row = table.rows.item(idx + 1);
+
+  let todo = row.cells.item(1).innerHTML;
+  let due = row.cells.item(2).innerHTML;
+  let json = { todo: todo, tag: "N/A", due: due };
   let body = JSON.stringify(json);
-  console.log(idx)
-  console.log(json)
+
   fetch("/table/" + ids[idx], {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body,
   }).then(async (response) => {
-    getTable()
-  })
+    getTable();
+  });
 
   return false;
 };
 
-// function editRow(task) {
-//   const idx = ids.indexOf(task._id) + 1;
-//   const table = document.getElementById("todo-table");
-//   const row = table.rows.item(idx);
-//   let newTodo = row.cells.item(1).innerHTML;
-//   let newDue = row.cells.item(2).innerHTML;
-// }
-
 window.onload = function () {
   getTable();
-  // getLogin();
   const button = document.getElementById("createTodo");
   button.onclick = createTodo;
 };
