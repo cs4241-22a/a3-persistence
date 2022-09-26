@@ -1,28 +1,41 @@
 const GitHubStrategy = require('passport-github2').Strategy;
-const {MongoClient, ServerApiVersion} = require('mongodb');
+const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const session = require('express-session');
 const passport = require('passport');
 const express = require('express')
 const {response} = require("express");
 const {v4: uuidv4} = require("uuid");
-const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@a3-assignment.o7vkxfj.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1});
 const app = express()
 const port = 3000
 let collection = null
 require('dotenv').config()
 
-const appdata = {
+const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@a3-assignment.o7vkxfj.mongodb.net/?retryWrites=true&w=majority`;
+const mongoClient = new MongoClient(uri, {
+    useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1
+});
+mongoClient.connect()
+    .then(client => client.db('sleep-data').collection('sleep-data'))
+    .then(_collection => {
+        collection = _collection
+        app.listen(port, () => {
+            console.log(`Example app listening on port ${port}`)
+        })
+    });
+
+const defaultSleepData = {
     summary: {
-        averageTimeAsleep: 0,
-        averageSleepRating: 0,
-        dreamPercentage: 0,
-        numberOfRecords: 0
-    },
-    sleepData: {}
+        averageTimeAsleep: 0, averageSleepRating: 0, dreamPercentage: 0, numberOfRecords: 0
+    }, sleepData: {}
 }
 
-// await client.connect()
+app.use(express.static('public'));
+// app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
+app.use(session({
+    secret: 'sadf;lkjsdflkjas;dlkjnvjkeiruf', resave: false, saveUninitialized: true
+}))
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -38,14 +51,6 @@ passport.use(new GitHubStrategy({
 }, function (accessToken, refreshToken, profile, done) {
     return done(null, profile);
 }));
-
-app.use(session({
-    secret: 'sadf;lkjsdflkjas;dlkjnvjkeiruf', resave: false, saveUninitialized: true
-}))
-
-app.use(express.static('public'));
-// app.use(express.urlencoded({extended: true}))
-app.use(express.json())
 
 const isLoggedIn = (req, res, next) => {
     if (req.user) {
@@ -68,23 +73,40 @@ app.get('/auth/github/callback', passport.authenticate('github', {failureRedirec
 });
 
 app.get('/', isLoggedIn, (req, res) => {
-    console.log(req.user)
     res.sendFile(__dirname + '/protected/index.html');
 })
 
-app.get('/test', (req, res) => {
-    console.log(req.user)
-    res.sendFile(__dirname + '/protected/index2.html');
+app.get('/test', async (req, res) => {
+    if (collection) {
+        let x = await collection.find({user: 'memerson12'}).toArray()
+        res.json(x);
+    } else {
+        console.log('L')
+        res.send('L')
+    }
 })
 
-app.get('/getData', (req, res) => {
-    res.json(appdata);
+app.get('/getData', async (req, res) => {
+    let sleepData = (await collection.findOne({user: req.user['username']}))
+    if (!sleepData) {
+        sleepData = defaultSleepData;
+        await collection.insertOne({
+            user: req.user['username'], data: sleepData
+        })
+    } else {
+        sleepData = sleepData['data'];
+    }
+    const userData = {
+        displayName: req.user['displayName'], avatarUrl: req.user['_json']['avatar_url']
+    }
+    res.json({...sleepData, userData: userData});
 })
 
-app.post('/submit', (req, res) => {
+app.post('/submit', async (req, res) => {
     const data = req.body;
-    const summary = appdata.summary;
-    console.log(req.body);
+    let sleepData = (await collection.findOne({user: req.user['username']}))
+    const summary = sleepData['data'].summary;
+    // console.log(req.body);
     const bedTime = new Date(data.timeSleep);
     const timeAwake = new Date(data.timeWakeUp);
     const hoursSlept = getHoursDiff(bedTime, timeAwake);
@@ -101,21 +123,29 @@ app.post('/submit', (req, res) => {
 
     data.id = uuidv4();
     data.hoursSlept = hoursSlept;
-    appdata.sleepData[data.id] = data;
-    console.log(summary)
+    sleepData['data']['sleepData'][data.id] = data;
+    console.log(sleepData);
+    await collection.updateOne({_id: ObjectId(sleepData['_id'])}, {
+        $set: {
+            'data.summary': summary, 'data.sleepData': sleepData['data']['sleepData']
+        }
+    })
+
     res.json({summary: summary, id: data.id});
 })
 
-app.delete('/deleteEntry', (req, res) => {
+app.patch('/entry', async (req, res) => {
     const data = req.body;
-    const summary = appdata.summary;
-    const sleepData = appdata.sleepData;
-    if(Object.hasOwn(sleepData, data.id)) {
+    let mongoData = (await collection.findOne({user: req.user['username']}));
+    const summary = mongoData['data'].summary;
+    const id = data.id;
+    const sleepData = mongoData['data'].sleepData;
+    if (Object.hasOwn(sleepData, data.id)) {
+        console.log('deleting')
         summary.numberOfRecords--;
         delete sleepData[data.id];
     }
-
-    if(summary.numberOfRecords > 0) {
+    if (summary.numberOfRecords > 0) {
         let totalHoursSlept = 0;
         let totalSleepRating = 0;
         let totalDreamPercentage = 0;
@@ -133,14 +163,75 @@ app.delete('/deleteEntry', (req, res) => {
         summary.dreamPercentage = 0;
     }
 
-    response.send(summary);
+    await collection.updateOne({_id: ObjectId(mongoData['_id'])}, {
+        $set: {'data.summary': summary},
+        $unset: {[`data.sleepData.${data.id}`]: ""}
+    })
+
+    const bedTime = new Date(data.timeSleep);
+    const timeAwake = new Date(data.timeWakeUp);
+    const hoursSlept = getHoursDiff(bedTime, timeAwake);
+
+    summary.numberOfRecords++;
+
+    const averageTimeAsleepChange = (hoursSlept - summary.averageTimeAsleep) / summary.numberOfRecords;
+    const averageSleepRatingChange = (data.sleepRating - summary.averageSleepRating) / summary.numberOfRecords;
+    const dreamPercentageChange = (data.hadDream - summary.dreamPercentage) / summary.numberOfRecords;
+
+    summary.averageTimeAsleep += averageTimeAsleepChange;
+    summary.averageSleepRating += averageSleepRatingChange;
+    summary.dreamPercentage += dreamPercentageChange;
+
+    data.id = id
+    data.hoursSlept = hoursSlept;
+    mongoData['data']['sleepData'][id] = data;
+    console.log(sleepData);
+    await collection.updateOne({_id: ObjectId(mongoData['_id'])}, {
+        $set: {
+            'data.summary': summary, 'data.sleepData': mongoData['data']['sleepData']
+        }
+    })
+
+    res.json({summary: summary, id: id});
+})
+
+app.delete('/deleteEntry', async (req, res) => {
+    const data = req.body;
+    let mongoData = (await collection.findOne({user: req.user['username']}));
+    const summary = mongoData['data'].summary;
+
+    const sleepData = mongoData['data'].sleepData;
+    if (Object.hasOwn(sleepData, data.id)) {
+        console.log('deleting')
+        summary.numberOfRecords--;
+        delete sleepData[data.id];
+    }
+    if (summary.numberOfRecords > 0) {
+        let totalHoursSlept = 0;
+        let totalSleepRating = 0;
+        let totalDreamPercentage = 0;
+        for (const record of Object.values(sleepData)) {
+            totalHoursSlept += record.hoursSlept;
+            totalSleepRating += record.sleepRating;
+            totalDreamPercentage += record.hadDream;
+        }
+        summary.averageTimeAsleep = totalHoursSlept / summary.numberOfRecords;
+        summary.averageSleepRating = totalSleepRating / summary.numberOfRecords;
+        summary.dreamPercentage = totalDreamPercentage / summary.numberOfRecords;
+    } else {
+        summary.averageTimeAsleep = 0;
+        summary.averageSleepRating = 0;
+        summary.dreamPercentage = 0;
+    }
+
+    await collection.updateOne({_id: ObjectId(mongoData['_id'])}, {
+        $set: {'data.summary': summary},
+        $unset: {[`data.sleepData.${data.id}`]: ""}
+    })
+    res.json(summary);
 })
 
 const getHoursDiff = function (startDate, endDate) {
     const msInHour = 1000 * 60 * 60;
     return Number((Math.abs(endDate - startDate) / msInHour).toFixed(2));
 }
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
