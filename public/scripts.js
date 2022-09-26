@@ -51,13 +51,13 @@ function updater( _movID, title, genre, year )
 {
     if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
     tempID = _movID;
-    tempElement = document.getElementById('row-'+_movID);
-    let newRow  = '<th>' + _movID + '</th>';
+    tempElement = document.getElementById(_movID);
+    let newRow  = '<tr id = "' + _movID + '">';
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
         newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')>cancel?</button></th>';
-        newRow += '<th><button onclick="updatersubmiter(\'' + _movID + '\')>submit</button></th>';
+        newRow += '<th><button onclick="updatersubmiter(\'' + _movID + '\')>submit</button></th></tr>';
     tempElement.innerHTML = newRow;
 };
 function updatercanceller( _movID )
@@ -65,13 +65,13 @@ function updatercanceller( _movID )
     let title  = document.getElementById( 'title-${tempID}' ).value,
         genre  = document.getElementById( 'genre-${tempID}' ).value,
          year  = document.getElementById(  'year-${tempID}' ).value,
-       newRow  = '<th>' + tempID + '</th>';
+       newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
        newRow += '<th>' + zackCheck(title, genre) + '<\th>';
        newRow += '<th><button onclick="updater(\'${entry._movID}\', \'${entry.title}\', \'${entry.genre}\', \'${entry.year}\');">edit?</button></th>';
-       newRow += '<th><button onclick="deleter(\'${entry._movID}\');"">delete?</button></th>';
+       newRow += '<th><button onclick="deleter(\'${entry._movID}\');"">delete?</button></th></tr>';
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
