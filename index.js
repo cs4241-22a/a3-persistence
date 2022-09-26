@@ -3,10 +3,9 @@ const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const session = require('express-session');
 const passport = require('passport');
 const express = require('express')
-const {response} = require("express");
 const {v4: uuidv4} = require("uuid");
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000
 let collection = null
 require('dotenv').config()
 
@@ -18,9 +17,6 @@ mongoClient.connect()
     .then(client => client.db('sleep-data').collection('sleep-data'))
     .then(_collection => {
         collection = _collection
-        app.listen(port, () => {
-            console.log(`Example app listening on port ${port}`)
-        })
     });
 
 const defaultSleepData = {
@@ -235,3 +231,7 @@ const getHoursDiff = function (startDate, endDate) {
     const msInHour = 1000 * 60 * 60;
     return Number((Math.abs(endDate - startDate) / msInHour).toFixed(2));
 }
+
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`)
+})
