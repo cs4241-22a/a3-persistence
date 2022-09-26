@@ -1,19 +1,29 @@
-const express = require("express"),
-cookie = require("cookie-session"),
-app = express(),
-mongodb = require("mongodb")
-
-// get uri from database credentials
-// const uri = `mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}`
-
-const uri = "mongodb+srv://test_user:PassworD@cs4241.ds0anz6.mongodb.net/?retryWrites=true&w=majority"
-const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: mongodb.ServerApiVersion.v1 })
-let collection = null
+const express = require("express")
+const app = express()
+const cookie = require("cookie-session")
+const mongodb = require("mongodb")
 
 // use express.urlencoded to get data sent by defaut form actions or GET requests
 app.use(express.urlencoded({extended:true}) )
 app.use(express.static("./public"))
 app.use(express.static("./views"))
+
+// NEED TO FIX
+const uri = "mongodb+srv://test_user:PassworD@cs4241.ds0anz6.mongodb.net/?retryWrites=true&w=majority"
+const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: mongodb.ServerApiVersion.v1 })
+let groceryList = null
+let users = null
+
+client.connect()
+.then(() => {
+  groceryList = client.db("a3").collection("groceries")
+  users = client.db("users").collection("users")
+  return groceryList
+})
+.then((_groceryList) => {
+  return _groceryList.find({}).toArray()
+})
+// .then(console.log)
 
 // cookie middleware! The keys are used for encryption and should be changed
 app.use(cookie({
@@ -21,99 +31,106 @@ app.use(cookie({
   keys: ["asdf", "127ev%*Wbbf*WS"]
 }))
 
-app.post("/login", (req, res) => {  
-  // simple authentication
-  if(req.body.username === "test_user" && req.body.password === "PassworD") {
-    // variable to be used in middleware
+app.post("/login", async (req, res) => {
+  // check if credentials exist already
+  validUser = await users.findOne({
+    username: req.body.username, 
+    password: req.body.password
+  })
+  if(validUser !== null) {
     req.session.login = true
-    
-    // login success, redirect 
-    // for reload issues: https://stackoverflow.com/questions/10827242/understanding-the-post-redirect-get-pattern 
     res.redirect("main.html")
+    res.status(200).send()
   } else {
-    // express.urlencoded will put your key value pairs 
-    // into an object, where the key is the name of each
-    // form field and the value is whatever the user entered
-    console.log(req.body)
-    
-    // cancel session login in case it was previously set to true
     req.session.login = false
-    
-    console.log("login failed")
+    res.redirect("/account.html")
   }
 })
 
+app.post("/createAccount", async (req, res) => {
+  const newAcct = {
+    username: req.body.username,
+    password: req.body.password
+  }
 
-// add some middleware that always sends unauthenicaetd users to the login page
-app.use((req, res, next) => {
-  if( req.session.login === true )
-    next()
-  // else
-  // res.render( "index", { msg:"login failed, please try again", layout:false })
+  let stat = 200
+  const tryToFind = await users.findOne(newAcct)
+  if (tryToFind === null) {
+    users.insertOne(newAcct)
+    stat = 201
+  }
+  res.redirect("/main.html")
+  res.status(stat).send()
 })
 
-
-
-// middleware to check if connection worked
+// middleware: check that groceryList data was found
 app.use((req, res, next) => {
-  if (collection !== null) {
+  if (groceryList !== null) {
     next()
   } else {
     res.status(503).send()
   }
 })
-  
-// route to get all docs
-app.get( '/', (req,res) => {
-  client.connect()
-    .then( () => client.db( 'dbtest' ).collection( 'test' ) )
-    .then( _collection => {
-      // get all entries in db
-      collection = collection.find({ }).toArray()
-    
-      if( collection !== null ) {
-        res.json(collection)
-      } else {
-        return "could not connect"
-      }
-    })
-    .then( result => {
-      console.log(result) 
-    })
-  
-  
-})
 
-
-
-// route to get all docs
-app.get( "/main.html", async (req, res) => {
-  if (collection !== null) {
-    const results = await collection.find({}).toArray()
-    res.json(results)
+// middleware: check that new account credentials were created
+app.use((req, res, next) => {
+  const results = users.findOne({
+    username: req.body.username,
+    password: req.body.password
+  })
+  if (results !== null) {
+    next()
+  } else {
+    res.status(503).send()
   }
 })
 
+// get all entries
+app.get("/groceries", async (req, res) => {
+  // if (groceryList !== null) {
+    await groceryList.find({}).toArray()
+      .then((result) => {
+        res.json(result)
+      })
+  // }
+})
 
-// insert entry into collection
+// insert entry into groceryList
 app.post("/add", async (req, res) => {
-  const result = await(collection.insertOne(req.body))
-  res.json(result)
+  const newEntry = {
+    quantity: req.body.quantity,
+    itemName: req.body.itemName,
+    priority: req.body.priority,
+    entryId: Math.round(Math.random() * 100000) // unique id to easily ref later
+  }
+  
+  const result = await(groceryList.insertOne(newEntry))
+  res.redirect("/main.html")
+  // res.json(result)
 })
 
-// find _id in collection and update value to given value
+// find groceryId in db and update value to given value
 app.put("/update", async (req, res) => {
-  const result = await(collection.updateOne(
-    { _id: mongodb.ObjectId(req.body._id), 
-    $set:{value: req.body.value}}
-  ))
-  console.log(res.json(result))
+  const updatedEntry = {
+    quantity: req.body.quantity,
+    itemName: req.body.itemName,
+    priority: req.body.priority
+  }
+  const result = await(groceryList.updateOne({
+    groceryId: req.body.groceryId, 
+    $set: updatedEntry
+  }))
+  res.redirect("/main.html")
+  // res.json(result)
 })
 
-// find _id in collection and delete entry
-app.delete("/remove", async (req, res) => {
-  const result = await(collection.deleteOne({ _id: mongodb.ObjectId(req.body._id)}))
-  console.log(res.json(result))
+// find _id in groceryList and delete entry
+app.post("/remove", async (req, res) => {
+  const result = await(groceryList.deleteOne({
+    groceryId: req.body.groceryId
+  }))
+  res.redirect("/main.html")
+  // res.json(result)
 })
 
 app.listen( process.env.PORT || 3000 )

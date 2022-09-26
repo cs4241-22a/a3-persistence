@@ -3,6 +3,7 @@
   <head>
     <title>CS4241 A3</title>
     <meta charset="utf-8" />
+    <meta name="viewport">
     <link
       href="//cdn.muicss.com/mui-latest/css/mui.min.css"
       rel="stylesheet"
@@ -11,23 +12,23 @@
     <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
   </head>
 
-  <body style="margin:20px;">
+  <body style="margin:20px; font-size:15px;">
     <h1>Grocery List Maker</h1>
     <p>Login below to view and edit your grocery list.</p>
 
     <div class="container">
-      <form action="/login" method="POST" class="mui-form">
+      <form action="/login" method="POST" class="mui-form" style="width:500px;">
+        <label style="font-weight: bolder;">Username:</label>
         <div class="mui-textfield">
-          <label>Username</label>
-          <input type="text" name="username" class="mui-textfield"/>
+          <input type="text" name="username" class="mui-textfield" required/>
         </div>
         <br />
+        <label style="font-weight: bolder;">Password:</label>
         <div class="mui-textfield">
-          <label>Password</label>
-          <input type="text" name="password" />
+          <input type="password" name="password" required/>
         </div>
         <br />
-        <input type="submit" value="Login" class="mui-btn mui-btn--small mui-btn--primary"/>
+        <input type="submit" value="Login" class="mui-btn mui-btn--small mui-btn--primary mui-btn--raised" style="background-color:#005b96"/>
         <p id="login_fail"></p>
       </form>
     </div>

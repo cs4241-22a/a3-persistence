@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 A3</title>
+    <meta charset="utf-8" />
+    <link
+      href="//cdn.muicss.com/mui-latest/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+  </head>
+
+  <body style="margin:20px;">
+    <h1>Create Account</h1>
+    <p>Create an account to gain access to your own grocery list.</p>
+    <p>If these credentials already exist, you will be logged in.</p>
+
+    <div class="container">
+      <form action="/createAccount" method="POST" class="mui-form">
+        <label style="font-weight: bolder;">New Username</label>
+        <div class="mui-textfield">
+          <input type="text" name="username" class="mui-textfield"required/>
+        </div>
+        <br />
+        <label style="font-weight: bolder;">New Password</label>
+        <div class="mui-textfield">
+          <input type="text" name="password" required/>
+        </div>
+        <br />
+        <input type="submit" value="Create Account" class="mui-btn mui-btn--small mui-btn--primary" style="background-color:#005b96"/>
+      </form>
+      <br />
+    </div>
+  </body>
+</html>
