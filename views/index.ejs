@@ -10,15 +10,24 @@
   </head>
   <h1><%=title%></h1>
   <body>
-    <meta name="viewport">
-    <a class="buttongithub" href="/login/federated/github">Sign in with github</a>
+    <% if(githubID == 'signin_with_github'){ %>
+      <a class="buttongithub" href="/login/federated/github">Login With Github</a>
+    <% } else{ %>  
+      <input type="text" id="gID" value="<%=githubID%>" disabled>
+   <% } %>
+
     <div class = "center">
       <form action="">
+        <h1 id="loginwarning"></h1>
         <p id = "inputHead">| Task | Days to Complete | Descriotion of the Task |</p>
-      <input type="text" id="taskInput" value="task" />
+        <h2>add tasks</h2>
+        <input type="text" id="taskInput" value="task" />
       <input type="number" id="daysInput" value="0" />
       <input type="text" id="descriptionInput" value="description" />
       <button onclick="submitfn()">submit</button>
+      <h2>delete tasks</h2>
+      <input type="text" id="deleteInput" value="enter task to delete" />
+      <button onclick="deleteByTask()">delete</button>
     </form>
     <table id="tTable">
       <tr>

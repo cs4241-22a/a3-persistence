@@ -18,8 +18,7 @@ db.serialize(function() {
     id INTEGER PRIMARY KEY, \
     user_id INTEGER NOT NULL, \
     provider TEXT NOT NULL, \
-    subject TEXT NOT NULL, \
-    UNIQUE (provider, subject) \
+    subject TEXT NOT NULL \
   )");
   
   db.run("CREATE TABLE IF NOT EXISTS todos ( \

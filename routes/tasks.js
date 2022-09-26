@@ -50,7 +50,7 @@ router.get('/getAll', async (req, res) => {
 //Get by userID Method
 router.post('/getOne', async (req, res) => {
   try {
-    const data = await Model.find({userID: req.params.userID})
+    const data = await Model.find({userID: req.body.userID})
     res.json(data); 
   } catch (error) {
     res.status(400).json({message:error.message});
@@ -59,12 +59,17 @@ router.post('/getOne', async (req, res) => {
 
 //Update by ID Method
 router.patch('/update/:id', (req, res) => {
-  res.send('Update by ID API')
+  res.send('Update by ID')
 })
 
 //Delete by ID Method
-router.delete('/delete/:id', (req, res) => {
-  res.send('Delete by ID API')
+router.delete('/deleteByName', async (req, res) => {
+  try {
+    const data = await Model.deleteOne({task: req.body.task})
+    res.json(data); 
+  } catch (error) {
+    res.status(400).json({message:error.message});
+  }
 })
 
 

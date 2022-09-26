@@ -19,6 +19,7 @@ const User = require('../models/User');
 // function findOrCreateUser() {
 //   // post to db using User model
 // }
+let gID = 'signin_with_github';
 
 passport.use(new FacebookStrategy({
   clientID: 'd0a65adde69becb6a6e7',
@@ -26,6 +27,7 @@ passport.use(new FacebookStrategy({
   callbackURL: '/oauth2/redirect/github',
   state: true
 }, function verify(accessToken, refreshToken, profile, cb) {
+  gID = profile.id;
   db.get('SELECT * FROM federated_credentials WHERE provider = ? AND subject = ?', [
     'https://www.github.com/',
     profile.id
@@ -74,6 +76,13 @@ passport.deserializeUser(function(user, cb) {
 
 
 var router = express.Router();
+
+router.get('/', function(req, res, next) {
+  res.render('index', {
+    title: 'TODO List',
+    githubID: gID,
+  });
+});
 
 router.get('/login', function(req, res, next) {
   res.render('login');

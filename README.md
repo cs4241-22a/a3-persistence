@@ -1,7 +1,8 @@
-## Your Web Application Title
+## JR Kim A3
 
 https://webware-a3-jrkim.herokuapp.com/
 
+Deployment in heroku.
 Small todo app with github login feature (OAuth 2.0) where it stores tasks so it saves todo tasks to each user.
 I chose OAuth 2.0 for authentication since github used it and there were many established documents and example for it.
 Usage of bootstrap was easy with the same reason.
@@ -12,11 +13,12 @@ For middleware
 - http-errors: error handling
 - passport: sign-in options
 - morgan: logging HTTP request and errors
+- mongoose: mongoDB framework
 
 
 ## Technical Achievements
 - **Authentication**: I used OAuth authentication to be able to login
-- **Entry function**: A form entry function to add and pull data 
+- **Entry function**: A form entry function to post, get, and delete data 
 - **Server**: Server to store user and todo task data
 - **Middleware**: Middleware includes cookie-parser, path, http-errors, passport, and morgan
 - **EJS**: offers more dynamic and freedom by using ejs in place of html
