@@ -1,5 +1,6 @@
 /* this file is loaded by index.html and styles the page */
 
+/* bootstrap CSS */
 * {
   box-sizing: border-box;
 }
@@ -8,6 +9,7 @@ body {
   font-family: sans-serif;
   margin: 2em 1em;
   line-height: 1.5em;
+  background-color: rgb(124, 23, 154);
 }
 
 h1 {
@@ -54,3 +56,4 @@ footer {
   padding-top: 1.5em;
   border-top: 1px solid lightgrey;
 }
+
