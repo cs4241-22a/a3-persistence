@@ -1,0 +1,25 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #B59DE0;
+  font-family: "Nunito Sans", sans-serif, bold;
+  vertical-align: middle;
+}
+
+a {
+  color: #00B7FF;
+}
+
+input{
+color: purple;
+}
+.center {
+margin: auto;
+width: 80%;
+padding: 50px;
+}
+
+#inputHead {
+  font-size: 30px;
+  font-family: "Oswald", sans-serif;
+}
