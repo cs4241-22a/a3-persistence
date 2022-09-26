@@ -1,5 +1,3 @@
-
-
 const submitbuy = function (e) {
   // prevent default form action from being carried out
   e.preventDefault();
@@ -63,7 +61,20 @@ const submitsell = function (e) {
   return false;
 };
 
+const logout = function (e) {
+  // prevent default form action from being carried out
+  e.preventDefault();
+
+  console.log("logout button clicked");
+
+  //set href to logout
+  window.location.href = "/logout";
+};
+
 window.onload = async function () {
+  const logoutButton = document.querySelector("#logout");
+  logoutButton.onclick = logout;
+
   const buybutton = document.querySelector("#buybutton");
   buybutton.onclick = submitbuy;
 
@@ -89,6 +100,16 @@ window.onload = async function () {
 
     stockList.appendChild(stock.html);
   }
+
+  //get users name and add to the header
+  response = await fetch("/user", {
+    method: "GET",
+  });
+
+  data = await response.json();
+
+  const header = document.querySelector("#main-title");
+  header.innerHTML = data.username + "'s Stock Portfolio";
 };
 
 //create a stock object

@@ -4,30 +4,74 @@ require("dotenv").config();
 //use express to create a server
 const express = require("express");
 const app = express();
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+const bodyParser = require("body-parser");
 const port = 3000;
 const mime = require("mime");
 const fs = require("fs");
 const dir = "public/";
 const session = require("express-session");
-const { MongoClient } = require("mongodb");
+const GitHubStrategy = require("passport-github2").Strategy;
+//create a custom strategy
+const CustomStrategy = require("passport-custom").Strategy;
+const oneDay = 1000 * 60 * 60 * 24;
+let loggedIn = false;
 
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+let user = null;
 //use the session middleware
 app.use(
   session({
     secret: "secret",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: oneDay }, // 1 day
   })
 );
+const { MongoClient } = require("mongodb");
 
-//add passport
-const passport = require("passport");
-//add github login
-const GitHubStrategy = require("passport-github").Strategy;
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
 
-//add passport to app
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/github/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+    }
+  )
+);
+
+//create a custom strategy
+// passport.use(
+//   "custom",
+//   new CustomStrategy(function (req, done) {
+//     //for debugging, skip checking the username and password
+//     return done(null, { username: "admin", password: "admin" });
+//   })
+// );
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+// app.use(express.static("public"));
+
+// const isLoggedIn = require("./Middleware/auth");
 
 const uri = process.env.MONGO_URI;
 
@@ -36,137 +80,195 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 
+// return a user from the database
+async function getUser(client, username) {
+  const result = await client
+    .db("Webware-A3")
+    .collection("User-Data")
+    .findOne({ username: username });
+  return result;
+}
+
+// make a new user in the database
+async function addUser(client, username, password = null) {
+  const result = await client
+    .db("Webware-A3")
+    .collection("User-Data")
+    .insertOne({
+      username: username,
+      password: password,
+      stocks: getDefaults(),
+    });
+  return result;
+}
+
+async function startClient() {
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+    // Make the appropriate DB calls
+    await listDatabases(client);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+startClient();
+
+app.get("/logout", function (req, res, next) {
+  loggedIn = false;
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/auth");
+  });
+});
+
+app.get("/auth/error", (req, res) => res.send("Unknown Error"));
+
+app.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/auth/error" }),
+  async function (req, res) {
+    // console.log(req.user);
+
+    username = req.user.username;
+    // if the user is not in the database, add them
+    let dbUser = await getUser(client, username);
+    if (dbUser == null) {
+      await addUser(client, username);
+      dbUser = await getUser(client, username);
+    }
+    // set the user to the current user
+    user = dbUser;
+    stocks = user.stocks;
+    loggedIn = true;
+    //log the user
+    console.log(user);
+
+    // Successful authentication,
+    res.redirect("/");
+  }
+);
+
+// /auth/custom
+// attemts to log a user in given a username and password
+app.post("/auth/custom", async function (req, res) {
+  //get the username and password from the request
+  //log the request
+  console.log(req.body);
+  const username = req.body.username;
+  const password = req.body.password;
+
+  //if the username and password are not empty
+  if (username && password) {
+    //get the user from the database
+    let dbUser = await getUser(client, username);
+    //if the user is not in the database, report an error
+    if (dbUser == null) {
+      //error is in format {message : "error message"}
+      console.log("User not found");
+      res.status(401).json({ message: "User not found. Retry or register" });
+    } else {
+      // check the password
+      if (
+        dbUser.password &&
+        dbUser.password.length > 0 &&
+        dbUser.password == password
+      ) {
+        //set the user to the current user
+        user = dbUser;
+        stocks = user.stocks;
+        loggedIn = true;
+
+        //log the user
+        console.log(user);
+        // Successful authentication,
+        res.status(200).json({ message: "Login success" });
+      } else {
+        //error is in format {message : "error message"}
+        console.log("Password is incorrect");
+        res.status(401).json({ message: "Password is incorrect" });
+      }
+    }
+  } else {
+    //error is in format {message : "error message"}
+    console.log("Username or password is empty");
+    res.status(401).json({ message: "Username or password is empty" });
+  }
+});
+
+app.post("/auth/register", async function (req, res) {
+  //get the username and password from the request
+  //log the request
+  console.log(req.body);
+  const username = req.body.username;
+  const password = req.body.password;
+
+  //if the username and password are not empty
+  if (username && password) {
+    //get the user from the database
+    let dbUser = await getUser(client, username);
+    //if the user is already in the database, report an error
+    if (dbUser != null) {
+      //error is in format {message : "error message"}
+      console.log("User already exists");
+      res.status(401).json({ message: "User already exists" });
+    } else {
+      //add the user to the database
+      await addUser(client, username, password);
+      //get the user from the database
+      dbUser = await getUser(client, username);
+      //set the user to the current user
+      user = dbUser;
+      stocks = user.stocks;
+      //log the user
+      console.log(user);
+      // Successful authentication,
+      loggedIn = true;
+
+      res.status(200).json({ message: "Login success" });
+    }
+  } else {
+    //error is in format {message : "error message"}
+    console.log("Username or password is empty");
+    res.status(401).json({ message: "Username or password is empty" });
+  }
+});
+
 async function listDatabases(client) {
   databasesList = await client.db().admin().listDatabases();
   console.log("Databases:");
   databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
 }
 
-async function addEntryTest(client, entry) {
-  const result = await client
-    .db("Webware-A3")
-    .collection("User-Data")
-    .insertOne(entry);
-  console.log(`New entry created with the following id: ${result.insertedId}`);
+let stocks = [];
+
+function getDefaults() {
+  return [
+    { symbol: "tsla", price: 0, dateAdded: new Date() },
+    { symbol: "tqqq", price: 0, dateAdded: new Date() },
+    { symbol: "qqq", price: 0, dateAdded: new Date() },
+  ];
 }
-
-async function main() {
-  try {
-    // Connect to the MongoDB cluster
-    await client.connect();
-    // Make the appropriate DB calls
-    await listDatabases(client);
-
-    // await addEntryTest(client, {name: "Nathan", age: 21});
-    // await addEntryTest(client, {name: "Jacob", age: 20});
-    // await addEntryTest(client, {name: "John", age: 12});
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-}
-
-main().catch(console.error);
-
-//make the authentication with github and on success run the callback function
-passport.use(
-  new GitHubStrategy(
-    {
-      clientID: "b24afc1b91aef2c1d3d0",
-      clientSecret: process.env.GITHUB_SECRET,
-      callbackURL: "http://localhost:3000/",
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      console.log("Logged in!");
-      console.log(profile);
-      return cb(null, profile);
-    }
-  )
-);
-
-app.get(
-  "/login-go",
-  passport.authenticate("github", { scope: ["user:email"] })
-);
-
-app.get(
-  "/login/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
-  function (req, res) {
-    // Successful authentication
-    res.json(req.user);
-    console.log(req.user);
-  }
-);
-
-app.use(express.static("public"));
-
-//add a entry to mongodb
-const addEntry = async function (db, entry) {
-  const collection = db.collection("entries");
-  const result = await collection.insertOne(entry);
-  return result;
-};
 
 const yahooFinance = require("yahoo-finance2").default;
 
-const stocks = [
-  { symbol: "tsla", price: 0, dateAdded: new Date() },
-  { symbol: "amzn", price: 0, dateAdded: new Date() },
-  { symbol: "f", price: 0, dateAdded: new Date() },
-];
-
-const handleGet = async function (request, response) {
-  const filename = dir + request.url.slice(1);
-
-  if (request.url === "/") {
-    //send the index.html file
-    // response.sendFile("index.html");
-    response.sendFile(__dirname + "/public/index.html");
-  } //check for a request for stocks
-  else if (request.url === "/login") {
-    response.sendFile(__dirname + "/public/login.html");
-  } else if (request.url === "/stocks") {
-    response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(stocks));
-  }
-  //url is /stock with a symbol as a query parameter
-  else if (request.url.startsWith("/stock?")) {
-    //get the symbol from the query parameter
-    let symbol = request.url.split("=")[1];
-    //get the stock data from the api
-    let stockData = await getStockData(symbol);
-    //if the stock is not found, return a 404
-    if (stockData === undefined) {
-      response.writeHead(404, { "Content-Type": "text/plain" });
-      response.end("Stock not found");
-    } else {
-      //otherwise, return the stock data
-      response.writeHead(200, { "Content-Type": "application/json" });
-      response.end(JSON.stringify(stockData));
-    }
-  } else if (request.url.startsWith("/historical?")) {
-    //get the symbol from the query parameter
-    let symbol = request.url.split("=")[1];
-    let historicalData = await getHistoricalData(symbol);
-    if (historicalData === undefined) {
-      response.writeHead(404, { "Content-Type": "text/plain" });
-      response.end("Stock not found");
-    }
-    //otherwise, return the stock data
-    response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(historicalData));
-  } else {
-    response.sendFile(__dirname + "/public" + request.url);
-  }
-};
-
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  if (loggedIn) {
+    res.sendFile(__dirname + "/public/index.html");
+  } else {
+    res.redirect("/auth");
+  }
 });
 
-app.get("/login", (req, res) => {
+app.get("/auth", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
 
@@ -201,26 +303,9 @@ app.get("/historical", (req, res) => {
   });
 });
 
-app.get("/login-go", (req, res) => {
-  // perform github authentication
-  passport.authenticate("github", { scope: ["user:email"] });
-});
-
-app.get("/auth/github/callback", (req, res) => {
-  // perform github authentication
-  passport.authenticate("github", { failureRedirect: "/login" }),
-    function (req, res) {
-      // Successful authentication, redirect home.
-      res.json(req.user);
-
-      // log that the user is logged in
-      console.log("Logged in!");
-    };
-});
-
-//any other request, send the file
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/public" + req.url);
+app.get("/user", (req, res) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(user));
 });
 
 const getHistoricalData = async function (symbol) {
@@ -249,6 +334,13 @@ const getStockData = async function (symbol) {
   }
   return results;
 };
+
+async function updateUsersStocks(newStockArr) {
+  await client
+    .db("Webware-A3")
+    .collection("User-Data")
+    .updateOne({ username: user.username }, { $set: { stocks: newStockArr } });
+}
 
 const handlePost = async function (request, response) {
   let dataString = "";
@@ -293,6 +385,9 @@ const handlePost = async function (request, response) {
           };
           stocks.push(newStock);
 
+          //set the stock array in the database
+          updateUsersStocks(stocks);
+
           response.writeHead(200, "OK", { "Content-Type": "application/json" });
           response.end(JSON.stringify(newStock));
         }
@@ -305,6 +400,8 @@ const handlePost = async function (request, response) {
       //if the stock is in the array, remove it
       if (stock) {
         stocks.splice(stocks.indexOf(stock), 1);
+        //set the stock array in the database
+        updateUsersStocks(stocks);
         response.writeHead(200, "OK", { "Content-Type": "text/plain" });
         response.end("Removed stock from array");
       } else {
@@ -317,6 +414,11 @@ const handlePost = async function (request, response) {
 
 //if there is any type of post request, call the handlePost function with the request and response as parameters
 app.post("*", handlePost);
+
+//any other request, send the file
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public" + req.url);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
