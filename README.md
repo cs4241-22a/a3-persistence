@@ -26,10 +26,14 @@ Include a very brief summary of your project here. Images are encouraged, along 
 
 ## Technical Achievements
 
-- **Tech Achievement 1**:
-
-100% Lighthouse Test - test it yourself I guess
+- **Hosting on Heroku**: If you can get to the site from the url, it works
+- **100% Lighthouse Test**: All pages score 100% on google lighthouse in the 4 categories
 
 ### Design/Evaluation Achievements
 
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Design Achievement 1**:
+  CRAP Principles:
+  contrast - light background with dark and legible text, bright buttons
+  repetition - forms are as similar as possible, with predictable placement of inputs and buttons.
+  Alignment - did center placement for most items, left aligned the create todo form because it was a bit bigger
+  Proximity - Form elements were closer to each other than to other elements, made sure elements had space (margin, padding) and weren't crowded, and were grouped when they belonged together

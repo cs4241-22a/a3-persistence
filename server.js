@@ -7,7 +7,7 @@ const connectDB = require('./config/dbConn')
 const UserRouter = require('./api/User')
 const UserDataRouter = require('./api/UserData')
 const lazyDebug = require('./middleware/lazydebug')
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 //use ejs
 app.set('view engine', 'ejs')
@@ -43,7 +43,7 @@ const db = mongoose.connection
 db.on('error', (error) => { console.error(error) })
 db.once('open', () => {
     console.log("Connected to database");
-    app.listen(PORT || 3000, () => console.log(`Server Started on Port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server Started on Port ${PORT}`));
 })
 
 
