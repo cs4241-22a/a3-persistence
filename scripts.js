@@ -16,6 +16,7 @@ function addToPlaylist(songData)
     console.log(songData)
 
     const newRow = songList.insertRow()
+    // newRow.id = songInput+artistInput+albumInput
     const newCell = newRow.insertCell()
     const artistCell = newRow.insertCell()
     const durationCell = newRow.insertCell()
@@ -34,12 +35,72 @@ function addToPlaylist(songData)
     albumCell.appendChild(newAlbum)
     playlistDurationCell.appendChild(newPlaylistDuration)
 
+    let tableCells = document.getElementsByTagName("td")
+    for(let i=0; i<tableCells.length; i++)
+    {
+      tableCells[i].setAttribute("contenteditable", true)
+    }
+
 
     // Add specific update and remove buttons
     const updateCell = newRow.insertCell()
     const removeCell = newRow.insertCell()
-    const newUpdate = document.createElement("button")
-    const newRemove = document.createElement("button")
+    let newUpdate = document.createElement("button")
+    let newRemove = document.createElement("button")
+    newUpdate.textContent = 'Update Song'
+    newRemove.textContent = 'Remove Song'
+    // newUpdate.classList.add('Updaters')
+
+    newUpdate.addEventListener("click", updateSong => {
+      updateSong.preventDefault()
+
+      console.log("getting current row values")
+      console.log(newSong)
+      let updatedData = []
+      updatedData[0] = newSong.textContent //newRow[1][0].innerHTML
+      updatedData[1] = newArtist.textContent //newRow[1][1].innerHTML
+      updatedData[2] = newDuration.textContent //newRow[1][2].innerHTML
+      updatedData[3] = newAlbum.textContent //newRow[1][3].innerHTML
+      updatedData[4] = newPlaylistDuration.textContent //newRow[1][4].innerHTML
+
+      console.log(updatedData)
+
+
+      console.log("about to fetch update")
+      fetch( '/update', {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:JSON.stringify({ newsong: updatedData, rowNum: newRow.rowIndex})
+      })
+      .then( res => res.json() , console.log("finishing update client"))
+    })
+
+
+
+    // newRemove.classList.add('Removers')
+    // newRemove.addEventListener("click", deleteSong)
+    newRemove.addEventListener("click", deleteSong => {
+      deleteSong.preventDefault()
+
+      let td = event.target.parentNode
+      let tr = td.parentNode
+      let t = tr.parentNode
+      t.removeChild(tr)
+      console.log("just deleted row - also about to fetch")
+
+      fetch( '/delete', {
+        method:'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:JSON.stringify({ newsong: songData})
+      })
+      .then( res => res.json() , console.log("finishing delete fetcher"))
+      // .then( json => console.log( json ) )
+
+
+    })
+
+
+    
     updateCell.appendChild(newUpdate)
     removeCell.appendChild(newRemove)
   
@@ -171,6 +232,36 @@ window.onload = function()
       addAllSongs()
     })
 }
+
+
+
+
+
+// function deleteSong()
+// {
+//     let td = event.target.parentNode
+//     let tr = td.parentNode
+//     let t = tr.parentNode
+
+//     let removeData = tr.cells
+//     //removeData = tr.childNod
+//     t.removeChild(tr)
+
+//     console.log("just deleted row")
+
+//     fetch( '/delete', {
+//       method:'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body:JSON.stringify({ "newsong": removeData})
+//     })
+//     .then( res => res.json() )
+//     .then( json => console.log( json ) )
+
+
+//     console.log("called delete post request")
+// }
+
+
 
 
 

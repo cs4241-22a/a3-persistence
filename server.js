@@ -143,18 +143,6 @@ app.use( (req, res, next) => {
 
 
 
-app.post("/add", bodyparser.json(), function(req, res) {
-  // assumes only one object to insert
-  console.log("body", req.body);
-  collection.insertOne(req.body).then(dbresponse => {
-    console.log(dbresponse);
-    res.json(dbresponse);
-  });
-});
-
-
-
-
 app.use(express.static('./'))
 
 console.log('in server')
@@ -284,9 +272,75 @@ app.use( function( req,res,next) {
 
 
 app.post("/delete", bodyparser.json(), function(req, res) {
-  collection
-    .deleteOne({ _id: mongodb.ObjectId(req.body.id) })
-    .then(result => res.json(result));
+  
+  console.log("inside delete server")
+  console.log(req.body.newsong)
+
+  // collection
+  //   .deleteOne({ req.body })
+  //   .then(result => res.json(result));
+
+  collection.find({usr: req.session.usr}).toArray()
+  .then(result => {
+    let entries = result[0].entries
+
+    for(let i = 0; i<entries.length; i++)
+    {
+      console.log(entries[i].newsong)
+      if(JSON.stringify(entries[i].newsong)==JSON.stringify(req.body.newsong))
+      {
+        console.log("splicing body")
+        entries.splice(i, 1)
+      }
+    }
+
+    collection.updateOne(
+      {  _id: mongodb.ObjectId(result[0]._id)},
+      {$set: {entries: entries}}
+    )
+    res.json(entries)
+  })
+
+});
+
+
+
+app.post("/update", bodyparser.json(), function(req, res) {
+  // assumes only one object to insert
+  // console.log("body", req.body);
+  // collection.insertOne(req.body).then(dbresponse => {
+  //   console.log(dbresponse);
+  //   res.json(dbresponse);
+  // });
+
+
+  console.log("updating body")
+  console.log(req.body)
+
+  collection.find({usr: req.session.usr}).toArray()
+  .then(result => {
+    let entries = result[0].entries
+
+    console.log(req.body.newsong)
+
+    for(let i = 0; i<entries.length; i++)
+    {
+      console.log(entries[i].newsong)
+      if(i===req.body.rowNum-1)
+      {
+        console.log("replacing entry body")
+        entries[req.body.rowNum-1].newsong = req.body.newsong
+      }
+    }
+
+    console.log("about to updateOne in update")
+    collection.updateOne(
+      {  _id: mongodb.ObjectId(result[0]._id)},
+      {$set: {entries: entries}}
+    )
+    res.json(entries)
+  })
+
 });
 
 
