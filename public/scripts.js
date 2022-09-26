@@ -20,8 +20,8 @@ function builder ( json )
                     newRow += '<th>' + entry.genre.toString().toUpperCase() + '</th>';
                     newRow += '<th>' + entry.year + '</th>';
                     newRow += '<th>' + zackcheck( entry.title, entry.year ) + '</th>';
-                    newRow += '<th><button onclick="updater(' + entry._movID + ',' + entry.title + ',' + entry.genre + ',' + entry.year + ');">edit?</button></th>';
-                    newRow += '<th><button onclick="deleter(' + entry._movID + ');">delete?</button></th>';
+                    newRow += '<th><button onclick="updater(\'' + entry._movID + '\',\'' + entry.title + '\',\'' + entry.genre + '\',\'' + entry.year + '\');">edit?</button></th>';
+                    newRow += '<th><button onclick="deleter(\'' + entry._movID + '\');">delete?</button></th>';
                 datatable.innerHTML += newRow;
             });
     }
