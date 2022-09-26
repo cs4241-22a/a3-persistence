@@ -28,7 +28,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+    crossOriginEmbedderPolicy: false,
+}));
 
 app.use(bodyParser.json());
 
