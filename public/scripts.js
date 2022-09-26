@@ -40,7 +40,7 @@ function submitter( e )
 };
 function deleter( _movID )
 {
-    const json = { _movID: x._movID }, 
+    const json = { _movID: _movID }, 
           body = JSON.stringify( json );
     fetch( '/delete', { method: 'POST', headers: { "Content-Type": "application/json" }, body } )
     .then( response => { response.json() })
