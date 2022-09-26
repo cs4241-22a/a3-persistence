@@ -241,7 +241,7 @@ app.post('/delete', async (req, res) => {
 // check connection and port
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
-  app.listen(3000, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log("Listening on port 3000");
   });
 })
