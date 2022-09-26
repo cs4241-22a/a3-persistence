@@ -70,11 +70,11 @@ passport.use(new GitHubStrategy({
         // asynchronous verification, for effect...
         process.nextTick(function () {
 
-            return collection.updateOne({githubEmail:profile.id},
-                {$setOnInsert:{githubEmail:profile.id, climbs:[]}},
+            return collection.updateOne({githubID:profile.id},
+                {$setOnInsert:{githubID:profile.id, climbs:[]}},
                 {upsert:true})
                 .then(() => {
-                    return collection.findOne({githubEmail:profile.id})
+                    return collection.findOne({githubID:profile.id})
                 }).then((result) => {
                     return done(null, result._id)
                 })
@@ -125,7 +125,7 @@ app.post('/addClimb', (req, res) => {
     }
 
     collection.updateOne(
-        {user: req.session.passport.user},
+        {_id: req.session.passport.user},
         {$push:{ climbs: body }})
         .then(result => res.json(result))
 })
