@@ -34,5 +34,9 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
     "require-esm": "^1.0.0"
+  },
+  "devDependencies": {
+    "jsdom": "20.0.0",
+    "jsdom-global": "3.0.2"
   }
 }

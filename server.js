@@ -94,8 +94,10 @@ const express = require('express'),
     mongodb = require('mongodb'),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose")
-   // User = require("../../../models/user")
+  //  User = require("../../../models/user")
     
+  //  const bootstrap = require('bootstrap')
+
 
 app.use( express.urlencoded({ extended:true }) )
 const bodyParser = require('body-parser')
