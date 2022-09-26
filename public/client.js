@@ -91,7 +91,7 @@ const showData = function() {
 
 
 const initTable = function (json) {
-    console.log("Initializing table")
+    console.log("Initializing table with " + json)
 
     // Find a <table> element with id="myTable":
     var table = document.getElementById("dataTable");
