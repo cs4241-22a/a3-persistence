@@ -1,11 +1,11 @@
 require('dotenv').config();
 const express = require( 'express' ),
       app = express(),
-      session = require( 'cookie-session' ),
+      cookie = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       bodyp = require( 'body-parser' ),
       favicon = require( 'serve-favicon' ),
-//      session = require( 'express-session' ),
+      session = require( 'express-session' ),
       path = require( 'path' ),
       mongodb = require( 'mongodb' ),
       uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
@@ -18,7 +18,7 @@ app.use( express.static( 'views' ) );
 app.use( express.json() );
 app.use( passport.initialize() );
 app.use( passport.session() );
-app.use( session({ secret: 'poop time', resave: false, saveUninitialized: false }) );
+app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 passport.serializeUser(   function( user, done ) { done( null, user ); } );
 passport.deserializeUser( function(  obj, done ) { done( null,  obj ); } );
 client.connect().then( () => { collection = client.db( 'a3' ).collection( 'a3' ) } );
