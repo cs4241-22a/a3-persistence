@@ -51,7 +51,7 @@ app.get('/login', ( req, res ) => { res.render( "main", { msg: "", layout: false
   //res.sendFile('index.html', { user: req.user, root: Path2D.join(__dirname, 'public')});
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) { res.redirect( "/main.handlebars" ); } );
+  function(req, res) { res.render( "main", { msg: "", layout: false } ); } );
 app.get('/data', checkAuth, ( req, res ) =>
 {
   collection.find({ id:mongodb.ObjectId() })
