@@ -131,13 +131,9 @@ app.post('/addClimb', (req, res) => {
 })
 
 app.post('/removeClimb', (req, res) => {
-    const body = {
-        climbName: req.body.climbName
-    }
-
     collection.update(
         { _id: mongodb.ObjectId(req.session.passport.user)},
-        { $pull: { climbs: body } }
+        { $pull: { climbs: { climbName: req.body.climbName } } }
     ).then(result => res.json(result))
 })
 
