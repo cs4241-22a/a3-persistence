@@ -80,12 +80,14 @@ function updatercanceller( _movID )
 function updatersubmitter( _movID )
 {
     const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[6].value,
-                    genre: document.getElementById( _movID ).children[7].value,
-                     year: document.getElementById( _movID ).children[8].value
+                    title: document.getElementById( _movID ).children[6].innerHTML,
+                    genre: document.getElementById( _movID ).children[7].innerHTML,
+                     year: document.getElementById( _movID ).children[8].innerHTML
                  },
           body = JSON.stringify(json);
+    console.log( json.title );
     console.log( body );
+    console.log( document.getElementById( _movID ).children );
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
     .then( response => response.json() )
     .then( dothething() );
