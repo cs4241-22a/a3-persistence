@@ -4,6 +4,7 @@ const express = require( 'express' ),
 //      cookie = require( 'cookie-session' ),
       hbs = require( 'express-handlebars' ).engine,
       bodyp = require( 'body-parser' ),
+      favicon = require( 'serve-favicon' ),
       mongodb = require( 'mongodb' ),
       uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
       client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true}),
@@ -13,8 +14,11 @@ let collection = undefined;
 app.use( express.static( 'public' ) );
 app.use( express.static( 'views' ) );
 app.use( express.json() );
+app.use( session({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
+passport.serializeUser(   function( user, done ) { done( null, user ); } );
+passport.deserializeUser( function(  obj, done ) { done( null,  obj ); } );
 client.connect().then( () => { collection = client.db( 'a3' ).collection( 'a3' ) } );
 app.use( ( req, res, next ) =>
 {
@@ -66,7 +70,9 @@ app.post('/update', checkAuth, ( req, res ) =>
                        { $set:  "items.$", changer })
   .then( result => res.json( result ) );
 });
-function checkAuth( req, res, next ) {
-  if ( allowed.includes(req.path) || req.isAuthenticated()) { return next(); }
-  res.redirect( '/login' ); };
-app.listen( process.env.PORT || 3000 )
+function checkAuth( req, res, next )
+{
+  if ( req.isAuthenticated()) { return next(); }
+  res.render( 'index' );
+};
+app.listen( process.env.PORT || 3000 );
