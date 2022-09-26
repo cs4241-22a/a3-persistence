@@ -1,31 +1,122 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US" data-theme="dark">
 <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="A simple sleep tracker">
+    <title>Document</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script rel="script" src="js/scripts.js"></script>
 </head>
-<body>
-<h1 class="text-3xl text-purple-600 font-bold underline text-center m-2">
-    Welcome to TailwindCSS
-</h1>
-<h1 class="title">Sleep Tracker</h1>
-<main class="grid-container">
-    <div class="box" id="sleep-form-div">
-        <form id="sleep-form">
-            <label for="sleep-time">What time did you go to bed?</label>
-            <input required type="datetime-local" id="sleep-time">
+<body class="h-screen overflow-y-hidden">
+<div class="h-full">
+    <div class="pl-2 pt-1 pr-2 flex justify-between">
+        <h1 class="text-4xl text-primary-content">Sleep Tracker</h1>
+        <div class="flex items-center">
+            <strong id="profile-name"></strong>
+            <div id="profile-pic" class="avatar placeholder pl-2">
+                <div id='profile-div' class="w-12 rounded-full outline">
+                    <span>?</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="h-full grid grid-rows-3 grid-cols-2 grid-flow-col gap-4 p-4 pb-16">
+        <div class="row-span-3 col-span-1 card bg-primary-content">
+            <div class="card-body">
+                <form id="sleep-form">
+                    <h2 class="card-title text-neutral">New Entry</h2>
+                    <label class="label text-neutral" for="sleep-time">What time did you go to bed?</label>
+                    <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="sleep-time">
+                    <label class="label text-neutral" for="wake-time">What time did you wake up?</label>
+                    <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="wake-time">
 
-            <label for="wake-time">What time did you wake up?</label>
-            <input required type="datetime-local" id="wake-time">
+                    <label class="label text-neutral" for="sleep-rating">How would you rate your sleep?</label>
+                    <select class="select select-primary select-ghost center text-neutral/70" required id="sleep-rating">
+                        <option selected disabled value="">Choose Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
 
-            <label for="sleep-rating">How would you rate your sleep?</label>
-            <select required id="sleep-rating">
+                    <label class="label text-neutral" for="did-dream">Did you have a dream?</label>
+                    <input class="toggle toggle-primary" type="checkbox" id="did-dream">
+
+                    <label class="label text-neutral" for="dream-description">What was your dream about?</label>
+                    <textarea class="textarea textarea-primary" id="dream-description"
+                              placeholder="In my dream..."></textarea>
+
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-span-2 text-center flex-none ">
+            <div class="stats bg-primary text-primary-content stats-horizontal shadow flex justify-center">
+
+                <div class="stat">
+                    <div class="text-white/80">Sleep Time</div>
+                    <div class="stat-value" id="average-hours-stat">---</div>
+                    <div class="text-white/90 text-xs">hours</div>
+                </div>
+
+                <div class="stat">
+                    <div class="text-white/80">Chance of Dream</div>
+                    <div class="stat-value" id="dream-percentage-stat">---</div>
+                    <!--                    <div class="stat-desc">↗︎ 400 (22%)</div>-->
+                </div>
+
+                <div class="stat">
+                    <div class="text-white/80">Rating</div>
+                    <div class="stat-value" id="average-rating-stat">---</div>
+                    <div class="text-white/90 text-xs">/5</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row-start-2 row-end-4 col-span-2 overflow-y-scroll overflow-x-auto">
+            <div>
+                <table class="table w-full" id="sleep-data">
+                    <!-- head -->
+                    <thead class="">
+                    <tr class="sticky top-0">
+                        <th>Time Asleep</th>
+                        <th>Time Awake</th>
+                        <th>Rating</th>
+                        <th>Did Dream</th>
+                        <th>Dream</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+<label for="my-modal">Test</label>
+<input type="checkbox" id="my-modal" class="modal-toggle"/>
+<div class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Edit Dream</h3>
+        <form id="update-sleep-form">
+            <label class="label" for="update-sleep-time">What time did you go to bed?</label>
+            <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="update-sleep-time">
+            <label class="label" for="update-wake-time">What time did you wake up?</label>
+            <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="update-wake-time">
+
+            <label class="label" for="update-sleep-rating">How would you rate your sleep?</label>
+            <select class="select select-primary select-ghost center text-neutral" required id="update-sleep-rating">
                 <option selected disabled value="">Choose Rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -34,42 +125,18 @@
                 <option value="5">5</option>
             </select>
 
-            <label for="did-dream">Did you have a dream?</label>
-            <input type="checkbox" id="did-dream">
+            <label class="label" for="update-did-dream">Did you have a dream?</label>
+            <input class="toggle toggle-primary text-neutral" type="checkbox" id="update-did-dream">
 
-            <label for="dream-description">What was your dream about?</label>
-            <textarea id="dream-description" placeholder="In my dream..."></textarea>
-
-            <button class="submit-button">submit</button>
+            <label class="label" for="update-dream-description">What was your dream about?</label>
+            <textarea class="textarea textarea-primary textarea-ghost text-neutral/70" id="update-dream-description"
+                      placeholder="In my dream..."></textarea>
+            <div class="modal-action">
+                <label for="my-modal" class="btn" id="update-entry-button">Cancel</label>
+                <label for="my-modal"><input type="submit" class="btn btn-primary" value="Update"/></label>
+            </div>
         </form>
     </div>
-    <div id="summary-stats">
-        <div class="box stat">
-            <h3>Average Hours Asleep</h3>
-            <p id="average-hours-stat">---</p>
-        </div>
-        <div class="box stat">
-            <h3>Likelihood to Dream</h3>
-            <p id="dream-percentage-stat">---</p>
-        </div>
-        <div class="box stat">
-            <h3>Average Sleep Rating</h3>
-            <p id="average-rating-stat">---</p>
-        </div>
-    </div>
-    <div id="form-responses" class="box">
-        <h2>Your History</h2>
-        <table id="sleep-data">
-            <tr>
-                <th>Time Asleep</th>
-                <th>Time Awake</th>
-                <th>Rating</th>
-                <th>Did Dream</th>
-                <th>Dream</th>
-            </tr>
-        </table>
-    </div>
-</main>
-
+</div>
 </body>
 </html>
