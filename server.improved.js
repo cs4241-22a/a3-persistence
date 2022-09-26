@@ -17,6 +17,7 @@ const path = require("path");
 const session = require("express-session");
 const GitHubStrategy = require("passport-github2").Strategy;
 const oneDay = 1000 * 60 * 60 * 24;
+const baseUrl = "https://stocklist.herokuapp.com";
 
 let loggedIn = false;
 let stocks = [];
@@ -56,7 +57,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/github/callback",
+      callbackURL: baseUrl + "/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       return done(null, profile);
@@ -418,6 +419,4 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public" + req.url);
 });
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(process.env.PORT || port);

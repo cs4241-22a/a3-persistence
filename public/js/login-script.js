@@ -1,9 +1,10 @@
-// onwindow load
+const baseUrl = "https://stocklist.herokuapp.com";
+
 window.onload = function () {
   //add button listener
   document.getElementById("git-login").addEventListener("click", function () {
     console.log("git login button clicked");
-    window.location.href = "http://localhost:3000/auth/github";
+    window.location.href = baseUrl + "/auth/github";
   });
 
   //add button listener's for login and register
@@ -13,7 +14,7 @@ window.onload = function () {
       e.preventDefault();
       console.log("login button clicked");
       //make a post request to the server to login
-      let response = await fetch("http://localhost:3000/auth/custom", {
+      let response = await fetch(baseUrl + "/auth/custom", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +29,7 @@ window.onload = function () {
       console.log(data);
 
       if (data.message.includes("success")) {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = baseUrl + "/";
       } else {
         document.getElementById("login-message").innerHTML = data.message;
       }
@@ -41,7 +42,7 @@ window.onload = function () {
       e.preventDefault();
       console.log("register button clicked");
       //make a post request to the server to login
-      let response = await fetch("http://localhost:3000/auth/register", {
+      let response = await fetch(baseUrl + "/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +56,7 @@ window.onload = function () {
       let data = await response.json();
       console.log(data);
       if (data.message.includes("success")) {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = baseUrl + "/";
       } else {
         document.getElementById("login-message").innerHTML = data.message;
       }
