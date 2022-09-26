@@ -24,7 +24,7 @@ let gID = 'signin_with_github';
 passport.use(new FacebookStrategy({
   clientID: 'd0a65adde69becb6a6e7',
   clientSecret: '413a9e09e63ed43b76e87da988451361f948322a',
-  callbackURL: '/oauth2/redirect/github',
+  callbackURL: 'https://webware-a3-jrkim.herokuapp.com/oauth2/redirect/github',
   state: true
 }, function verify(accessToken, refreshToken, profile, cb) {
   gID = profile.id;
