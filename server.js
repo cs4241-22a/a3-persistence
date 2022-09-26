@@ -97,18 +97,20 @@ app.post("/remove", (req, res) => {
     .then((result) => res.json(result));
 });
 
-debugger
-app.post("/update", (req, res) => {
+app.post( '/update', (req,res) => {
   console.log(req.body._id)
   console.log(req.body.json)
   jsonUpdates = req.body.json;
-  collection
-  
+  // collection
+  // .deleteOne({ _id: mongodb.ObjectId(req.body._id) })
+  // collection.insertOne(req.body)
+    collection
     .updateOne(
       { _id: mongodb.ObjectId(req.body._id)},
       
-      { $set: {json: req.body.json}}
+      { $set:{json: jsonUpdates}}
     )
+    
     .then(result => res.json(result));
 });
 
