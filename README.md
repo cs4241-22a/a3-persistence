@@ -6,7 +6,7 @@ Must login with a valid Github account.
 
 ## Reminders Web Application
 
-The Reminders web application allows you to fill out a form of information for each reminder you want to keep track of. Once you fill out the form reminder you can press the create button to submit data to the server to keep track of all reminders. You can then delete or edit a specific reminder based off of the row in the table.
+The Reminders web application allows you to fill out a form of information for each reminder you want to keep track of. Once you fill out the form reminder you can press the create button to submit data to the server to keep track of all reminders. You can then delete or edit a specific reminder based off of the row in the table. To edit a reminder press the edit button on the table then it will autofill the form. Then make any necessary edits and press submit for that form. It will then update the table.
 
 - Used Express for all functionality on the server-side of the website.
 - Results functionality which only shows authenticated users infomration on the table. 
@@ -27,3 +27,5 @@ The Reminders web application allows you to fill out a form of information for e
 - **Technical Achievement 1**: implemented Passport.js to use GitHub OAuth for login.
 - **Technical Achievement 2**: hosted website on Heroku.
 - **Technical Achievement 3**: 100% on all lighthouse tests.
+    ![Lighthouse Test](/images/lighthouse_test.png)
+
