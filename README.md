@@ -30,47 +30,48 @@ that was more straightforward to style myself based on the available boostrap do
 
 **I chose to focus on design achievemnts for this assignment due to difficulty level**
 
-### Design/Evaluation Achievements
+## Design/Evaluation Achievements
 **Design Achievement 1**: I chose to focus on accessibility for the majority of my achievements in this assignment.
  I followed the following tips from the W3C Web Accessibility Initiative:
  
  1. Provide sufficient contrast between foreground and background 
-   - I was sure to use strongly contrasting shades of pale and dark orange on these pages to ensure visible contrast between text and background, and to ensure that
+    - I was sure to use strongly contrasting shades of pale and dark orange on these pages to ensure visible contrast between text and background, and to ensure that
    meaning would not be lost if the user had difficulty recognizing colors. 
  
  2. Provide informative, unique page titles
-   - I took care to ensure each page was clearly labeled for its specific purpose, and broke up pages to be clear and direct. Each page informs you of its purpose, i.e. "Create a new user" , "view your previous responses", and clearly directs you to other desired pages
+    - I took care to ensure each page was clearly labeled for its specific purpose, and broke up pages to be clear and direct. Each page informs you of its purpose, i.e. "Create a new user" , "view your previous responses", and clearly directs you to other desired pages
     
  3. Make link text meaningful
-   - All link text brings you to the specified place being described, and each link is placed in large, centrally located font
+    - All link text brings you to the specified place being described, and each link is placed in large, centrally located font
    
  4. Provide clear instructions
-   - Detailed instructions and the purpose of the application for new users are included on the create-an-account page, as well as brief more concise instructions on the main page once logged in to direct returning users. 
+    - Detailed instructions and the purpose of the application for new users are included on the create-an-account page, as well as brief more concise instructions on the main page once logged in to direct returning users. 
    
  5. Keep content clear and concise
-    - All content is shorthand and descriptive to convey critical ideas but not crowded on the primary pages users are served, with longer-format information being consolidated to a single emphasized text box. 
+     - All content is shorthand and descriptive to convey critical ideas but not crowded on the primary pages users are served, with longer-format information being consolidated to a single emphasized text box. 
     
  6. Ensure that interactive elements are easy to identify
-   - All forms and links are clearly labeled as to their purpose, and as to how to enter/submit that information through the use of field text and well-labeled buttons. 
+    - All forms and links are clearly labeled as to their purpose, and as to how to enter/submit that information through the use of field text and well-labeled buttons. 
    
  7. Provide clear and consistent navigation options
-   -  Each page contains some kind of clearly marked return link in large text to ease navigation between pages, so that users aren't forced to manually navigate in browser. 
+    -  Each page contains some kind of clearly marked return link in large text to ease navigation between pages, so that users aren't forced to manually navigate in browser. 
    
  8. Ensure that form elements include clearly associated labels
-   - user log in, edit and delete fields are all labeled clearly in each form, with each form field having a unique identifer with a meaningful name describing the expected input.
+    - user log in, edit and delete fields are all labeled clearly in each form, with each form field having a unique identifer with a meaningful name describing the expected input.
    
  9. Use headings and spacing to group related content
-   - headers are spaced accordingly to group related content in sections on each page, with boxes being centered, emphasized, and ordered to logically and easily direct users through the application appropriately. 
+    - headers are spaced accordingly to group related content in sections on each page, with boxes being centered, emphasized, and ordered to logically and easily direct users through the application appropriately. 
    
  10. Include alternative text for images
-   - Alt text is provided for each image of alfie in the event that image cannot be rendered, although it does make it difficult for the user to submit their opinion if they cannot see the image.
+     - Alt text is provided for each image of alfie in the event that image cannot be rendered, although it does make it difficult for the user to submit their opinion if they cannot see the image.
    
  11. Identify page language and language changes
-    - All languages are clearly defined to indicate any changes between HTML/JS, and english is clearly labeled as the primary language. 
+     - All languages are clearly defined to indicate any changes between HTML/JS, and english is clearly labeled as the primary language. 
+   
  12. Use headings to convey meaning and structure
-   - Headings are used to break-up the view on each page for readability, and to highlight areas that the user is encouraged to interact with to improve readability.
+     - Headings are used to break-up the view on each page for readability, and to highlight areas that the user is encouraged to interact with to improve readability.
     
- - **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
+ **Design Achievement 2**: I took the CRAP principles into heavy consideration when designing my website.
  - *Contrast* :
     - Contrast is one of the most important features in ensuring clarity, accessibility and general readability of a page, and was taken into strong consideration when styling each page and individual element of the Alfie Images board. I made sure that the primary header had the highest contrast on the page by altering the original color scheme I created to include paler, creme shades of orange and darker brown tones to bring emphasis to certain sections. The contrast between the text, borders, and background on my primary site headers is much higher than that of the secondary headers, to encourage the user to examine the page’s title/primary purpose before moving on to other aspects of the page. I chose to add a lighter contrast around the Alfie images as their size and color variety is already eye-catching, ideally further leading users to naturally read the page title and instructions before proceeding.
  - *Repitition* : 
