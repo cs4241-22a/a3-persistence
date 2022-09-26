@@ -6,6 +6,7 @@
           content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="A simple sleep tracker">
+    <link rel="icon" href="/favicon/favicon.ico">
     <title>Sleep Tracker</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script rel="script" src="js/scripts.js"></script>
@@ -111,12 +112,12 @@
         <h3 class="font-bold text-lg">Edit Dream</h3>
         <form id="update-sleep-form">
             <label class="label" for="update-sleep-time">What time did you go to bed?</label>
-            <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="update-sleep-time">
+            <input class="input input-ghost input-primary" required type="datetime-local" id="update-sleep-time">
             <label class="label" for="update-wake-time">What time did you wake up?</label>
-            <input class="input input-ghost input-primary text-neutral/70" required type="datetime-local" id="update-wake-time">
+            <input class="input input-ghost input-primary" required type="datetime-local" id="update-wake-time">
 
             <label class="label" for="update-sleep-rating">How would you rate your sleep?</label>
-            <select class="select select-primary select-ghost center text-neutral" required id="update-sleep-rating">
+            <select class="select select-primary select-ghost center " required id="update-sleep-rating">
                 <option selected disabled value="">Choose Rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -126,10 +127,10 @@
             </select>
 
             <label class="label" for="update-did-dream">Did you have a dream?</label>
-            <input class="toggle toggle-primary text-neutral" type="checkbox" id="update-did-dream">
+            <input class="toggle toggle-primary" type="checkbox" id="update-did-dream">
 
             <label class="label" for="update-dream-description">What was your dream about?</label>
-            <textarea class="textarea textarea-primary textarea-ghost text-neutral/70" id="update-dream-description"
+            <textarea class="textarea textarea-primary textarea-ghost " id="update-dream-description"
                       placeholder="In my dream..."></textarea>
             <div class="modal-action">
                 <label for="my-modal" class="btn" id="update-entry-button">Cancel</label>
