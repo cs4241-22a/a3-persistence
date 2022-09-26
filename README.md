@@ -3,7 +3,7 @@ Assignment 3 - Persistence: Two-tier Web Application with Database, Express serv
 
 Project Link
 ---
-Link: https://a3-hao-oliverchen.glitch.me/  
+Link: https://a3-hao-chen.herokuapp.com/ 
 
 Baseline Requirements
 ---
@@ -36,10 +36,9 @@ For all three of my pages, I get 100% in all four lighthouse tests.
 ![Game page full score](/images/FullScore.png)
 
 - **Tech Achievement 3**:   
-Well, I failed but I really think that I deserve some partial credits for this. I spent way too much time trying to deploy my project to Heroku. But it just doesn't like the Mongodb atlas. If you know why this is failing plz let me know! 
-1. app crashed and deployment failed
-![bad](/images/error%20info.png)
-![really bad](/images/Deployment%20error.png)
+I spent way too much time trying to deploy my project to Heroku. But it just doesn't like the Mongodb atlas and some of my other external modules. With hours of research and debugging, I finally get it working.   
+Despite all the hassles, I actually really like Heroku. Once you set up the deployment method as Github, it allows automatic deployment where any changes on the github repo will be deploy in real time. This is very useful and it also tracks all the update in the activity tab. Glitch on the other hand doesn't have the ability to auto-deploy changes from github repo, the user will have to make a new project for any new updates on the repo or simply adding the updates to glitch manually. 
+
 
 ## Design Achievements
 - **Design Achievement 1**: 
