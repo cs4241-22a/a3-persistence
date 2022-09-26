@@ -1,116 +1,47 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
+## Marathon Rock Paper Scissors
 
-Due: September 22nd, by 11:59 AM.
+http://a3-sean-oconnor.glitch.me
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+This project is a web application that allows users to play Rock Paper Scissors. Users play against the computer to get the highest score possible by winning until the computer eventually wins. Users are then able to submit a score to the server data, as well as delete scores from the shown data. Users can also modify each entry of data by choosing their favorite choice between "Rock", "Paper", and "Scissors". Users can replay the game and submit a fresh score by refreshing the page.
 
-Baseline Requirements
----
+Users will first encounter a login page. You must enter a "Name" and "Password" into the form (text type) fields, then either use "Login" or "Register" inputs (button types). If the password for the name is incorrect, or the user already exists, the login page will restart.
 
-Your application is required to implement the following functionalities:
+Try making your own name, but if you want to log into a name with multiple scores already exisiting on the database, try:
+_Name: a
+Password: s_
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+To play, open the webpage and select an option: Rock, Paper, or Scissors. The page will update based on your choice, changing the score, showing your choice, the computer's choice, and if you won, tied, or lost. If you won or tied, you can continue until you lose. Once a player loses, they can submit the score to the database, which is shown to the right of the page. A user can also delete a score from the database by pressing the "Delete" button, or change their listed favorite choice for an action for a score by pressing the "Change" button. The button changes the field to whichever option is checked in the radio buttons to the left of the page.
 
-Your application is required to demonstrate the use of the following concepts:  
+The authentication strategy used was to check whether or not the name being used already existed based on if they logged in or registered. For the former, the database was checked to see if at least one entry had the exact combination of the entered name and password. If true, the cookie would be set with the name, password, and session login being true. If false, the session login would remain false and the page would be sent again. A similar process occurs for registering a name, except only the name is checked to see if it already exists. If it has not, the new name and password is added to the database.
 
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
+The CSS framework used was Bootstrap 5.2.1. Bootstrap was chosen for its ease of use and did not require an external style sheet to go with it. Bootstrap helped to set the placement of items within the webpage and implement changes to colors for the body, header, footer, and text. 
 
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
+The Express middleware packages used included compression, cookie-session, helmet, morgan, and custom middleware for the collection. Compression was used as it compresses response bodies for any requests, which could help lower the size of responses. Cookie-session was used to help create the cookie that is used in the login functionality. Helmet was used as it helps set different HTTP headers for security. Morgan was used for being able to send more detailed information to the console from the server. The custom middleware was made and used to check if there is an existing collection, otherwise it sends an error message. It does this by checking if the collection is null, and if it is it sends the error but if it is not the next middleware is used.
 
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+Challenges encountered during the project revolved heavily around utilizing Express and properly implementing MongoDB into the work carried over from Assignment 2. There was a learning curve for understanding Express and how middleware worked, and it took time to properly structure and use the different POST and GET requests. Implementing MongoDB combined with these issues in learning Express, and often it was difficult to get data to properly show up onto the page to be added, modified, or deleted.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **100% in All Four Lighthouse Tests**: As seen in the included photo lighthouse_achievement.png, 100% was achieved for all Lighthouse tests (Performance, Best Practices, Accessibility, and SEO).
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Twelve Tips Implemented from the W3C**: Tips implemented into the site include:
+1. _Using for and id attributes_: The for and id attributes were used for each label used. These include the "Name", "Password", "Login", and "Register" forms in index.html, and the "Rock", "Paper", "Scissors", "Submit", "Change", and "Delete" forms in main.html.
+2. _Provide sufficient contrast between foreground and background_: The colors of the site were chosen to make the site as accessible as possible, which included the use of contrast between the foreground and background. In particular, the background is gray, while the text the user will read is white and buttons are blue and green. These colors allow for users to properly read and identify foreground objects from the background.
+3. _Ensure that form elements include clearly associated labels_: All form elements include clearly associated labels. On the landing page, labels are present within the field for users to type in. Buttons and radio buttons are also given labels for proper context.
+4. _Use headings to convey meaning and structure_: Headings are used throughout the main webpage to separate content into relevant sections. Specifically, headers are given to the main game options, the favorite choice modification selections, and the table of user scores. The headings help provide structure through this separation.
+5. _Don’t use color alone to convey information_: More context is given to information that utilizes color. Specifically, buttons are given specific colors based on the type of action. Green buttons relate to data on the server, while blue buttons correspond to game actions. However, text is still provided to give further context to the specific actions.
+6. _Keep content clear and concise_: The content is made to be clear and concise. Any instructions or sentences were made to explain relevant information clearly and quickly, and user inputs are labeled with only the action being provided.
+7. _Use headings and spacing to group related content_: Through headings and spacing, related content is properly grouped. The headings are used in main.html to separate main game options, the favorite choice modification selections, and the table of user scores. Spacing is provided through margins to further separate the groups. 
+8. _Provide informative, unique page titles_: Each page has a unique title that informs the user what the page is about. The landing page, index.html, provides the page title showing that the site is an assignment for CS4241. The main game page, main.html, has the page title "Marathon Rock Paper Scissors" as it is the page where users can play the game.
+9. _Include alternative text for images_: For the one image present on the website, that being the logo in index.html, alternative text is provided. The text is included within the img tag, stating "Marathon Rock Paper Scissors Logo".
+10. _Provide clear instructions_: User activities within the site are given instructions. Instructions are provided to explain how to play the game of Rock Paper Scissors and submit the score, as well as how to edit the favorite choice for a given score.
+11. _Identify page language and language changes_: The primary language is set to English for both index.html and main.html. This was done by including lang="en" in each html tag.
+12. _Avoid CAPTCHA where possible_: The site requires no CAPTCHA to verify a user. Instead, the site checks if the user logging in is valid by checking if the inputted username and password exist within the database and are together. Otherwise, the user cannot log in.
+
+- **Usage of the CRAP Principles**: The site follows the four basic CRAP principles in the following ways:
+Contrast: Contrast is used to separate elements and to prevent them from seeming similar. The site's color choices were made with contrast in mind, particularly with the white text standing out from the grays of the header, footer, and background. Headings are present within the page to separate not only different sections from one another but to provide contrast between the purpose of the section and the important elements that make up the section. Button colors were also considered with contrast in mind. Particularly, both the blue and green of the buttons stand out from the gray background and white text. However, the colors each represent the differences in buttons. Buttons that relate to modifying the database, such as creating a new user or modifying an existing score, are colored green.  However, buttons are colored blue if they relate to user actions that don’t immediately change any existing database information.
+Repetition: Repetition is used through the web application to support organization and unity between elements. Within the first page the user uses, the login page, repetition is established. Both the header and footer stay a consistent dark gray, with a lighter gray used as the site’s background color. In addition, the Login and Register buttons establish the white text that is used throughout the entire site, and the colors used on each button groups together types of actions. Buttons that relate to modifying the database, such as creating a new user or modifying an existing score, are colored green.  However, buttons are colored blue if they relate to user actions that don’t immediately change any existing database information. These choices repeat through both page and amongst multiple elements, showcasing how important repetition is in conveying information. 
+Alignment: Alignment was considered early on for organizing the information on the site. To separate information that the user inputs that is then sent to the database from information pertaining to already existing data within the database, the game options and favorite choices were place together on one side while the user data from the database is another side. Specifically, the game options and favorite choices was aligned to the left of the webpage, while the user data was aligned to the right of the page. This alignment allows for contrast in both the information conveyed but also the type of actions that can be taken by the user. The alignment provides a clean look to the page and its elements through this separation of information.
+Proximity: Items related to each other are properly grouped close together. Specifically, proximity is present through the game page found in main.html. In the game page, informmation is split into three sections: game options, favorite choice modifications, and user data derived from the database. Options relating to the game include the score, the player choice, the computer choice, three action options that include Rock, Paper, and Scissors, and a Submit button. These are given proximity to emphasize their relationship to the main game the user plays. The favorite choice modifications include three radio buttons for Rock, Paper, and Scissors. These are group together as they act under the same form and functionality. The user data includes a table containing options for changing an included score’s favorite choice and deleting the score, and information for each score that consists of the score, number of times rock is used, the number of times paper is used, the number of times scissors is used, and the user’s favorite choice for a given score. These are grouped up as they all relate to the already existing user data within the database and modifying it.

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <meta
+      name="description"
+      content="Login page for the Marathon Rock Paper Scissors webpage designed for CS4241 Assignment 3"
+    />
+  </head>
+  <body class="text-center bg-secondary">
+    <header class="text-start bg-dark text-white">
+      <h1 class="top_bottomText">Marathon Rock Paper Scissors</h1>
+    </header>
+    <form action="/login" method="POST">
+      <img class="img-fluid" src="https://cdn.glitch.global/638e408f-2883-4b6d-808e-1c0eac5a19f9/rps.png?v=1664084290560" alt="Marathon Rock Paper Scissors Logo" width="15%">
+      <div class="form-floating mt-1 mb-1">
+        <input type="text" name="name" id="nameInput" placeholder="Name" />
+        <label class="visually-hidden" for="nameInput">Name</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input
+          type="password"
+          name="password"
+          id="passwordInput"
+          placeholder="Password"
+        />
+        <label class="visually-hidden" for="passwordInput">Password</label>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary" id="login">Login</button>
+        <label class="visually-hidden" for="login">Login</label>
+        <button
+          type="submit"
+          class="btn btn-success"
+          formaction="/register"
+          id="register"
+        >
+          Register
+        </button>
+        <label class="visually-hidden" for="register">Register</label>
+      </div>
+    </form>
+    <footer class="fixed-bottom text-start top_bottomText bg-dark text-white">
+      Created by Sean O'Connor for CS4241
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
