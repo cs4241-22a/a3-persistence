@@ -1,8 +1,8 @@
 const form = document.getElementById('form')
 form.addEventListener("submit", submit)
-form.onload = onPageLoad()
+form.onload = getDataUpdateTable()
 
-async function onPageLoad() {
+async function getDataUpdateTable() {
     try {
 
         const responseData = await getData()
@@ -36,20 +36,17 @@ async function submit( e ) {
     try {
         const formData = new FormData(formElement)
 
-        const responseData = await postFormDataAsJSON(formData)
-        await updateTable(responseData)
-
+        await postFormDataAsJSON(formData).then(getDataUpdateTable())
+        
     } catch(error) {
         console.error(error)
     }}
 
-async function deletePokemon( name ) {
+async function deletePokemon( data ) {
 
     try {
 
-        const responseData = await deleteData(name)
-
-        await updateTable(responseData)
+        await deleteData(data).then(getDataUpdateTable())
 
     } catch(error) {
         console.error(error)
@@ -71,24 +68,22 @@ async function postFormDataAsJSON(formData) {
         const errorMessage = await response.text()
         throw new Error(errorMessage)
     }
-    const responseData = response.json()
-    
-    return responseData
 }
 
-async function deleteData(name) {
+async function deleteData(data) {
+    const body = JSON.stringify(data)
     const response = await fetch( '/delete', {
         method:'DELETE',
-        body: name
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
       })
 
     if (!response.ok) {
         const errorMessage = await response.text()
         throw new Error(errorMessage)
     }
-
-    const responseData = response.json()
-    return responseData
 }
 
 async function updateTable(data) {
@@ -125,7 +120,7 @@ async function updateTable(data) {
     
             row.append(name, description, type1, type2, weaknesses, resistances, immunities)
             row.addEventListener("click", function() {
-                deletePokemon(element.name)
+                deletePokemon(element)
             })
             tbodyNew.append(row)
         });

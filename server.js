@@ -67,12 +67,15 @@ app.use( function( req,res,next) {
 })
 
 app.post( '/submit', (req, res) => {
+    const user = req.session.user
     const pokemon = addTypeChart(req.body)
     pokemon.user = req.session.user
     collection_pokemon.insertOne(pokemon)
-    collection_pokemon.find( { user: req.session.user } ).toArray().then(result => {
-        res.send(result)
-    })
+})
+
+app.delete('/delete', (req, res) => {
+    const user = req.session.user
+    collection_pokemon.deleteOne( { user: req.session.user, name: req.body.name })
 })
 
 app.listen( process.env.PORT || 3000 )
