@@ -3,23 +3,29 @@ form.addEventListener("submit", submit)
 form.onload = onPageLoad()
 
 async function onPageLoad() {
-
     try {
+
+        const responseData = await getData()
+
+        await updateTable(responseData)
+
+    } catch(error) {
+        console.error(error)
+}}
+
+async function getData() {
     const response = await fetch( '/data', {
         method:'GET',
-      })
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 
     if (!response.ok) {
         const errorMessage = await response.text()
         throw new Error(errorMessage)
     }
-    const responseData = response.json()
-    console.log(responseData)
-    await updateTable(responseData)
-
-    } catch(error) {
-        console.error(error)
-    }
+    return response.json()
 }
 
 async function submit( e ) {
@@ -31,7 +37,6 @@ async function submit( e ) {
         const formData = new FormData(formElement)
 
         const responseData = await postFormDataAsJSON(formData)
-        console.log(responseData)
         await updateTable(responseData)
 
     } catch(error) {
