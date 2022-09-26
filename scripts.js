@@ -1,4 +1,3 @@
-// const { response } = require("express")
 
 console.log('in scripts')
 const songs = []
@@ -16,7 +15,6 @@ function addToPlaylist(songData)
     console.log(songData)
 
     const newRow = songList.insertRow()
-    // newRow.id = songInput+artistInput+albumInput
     const newCell = newRow.insertCell()
     const artistCell = newRow.insertCell()
     const durationCell = newRow.insertCell()
@@ -28,7 +26,7 @@ function addToPlaylist(songData)
     const newDuration = document.createTextNode(songData[2])
     const newAlbum = document.createTextNode(songData[3])
     const newPlaylistDuration = document.createTextNode(songData[4])
-    //newSong.innerHTML = song
+
     newCell.appendChild(newSong)
     artistCell.appendChild(newArtist)
     durationCell.appendChild(newDuration)
@@ -41,7 +39,6 @@ function addToPlaylist(songData)
       tableCells[i].setAttribute("contenteditable", true)
     }
 
-
     // Add specific update and remove buttons
     const updateCell = newRow.insertCell()
     const removeCell = newRow.insertCell()
@@ -49,7 +46,6 @@ function addToPlaylist(songData)
     let newRemove = document.createElement("button")
     newUpdate.textContent = 'Update Song'
     newRemove.textContent = 'Remove Song'
-    // newUpdate.classList.add('Updaters')
 
     newUpdate.addEventListener("click", updateSong => {
       updateSong.preventDefault()
@@ -57,14 +53,13 @@ function addToPlaylist(songData)
       console.log("getting current row values")
       console.log(newSong)
       let updatedData = []
-      updatedData[0] = newSong.textContent //newRow[1][0].innerHTML
-      updatedData[1] = newArtist.textContent //newRow[1][1].innerHTML
-      updatedData[2] = newDuration.textContent //newRow[1][2].innerHTML
-      updatedData[3] = newAlbum.textContent //newRow[1][3].innerHTML
-      updatedData[4] = newPlaylistDuration.textContent //newRow[1][4].innerHTML
+      updatedData[0] = newSong.textContent
+      updatedData[1] = newArtist.textContent
+      updatedData[2] = newDuration.textContent
+      updatedData[3] = newAlbum.textContent
+      updatedData[4] = newPlaylistDuration.textContent
 
       console.log(updatedData)
-
 
       console.log("about to fetch update")
       fetch( '/update', {
@@ -75,10 +70,6 @@ function addToPlaylist(songData)
       .then( res => res.json() , console.log("finishing update client"))
     })
 
-
-
-    // newRemove.classList.add('Removers')
-    // newRemove.addEventListener("click", deleteSong)
     newRemove.addEventListener("click", deleteSong => {
       deleteSong.preventDefault()
 
@@ -94,39 +85,12 @@ function addToPlaylist(songData)
         body:JSON.stringify({ newsong: songData})
       })
       .then( res => res.json() , console.log("finishing delete fetcher"))
-      // .then( json => console.log( json ) )
-
-
     })
-
-
     
     updateCell.appendChild(newUpdate)
     removeCell.appendChild(newRemove)
   
-
     console.log("just added a song to the playlist")
-
-   // const table = document.getElementById("results")
-   // table.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
-
-  //  newData.forEach((element, index) => {
-
-        // if(element.songname === undefined)
-        // {
-        //     ;
-        // }
-        // else
-        // {
-        // test  table.innerHTML += "<tr><td>" + song + "</td></tr>"
-        // table.innerHTML +=
-        //   "<tr><td>" + element.songname + "</td><td>"
-        //   + element.artist + "</td><td>"
-        //   + element.duration + "</td><td>"
-        //   + element.album + "</td><td class='tally'>"
-        //   + element.playlistDur + "</td></tr>"
-        //}
-   //   })
   }
 
 
@@ -136,10 +100,6 @@ songForm.onsubmit = function(e)
     e.preventDefault()
 
     console.log("in script submit function")
-    // let songname = document.querySelector("#songname")
-    // let artist = document.querySelector("#artist")
-    // let duration = document.querySelector("#songduration")
-    // let album = document.querySelector("#album")
 
     const songValue = songInput.value
     const artistValue = artistInput.value
@@ -168,15 +128,6 @@ songForm.onsubmit = function(e)
     durationInput.focus()
     albumInput.value = ''
     albumInput.focus()
-  
-    // let json = {
-    //   songname: songname.value,
-    //   artist: artist.value,
-    //   duration: duration.value,
-    //   album: album.value,
-    //   playlistDur: 0
-    // }
-    // let body = JSON.stringify(json)
 
     fetch( '/submit', {
       method:'POST',
@@ -185,10 +136,7 @@ songForm.onsubmit = function(e)
     })
     .then( res => res.json() )
     .then( json => console.log( json ) )
-    // return false
 }
-
-
 
 
 
@@ -232,72 +180,3 @@ window.onload = function()
       addAllSongs()
     })
 }
-
-
-
-
-
-// function deleteSong()
-// {
-//     let td = event.target.parentNode
-//     let tr = td.parentNode
-//     let t = tr.parentNode
-
-//     let removeData = tr.cells
-//     //removeData = tr.childNod
-//     t.removeChild(tr)
-
-//     console.log("just deleted row")
-
-//     fetch( '/delete', {
-//       method:'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body:JSON.stringify({ "newsong": removeData})
-//     })
-//     .then( res => res.json() )
-//     .then( json => console.log( json ) )
-
-
-//     console.log("called delete post request")
-// }
-
-
-
-
-
-
-//   const reset = function(e)
-//   {
-//       e.preventDefault()
-//       body = JSON.stringify("")
-
-//       fetch( '/reset', {
-//         method:'POST',
-//         body
-//       })
-//       .then(async function(response)
-//       {
-//         let emptyData = await response.json()
-//         emptyPlaylist(emptyData)
-//         console.log(emptyData)
-//       })
-//       return false
-      
-//   }
-
-  // function emptyPlaylist(newData)
-  // {
-  //   const table = document.getElementById("results")
-  //   table.innerHTML = "<tr id='firstRow'><th>Song</th><th>Artist</th><th>Duration</th><th>Album</th><th>Playlist length</th></tr>"
-  // }
-
-
-//   window.onload = function() 
-//   {
-//     const submitButton = document.getElementById( 'submitButton' )
-//     submitButton.onclick = submit
-
-//     const resetButton = document.getElementById( 'resetButton' )
-//     resetButton.onclick = reset
-//   }
-

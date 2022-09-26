@@ -1,6 +1,4 @@
 
-
-// fetch for reg and log - separate buttons, same form fields
 const userForm = document.querySelector("form")
 const loginButton = document.getElementById("log-in")
 const registerButton = document.getElementById("register")
@@ -10,7 +8,7 @@ registerButton.addEventListener("click", event => {
 
   if(userForm.elements.username.value == "" || userForm.elements.password.value == "")
   {
-    window.alert("neither username or password can be an empty string")
+    window.alert("username and password cannot be empty")
     return
   }
 
@@ -21,9 +19,7 @@ registerButton.addEventListener("click", event => {
       pwd: userForm.elements.password.value,
       entries: []
     }),
-    headers: {
-      "Content-Type": "application/json"
-    }
+    headers: {"Content-Type": "application/json"}
   })
     .then(res => res.json())
     .then(json => {
@@ -31,13 +27,13 @@ registerButton.addEventListener("click", event => {
       {
         window.location.href = "playlist"
       }
-      else{
+      else
+      {
         window.alert("user already exists")
       }
     })
     userForm.reset()
 })
-
 
 
 loginButton.addEventListener("click", event => {
@@ -55,9 +51,7 @@ loginButton.addEventListener("click", event => {
         usr: userForm.elements.username.value,
         pwd: userForm.elements.password.value
       }),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: {"Content-Type": "application/json"}
     })
       .then(res => res.json())
       .then(json => {
@@ -65,7 +59,8 @@ loginButton.addEventListener("click", event => {
         {
           window.location.href = "playlist"
         }
-        else{
+        else
+        {
           window.alert("invalid login")
         }
       })
