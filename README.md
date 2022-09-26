@@ -25,17 +25,17 @@ Baseline Requirements
 - **Tech Achievement 2**:   
 For all three of my pages, I get 100% in all four lighthouse tests.
 1. Login page
-![Login full score](/a3-persistence/images/FullScore2.png)
+![Login full score](/images/FullScore2.png)
 2. Register page
-![Register full score](/a3-persistence/images/FullScore3.png)
+![Register full score](/images/FullScore3.png)
 3. Game page
-![Game page full score](/a3-persistence/images/FullScore.png)
+![Game page full score](/images/FullScore.png)
 
 - **Tech Achievement 3**:   
 Well, I failed but I really think that I deserve some partial credits for this. I spent way too much time trying to deploy my project to Heroku. But it just doesn't like the Mongodb atlas. If you know why this is failing plz let me know! 
 1. app crashed and deployment failed
-![bad](/a3-persistence/images/error%20info.png)
-![really bad](/a3-persistence/images/Deployment%20error.png)
+![bad](/images/error%20info.png)
+![really bad](/images/Deployment%20error.png)
 
 ## Design Achievements
 - **Design Achievement 1**: 
