@@ -76,7 +76,7 @@ function updatercanceller( _movID )
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
-    
+    console.log(title);
 };
 function updatersubmitter( _movID )
 {
