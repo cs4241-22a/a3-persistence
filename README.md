@@ -3,6 +3,8 @@
 https://files.craftsteamg.com:3000/
 Simple purchase list, add items with cost, quantity, and payment method. 
 
+Issue: Lighthouse says form does not have a label, but that is not under my control. It is an issue with the CSS framework. 
+
 Authentication Strategy: GitHub OAuth
 CSS Framework: Materialize
 - I used this because it was simple, and looked clean
