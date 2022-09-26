@@ -9,7 +9,7 @@
     "dotenv": "16.0.2",
     "express": "4.18.1",
     "express-handlebars": "6.0.6",
-    "favicon": "0.0.2",
+    "serve-favicon": "2.5.0",
     "mime": "3.0.0",
     "mongodb": "4.10.0",
     "passport": "0.6.0",
