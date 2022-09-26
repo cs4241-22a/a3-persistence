@@ -7,19 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="survey regarding Phineas and ferb" />
     <title>SurvAye:SurveyEntry</title>
-    <link
+    {{!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
-    />
+    /> --}}
     <link href="/css/bootstrap.css" rel="stylesheet" />
   </head>
 
   <body class="d-flex flex-column min-vh-100 overflow-auto">
     {{>header}}
     <main class="w-75 m-auto d-flex flex-column justify-content-center py-2">
-      <h3 class>CS4241 Class Survey</h3>
+      <p class="fs-3" class>CS4241 Class Survey</p class="fs-3">
       <form id="perrySurvey" class="w-75 m-auto" action="/submitSurvey" method="POST">
 
         <fieldset>
@@ -120,7 +120,7 @@
         <br />
         <fieldset class="radioPlatypus">
           <legend>Please Identify the Following</legend>
-          <img src="aPlatypus.png" alt="a normal platypus" />
+          <img src="Perry_Platypus.webp" alt="a normal platypus" class='w-75 h-25'/>
 
           <div
             class="m-auto d-flex flex-column justify-content-center py-2"
@@ -146,8 +146,9 @@
         <fieldset class="radioPerry">
           <legend>Please Identify the Following</legend>
           <img
-            src="perryThePlatypus.png"
+            src="Perry_THE_Platypus.webp"
             alt="Perry the Platypus from the Disney Channel show Phineas and Ferb."
+            class="w-75 h-25"
           />
           <div
             class="m-auto d-flex flex-column justify-content-center py-2"
@@ -173,7 +174,6 @@
         </audio>
 
         <button id="submitBtn">submit</button>
-        <button id="toggleData">viewData</button>
       </form>
     </main>
     <script>
