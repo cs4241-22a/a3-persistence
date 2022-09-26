@@ -61,7 +61,8 @@ const populateTable = (json) => {
 const removeItem = (e) => {
   e.preventDefault()
 
-  const groceryId = e.target.id.substring(6)
+  const id = e.target.id
+  const groceryId = id.substring(6)
 
   fetch("/remove", {
     method: "POST",
@@ -79,19 +80,20 @@ const removeItem = (e) => {
 const updateItem = (e) => {
   e.preventDefault()
 
-  const groceryId = e.target.id.substring(6)
-  const newQuant = ""
-  const newName = ""
-  const newPrior = ""
-
+  const id = e.target.id
+  const groceryId = id.substring(6)
+  const newQuant = document.getElementById("quantity").value
+  const newName = document.getElementById("itemName").value
+  const newPrior = document.getElementById("priority").value
+debugger
   fetch("/update", {
     method: "PUT",
-    body: {
+    body: JSON.stringify({
       groceryId: groceryId,
       quantity: newQuant,
       itemName: newName,
       priority: newPrior
-    },
+    }),
   })
   .then(() => {
     getGroceries()

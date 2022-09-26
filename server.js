@@ -72,7 +72,7 @@ app.use((req, res, next) => {
   }
 })
 
-// middleware: check that new account credentials were created
+// middleware: check that account credentials actually exist/were created
 app.use((req, res, next) => {
   const results = users.findOne({
     username: req.body.username,
@@ -101,7 +101,7 @@ app.post("/add", async (req, res) => {
     quantity: req.body.quantity,
     itemName: req.body.itemName,
     priority: req.body.priority,
-    entryId: Math.round(Math.random() * 100000) // unique id to easily ref later
+    groceryId: Math.round(Math.random() * 100000) // unique id to easily ref later
   }
   
   const result = await(groceryList.insertOne(newEntry))

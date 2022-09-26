@@ -21,15 +21,15 @@
     <form action="/add" method="POST" class="mui-form" style="width:500px;">
       <label style="font-weight: bolder;">Quantity:</label>
       <div class="mui-textfield">
-        <input type="text" name="quantity" value="1" class="mui-textfield mui-textfield--float-label" required/>
+        <input type="text" name="quantity" id="quantity" value="1" class="mui-textfield mui-textfield--float-label" required/>
       </div>
       <label style="font-weight: bolder;">Item name:</label>
       <div class="mui-textfield">
-        <input type="text" name="itemName" class="mui-textfield" required/>
+        <input type="text" name="itemName" id="itemName" class="mui-textfield" required/>
       </div>
       <label style="font-weight: bolder;">Priority:</label>
       <div class="mui-select">
-        <select name="priority" required>
+        <select name="priority" id="priority" required>
           <option>Need</option>
           <option>Want</option>
           <option>Maybe buy</option>
@@ -39,6 +39,8 @@
         <input type="submit" value="Add item" class="mui-btn mui-btn--small mui-btn--primary mui-btn--raised" style="background-color:#005b96"/>
       </div>
     </form>
+
+    <p>To edit an item, put the new values into the above form and then click the desired line item.</p>
 
     <table id="data_table" class="mui-table mui-table--bordered">
       <tr>
