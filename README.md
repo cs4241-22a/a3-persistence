@@ -1,5 +1,5 @@
 
-## Your Web Application Title
+## ToDo list XTreme
 
  http://a3-shanestevenz.glitch.me
 
@@ -8,27 +8,21 @@ Goal:
 Challenges:
   -I faced many challenges setting up this project intially. Getting handlebars to work and connecting to the database took a very long time because it would give very generic and vague error messages, making it difficult to troubleshoot
 Authentication:
-  -
+  -used good ol username and password stored in mongodb because it seemed like the most straight forward way to do it.
 CSS FrameWork:
-  -
+  - Handlebars and modern-normalize
 Middleware
-  -
-  -
-  -
-  -
-  -
+  - Cookie-session: used to keep track of the username of the current session
+  - Serve-static: I used to this serve the static html and js files
+  - express.json: Body-parser was broken so i had to use express.json
+  - helmet: adds various headers to htttp to help secure it
+  - Error handler: i used to this throw errors if the database collection was null
+  - timeout: used to to allow timeouts after 15s
 
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
 - **Clear All Button +2 points**: I added a clear all button which required a little bit of finesse with the deleteMany query. (delete by username, but avoid the username password entry)
+- **Light House**: 100% on lighthouse
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 

@@ -2,6 +2,8 @@ const express = require('express'),
   cookie = require('cookie-session'),
   hbs = require('express-handlebars').engine,
   cookieParser = require('cookie-parser'),
+  timeout = require('connect-timeout'),
+  helmet = require('helmet'),
   app = express()
 app.engine('handlebars', hbs({
   layoutsDir: __dirname + '/views/layouts',
@@ -14,8 +16,9 @@ var path = require('path');
 
 app.set('view engine', 'handlebars')
 
+app.use(helmet())
 
-
+app.use(timeout('15s'));
 
 const mongodb= require('mongodb');
 const uri = "mongodb+srv://shanestevenz:creeper101@cluster0.dsec9fr.mongodb.net/?retryWrites=true&w=majority";
