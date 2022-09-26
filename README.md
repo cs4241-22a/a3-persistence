@@ -1,6 +1,10 @@
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
+Project Link
+---
+Link: https://a3-hao-chen.glitch.me/  
+
 Baseline Requirements
 ---
 
