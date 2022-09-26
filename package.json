@@ -13,6 +13,7 @@
     "mime": "3.0.0",
     "mongodb": "4.10.0",
     "passport": "0.6.0",
-    "passport-github2": "0.1.12"
+    "passport-github2": "0.1.12",
+    "session": "0.1.0"
   }
 }
