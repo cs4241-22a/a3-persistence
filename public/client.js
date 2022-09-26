@@ -57,7 +57,7 @@ const remove = function( e ) {
     e.preventDefault()
 
     const climbName = document.querySelector( '#removeName' ),
-        json = { nameToRemove: name.value },
+        json = { climbName: name.value },
         body = JSON.stringify( json )
 
     climbName.value = ''
