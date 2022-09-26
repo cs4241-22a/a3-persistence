@@ -29,7 +29,8 @@
 
 ## Technical Achievements 
 - username and passsword with dummy account (OAuth authetication), Username: 123456789 Password: 12345 (10 points)
-- Hosted my site on Heroku (5 points)
+- Hosted my site on Heroku. I liked it, very straight forward, linked it with Github account and had no issues. 
+- in my opinion Glitch was so much slower than Heroku. (5 points)
 
 ### Design/Evaluation Achievements 
 - The CRAP Principles (5 points)
