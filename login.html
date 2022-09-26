@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="My Webware A22 a3-persistence project.">
+  </head>
+  <body id = "MyText">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <title> CS4241 Assignment 3</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <h1> Welcome to YourSpace!</h1>
+    <img src="https://cdn.glitch.global/b2875589-c270-4f95-b898-af684c9b4aee/yourspace.png?v=1663807459637"
+         alt="picture of the myspace logo crossed out with a [']your['] instead of [']my[']"
+         width="256"
+         height="144"/>
+    <h2></h2>
+    <h3> Because it's your space, not mine.</h3>
+    <p> Welcome to the #1 place to log your least favorite music!</p>
+    <p>Try logging in with github below:</p>
+    <a class="btn btn-default" role="button" href="/OAuth/github"> Log in with Github</a>
+  </body>
+  <script>
+    
+    let theBody = document.getElementById("myText");
+    let doColor = setInterval(setColor(), 1000);
+    
+    function setColor() {
+      theBody.style.backgroundColor = rgb(4, 52, 155);
+    }
+  </script>
+</html>

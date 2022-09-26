@@ -1,0 +1,31 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "express": "^4.18.1",
+    "mime": "^2.4.4",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.1",
+    "passport": "^0.6.0",
+    "passport-github": "^1.1.0",
+    "connect-ensure-login": "^0.1.1"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "placeholder"
+  ]
+}

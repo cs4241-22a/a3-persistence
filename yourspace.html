@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comic+Neue:wght@700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body id="myText">
+    <img src="https://cdn.glitch.global/b2875589-c270-4f95-b898-af684c9b4aee/yourspace.png?v=1663807459637" />
+    <h1>Welcome to YourSpace!</h1>
+    <h3>Because it's your space, not mine.</h3>
+    <p>Welcome to the #1 place to log your least favorite music!</p>
+    <p>Enter your least favorite song here:.</p>
+    <form action="">
+      <input type="text" id="username" placeholder="your name here"/>
+      <input type="text" id="worstSong" placeholder="the worst song you've ever heard" />
+      <button>submit</button>
+    </form>
+    
+    <table id="musicTable"></table>
+    
+  </body>
+  <script>
+    let theBody = document.getElementById("myText");
+
+    const submit = function (e) {
+      // prevent default form action from being carried out
+      e.preventDefault();
+
+      let username = document.querySelector("#username")
+      let worstSong = document.querySelector("#worstSong")
+        json = { username: username.value, worstSong: worstSong.value },
+        body = JSON.stringify(json);
+
+      fetch("/submit", {
+        method: "POST",
+        body,
+      }).then(async function (response) {
+        // do something with the reponse
+        let newTable = await response.json()
+        reloadPage(newTable);
+        console.log("new table received");
+      });
+
+      return false;
+    };
+
+    function reloadPage(newTable) {
+      let myTable = document.getElementById("musicTable")
+      myTable.innerHTML = ""
+
+      newTable.forEach((element, index) => {
+        myTable.innerHTML +=
+          "<tr><td>" + element.username + "</td><td>" + element.music + "</td><td>"
+      })
+    }
+
+    window.onload = function () {
+      const button = document.querySelector("button");
+      button.onclick = submit;
+    };
+
+  </script>
+</html>
