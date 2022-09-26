@@ -1,8 +1,7 @@
 const express = require('express'),
       mongodb = require('mongodb'),
       cookieSession = require('cookie-session'),
-      path = require('path'),
-      https = require("https"),
+      path = require('path')
       app = express(),
       passport = require('passport'),
       compression = require('compression'),
@@ -151,12 +150,6 @@ app.post('/api/updatereminder', checkAuth, async (req, res) => {
 })
 //////////////////////////////////////////////////
 
-/*app.listen(process.env.PORT || 3000, (e) => {
+app.listen(process.env.PORT || 3000, (e) => {
   console.log('started up server')
-})*/
-
-https
-  .createServer(app)
-  .listen(3000, ()=>{
-    console.log('server is runing at port 3000')
-  })
+})
