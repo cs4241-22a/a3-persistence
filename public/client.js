@@ -60,6 +60,8 @@ const remove = function( e ) {
         json = { climbName: climbName.value },
         body = JSON.stringify( json )
 
+    console.log('calling remove climb name with' + climbName)
+
     climbName.value = ''
 
     fetch( '/removeClimb', {
