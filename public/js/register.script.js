@@ -22,7 +22,7 @@ const submit = function(event){
 			window.alert('Could not create user')
 		}
 		else
-			window.location.href= "http://localhost:3000/login"
+			window.location.href= "https://a3-greg-klimov.glitch.me/login"
 	})
 }
 

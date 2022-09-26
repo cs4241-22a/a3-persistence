@@ -63,7 +63,7 @@ const submit = function( e ) {
 			return response.json()
 		}
 		else{
-			window.location.replace("http://localhost:3000/login")
+			window.location.replace("https://a3-greg-klimov.glitch.me/login")
 			return []
 		}
     }).then(function(appdata) {
@@ -146,7 +146,7 @@ const submit = function( e ) {
   
   const logout = function(){
 	window.localStorage.removeItem('username');
-	window.location.href= "http://localhost:3000/login"
+	window.location.href= "https://a3-greg-klimov.glitch.me/login"
   }
   
   const cancel = function( e ) {
@@ -183,7 +183,7 @@ const submit = function( e ) {
 	 username = window.localStorage.getItem('username')
 	 if(username === "" || username === null){
 		console.log(username + " user not found")
-		window.location.href= "http://localhost:3000/login"
+		window.location.href= "https://a3-greg-klimov.glitch.me/login"
 		return
 	 }
 	 console.log("user: "  + username)
@@ -240,7 +240,7 @@ const submit = function( e ) {
 		}
 	
 	window.onbeforeunload = function(){
-		window.location.href= "http://localhost:3000/logout"
+		window.location.href= "https://a3-greg-klimov.glitch.me/logout"
 		
 	};
 		

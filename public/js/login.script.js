@@ -17,7 +17,7 @@ const submit = function(event){
 		}
 		else{
 			window.localStorage.setItem('username', name)
-			window.location.replace("http://localhost:3000/home")
+			window.location.replace("https://a3-greg-klimov.glitch.me/home")
 		}
 	})
 }
