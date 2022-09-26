@@ -16,7 +16,7 @@ app.use( bodyp.json() );
 app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
 app.use( passport.initialize() );
 app.use( passport.session() );
-app.use( express.static( path.join( __dirname + '../public' ) ) );
+app.use( express.static( path.join( __dirname + '/public' ) ) );
 app.use( express.static( 'views' ) );
 passport.serializeUser(   function( user, done ) { done( null, user ); } );
 passport.deserializeUser( function(  obj, done ) { done( null,  obj ); } );
