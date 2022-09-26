@@ -39,8 +39,8 @@ passport.use(new GitHubStrategy({
     process.nextTick(function ()
     {
       return collection.updateOne( { githubID:profile.id }, { $setOnInsert: { githubID:profile.id, items:[] } }, { upsert: true } )
-      .then(() => { return collection.findOne( { githubID: profile.id } ) } )
-      .then((result) => { return done(null, result._id) } )
+      .then( () => { return collection.findOne( { githubID: profile.id } ) } )
+      .then( ( result ) => { return done( null, result._id ) } )
     });
     //User.findOrCreate({ githubId: profile.id },
     //function(err, user) { return done(err, user); });
