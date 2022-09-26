@@ -81,7 +81,7 @@ const showData = function() {
     fetch( '/show', {
         method:'GET'
     })
-        .then( response => response.json())
+        .then( response => response.json()[0].climbs)
         .then( json => initTable(json))
 
     return false
@@ -112,7 +112,7 @@ const initTable = function (json) {
 
 
 // Add some text to the new cells:
-        cell1.innerHTML = x.name;
+        cell1.innerHTML = x.climbName;
         cell2.innerHTML = x.grade;
         cell3.innerHTML = x.height;
     })
