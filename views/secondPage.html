@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="Jacquelyn Lopez" content="CS4241 Assignment 3" />
+    <link rel="stylesheet" href="https://unpkg.com/@blaze/css@x.x.x/dist/blaze/blaze.css" />
+    <link rel="stylesheet" href="style.css" />
+   
+    <script type="module" src="https://unpkg.com/@blaze/atoms@x.x.x/dist/blaze-atoms/blaze-atoms.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/@blaze/atoms@x.x.x/dist/blaze-atoms/blaze-atoms.js" ></script>
+    <script src="node_modules/@blaze/atoms/dist/blaze-atoms.js"></script> <script src="/script.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet"/>
+    
+  </head>
+   <body style="background-color: #A892D6;">
+   <body>
+    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/artists-2-1626385417.jpg" alt="Art Image" width="100%" height="100%" class= "center">
+
+    <h1 class="c-heading u-super" align="center">Welcome</h1>
+    <div class="u-text--quiet" align="center">Please register below for your visiting day</div>
+
+    <br />
+    <br />
+
+    <div class="o-grid o-grid--demo">
+      <div class="o-grid__cell">
+        <div class="o-grid-text">
+          <form > <input type="datetime-local" id="appointment" value=""> <button>submit</button></form>
+          <br />
+          <p class="c-paragraph"> Name </p>
+          <form action=""> <input type="text" id="name" /> </form>
+          <br />
+          <p class="c-paragraph"> Student ID </p>
+          <form action=""> <input type="text" id="studentID" /> </form>
+        </div>
+      </div>
+    </div>
+     
+    <br />
+    <br />
+
+
+    <button id="button" button type="button" class="c-button"> submit my registeration! </button>
+
+    <br />
+    <br />
+    
+    <h2> Registered Visitors </h2>
+    <table id = "AppointmentTable"> 
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Appointment Time</th>
+        <th>Visit Time Left</th>
+      </tr>
+    </table>
+  </body>
+</html>
