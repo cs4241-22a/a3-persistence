@@ -1,0 +1,41 @@
+html, body {
+  padding: 30px;
+  font-size: 14px;
+}
+h1, h2, h4 {
+  text-align: center;
+}
+h2 {
+  padding: 5px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.box {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.box li {
+  list-style: none;
+  list-style-position: inside;
+  padding: 0px;
+  margin: 0px;
+}
+.column-label {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+.add-form,
+.update-form,
+.delete-form {
+  display: flex;
+  justify-content: center;
+}
+.btn-center {
+  text-align: center;
+}
+
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Your Lists - QuickList (A3)</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A grocery list tool called QuickList that lets a user add, update, and delete items from their list.">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="#" />
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <div id="body-box">
+      <div class="header">
+        <h1>QuickList</h1>
+      </div>
+      <h2>
+        Current User: {{{user}}}
+      </h2>
+
+      <h2>Current List</h2>
+      <div class="container">
+        <div class="box">
+          <br><br>
+          <ul id="checkboxes"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Item</p>
+          <ul id="items"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Quantity</p>
+          <ul id="qtys"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Units</p>
+          <ul id="units"></ul>
+        </div>
+        <div class="box">
+          <p class="column-label">Brand</p>
+          <ul id="brands"></ul>
+        </div>
+      </div>
+      <br />
+
+      <h2>Add List Item</h2>
+      <div class="add-form">
+        <form>
+          <table>
+            <tr>
+              <th><label for="item">Item</label></th>
+              <th><label for="qty">Quantity</label></th>
+              <th><label for="brand">Brand (optional)</label></th>
+            </tr>
+            <tr>
+              <td><input type="text" id="item" /></td>
+              <td><input type="text" id="qty" /></td>
+              <td><input type="text" id="brand" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <br />
+      <div class="btn-center" id="add-button"><button>add</button></div>
+      <br />
+      
+      <h2>Update List Item</h2>
+      <div class="update-form">
+        <form>
+          <table>
+            <tr>
+              <th><label for="item-u">Item</label></th>
+              <th><label for="qty-u">Quantity</label></th>
+              <th><label for="brand-u">Brand (optional)</label></th>
+            </tr>
+            <tr>
+              <td><input type="text" id="item-u" /></td>
+              <td><input type="text" id="qty-u" /></td>
+              <td><input type="text" id="brand-u" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <br />
+      <div class="btn-center" id="update-button"><button>update</button></div>
+      <br />
+
+      <h2>Delete List Item</h2>
+      <div class="delete-form">
+        <label for="deleted-item">Name of item to be deleted: </label>&nbsp;
+        <input type="text" id="deleted-item" /> &nbsp;
+        <button id="delete-button">delete</button>
+      </div>
+    </div>
+  </body>
+</html>
