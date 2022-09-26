@@ -7,7 +7,7 @@ const submit = function (e) {
   e.preventDefault();
 
   let name = document.querySelector("#name");
-  let ratname = document.querySelector("#ratname");
+  let ratname = document.querySelector("#ratName");
 
   let json = {
     name: name.value,
@@ -19,17 +19,21 @@ const submit = function (e) {
   let body = JSON.stringify(json);
   fetch("/submit", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body,
   }).then(async function (response) {
-    let newData = await response.json();
-    refreshInfo(ratName, newData);
-    console.log(newData);
+    //console.log(response);
+    //let newData = await response.json();
+    //console.log("2");
+    refreshInfo(ratName);
   });
 
   return false;
 };
 
-function refreshInfo(ratName, data) {
+function refreshInfo(ratName) {
   const rats = document.getElementById("rats");
   const adjes = ["funky", "furry", "spunky", "based", "wiggly", "rabid", "feral", "amphibious", "moist", "scrungy", "filthy", "bronchiatic", "clueless", "ditsy", "arthritic", "useless", "cute", "decorative", "assiduous", "gothic", "postmodern", "fully automatic", "scared", "skittish", "large", "tiny", "strategic", "colorblind", "gaslighting", "gatekeeping", "cringe", "sus", "rancid", "bedazzled", "confused", "sticky", "litigious", "stinky", "nutty"]
   let adje = adjes[Math.floor(Math.random()*adjes.length)];
@@ -47,9 +51,14 @@ function refreshInfo(ratName, data) {
         <p>Here's what other people named this rat:</p>
     `;
 
-  data.forEach((element, index) => {
-    html += "<p class='data' style='display:inline-block' onclick='remove(this)'>" + element.ratname + ", by " + element.name + "</p>";
-  });
+  fetch("/data", {
+    method: "GET",
+  }).then(async (response) => {
+    const data = await response.json();
+    data.forEach((element, index) => {
+      html += "<p class='data' style='display:inline-block' onclick='remove(this)'>" + element.ratname + ", by " + element.name + "</p>";
+    });
+  })
   html += "</div>"
   rats.innerHTML = html;
 }
