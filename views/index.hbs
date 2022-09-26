@@ -81,7 +81,7 @@
             <td>{{{playerLoss}}}</td>
         </tr>
     </table>
-    <p><strong>Action --- edit current username</strong></p>
+    <p><strong>Action --- Edit current username</strong></p>
     <div>
         {{#if error}}
         <p class="err-msg">Username already exists</p>
@@ -94,6 +94,12 @@
         <input type='text' id='newUsername' name="newUsername" placeholder="New Username..." required>
         <button type="submit">update</button>
     </form>
+    <p><strong>Action --- Delete current user</strong></p>
+    <form>
+        <label for="currentUser_D">Current User</label>
+        <input type='text' id="currentUser_D" value={{{playerName}}} disabled>
+        <button onclick="handleDelete()">delete</button>
+    </form>
     <div class="gameContainer">
         <!-- <iframe src="game.html" style="border:none;" title="Game"></iframe> -->
         <section class="game">
@@ -103,12 +109,12 @@
             <!--Display Score of player and computer -->
             <div class="score">
                 <div class="playerScore">
-                    <h2>Player</h2>
+                    <h2 style="color: #cac18c ;">Player</h2>
                     <p class="p-count count">0</p>
 
                 </div>
                 <div class="computerScore">
-                    <h2>Computer</h2>
+                    <h2 style="color: #cac18c ;">Computer</h2>
                     <p class="c-count count">0</p>
 
                 </div>

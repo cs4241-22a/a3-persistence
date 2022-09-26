@@ -145,6 +145,24 @@ const game = () => {
 // Calling the game function
 game();
 
+// handle deletion
+const handleDelete =  function (e) {
+    let text = "Are you sure you want to delete the current user?";
+    if (confirm(text)) {
+        // send request
+        const json = { delete: "Confirmed" },
+            body = JSON.stringify(json)
+
+        fetch('/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body
+        })
+    } else {
+        e.preventDefault()
+    }
+}
+
 // called when win
 const handleGameWin = function (e) {
     // prevent default form action from being carried out

@@ -114,8 +114,8 @@ app.get('/', isLoggedIn, (req, res) => {
   console.log("Current Win: " + playerWin);
   console.log("Current Loss: " + playerLoss);
   const response = {
-    title: "Simple RPS", 
-    error: req.query.error, 
+    title: "Simple RPS",
+    error: req.query.error,
     playerName: currentLogin,
     playerWin: playerWin,
     playerLoss: playerLoss
@@ -219,10 +219,24 @@ app.post('/endGame', async (req, res) => {
     playerLoss = doc.loss;
   }
   console.log("Directing...");
-  // after update redirect back to game page
-  // res.redirect('/');
+
+  // end with response
   res.end("Result proccess is finished!");
 })
+
+app.post('/delete', async (req, res) => {
+  // delete user
+  User.deleteOne({ username: currentLogin })
+    .then(function () {
+      console.log("User " + currentLogin + " is deleted"); // success
+    }).catch(function (error) {
+      console.log(error); // Failure
+    });
+
+  // after deletion redirect back to login
+  res.redirect('/login')
+
+});
 
 // check connection and port
 mongoose.connection.once('open', () => {
