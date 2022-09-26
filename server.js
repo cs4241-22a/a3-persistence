@@ -5,8 +5,11 @@ const app = express()
 const mongoose = require('mongoose')
 const connectDB = require('./config/dbConn')
 const UserRouter = require('./api/User')
+const UserDataRouter = require('./api/UserData')
+const lazyDebug = require('./middleware/lazydebug')
 const PORT = process.env.PORT
 
+//use ejs
 app.set('view engine', 'ejs')
 
 // bodyParser
@@ -14,15 +17,24 @@ const bodyParser = require('express').json;
 app.use(bodyParser())
 
 // routes
+// signin
 app.get('/', (req, res) => {
-    res.render('index', { text: "Hi, I'm Gabe" })
+    res.render('index')
 })
 
+//signup
 app.get('/signup', (req, res) => {
     res.render('signup')
 })
 
 app.use('/user', UserRouter)
+
+app.use('/todo', UserDataRouter)
+
+app.get('/profile/:id', lazyDebug, (req, res) => {
+    res.render('profile', { username: req.params.id })
+})
+
 
 //connect to DB
 connectDB();

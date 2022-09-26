@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const userRouter = express.Router()
 
 
 //mongodb user model
@@ -10,12 +10,11 @@ const argon2 = require('argon2')
 
 //Routes
 // Signup
-router.post('/signup', (req, res) => {
-    let { username, password, data } = req.body;
-    console.log(req.body)
+userRouter.post('/signup', (req, res) => {
+
+    let { username, password, userdata } = req.body;
     username = username.trim()
     password = password.trim()
-    userData = data
     // Checks for valid user/pass
     if (username == "" || password == "") { //make sure fields aren't empty
         res.json({
@@ -49,7 +48,7 @@ router.post('/signup', (req, res) => {
                     const newUser = new User({ //create a new user (mongoose.model)
                         username,
                         password: hashedPassword,
-                        userData
+                        userdata
                     })
 
                     newUser.save().then(result => { //saves to database using mongoose
@@ -82,8 +81,7 @@ router.post('/signup', (req, res) => {
 })
 
 // Signin
-router.post('/signin', (req, res) => {
-    console.log(req.body)
+userRouter.post('/signin', (req, res) => {
     let { username, password } = req.body;
     username = username.trim()
     password = password.trim()
@@ -104,18 +102,20 @@ router.post('/signin', (req, res) => {
                             if (result) {
                                 res.json({
                                     status: "SUCCESS",
-                                    message: "Signin successful",
-                                    data: data
+                                    message: "Logged in",
+                                    username: data[0].username,
+                                    //userpass: data[0].password,
+                                    data: result
                                 })
                             } else {
-                                console.log("invalid password")
+                                console.error("invalid password")
                                 res.json({
                                     status: "FAILED",
                                     message: "Invalid password entered!"
                                 })
                             }
                         }).catch(e => {
-                            console.log("error comparing password")
+                            console.error("error comparing password")
                             res.json({
                                 status: "FAILED",
                                 message: "An error occured while comparing passwords"
@@ -123,7 +123,7 @@ router.post('/signin', (req, res) => {
 
                         })
                 } else {
-                    console.log('invalid credentials')
+                    console.error('invalid credentials')
                     res.json({
                         status: "FAILED",
                         message: "Invalid credentials entered"
@@ -139,4 +139,4 @@ router.post('/signin', (req, res) => {
     }
 })
 
-module.exports = router;
+module.exports = userRouter;

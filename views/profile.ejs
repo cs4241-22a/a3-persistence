@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4285f4">
+    <meta name="description" content="Todo signup page">
+    <meta name="keywords" content="todo, express, mongo">
+    <title>Your Todo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="h-50 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="m-4">Welcome to
+            <span id="span1" style="color:darkmagenta">
+                <%=locals.username%>
+            </span>
+            's TODO List!
+        </h1>
+        <div class="w-75" style="min-width: 300px;">
+            <form id="todoForm" onkeydown="return event.key != 'Enter';" data-username=<%=locals.username%>>
+                <div class="form-group">
+                    <label for="inputTitle" class="h6 mb-1 mt-2">Title</label>
+                    <input type="text" class="form-control w-25" id="inputTitle" aria-describedby="todoTitle"
+                        placeholder="TODO title">
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription" class="h6 mb-1 mt-2">Description</label>
+                    <input type="text" class="form-control" id="inputDescription" aria-describedby="todoDescription"
+                        placeholder="TODO Description">
+                </div>
+                <button class="btn btn-primary btn-block mb-3 mt-2">Create</button>
+                <small class="text-muted" id="todomsg">
+
+                </small>
+            </form>
+            <form id="editTodoForm" onkeydown="return event.key != 'Enter';">
+                <div class="form-group">
+                    <label for="editDescription">Edit Description</label>
+                    <input type="text" class="form-control" id="editDescription" aria-describedby="emailHelp"
+                        placeholder="edit description">
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            </form>
+
+            <table id="dataTable" class="table mt-5 text-center"> </table>
+        </div>
+
+    </div>
+
+    <style>
+        .invisible {
+            display: none;
+        }
+    </style>
+    <script>
+        let todoList = []
+        const todoForm = document.getElementById('todoForm')
+        const editTodoForm = document.getElementById('editTodoForm')
+        editTodoForm.classList.add('invisible')
+
+        const username = todoForm.dataset.username
+
+        const todoMsg = document.getElementById('todomsg')
+
+        // get user data
+        const getData = async (username_) => {
+            const response = await fetch('/todo/getTodo', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username_ })
+            })
+            const responseJSON = await response.json()
+            todoMsg.innerHTML = responseJSON.message
+            todoList = JSON.parse(responseJSON.data)
+            generateTable(todoList)
+        }
+        // delete some user data
+        const deleteTodo = async (title_) => {
+            const response = await fetch('/todo/deleteTodo', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title: title_, username: username })
+            })
+
+            const responseJSON = await response.json()
+            todoMsg.innerHTML = responseJSON.message
+            todoList = JSON.parse(responseJSON.todoList)
+            generateTable(todoList)
+        }
+        // form handler
+        todoForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const span1 = document.getElementById('span1')
+
+            const newTodoData = {
+                "title": todoForm.elements['inputTitle'].value,
+                "description": todoForm.elements['inputDescription'].value,
+                "username": username
+            }
+            // add todo
+            if (!(newTodoData.title == '' || newTodoData.description == '')) {
+                const response = await fetch("/todo/addTodo", {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newTodoData)
+                })
+                const responseJSON = await response.json()
+                if (responseJSON.status == 'SUCCESS') {
+                    //todoList = JSON.parse(responseJSON.data)
+                    todoList = JSON.parse(responseJSON.todoList)
+                    todoMsg.innerHTML = responseJSON.message.toString()
+                    generateTable(todoList)
+                }
+            }
+        })
+        // editForm handler
+        editTodoForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const editTodoData = {
+                "title": editTodoForm.dataset.title,
+                "description": editTodoForm.elements['editDescription'].value,
+                "username": username
+            }
+
+            const response = await fetch('/todo/editTodo', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editTodoData)
+            })
+            const responseJSON = await response.json()
+            todoList = JSON.parse(responseJSON.todoList)
+            todoMsg.innerHTML = responseJSON.message.toString()
+            editTodoForm.classList.add('invisible')
+            generateTable(todoList)
+        })
+
+        // table rendering
+        const generateTable = (dataJSON) => {
+
+            const generateTable = (dataJSON)
+            const tableElement = document.getElementById('dataTable')
+            tableElement.innerHTML = ""
+            const tableHeadTR = document.createElement("thead")
+            tableHeadTR.setAttribute("id", "tableheader")
+            tableHeadTR.setAttribute("class", "thead-dark")
+
+            tableHeadTR.innerHTML = `<tr><th scope="col">#</th><th scope="col">Title</th><th scope="col">Description</th><th scope="col">Edit</th><th scope="col">Delete</th></tr > `
+            tableElement.appendChild(tableHeadTR)
+
+            dataJSON.map((val, index) => {
+                const tableRowElement = document.createElement("tr")
+                tableRowElement.innerHTML = ` <tr>
+                                    <th scope="row">${index}</th>
+                                    <td>${val.title}</td>
+                                    <td>${val.description}</td>
+                                    <td><button class='btn btn-warning' id="btnEdit" data-title="${val.title}" data-description="${val.description}">Edit</button></td>
+                                    <td><button class='btn btn-danger' id="btnDelete" data-title="${val.title}">delete</button></td></tr>`
+                tableRowElement.dataset.ind = index
+
+
+
+                const tableBodyElement = document.createElement("tbody")
+                tableBodyElement.appendChild(tableRowElement)
+                tableElement.appendChild(tableBodyElement)
+            })
+            document.querySelectorAll('#btnDelete').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    deleteTodo(btn.dataset.title)
+                })
+            })
+            document.querySelectorAll('#btnEdit').forEach(btn => {
+
+                btn.addEventListener('click', () => {
+                    editTodoForm.dataset.title = btn.dataset.title
+                    editTodoForm.dataset.description = btn.dataset.description
+                    editTodoForm.querySelector('#editDescription').value = editTodoForm.dataset.description.toString()
+                    editTodoForm.classList.remove('invisible')
+                })
+            })
+        }
+
+        getData(username)
+        generateTable(todoList)
+
+    </script>
+</body>
+
+
+</html>
