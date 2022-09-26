@@ -26,15 +26,13 @@ login_btn.addEventListener("click", (event) => {
   })
     .then((response) => response.json())
     .then((json) => {
-      console.log("logging in! client")
-      if(json.code == 0){
-        console.log("password checked and correct")
+      console.log("logging in! client");
+      if (json.code == 0) {
+        console.log("password checked and correct");
         window.location.href = "index.html";
+      } else {
+        window.alert("Wrong password");
       }
-    else{
-      window.alert("Wrong password")
-    }
-        
     });
 });
 
@@ -53,9 +51,9 @@ signup_btn.addEventListener("click", (event) => {
   })
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
+      console.log(json);
       if (json.code == 1) {
-        window.alert("user exists ")
+        window.alert("user exists ");
       } else {
         window.alert("user created");
         window.location.href = "index.html";

@@ -10,6 +10,15 @@ const entry_form = document.querySelector("form");
 const add_btn = document.getElementById("add_entry");
 const logout_btn = document.getElementById("logout");
 
+add_btn.addEventListener("click", (event) => {
+  event.preventDefault();})
+                         
+logout_btn.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log("logging out")
+   window.location.href = "login.html"})
+
+
 // //Listening for button click
 // login_btn.addEventListener("click", login_func);
 // signup_btn.addEventListener("click", signup_func);
