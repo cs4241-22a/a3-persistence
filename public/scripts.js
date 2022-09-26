@@ -67,7 +67,7 @@ function updatercanceller( _movID )
         title  = element.title,
         genre  = element.genre,
          year  = element.year,
-       newRow  = '<tr id = "' + id + '">';
+       newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
        newRow += '<th>' + year + '</th>';
@@ -77,6 +77,7 @@ function updatercanceller( _movID )
     tempElement.innerHTML = newRow;
     tempElement = null;
     tempID = null;
+    
 };
 function updatersubmitter( _movID )
 {
