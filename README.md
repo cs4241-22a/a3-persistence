@@ -2,8 +2,9 @@ gabriel camacho
 
 ## Secure Todo List!
 
-github: https://github.com/gabestuf/a3-persistence
 heroku link: https://powerful-sea-37997.herokuapp.com/
+
+Login and create a list of todo items that only you can see! Very exciting never been done before. Most challenges included figuring out how I wanted to render the data and how to communicate with mongo via mongoose. I chose to do authentication my self and it's not the most secure but it works. I used bootstrap because it's well documented and I've used it before.
 
 middleware used:
 lazydebug, a middleware function I wrote that console logs whereever you call it
@@ -13,16 +14,6 @@ expressRouter, for more routing options
 ejs view engine for some server side rendering
 
 CSS Template: Bootstrap
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for _one_ (and one alone) middleware please
-  add a little more detail about what it does.
 
 ## Technical Achievements
 
