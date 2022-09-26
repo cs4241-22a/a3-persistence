@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Title</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Create your own pokemon and check its weaknesses and resistances!">
         <link rel="stylesheet" href="uikit-3.15.9/css/uikit.min.css" />
         <link rel="stylesheet" href="style.css" />
         <script src="uikit-3.15.9/js/uikit.min.js"></script>
         <script src="uikit-3.15.9/js/uikit-icons.min.js"></script>
     </head>
     <body>
-      <section class="uk-section">
+      <section class="uk-section-small">
         <header class="uk-flex uk-flex-around">
           <img class="uk-height-small uk-align-left" data-src="images/pikachu.jpg" alt="Pikachu" id="pikachu" uk-img>
           <h1 class="uk-heading-medium uk-heading-divider">Create your own Pokemon!</h1>
@@ -18,7 +19,31 @@
         </header>
       </section>
 
-      <section class="uk-section uk-width-large uk-align-center">
+      <section class="uk-section-small uk-width-large uk-align-center">
+        <a class="uk-button uk-button-default uk-button-primary" href="#modal-overflow" uk-toggle>How to use this app</a>
+
+      <div id="modal-overflow" uk-modal>
+        <div class="uk-modal-dialog">
+
+          <button class="uk-modal-close-default" type="button" uk-close></button>
+
+          <div class="uk-modal-header">
+            <h2 class="uk-modal-title">How to use this application</h2>
+          </div>
+
+          <div class="uk-modal-body" uk-overflow-auto>
+            <p>Create a pokemon by submitting the form below</p>
+            <p>Edit a pokemon by submitting the form with the same name as the pokemon you want to edit</p>
+            <p>Delete a pokemon by clicking it in the table below</p>
+          </div>
+
+          <div class="uk-modal-footer uk-text-right">
+              <button class="uk-button uk-button-primary uk-modal-close" type="button">Okay</button>
+          </div>
+
+        </div>
+      </div>
+
         <form class="uk-form-horizontal" id="form">
 
           <label class="uk-form-label" for="name">What is your Pokemon's name?</label>     

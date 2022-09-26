@@ -1,5 +1,6 @@
 const express = require('express')
 const cookie = require('cookie-session')
+const helmet = require('helmet')
 const mongodb = require('mongodb')
 const app = express()
 require('dotenv').config()
@@ -8,13 +9,17 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended:true }) )
 app.use(express.json())
 
+//Cookie
 app.use( cookie({
     name: 'session',
     keys: ['key1', 'key2'],
   }))
 
+//Helmet
+app.use(helmet())
+
 app.use( (req,res,next) => {
-    if( collection_login !== null ) {
+    if( collection_login !== null && collection_pokemon !== null) {
       next()
     }else{
       res.status( 503 ).send()
@@ -67,14 +72,12 @@ app.use( function( req,res,next) {
 })
 
 app.post( '/submit', (req, res) => {
-    const user = req.session.user
     const pokemon = addTypeChart(req.body)
     pokemon.user = req.session.user
-    collection_pokemon.insertOne(pokemon)
+    collection_pokemon.replaceOne({user: req.session.user, name: pokemon.name}, pokemon, {upsert: true})
 })
 
 app.delete('/delete', (req, res) => {
-    const user = req.session.user
     collection_pokemon.deleteOne( { user: req.session.user, name: req.body.name })
 })
 
