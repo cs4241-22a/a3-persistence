@@ -1,0 +1,49 @@
+/*Style your own assignment! This is fun! */
+
+body{
+  font-family: 'Happy Monkey', cursive;
+  display: grid;
+  grid-template-rows:  5em 5em 7em 1fr;
+  grid-template-columns: 20% 60% 20%;
+  background-color: #b3ffb3
+}
+
+h1{
+  grid-area: 1 / 2/ span 1 / span 3;
+}
+
+.text{
+  grid-area: 2 / 2/ 2 / 2
+}
+
+form{
+  grid-area: 3/ 2 / span 1 / span 1
+}
+
+button{
+  font-family: 'Happy Monkey', cursive;
+  border-radius: 4px;
+  background-color: navy;
+  color: #EEEEEE;
+  border-color: #EEEEEE
+}
+
+button:hover {
+  background-color: #1e85ae;
+  
+}
+
+table{
+/*   align-items: center; */
+}
+
+#heldData{
+  background-color: #66c1e5;
+  border-radius: 4px;
+  grid-area: 4/ 2/ span 1 / span 1
+}
+
+.inputs{
+  color: navy;  
+}
+
