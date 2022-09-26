@@ -1,39 +1,32 @@
 ## To Do List
 Eri Kim
 
-https://a2-iekimi.glitch.me
+https://a3-eri-kim.glitch.me/
 
-This web application can serve as a To Do List. 
-Using the CSS flexbox for the layout, there are three fields where you can add, a todo item, its due date, and a tag. 
-When a todo item is created, the table below gets updated with a new row that has five different fields: Status, Todo, Due, Priority, and Tag.
-- The priority column is the derived field that is computed based on the given due date and current date. Depending on how many days you have until the due date, the priority would display red, yellow, or green.
-- The tag column has five options available, and they are color-coded.
-- Once you complete the todo item, you can click the "Done" button to remove the todo item/row.
+Goal: This web application can serve as a To Do List. 
+Challenges: I faced difficulties when trying to redirect to a login page if user is not authenticated. It took a while to debug; however, it is fixed now and the website is working as expected.
+Authentication Strategy: I used OAuth authentication via the GitHub strategy using passport.js.
+CSS Framework: I used Bootstrap because I am most familiar with it and it is easy to implement (class="mt-4 align-items-center etc...").
+Middleware packages:
+- passport: Allows OAuth, and in this project, GitHub strategy
+- express-session : Creates and manages a session middleware
+- compression: Compresses response bodies for all request that traverse through the middleware
+- serve-static: Serves files from within a given root directory
+- ensureAuthenticated: Ensures that the user is authenticated, if not, it redirects you to the login page
 
-The page is validated, and met all the requirements as follows:
-- Server maintains a dataset with 4 fields related to the application.
-- The table shows the dataset residing in the server's memory.
-- There is a form functitonality which allows a user to add or delete data items residing in the server's memory.
-- When there is new data, the server adds a derived field, which is computed based on the field already existing in the row.
-- Used form.
-- The page displays all data currently available on the server using a table tag
-- The page is validated.
-- Used element, id, and class CSS selectors.
-- Used CSS flexbox for layout.
-- Used font "Baloo 2".
-
+The server was created using Express.
+The Results functionality was implemented so that all data that is associated with a logged in user is displayed.
+The Form/Entry functionality was implemented so that users can add, modify, and delete data items associated with their github account.
+Both pages - index.html and login.html - have at least 90% on the Performance, Best Practices, Accessibility, and SEO.
 
 ## Technical Achievements
-- **Tech Achievement 1**: This web application is a single-page app that provides a form for users to create a todo item and also shows the current state of the server-side data. When a user submits a new item, the server gets the updated dataset and updates the table.
+- **Tech Achievement 1**:  I used OAuth authentication via the GitHub strategy.
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: Used the think-aloud protocol to obtain feedback on my design. 
-1. Last name: Rocha
-2. The user was not sure which tag to use if there was no tag related to the todo item she was creating. I added another tag "Ohter" after this to address this issue.
-3. N/A
-4. I would try to avoid having a lot of texts. What I noticed was that users tend to see the visuals before texts, in this case, they tried to create a todo item before reading the instructions. Also, having a label that says "due date" next to the date field would be helpful.
-- **Design Achievement 2**: Used the think-aloud protocol to obtain feedback on my design. 
-1. Last name: Theofilou
-2. The first text field had a placeholder "Add todo item" instead of "Type todo item" so she did not fill out the field when creating a new todo item. After seeing this, I changed the placeholder and added a bullet point that explains what the first text field is for.
-3. "I don't want to read. So I am just going to try things out." 
-4. I would try to use more visuals to explain the instructions instead of having texts.a
+- **Design Achievement 1**: I followed 12 tips from W3C.
+- Used headings and spacing to group related content for the bar that is used to create a todo item (textfield, datefield, and dropdown menu).
+- Included alternative text for the logo image.
+- Ensured that form elements include clearly associated labels
+- Provided sufficient contrast between foreground and background
+- Identified page language and language changes:  <html lang="en">.
+- Kept content clear and concise by writing iin short and clear sentences and avoiding the use of complex words.
