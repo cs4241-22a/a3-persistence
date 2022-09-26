@@ -1,0 +1,60 @@
+
+body{
+    text-align: center;
+    background-color: bisque;
+    font-family: Merriweather
+}
+
+form
+{
+    background-color: yellowgreen;
+    padding: 5%;
+}
+
+label
+{
+    font-weight: bold;
+    background-color: honeydew;
+}
+
+input
+{
+    font-style: italic;
+}
+
+button
+{
+    font-weight: bold;
+}
+
+table
+{
+    background-color: teal;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+}
+
+
+tr
+{
+  color: white;
+}
+
+#firstRow
+{
+    background-color: rgb(80, 53, 53);
+}
+
+.tally
+{
+    text-decoration: underline;
+    background-color: blueviolet;
+}
+
+.flexBox
+{
+    justify-content: space-evenly;
+    flex-direction: row;
+    display: flex;
+}
