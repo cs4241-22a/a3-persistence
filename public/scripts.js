@@ -56,8 +56,9 @@ function updater( _movID, title, genre, year )
         newRow += '<th><input type="text"   value="' + title + '"></th>'
         newRow += '<th><input type="text"   value="' + genre + '"></th>'
         newRow += '<th><input type="number" value="' +  year + '"></th>'
-        newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
+        newRow += '<th></th>';
         newRow += '<th><button onclick="updatersubmiter(\'' + _movID + '\')">submit</button></th></tr>';
+        newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
     tempElement.innerHTML = newRow;
 };
 function updatercanceller( _movID )
