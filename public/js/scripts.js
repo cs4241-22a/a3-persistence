@@ -1,6 +1,33 @@
 // Add some Javascript code here, to run on the front end.
 
-console.log("Welcome to assignment 2!");
+console.log("Welcome to assignment 3!");
+
+const form1 = document.getElementById('prelogin')
+const form2 = document.getElementById('newlogin')
+
+const button2 = document.getElementById('buttonNewAcc')
+// form1.addEventListener('buttonLogin', checkUser)
+form2.addEventListener(button2, newUser)
+
+async function newUser(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('newusername').value
+    const password = document.getElementById('newpassword').value
+
+    const result = await fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username,
+            password
+        })
+    }).then((res) => res.json())
+
+    console.log(result)
+}
 // const submit = function (e) {
 //   const name = document.querySelector("#name").value;
 //   const weap = document.querySelector("#weapon").value;

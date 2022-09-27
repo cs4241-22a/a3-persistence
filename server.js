@@ -12,6 +12,7 @@ const { create } = require("domain");
 const {MongoClient} = require("mongodb");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', express.static(path.join(__dirname, 'static')))
 // app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
