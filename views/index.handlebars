@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 5.0" />
+    <meta name=description content="A to-do list that returns the estimated day of completion" />
+    <link href="/public/pico.min.css" rel = "stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wght@300&family=Kdam+Thmor+Pro&family=Plus+Jakarta+Sans:wght@500&display=swap" rel="stylesheet">
+    <h1><b>✓</b> Samara's <b>To-Do</b> List</h1>
+    <p>This application will show you a to-do list for a logged-in user.</p>
+  </head>
+  <body>
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Enter a task</li>
+      <li>Enter the due date</li>
+    </ol>
+    <h2 class="task-entry-header">Task Entry <b>✓</b></h2>
+    <p><em>Required</em> fields are in <em>blue</em> and marked with an <em>*</em></p>
+    <form action="">
+      <label for="task">Task * </label>
+      <input type='text' id='task' placeholder="Enter task here" required><br>
+      <label for="dueDate">Due Date * </label>
+      <input type='date' id='dueDate' placeholder="" min="1997-01-01" max="2050-12-31" required><br>
+      <button type="submit" id = "addTask">Add Task</button>
+    </form>
+    <hr />
+    <h2 class = "main-list"><b>To-Do</b> List <b>✓</b></h2>
+    <table id="to-do-list">
+      <thead id = "table-header">
+      </thead>
+      <tbody id = "table-body">
+        <!-- put stuff here -->
+      </tbody>
+    <script src = "/public/client.js"></script>
+  </body>
+</html>
