@@ -79,22 +79,23 @@ function updatercanceller( _movID )
 };
 function updatersubmitter( _movID )
 {
-    const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[7].children[0].value,
-                    genre: document.getElementById( _movID ).children[8].children[0].value,
-                     year: document.getElementById( _movID ).children[9].children[0].value
-                 },
-          body = JSON.stringify(json);
+    const json    = { _movID: _movID,
+                       title: document.getElementById( _movID ).children[7].children[0].value,
+                       genre: document.getElementById( _movID ).children[8].children[0].value,
+                        year: document.getElementById( _movID ).children[9].children[0].value
+                    },
+          body    = JSON.stringify(json),
+          newrow  = '<tr id = "' + _movID + '">';
+          newrow += '<th>' + json.title + '</th>';
+          newrow += '<th>' + json.genre + '</th>';
+          newrow += '<th>' + json.year  + '</th>';
+          newrow += '<th>' + zackcheck( json.title, json.genre ) + '</th>';
+          newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + json.title + '\',\'' + json.genre + '\',\'' + json.year + '\');">edit?</button></th>';
+          newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     console.log( json.title );
     console.log( body );
     console.log( document.getElementById( _movID ).children );
-    newrow  = '<tr id = "' + _movID + '">';
-    newrow += '<th>' + json.title + '</th>';
-    newrow += '<th>' + json.genre + '</th>';
-    newrow += '<th>' + json.year  + '</th>';
-    newrow += '<th>' + zackcheck( json.title, json.genre ) + '</th>';
-    newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + json.title + '\',\'' + json.genre + '\',\'' + json.year + '\');">edit?</button></th>';
-    newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
+    
     console.log( newrow );
     tempElement.innerHTML = newrow;
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
