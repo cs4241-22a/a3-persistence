@@ -73,6 +73,7 @@ app.post('/delete', checkAuth, ( req, res ) =>
 app.post('/update', checkAuth, ( req, res ) =>
 {
   let changer = { _movID: mongodb.ObjectId( req.body._movID ), title: req.body.title, genre: req.body.genre, year: req.body.year };
+  console.log(changer);
   collection.updateOne({ _id: mongodb.ObjectId( req.session.passport.user ), "items._movID":mongodb.ObjectId( req.body._movID ) },
                        { $set:  "items.$", changer })
   .then( result => res.json( result ) );
