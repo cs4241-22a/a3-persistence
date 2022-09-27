@@ -17,8 +17,6 @@ const express = require('express'),
     cookieParser = require("cookie-parser"), //Parse cookie header and populate cookie requests express middleware #5
     mongoose = require('mongoose'); //Mongoose used to provide handler for MongoDB middleware #6
 
-mongoose.connect(process.env.MONGO_DB_URI);
-
 app.use(cookieSession({
     name: "session",
     keys: [process.env.COOKEY1, process.env.COOKEY2]
@@ -28,6 +26,8 @@ app.use(cookieSession({
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 require('dotenv').config();
+
+mongoose.connect(process.env.MONGO_DB_URI);
 
 const userSchema = new mongoose.Schema({
     username: String,
