@@ -29,7 +29,7 @@ Password: 123123
 ## Technical Achievements
 - **Implement OAuth Authentication (10pt)**: I used OAuth authentication via the GitHub strategy
 - **Hosted Website on External Service (5pt)**: I hosted my website using Heroku (as can be seen from the URL)
-- **Lighthouse Test Achievement**: I achieved 100% on Performance, Accessibility, Best Practices, an SEO Lighthouse tests (screenshot below)
+- **Lighthouse Test Achievement (5pt)**: I achieved 100% on Performance, Accessibility, Best Practices, an SEO Lighthouse tests (screenshot below)
 
 ![alt text](https://github.com/pepenoq/a3-persistence/blob/main/public/images/lighthousetestsa3.JPG)
 
