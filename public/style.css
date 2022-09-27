@@ -1,5 +1,5 @@
-*      { background: #ABCEDF; }
-a      { background: #FDECBA; }
+*      { background: #ABCDEF; font-size: 12px; }
+a      { background: #0E1117; }
 body   {  animation: shadow  100ms infinite; }
 h2     {  animation: slider 8000ms infinite; }
 h3     {  animation:  fx-3d 1000ms infinite; }
