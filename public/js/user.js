@@ -86,7 +86,7 @@ function updateUserTable() {
             row.cells[3].innerHTML = rowData.height;
             row.cells[4].innerHTML = rowData.activity;
             row.cells[5].innerHTML = tdeeCalculation(rowData.gender, rowData.age,rowData.weight, rowData.height, rowData.activity);
-            row.cells[6].innerHTML = '<button class="btn btn-warning" onclick="editRow(' + rowIndex + ')">Edit</button>';
+            row.cells[6].innerHTML = '<button class="btn btn-warning" onclick="showEditRow(' + rowIndex + ')">Edit</button>';
             row.cells[7].innerHTML = '<button class="btn btn-danger" onclick="deleteRow(' + rowIndex + ')">Delete</button>';
 
             rowIndex++;
@@ -97,7 +97,7 @@ function showEditBlock() {
     document.getElementById("addResponseBlock").style.display = "none";
     document.getElementById("editResponseBlock").style.display = "block";
 }
-function editRow(rowIndex) {
+function showEditRow(rowIndex) {
     showEditBlock();
     let table = document.getElementById("response");
     let row = table.rows[rowIndex+1];
@@ -112,11 +112,11 @@ function editRow(rowIndex) {
 }
 
 function editSubmit() {
-    const age = document.getElementById('editgender').value;
-    const activity = document.getElementById('editage').value;
-    const gender = document.getElementById('editweight').value;
-    const weight = document.getElementById('editheight').value;
-    const height = document.getElementById('editactivity').value;
+    const gender = document.getElementById('editgender').value;
+    const age = document.getElementById('editage').value;
+    const weight = document.getElementById('editweight').value;
+    const height = document.getElementById('editheight').value;
+    const activity = document.getElementById('editactivity').value;
     const tdee = tdeeCalculation(gender, age, weight, height,activity);
     const rowIndex = document.getElementById('hiddenRowIndex').value;
 
@@ -181,14 +181,12 @@ function tdeeCalculation(gender, age, weight, height, activity) {
 }
 
 const submit = function () {
-    
     const age = document.getElementById('age').value;
     const activity = document.getElementById('activity').value;
     const gender = document.getElementById('gender').value;
     const weight = document.getElementById('weight').value;
     const height = document.getElementById('height').value;
     const tdee = tdeeCalculation(gender, age, weight, height,activity);
-
 
     if (age.trim() === '' || activity.trim() === '' || gender.trim() === '' || weight.trim() === '' || height.trim() === '') {
         alert("Please answer all questions.");
@@ -224,14 +222,6 @@ const submit = function () {
     }
 }
 
-function clearForm() {
-    document.getElementById('age').value = "";
-    document.getElementById('gender').value = "";
-    document.getElementById('activity').value = "";
-    document.getElementById('weight').value = "";
-    document.getElementById('height').value = "";
-}
-
 function deleteRow(rowIndex) {
     let confirmDelete = confirm("Please confirm you would like to delete this row. Changes are irreversible!");
     if (confirmDelete) {
@@ -255,3 +245,13 @@ function deleteRow(rowIndex) {
         })
     }
 }
+
+function clearForm() {
+    document.getElementById('age').value = "";
+    document.getElementById('gender').value = "";
+    document.getElementById('activity').value = "";
+    document.getElementById('weight').value = "";
+    document.getElementById('height').value = "";
+}
+
+
