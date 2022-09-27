@@ -1,101 +1,106 @@
 <!doctype ejs>
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>CS4241 Assignment 3</title>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
   </head>
   <body>
-    <h1>
-      The Best Online Fortune Teller
-    </h1>
-    
-    <% if (!login) { %>
-    <p class = "intro">
-      Welcome to Shen's mystic fortune telling site! <br>
-      Please log in and get your fortune.
-    </p>
-    <a id = "login" href="/login">Login</a>
+    <div>
+      <h1>
+        The Best Online Fortune Teller
+      </h1>
+      
+      <% if (!login) { %>
+      <p class = "intro">
+        Welcome to Shen's mystic fortune telling site! <br>
+        Please log in and get your fortune.
+      </p>
+      <a id = "login" href="/login">Login</a>
 
-    <% } %>
-    <% if (login) { %>
-    <p class = "intro">
-      Welcome to Shen's mystic fortune telling site! <br>
-    </p>
-    <form action="/logout" method="post" >
-    <button id = "logout" >Logout</button>
-    </form>
-    <h3>
-      Please fill in your name and date of birth, to get your fortune for today
-    </h3>
-    <form action="/submit" method="post" >
-        <label for="FirstName">First name:</label><br>
-        <input type="text" name="FirstName" placeholder="FirstName" id="firstname"><br>
-        <label for="LastName">Last name:</label><br>
-        <input type="text" name="LastName" placeholder="LastName" id="lastname"><br>
-        <label for="DateofBirth">Date of Birth:</label><br>
-        <input type="date" name="DateofBirth" placeholder="DateofBirth" id="dob"><br>
-        <button id = "submit">submit</button>
-    </form>
-    <table id="table"></table>
-    <button onclick="constructTable()">Show Results</button>
-    <% } %>
-  </body>
-  <script>
-  function constructTable() {
-    $("#table tr").remove()
+      <% } %>
+      <% if (login) { %>
+      <p class = "intro">
+        Welcome to Shen's mystic fortune telling site! <br>
+      </p>
+      <form action="/logout" method="post" >
+      <button id = "logout" >Logout</button>
+      </form>
+    </div>
+    <div>
+      <h3>
+        Please fill in your name and date of birth, to get your fortune for today
+      </h3>
+      <form action="/submit" method="post" >
+          <label for="FirstName">First name:</label><br>
+          <input type="text" name="FirstName" placeholder="FirstName" id="firstname" required><br>
+          <label for="LastName">Last name:</label><br>
+          <input type="text" name="LastName" placeholder="LastName" id="lastname" required><br>
+          <label for="DateofBirth">Date of Birth:</label><br>
+          <input type="date" name="DateofBirth" placeholder="DateofBirth" id="dob" required><br>
+          <button id = "submit">submit</button>
+      </form>
+      <table id="table"></table>
+      <script>
+        function constructTable() {
+          $("#table tr").remove()
 
-    fetch( '/', {
-      method:'POST'
-    })
-    .then( response => response.json())
-    .then( json => {
-      makeTable(json)
-    })
-  }
-
-  function makeTable(json) {
-      list = json.fortunes
-      let cols = Headers(list)
-      for (let i = 0; i < list.length; i++) {
-        let row = $('<tr/>')
-        for (let colIndex = 0; colIndex < cols.length; colIndex++) {
-          let val = list[i][cols[colIndex]]
-          if (val == null) val = ""
-              row.append($('<td/>').html(val))
+          fetch( '/', {
+            method:'POST'
+          })
+          .then( response => response.json())
+          .then( json => {
+            makeTable(json)
+          })
         }
-        row.append($('<button onclick="deleteRow(' + i + ')">Delete</button>'))
-        $('#table').append(row)
-      }
-  }
 
-  function Headers(list) {
-    let columns = []
-    let header = $('<tr/>')
-
-    for (let i = 0; i < list.length; i++) {
-        let row = list[i]
-        for (let k in row) {
-            if ($.inArray(k, columns) == -1) {
-                columns.push(k)
-                header.append($('<th/>').html(k))
+        function makeTable(json) {
+          list = json.fortunes
+          let cols = Headers(list)
+          for (let i = list.length - 1; i > -1; i--) {
+            let row = $('<tr/>')
+            for (let colIndex = 0; colIndex < cols.length; colIndex++) {
+              let val = list[i][cols[colIndex]]
+              if (val == null) val = ""
+                  row.append($('<td/>').html(val))
             }
+            row.append($('<button onclick="deleteRow(' + i + ')">Delete</button>'))
+            $('#table').append(row)
+          }
         }
-        header.append($('<th/>'))
-    }
-    $('#table').append(header)
-        return columns
-  }
 
-  function deleteRow(num){
-    var xhr = new XMLHttpRequest()
-    xhr.open("POST", '/delete', true)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({
-        num: num
-    }))
-    constructTable()
-  }
-  </script>
+        function Headers(list) {
+          let columns = []
+          let header = $('<tr/>')
+
+          for (let i = 0; i < list.length; i++) {
+              let row = list[i]
+              for (let k in row) {
+                  if ($.inArray(k, columns) == -1) {
+                      columns.push(k)
+                      header.append($('<th/>').html(k))
+                  }
+              }
+              header.append($('<th/>'))
+          }
+          $('#table').append(header)
+              return columns
+        }
+
+        function deleteRow(num){
+          var xhr = new XMLHttpRequest()
+          xhr.open("POST", '/delete', true)
+          xhr.setRequestHeader('Content-Type', 'application/json')
+          xhr.send(JSON.stringify({
+              num: num
+          }))
+          constructTable()
+        }
+
+        window.onload = constructTable()
+      </script>
+      <% } %>
+    </div>
+  </body>
 </html>

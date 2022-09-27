@@ -12,40 +12,8 @@ const mongoose = require('mongoose')
 
 // Mongoose setup
 mongoose.connect('mongodb+srv://shenf:Fangshen0925@cluster0.dbnhrcz.mongodb.net/?retryWrites=true&w=majority')
-const db = mongoose.connection
-db.on('error', (error)=>console.error(error))
-db.once('open', ()=>console.log('connected'))
 
-const Schema = mongoose.Schema
-const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: Number,
-    required: true
-  },
-  fortunes: {
-    type: Array,
-    required: true
-  }
-})
-UserSchema.methods.delete = function remove(num) {
-    this.fortunes.splice(num, 1)
-    this.save()
-}
-UserSchema.methods.add = function add(fortune) {
-    fortune.Age = getAge(fortune.DateofBirth)
-    fortune.Fortune = getFortune()
-    this.fortunes.push(fortune)
-    this.save()
-}
-const User = mongoose.model("User", UserSchema)
+const User = require('./schema')
 
 async function createUser(){
     const users = await User.find()
@@ -95,23 +63,22 @@ app.get('/',(req,res) => {
 })
 
 app.post('/', (req,res) => {
-    const jsonContent = JSON.stringify(req.user)
-    res.end(jsonContent)
+    const user = JSON.stringify(req.user)
+    res.end(user)
 })
 
 app.post('/delete', (req,res) => {
-    req.user.remove(req.body.num)
+    req.user.deleteFortune(req.body.num)
 })
 
 app.post('/logout', (req,res) => {
     req.logout(function(err) {
-        if (err) { return next(err) }
-        res.redirect('/')
+        if (err) { console.log(next(err))}
     })
 })
 
 app.post('/submit', (req,res) => {
-    req.user.add(req.body)
+    req.user.addFortune(req.body)
     res.redirect('/')
 })
 
@@ -130,26 +97,6 @@ function checkLogin(req,res,next){
         return next()
     }
     res.redirect('/')
-}
-
-function getAge(dateString) {
-    let today = new Date()
-    let birthDate = new Date(dateString)
-    let age = today.getFullYear() - birthDate.getFullYear()
-    let m = today.getMonth() - birthDate.getMonth()
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--
-    }
-    return age
-}
-
-function getFortune(){
-  let result = Math.floor(Math.random() * 5)
-  if(result === 0) return 'Very Unlucky'
-  if(result === 1) return 'Unlucky'
-  if(result === 2) return 'Fair'
-  if(result === 3) return 'Lucky'
-  if(result === 4) return 'Super Lucky'
 }
 
 app.listen(3000)
