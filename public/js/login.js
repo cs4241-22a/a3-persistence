@@ -67,15 +67,15 @@ const signInHandler = function (event) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }).then(res => {
-        console.log("Within JSON");
+
         return res.json();
     }).then(json => {
-        console.log("Back at JSON!");
+
 
         document.getElementById("usernameLogin").value = "";
         document.getElementById("passwordLogin").value = "";
 
-        console.log(json.loginSuccess);
+
         if (json.loginSuccess) {
             window.location.replace("/user.html");
         } else {

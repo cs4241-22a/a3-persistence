@@ -17,7 +17,7 @@ window.onload = function () {
         if (tableTitle != null) {
             tableTitle.innerHTML= global_username+ "'s TDEE Calculations";
         }
-        console.log("Username is " + username);
+
         if (username == null || username === "") {
             window.location.replace("/login.html");
         }
@@ -46,7 +46,7 @@ const signOutFunction = function () {
     }).then(json => {
         let signOutSuccess = json.signOutSuccess;
         if (signOutSuccess) {
-            console.log("Signing out succeed");
+
             window.location.replace("/login.html");
         }
     })
@@ -146,7 +146,6 @@ function editSubmit() {
         }).then(res => {
             return res.json();
         }).then(json => {
-            console.log("Data edited success");
         })
 
         setTimeout(function () {
@@ -209,7 +208,6 @@ const submit = function () {
         }).then(res => {
             return res.json();
         }).then(json => {
-            console.log("Data uploaded")
         })
 
         setTimeout(function () {
@@ -230,7 +228,6 @@ function deleteRow(rowIndex) {
             deletingItem: rowIndex
         }
 
-        console.log("Deleting row " + rowIndex);
         fetch('/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -238,7 +235,6 @@ function deleteRow(rowIndex) {
         }).then(res => {
             return res.json();
         }).then(json => {
-            console.log("response deleted");
             setTimeout(function () {
                 updateUserTable();
             }, 1000);
