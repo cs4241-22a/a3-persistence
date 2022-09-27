@@ -55,7 +55,7 @@ const signOutFunction = function () {
 
 function updateUserTable() {
     let table = document.getElementById("response");
-    table.innerHTML = '<thead><tr><th scope="col">Gender</th><th scope="col">Age</th><th scope="col">Weight</th><th scope="col">Height</th><th scope="col">Activity</th><th scope="col">TDEE</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead>'
+    table.innerHTML = '<thead><tr><th scope="col">Gender</th><th scope="col">Age</th><th scope="col">Weight (kg)</th><th scope="col">Height (cm)</th><th scope="col">Activity</th><th scope="col">TDEE</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead>'
     const jsonData = {
         username: global_username
     }

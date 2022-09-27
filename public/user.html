@@ -19,25 +19,33 @@
 <body class="bg-dark">
 
   <header class="container-fluid">
-    <div class="align-items-center">
-
+    <div class = "row text-center">
       <h1 class="bg-dark text-light text-center">TDEE Calculator</h1>
-      
+      <div class ="d-grid gap-2 d-md-flex justify-content-md-center">
+
+      <button type="button" class="btn btn-lg btn-success" id="addResponseButton"  onclick='document.getElementById("addResponseBlock").style.display = "block"'>
+        Add a Response
+      </button>
+
+      <a class="btn btn-lg btn-danger" id="signOutButton">Sign Out</a>
+
+    </div>
+    </div>
+
+
+    <div class="row align-items-center text-center">
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
     </div>
   </header>
 
   <div class="user-background p-3">
     <div id='info' class="container-fluid py-3">
-      <div class="row align-items-center text-center">
-        <div class="col">
-          <button type="button" class="btn btn-lg btn-success" id="addResponseButton"  onclick='document.getElementById("addResponseBlock").style.display = "block"'>
-            Add a Response
-          </button>
-        </div>
-        <div class="col">
-          <a class="btn btn-lg btn-danger" id="signOutButton">Sign Out</a>
-        </div>
-      </div>
+
     </div>
 
     <h2 class="text-center text-black" id="tableTitle">Response Table</h2>
