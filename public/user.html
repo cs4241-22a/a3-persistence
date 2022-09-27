@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <title>TDEE Calculator-User Page</title>
+  <meta charset="utf-8">
+  <meta name="description" content="TDEE Calculator-User">
+  <meta name="keywords" content="TDEE, Calculator, HTML, CSS, JavaScript">
+  <meta name="author" content="Enoch Zhao">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-dark">
+
+  <header class="container-fluid">
+    <div class = "row text-center">
+      <h1 class="bg-dark text-light text-center">TDEE Calculator</h1>
+      <div class ="d-grid gap-2 d-md-flex justify-content-md-center">
+
+      <button type="button" class="btn btn-lg btn-success" id="addResponseButton" onclick='document.getElementById("addResponseBlock").style.display = "block"'>
+        Add a Response
+      </button>
+
+      <a class="btn btn-lg btn-danger" id="signOutButton">Sign Out</a>
+        <br>
+        <br>
+
+    </div>
+    </div>
+
+
+    <div class="row align-items-center text-center">
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+  </header>
+
+  <div class="user-background p-3">
+    <div id='info' class="container-fluid py-3">
+
+    </div>
+
+    <h2 class="text-center text-black" id="tableTitle">Response Table</h2>
+    <table id='response' class="table table-striped text-center">
+    </table>
+
+    <div class="responses-background p-3">
+      <div class="container-fluid py-3">
+
+
+        <div class="row align-items-start text-center" id="addResponseBlock">
+          
+          <h3>Add A Response</h3>
+
+          <div class="mb-3">
+              <form onsubmit='return false;'>
+                <label for='age' class="form-label">How old are you?</label>
+                <input type='text' class="form-control" id='age' value="">
+              </form>
+          </div>
+            
+          <div class="mb-3">
+            <label for='activity' class="form-label">How active are you?</label>
+            <select class="form-select" aria-label="Please select an activity level" id='activity'>
+              <option value='1.2'>Sedentary</option>
+              <option value='1.4'>Lightly Active</option>
+              <option value='1.7'>Moderately Active</option>
+              <option value='2.0'>Very Active</option>
+              <option value='2.4'>Athlete</option>
+            </select>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for='gender' class="form-label">What is your gender?</label>
+            <select class="form-select" aria-label="Please select a gender" id='gender'>
+              <option value='not-provided'>Prefer not to say</option>
+              <option value='female'>Female</option>
+              <option value='male'>Male</option>
+              <option value='non-binary'>Non-Binary</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <form onsubmit="return false;">
+              <label for='weight' class="form-label">What is your weight (in kg)?
+              </label>
+              <input type='number' class="form-control" id='weight' value="">
+            </form>
+          </div>
+          
+          <div class="mb-3">
+            <form onsubmit="return false;">
+              <label for='height' class="form-label">How tall are you (in cm)?</label>
+              <input type='text' class="form-control" id='height' value="">
+            </form>
+          </div>
+            
+            <button class="btn btn-success" onclick='event.preventDefault(); submit();'>Add</button>
+          
+
+        </div>  
+
+        <div class="row align-items-start text-center" id="editResponseBlock">
+          <h3>Edit Response</h3>
+            
+          <div class="mb-3">
+            <form onsubmit="return false;">
+              <label for='age' class="form-label">How old are you?</label>
+              <input type='text' class="form-control" id='editage' value="">
+            </form>
+          </div>
+
+          <div class="mb-3">
+            <label for='activity' class="form-label">How active are you?</label>
+            <select class="form-select" aria-label="Please select an activity level" id='editactivity'>
+              <option value='1.2'>Sedentary</option>
+              <option value='1.4'>Lightly Active</option>
+              <option value='1.7'>Moderately Active</option>
+              <option value='2.0'>Very Active</option>
+              <option value='2.4'>Athlete</option>
+            </select>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for='gender' class="form-label">What is your gender?</label>
+            <select class="form-select" aria-label="Please select a gender" id='editgender'>
+              <option value='not-provided'>Prefer not to say</option>
+              <option value='female'>Female</option>
+              <option value='male'>Male</option>
+              <option value='non-binary'>Non-Binary</option>
+            </select>
+          </div>
+
+
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='weight' class="form-label">What is your weight (in kg)?
+              </label>
+              <input type='number' class="form-control" id='editweight' value="">
+            </form>
+          </div>
+
+          <div class="mb-3">
+            <form onSubmit="return false;">
+              <label for='height' class="form-label">How tall are you (in cm)?</label>
+              <input type='text' class="form-control" id='editheight' value="">
+            </form>
+          </div>
+          <input type="hidden" id="hiddenRowIndex">
+          <button class="btn btn-warning" onclick='editSubmit()'>Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src='js/user.js'></script>
+  
+</body>
+</html>

@@ -1,116 +1,50 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
+TDEE Calculator
 ===
+## by Enoch Zhao
 
-Due: September 22nd, by 11:59 AM.
+Website link: https://tdeecalculator.herokuapp.com/
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+There is an existing test account should you not wish to create a new account. The username and password are:
 
-Baseline Requirements
----
+Username: cs4241
 
-Your application is required to implement the following functionalities:
+Password: 123123
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+*These details are also provided on the site within the login forms.
 
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+- This website continues from the submission in A2, where a user's Total Daily Energy Expenditure is calculated based on provided information
+- TDEE results are stored on MongoDB and data shown is only related to logged-in user 
+- OAuth Implementation was very difficult to accomplish, a lot of external documentation and guidance from course staff and colleagues was utilised to achieve the end result.
+- Github authentication was used due to the straightforward nature of their API, however the need for a callback URL had me stuck for quite a while as I did not know what the url should be since the server had not yet been uploaded to Heroku
+- CSS Framework used was Bootstrap 5.2
+  - Made additional css modifications for different portions of the site background (Header, Footer, Login and User page backgrounds)
+- Express Middleware Packages used:
+  - **Passport** - Passport used to authenticate 3rd party login
+  - **Serve Static** - For use in serving static files
+  - **Body Parser** - For use in parsing HTTP request bodies
+  - **Cookie Session** - For use in establishing cookie-based sessions
+  - **Cookie Parser** - For use in parsing cookie header and to populate cookie requests
+  - **Mongoose** - Mongoose used to provide handler for MongoDB
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **Implement OAuth Authentication (10pt)**: I used OAuth authentication via the GitHub strategy
+- **Hosted Website on External Service (5pt)**: I hosted my website using Heroku (as can be seen from the URL)
+- **Lighthouse Test Achievement (5pt)**: I achieved 100% on Performance, Accessibility, Best Practices, an SEO Lighthouse tests (screenshot below)
+
+![alt text](https://github.com/pepenoq/a3-persistence/blob/main/public/images/lighthousetestsa3.JPG)
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Site accessibility through W3C Hints (some points?)**: 
+I only exactly followed I think 10 of the hints from the W3C tips for writing, designing, and development. If I needed to follow at least 12 to achieve any points at all, then please disregard this achievement.
+
+Tips followed are below:
+- Content is clear and concise - Login Page shows the user exactly where each function is, and User page is not cluttered with the constant inclusion of add forms or edit forms
+- Identifiable Feedback for User - Both Login and User pages show error messages clearly detailing the error the user is experiencing for a more smooth experience
+- Ensure that form elements include clearly associated labels - Login and User HTML code includes labels for all user forms
+- Ensure that interactive elements are easy to identify - All elements on the website that are interact-able have been made clear in the form of buttons
+- Use headings and spacing to group related content - Login page groups related content such as account creation or account login to their respective locations on the page. User page also clearly shows the add response or sign out buttons to user
+- Provide clear and consistent navigation options - Clear and consistent navigation options for users to log in, create accounts, use Github to login, add forms, sign out, edit forms, and delete forms
+- Provide sufficient contrast between foreground and background - Background and foreground colours are different so as to help the user focus on matters of importance. Corresponding text and button colours are also in contrast to the foreground and background
+- Provide informative, unique page titles - The page titles help show the user the distinction between the log-in page and post log-in page calculator (Log In to TDEE Calculator and TDEE Calculator)
+- Help users avoid and correct mistakes - The error messages that pop up help users identify the mistakes they've made in form submissions
+- Reflect the reading order in the code order - The HTML code (even without CSS) reflects the order in which information is presented on the webpage
