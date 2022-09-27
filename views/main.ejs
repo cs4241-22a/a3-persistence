@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A3 - Todo List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head>
+  
+  <body>
+    
+    <!-- Title + info -->
+    <section class="section is-small">
+      <div class="container">
+        <h1 class="title is-2 has-text-primary-dark">
+          To-do List App
+        </h1>
+        <h2 class="subtitle is-4">
+          Hello <b><%= username %></b>! All your to-do items should show up here. You can add, edit, and delete list items.
+        </h2>
+      </div>
+    </section>
+    
+    <!-- form to add new task -->
+    <section>
+      <div class="container">
+        <form class="box" id="new-task-form" action="/add" method="POST">
+          <label class="label">Add a to-do item</label>
+          <div class="field has-addons">
+            <div class="control is-expanded ">
+              <input class="input is-primary" type="text" id="new-task-input" placeholder="Something you have to do">
+            </div>
+            <input class="button is-primary" type="submit" id="new-task-submit" value="Add task">
+          </div>
+          
+        </form>
+      </div>
+    </section>
+    
+    <!-- list section -->
+    <section class="section is-small">
+      <div class="container" id="task-list">
+        
+        <div class="container">
+          <h2 class="title is-4 has-text-primary-dark pb-5">
+            Here is your list:
+          </h2>
+        </div>
+        
+
+        <% if ( tasks.length > 0) { %>
+          <% tasks.forEach(task => { %>
+            <% //console.log(task) %>
+            
+            <% if(task.user === username) { %>
+            
+              <div class="field has-addons">
+                <p class="control is-expanded">
+                  <% console.log(task.text) %>
+                  <input class="input" type="text" value="<%= task.text %>" readonly>
+                </p>
+
+                <p class="control">
+                  <button class="button is-warning">
+                    Edit
+                  </button>
+                </p>
+                <p class="control">
+                  <button class="button is-danger">
+                    Delete
+                  </button>
+                </p>
+              </div>
+            
+        <%  }})} %>
+        
+        
+        
+        <!-- raw HTML template for existing task lists (have to convert to ejs) -->
+<!--         <div class="field has-addons">
+          <p class="control is-expanded">
+            <input class="input" type="text" value="this is a raw html example item" readonly>
+          </p>
+
+          <p class="control">
+            <button class="button is-warning">
+              Edit
+            </button>
+          </p>
+          <p class="control">
+            <button class="button is-danger">
+              Delete
+            </button>
+          </p>
+        </div> -->
+        <!-- -->
+        
+      </div>
+    </section>
+    
+    <script src="client.js"></script>
+    
+  </body>
+</html>
+
