@@ -90,8 +90,8 @@ function updatersubmitter( _movID )
         newrow += '<th>' + json.genre + '</th>';
         newrow += '<th>' + json.year  + '</th>';
         newrow += '<th>' + zackcheck( json.title, json.genre ) + '</th>';
-        newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + json.title + '\',\'' + json.genre + '\',\'' + json.year + '\');">edit?</button></th>';
-        newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
+        newrow += '<th><button onclick="updater(\'' + _movID + '\',\'' + json.title + '\',\'' + json.genre + '\',\'' + json.year + '\');">edit?</button></th>';
+        newrow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
     console.log( json.title );
     console.log( body );
     console.log( document.getElementById( _movID ).children );
