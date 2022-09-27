@@ -12,14 +12,17 @@
         <!--Bootstrap-->
         <link async href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     </head>
-    <body class="text-dark">
+    <body class="d-flex flex-column min-vh-100 text-dark">
         <header class="w-100 text-center text-white bg-primary">
-            <h1>Favoritizer</h1>
+            <h1 class="mb-0">Favoritizer</h1>
         </header>
         <main class="w-100 p-3">
-            <span id="welcome-message">Hello!</span>
+            <div id="welcome-message" class="ml-auto mr-auto text-center">Hello!</div>
             <br/>
             <h1 class="w-100 text-center">Favorites</h1>
+            <div id="no-favorites-div" class="d-none">
+                No favorites yet. Fill out the form below to add some!
+            </div>
             <ul id="favorites-list" class="container w-50"></ul>
             <br/>
             <h1 class="w-100 text-center">New Favorite</h1>
@@ -34,7 +37,7 @@
                 <button type="submit" class="mt-2">Submit</button>
             </form>
         </main>
-        <footer class="w-100 text-center bg-primary font-weight-bold text-white">
+        <footer class="w-100 mt-auto text-center bg-primary font-weight-bold text-white">
             Created by Gabriel Buonomano for Webware A22 at WPI
         </footer>
         <li id="dummy-category">

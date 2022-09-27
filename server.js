@@ -1,15 +1,25 @@
+//Import and set up modules
 var md5 = require('md5');
 var randToken = require('rand-token');
 var path = require('path');
+
 const express = require('express');
 const app = express();
 const port = 3000;
 var morgan = require('morgan');
 var favicon = require('serve-favicon')
 var bodyParser = require('body-parser');
+const initStats = require('@phil-r/stats');
+
+const { statsMiddleware, getStats } = initStats({
+  endpointStats: true,
+  complexEndpoints: [],
+  customStats: false,
+  addHeader: true
+});
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://users:users@main-cluster.ck9ebum.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://users:users@main-cluster.ck9ebum.mongodb.net/?retryWrites=true&w=majority"; //Security breach
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 client.connect().then(err => {
@@ -30,10 +40,14 @@ client.connect().then(err => {
 });
 
 
-//////////
+/////////////////////////
 
+
+//Keep track of logged in users
 const activeUsers = {};
 
+/*
+//Dummy data, used pre-Mongo implementation
 const appdata = {
   Feathercrown: {
     favorites: [
@@ -46,17 +60,24 @@ const appdata = {
     ]
   }
 };
+*/
 
-app.use(morgan('dev'));
-app.use(logTokenRequests);
-//app.use(favicon(path.join(__dirname, 'public', 'favicon-32x32.png')))
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+//Start of actual server
 
+//Redirect to login page (TODO: Use res.redirect)
 app.get('/', (req, res) => {
   res.sendFile('/public/login.html', {root: __dirname});
 });
 
+//Initialize middleware
+app.use(morgan('dev'));
+app.use(logTokenRequests);
+app.use(statsMiddleware);
+//app.use(favicon(path.join(__dirname, 'public', 'favicon-32x32.png')))
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Allow the user to retrieve their favorites and display them on the frontend
 app.get('/api/favorites', (req, res) => {
   //if(!activeUsers[req.body.token]){res.end();return;}
   //console.log(req.query);
@@ -71,36 +92,28 @@ app.get('/api/favorites', (req, res) => {
     }
     res.send(JSON.stringify(userData));
   });
-  
 });
 
+//Allow the user to log in
 app.post('/api/login', (req, res) => {
   //console.log(req.body);
   const collection = client.db("users").collection("users");
   collection.findOne({user:req.body.username}).then(user => {
     if(user == null){
+      //No user with that name exists; register one and log them in
       collection.insertOne({
         user: req.body.username,
         password: req.body.password,
         favorites: []
       });
-      var token = randToken.generate(16);
-      activeUsers[token] = req.body.username;
-      console.log('Active users:', activeUsers);
-      res.send(JSON.stringify({
-        login: 'newUser',
-        token: token
-      }));
+      login(req.body.username, 'newUser', res);
     } else {
+      //User exists...
       if(user.password == req.body.password){
-        var token = randToken.generate(16);
-        activeUsers[token] = req.body.username;
-        console.log('Active users:', activeUsers);
-        res.send(JSON.stringify({
-          login: 'success',
-          token: token
-        }));
+        //...and correct password entered; log them in
+        login(req.body.username, 'success', res);
       } else {
+        //...but incorrect password was entered; notify them
         res.send(JSON.stringify({
           login: 'failure',
           token: null
@@ -113,13 +126,23 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+function login(username, successType, res){
+  var token = randToken.generate(16);
+  activeUsers[token] = username;
+  console.log('Active users:', activeUsers);
+  res.send(JSON.stringify({
+    login: successType,
+    token: token
+  }));
+}
 
+//Allow the user to create a new favorite
 app.post('/api/new', (req, res) => {
   //if(!activeUsers[req.body.token]){res.end();return;}
   console.log(req.body);
   const collection = client.db("users").collection("users");
   collection.findOne({user:activeUsers[req.body.token]}).then(user => {
-    console.log(user);
+    //console.log(user);
     var newUser = user;
     newUser.favorites.push({
       key: req.body.key,
@@ -133,6 +156,10 @@ app.post('/api/new', (req, res) => {
   });
 });
 
+//Allow viewing the server's stats
+app.get('/stats', (req, res) => res.send(getStats()));
+
+//Finalize server startup
 app.listen(port, () => {
   console.log(`Favoritizer listening on port ${port}`);
 });

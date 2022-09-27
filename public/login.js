@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async function(){
                 window.location.href = './index.html';
             } else {
                 console.error('Password incorrect!');
+                document.getElementById('wrong-password-span').classList = [];
+                document.getElementById('wrong-password-span').display = 'inline';
             }
         }).catch((error) => {
             console.error(error);

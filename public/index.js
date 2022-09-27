@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async function(){
             method: event.target.method,
             body: new URLSearchParams(formData)
         }).then((response) => {
+            localStorage.setItem('a3-loginType', 'success');
             window.location.reload();
         }).catch((error) => {
             console.error(error);
@@ -30,6 +31,11 @@ document.addEventListener('DOMContentLoaded', async function(){
 }, false);
 
 async function init(userData){
+    console.log("User Data:");
+    console.log(userData);
+    if(userData == null){ //Server doesn't remember our token; it probably restarted while we were logged in
+        window.location.href = './login.html';
+    }
     var list = document.getElementById('favorites-list');
     var dummyCategory = document.getElementById('dummy-category');
     
@@ -59,6 +65,15 @@ async function init(userData){
         option.innerText = categoryName;
         document.getElementById("categories-dropdown").appendChild(option);
     });
+
+    //Display a message if no favorites exist yet
+    if(userData.favorites.length == 0){
+        document.getElementById('no-favorites-div').classList = [];
+        document.getElementById('no-favorites-div').display = 'inline';
+        document.getElementById('no-favorites-div').style.marginLeft = 'auto';
+        document.getElementById('no-favorites-div').style.marginRight = 'auto';
+        document.getElementById('no-favorites-div').style.textAlign = 'center';
+    }
 
     //Hide the original dummy category
     dummyCategory.style.display = 'none';
