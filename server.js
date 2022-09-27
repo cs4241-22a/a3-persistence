@@ -15,16 +15,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/login.html'));
+  res.sendFile(path.join(__dirname + '/public/views/login.html'));
 })
 
-app.get('/index', (req, res) => {
-  res.sendFile(path.join(__dirname + '/public/index.html'));
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/views/index.html'));
 })
 
-// app.get('/style.css', (req, res) => {
-//   res.sendFile(path.join(__dirname + 'public/style.css'));
-// })
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/css/style.css'));
+})
+
+app.get('/scripts.js', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/js/scripts.js'));
+})
 
 app.post('/login', (req, res) => {
   res.json(req.body);
