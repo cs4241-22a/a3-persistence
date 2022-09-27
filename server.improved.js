@@ -91,7 +91,7 @@ app.get('/response', async (req, res) => {
     githubUser.save();
     req.session.login = true;
     req.session.username = req.query.id;
-    res.redirect("edit.html")
+    res.redirect("user.html")
 });
 
 
