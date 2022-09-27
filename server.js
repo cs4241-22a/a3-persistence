@@ -7,7 +7,7 @@ const connectDB = require('./config/dbConn')
 const UserRouter = require('./api/User')
 const UserDataRouter = require('./api/UserData')
 const lazyDebug = require('./middleware/lazydebug')
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 //use ejs
 app.set('view engine', 'ejs')
