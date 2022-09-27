@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function(){
+window.onload = async function(){
     document.forms['new-favorite-form'].addEventListener('submit', (event) => {
         event.preventDefault();
         var formData = new FormData(event.target);
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         console.log(body);
         init(body);
     });
-}, false);
+};
 
 async function init(userData){
     console.log("User Data:");

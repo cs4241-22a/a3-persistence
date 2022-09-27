@@ -27,13 +27,13 @@
             <br/>
             <h1 class="w-100 text-center">New Favorite</h1>
             <form id="new-favorite-form" action="/api/new" method="POST">
-                <label for="key">Subject:</label><input type="text" name="key" id="key" class="form-control w-100"/>
-                <label for="value">Item:</label><input type="text" name="value" id="value" class="form-control w-100"/>
+                <label for="key">Subject:</label><input type="text" name="key" id="key" placeholder="Pizza" class="form-control w-100"/>
+                <label for="value">Answer:</label><input type="text" name="value" id="value" placeholder="Pepperoni" class="form-control w-100"/>
                 <label for="categories-dropdown">Existing Category:</label><select name="category" id="categories-dropdown" class="form-control w-100">
                     <option value="" selected="true">[No Category]</option>
                 </select>
-                <label for="newcategory">Custom Category:</label><input type="text" name="newcategory" id="newcategory" class="form-control w-100"/>
-                <label for="description">Reasoning:</label><textarea name="description" id="description" class="form-control w-100"></textarea>
+                <label for="newcategory">Custom Category:</label><input type="text" name="newcategory" id="newcategory" placeholder="Food" class="form-control w-100"/>
+                <label for="description">Reasoning:</label><textarea name="description" id="description" placeholder="Because it's delicious!" class="form-control w-100"></textarea>
                 <button type="submit" class="mt-2">Submit</button>
             </form>
         </main>
