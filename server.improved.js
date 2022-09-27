@@ -10,25 +10,24 @@ client.connect(err => {
 const express = require('express'),
     app = express(),
     GitHubStrategy = require('passport-github2').Strategy,
-    passport = require('passport'),
-    serveStatic = require('serve-static'),
-    bodyparser = require('body-parser'),
-    cookieSession = require("cookie-session"),
-    cookieParser = require("cookie-parser"),
-    mongoose = require('mongoose');
+    passport = require('passport'), //Passport used to authenticate 3rd party login middleware #1
+    serveStatic = require('serve-static'), //Serve static files express middleware #2
+    bodyparser = require('body-parser'), //Parse HTTP request body express middleware #3
+    cookieSession = require("cookie-session"), //Establish cookie-based sessions express middleware #4
+    cookieParser = require("cookie-parser"), //Parse cookie header and populate cookie requests express middleware #5
+    mongoose = require('mongoose'); //Mongoose used to provide handler for MongoDB middleware #6
 
-// use express.urlencoded to get data sent by default form actions
-// or GET requests
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-require('dotenv').config();
+mongoose.connect(process.env.MONGO_DB_URI);
 
 app.use(cookieSession({
     name: "session",
-    keys: [process.env.KEY1, process.env.KEY2]
+    keys: [process.env.COOKEY1, process.env.COOKEY2]
 }))
 
-mongoose.connect(process.env.MONGO_DB_URI);
+// changed urlencoded to receive data from null or original form actions
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
     username: String,
