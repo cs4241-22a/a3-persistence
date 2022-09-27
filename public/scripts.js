@@ -1,4 +1,4 @@
-let tempID = null, tempElement = null;
+let tempID = null, tempelement = null, temprow = null;
 function dothething()
 {
     fetch('/data', { method: 'GET', headers: { "Content-Type": "application/json" } })
@@ -33,7 +33,7 @@ function submitter( e )
            year = document.getElementById('year'), 
            json = { title: title.value, genre: genre.value, year: year.value }, 
            body = JSON.stringify(json);
-    fetch('/submit', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
+    fetch( '/submit', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
     .then( response => response.json())
     .then(dothething());
     return false;
@@ -49,33 +49,33 @@ function deleter( _movID )
 };
 function updater( _movID, title, genre, year )
 {
-    if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
+    //if( tempelement != null && tempID != null ) { updatercanceller( tempID ); }
     tempID = _movID;
-    tempElement = document.getElementById(_movID);
-    let newRow  = '<br><tr id = "' + _movID + '">';
-        newRow += '<th><input id="titleedit' + title + '" type="text"   value="' + title + '"></th>'
-        newRow += '<th><input id="genreedit' + title + '" type="text"   value="' + genre + '"></th>'
-        newRow += '<th><input id= "yearedit' + title + '" type="number" value="' +  year + '"></th>'
-        newRow += '<th></th>';
-        newRow += '<th><button onclick="updatersubmitter(\'' + _movID + '\')">submit</button></th></tr>';
-        newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
-    tempElement.innerHTML += newRow;
+    tempelement = document.getElementById(_movID);
+    temprow = tempelement.innerHTML;
+    let newrow  = '<br><tr id = "' + _movID + '">';
+        newrow += '<th><input id="titleedit' + title + '" type="text"   value="' + title + '"></th>'
+        newrow += '<th><input id="genreedit' + title + '" type="text"   value="' + genre + '"></th>'
+        newrow += '<th><input id= "yearedit' + title + '" type="number" value="' +  year + '"></th>'
+        newrow += '<th></th>';
+        newrow += '<th><button onclick="updatersubmitter(\'' + _movID + '\')">submit</button></th></tr>';
+        newrow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
+    tempelement.innerHTML += newrow;
 };
 function updatercanceller( _movID )
 {
-    let title  = document.getElementById( _movID ).children[0].innerHTML,
+    /*let title  = document.getElementById( _movID ).children[0].innerHTML,
         genre  = document.getElementById( _movID ).children[1].innerHTML,
          year  = document.getElementById( _movID ).children[2].innerHTML,
-       newRow  = '<tr id = "' + _movID + '">';
-       newRow += '<th>' + title + '</th>';
-       newRow += '<th>' + genre + '</th>';
-       newRow += '<th>' + year + '</th>';
-       newRow += '<th>' + zackcheck(title, genre) + '</th>';
-       newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
-       newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
-    tempElement.innerHTML = newRow;
-    tempElement = null;
-    tempID = null;
+       newrow  = '<tr id = "' + _movID + '">';
+       newrow += '<th>' + title + '</th>';
+       newrow += '<th>' + genre + '</th>';
+       newrow += '<th>' + year + '</th>';
+       newrow += '<th>' + zackcheck(title, genre) + '</th>';
+       newrow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
+       newrow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';*/
+    tempelement.innerHTML = temprow;
+    tempelement = null, tempID = null, temprow = null;
 };
 function updatersubmitter( _movID )
 {
@@ -84,24 +84,14 @@ function updatersubmitter( _movID )
                        genre: document.getElementById( _movID ).children[8].children[0].value,
                         year: document.getElementById( _movID ).children[9].children[0].value
                     },
-        body    = JSON.stringify(json),
-        newrow  = '<tr id = "' + _movID + '">';
-        newrow += '<th>' + json.title + '</th>';
-        newrow += '<th>' + json.genre + '</th>';
-        newrow += '<th>' + json.year  + '</th>';
-        newrow += '<th>' + zackcheck( json.title, json.genre ) + '</th>';
-        newrow += '<th><button onclick="updater(\'' + _movID + '\',\'' + json.title + '\',\'' + json.genre + '\',\'' + json.year + '\');">edit?</button></th>';
-        newrow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
+        body    = JSON.stringify(json);
     console.log( json.title );
     console.log( body );
-    console.log( document.getElementById( _movID ).children );
-    console.log( newrow );
-    tempElement.innerHTML = newrow;
-    fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
+    deleter( _movID );
+    fetch( '/submit', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
     .then( response => response.json() )
     .then( dothething() );
-    tempID = null;
-    tempElement = null;
+    tempID = null, tempelement = null, temprow = null;
 }
 const zackcheck = function( title, year ) {
     const years = [ 2004, 2007, 2009, 2010, 2011, 2013, 2016, 2017, 2021, 2021 ];
