@@ -106,7 +106,7 @@ app.post( '/edit', bodyparser.json(), (req,res)=> {
   .then(result => res.json(result))
 })
 
-app.post("/add", bodyparser.json(), function(req,res) {
+app.post("/add", bodyparser.json(), (req,res)=> {
   console.log("/add" , " : ", req.body)
   // assumes only one object to insert
   collection.insertOne(req.body)
@@ -115,12 +115,21 @@ app.post("/add", bodyparser.json(), function(req,res) {
     res.json(dbresponse.ops[0])})
 })
 
+app.get("/load", bodyparser.json(), (req,res) =>{
+  collection.find({task: task}).toArray(function(err, result){
+    if(err)
+    throw err
+    res.json(result)
+  })
+})
+
 // Middleware to check connection
 app.use( (req,res,next) => {
   if( collection !== null ) {
     next()
   }else{
     res.status( 503 ).send()
+    console.log("error connecting")
   }
 })
 
@@ -165,14 +174,14 @@ userCollection.find(pair).toArray(function(err, data) {
       .then(req.session.username = username)
       .then(function() {
         req.session.login = false
-        res.render('login', { msg:'login failed, please try again', layout:false })
+        res.render('login.handlebars', { msg:'login failed, please try again', layout:false })
       });
   }
 });
 });
 
 app.get( '/', (req,res) => {
-  res.render( 'login', { msg:'', layout:false })
+  res.render( 'login.handlebars', { msg:'', layout:false })
 })
 
 // add some middleware that always sends unauthenicaetd users to the login page
@@ -180,7 +189,7 @@ app.use( function( req,res,next) {
   if( req.session.login === true )
     next()
   else
-    res.render('login', { msg:'login failed, please try again', layout:false })
+    res.render('login.handlebars', { msg:'login failed, please try again', layout:false })
 })
 
 app.get( '/index.handlebars', ( req, res) => {

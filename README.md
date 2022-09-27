@@ -1,17 +1,15 @@
-## Samara's To Do List
+# Samara's To Do List
 
-### Author: Samara Holmes
+## Author: Samara Holmes
 
 ### Glitch Link: <https://glitch.com/~a3-holmes1000>
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
 **Goal** To create a to-do list that makes use of a server using Express, a results functionality for a logged in user, a form/entry functionality with options to add, modify, and delete, and data storage using mongodb.
 
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
+- Some challenges I faced was with the appearance of the stored data. I was able to get the users authenticated and have the to-do list be stored in mongodb with the user, however, the data doesn't show up on the page when it loads. It is only stored. I also had issues with being able to delete and modify objects. They get deleted/modified in the database but not on the client.
+- I implemented an authenication strategy that checks the database for the correct username and password in the database. If the user can't be found, a new user will be created and stored in the database.
 - I used the Pico template at <https://picocss.com/>. I thought it had a good use of colors and kept the design very sleek.
-  - include any modifications to the CSS framework you made via custom CSS you authored
+  - The changes I made to the CSS template were more for just ensuring that the contrast was good enough in each element to pass the lighthouse tests.
 - The Expresss middleware packages I use are: body-parser(), express-session(), serve-static(), morgan(), response-time(), cookie-parser(), and an attempt with passport().
 Body-parser parses incoming request bodies before handlers (I mainly used bodyparser.json()).
 Express-session creates a session.

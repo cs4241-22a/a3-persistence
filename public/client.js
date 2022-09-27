@@ -13,7 +13,7 @@ const taskForm = document.forms[0];
 const taskInput = taskForm.elements['task'];
 
 // a helper function that creates a list item for a given task
-const appendNewTask = function(item, num) {
+const appendNewTask = function(item, id) {
   const newListItem = document.createElement("li")
   newListItem.innerHTML = item;
 
@@ -32,12 +32,12 @@ const appendNewTask = function(item, num) {
     fetch("/edit", {
       method:'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify({ task: changedTask, num: num})
+      body:JSON.stringify({ task: changedTask })
     })
     .then(res => res.json())
     .then (json => {
       newListItem.remove()
-      appendNewTask(task, num)
+      loadTasks()
       console.log("edited item")
     })
   }
@@ -47,12 +47,13 @@ const appendNewTask = function(item, num) {
     fetch("/delete", {
       method:'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify({ num })
+      body:JSON.stringify({ id })
     })
     .then(res => res.json())
     .then(json => {
       newListItem.remove();
       console.log("removed item")
+      loadTasks()
     })
   }
 
@@ -74,7 +75,7 @@ taskForm.onsubmit = function(event) {
   // get task value and num and add it to the list
   taskArray.push( value , num)
   console.log(taskArray)
-  appendNewTask( value , num)
+  //appendNewTask( value , num)
   num++
   // reset form 
   taskInput.value = '';
@@ -89,24 +90,23 @@ taskForm.onsubmit = function(event) {
   .then( json => {
     console.log("/add in clientjs")
     //appendNewTask(json.task, json.id)
-    //loadTasks(taskArray)
+    loadTasks()
   }
   )}
 
   window.onload = function() {
-
+    loadTasks()
   }
-/*
-const loadTasks = function(array) {
-  array.forEach((element) => {
-    taskList.innerHTML += 
-    `
-    <tr id="task-${element._id}">
-      <td>${element.task}</td>
-      <td><button id="editBtn-${element._id}">Edit</button></td>
-      <td><button id="deleteBtn-${element._id}">Delete</button></td>
-    </tr>
-    `
+
+const loadTasks = function() {
+  fetch('/load', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  .then(res => res.json())
+  .then(json => {
+    for(let x = 0; x<json.length; x++) {
+      appendNewTask(json[x].task, json[x]._id)
+    }
   })
 }
-*/
