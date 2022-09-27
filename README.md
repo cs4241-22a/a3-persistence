@@ -31,7 +31,7 @@ Password: 123123
 - **Hosted Website on External Service (5pt)**: I hosted my website using Heroku (as can be seen from the URL)
 - **Lighthouse Test Achievement**: I achieved 100% on Performance, Accessibility, Best Practices, an SEO Lighthouse tests (screenshot below)
 
-![alt text]()
+![alt text](https://github.com/pepenoq/a3-persistence/blob/main/public/lighthousetestsa3.JPG)
 
 ### Design/Evaluation Achievements
 - **Site accessibility through W3C Hints (some points?)**: 
