@@ -123,7 +123,6 @@ userRouter.post('/signin', (req, res) => {
 
                         })
                 } else {
-                    console.error('invalid credentials')
                     res.json({
                         status: "FAILED",
                         message: "Invalid credentials entered"
