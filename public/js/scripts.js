@@ -1,3 +1,4 @@
+
 let rowIndex = 0
 let i = 0
 let originalHTML = ''
@@ -215,6 +216,10 @@ const submit = function( e ) {
       return response.json()
     })
     .then ( function ( json ) {
+      if (json[json.length-1] === true) {
+        alert("New user created!")
+      }
+      json.pop()
       renderTable(json)
     })
     const submit_button = document.getElementById( 'submit_button' )

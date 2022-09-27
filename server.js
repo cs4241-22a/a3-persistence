@@ -20,6 +20,7 @@ let loggedIn = false
 let loggedInUser = ""
 let objectId = ""
 let itemId = 0
+let newUser = false
 
 client.connect()
   .then( () => {
@@ -45,6 +46,7 @@ app.post( '/login', (req,res)=> {
       //if the account exists and username and password are correct, redirect to main.html
       seen = true
       loggedIn = true
+      newUser = false
       loggedInUser = element.username
       objectId = element._id
       element.data.forEach(item => {
@@ -66,6 +68,7 @@ app.post( '/login', (req,res)=> {
       collection.insertOne( req.body ).then (result => objectId = result.insertedId)
       .then (function (e) {
         loggedIn = true
+        newUser = true
         loggedInUser = req.body.username
         res.redirect( 'main.html' )
       }) 
@@ -103,6 +106,8 @@ app.post( '/', express.json(), ( req, res ) => {
     }
   })
   .then (function (e) {
+    userdata.push(newUser)
+    newUser = false
     res.writeHead( 200, { 'Content-Type': 'application/json'})
     res.end( JSON.stringify(userdata) )
 
@@ -148,6 +153,7 @@ app.post( '/save', express.json(), ( req, res ) => {
         item.priority = req.body.priority
       }
     })
+    userdata.sort( compare );
     //update collection
     collection.updateOne({ _id:mongodb.ObjectId( objectId ) }, { $set:{ data:userdata } })
     .then (function (e) {
