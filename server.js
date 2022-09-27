@@ -1,14 +1,14 @@
 require('dotenv').config();
-const express = require( 'express' ),
-      app = express(),
-      cookie = require( 'cookie-session' ),
-      hbs = require( 'express-handlebars' ).engine,
-      bodyp = require( 'body-parser' ),
-      session = require( 'express-session' ),
-      path = require( 'path' ),
-      mongodb = require( 'mongodb' ),
-      uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
-      client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true}),
+const  express = require( 'express' ),
+           app = express(),
+        cookie = require( 'cookie-session' ),
+           hbs = require( 'express-handlebars' ).engine,
+         bodyp = require( 'body-parser' ),
+       session = require( 'express-session' ),
+          path = require( 'path' ),
+       mongodb = require( 'mongodb' ),
+           uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`,
+        client = new mongodb.MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true}),
       passport = require('passport'),
       GitHubStrategy = require('passport-github2').Strategy;
 let collection = undefined;
@@ -29,7 +29,6 @@ app.use( ( req, res, next ) =>
 app.engine( 'handlebars', hbs() );
 app.set( 'view engine', 'handlebars' );
 app.set( 'views', './public/views' );
-//app.use( cookie ({ name: 'session', keys: [ 'key1', 'key2' ] }) );
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -42,13 +41,10 @@ passport.use(new GitHubStrategy({
       .then( () => { return collection.findOne( { githubID: profile.id } ) } )
       .then( ( result ) => { return done( null, result._id ) } )
     });
-    //User.findOrCreate({ githubId: profile.id },
-    //function(err, user) { return done(err, user); });
   }
 ));
 app.get('/', ( req, res ) => { res.render( "index", { msg: "", layout: false } ) } );
 app.get('/login', ( req, res ) => { res.render( "main", { msg: "", layout: false } ); } );
-  //res.sendFile('index.html', { user: req.user, root: Path2D.join(__dirname, 'public')});
 app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) { res.render( "main", { msg: "", layout: false } ); } );
@@ -70,14 +66,14 @@ app.post('/delete', checkAuth, ( req, res ) =>
                        { $pull: { items: { _movID: mongodb.ObjectId( req.body._movID ) } } })
   .then( result => res.json( result ) );
 });
-app.post('/update', checkAuth, ( req, res ) =>
+/*app.post('/update', checkAuth, ( req, res ) =>
 {
   let changer = { _movID: mongodb.ObjectId( req.body._movID ), title: req.body.title, genre: req.body.genre, year: req.body.year };
   console.log(changer);
   collection.updateOne({ _id: mongodb.ObjectId( req.session.passport.user ), "items._movID":mongodb.ObjectId( req.body._movID ) },
                        { $set:  "items.$", changer })
   .then( result => res.json( result ) );
-});
+});*/
 function checkAuth( req, res, next )
 {
   if ( req.isAuthenticated()) { return next(); }
