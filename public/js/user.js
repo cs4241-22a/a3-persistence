@@ -1,7 +1,7 @@
 let global_username = "";
 
 window.onload = function () {
-    
+
     document.getElementById("addResponseBlock").style.display = "none";
     document.getElementById("editResponseBlock").style.display = "none";
 
@@ -93,6 +93,10 @@ function updateUserTable() {
         }
     })
 }
+function showEditBlock() {
+    document.getElementById("addResponseBlock").style.display = "none";
+    document.getElementById("editResponseBlock").style.display = "block";
+}
 function editRow(rowIndex) {
     showEditBlock();
     let table = document.getElementById("response");
@@ -105,10 +109,6 @@ function editRow(rowIndex) {
     document.getElementById('editactivity').value = row.cells[5].innerHTML;
     document.getElementById('hiddenRowIndex').value = rowIndex;
 
-}
-function showEditBlock() {
-    document.getElementById("addResponseBlock").style.display = "none";
-    document.getElementById("editResponseBlock").style.display = "block";
 }
 
 function editSubmit() {
