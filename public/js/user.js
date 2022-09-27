@@ -176,21 +176,21 @@ function editRow(rowIndex) {
     let table = document.getElementById("response");
     let row = table.rows[rowIndex+1];
 
-    document.getElementById('editage').value = row.cells[0].innerHTML;
-    document.getElementById('editactivity').value = row.cells[1].innerHTML;
-    document.getElementById('editgender').value = row.cells[2].innerHTML;
-    document.getElementById('editweight').value = row.cells[3].innerHTML;
-    document.getElementById('editheight').value = row.cells[5].innerHTML;
+    document.getElementById('editgender').value = row.cells[0].innerHTML;
+    document.getElementById('editage').value = row.cells[1].innerHTML;
+    document.getElementById('editweight').value = row.cells[2].innerHTML;
+    document.getElementById('editheight').value = row.cells[3].innerHTML;
+    document.getElementById('editactivity').value = row.cells[5].innerHTML;
     document.getElementById('hiddenRowIndex').value = rowIndex;
    
 }
 
 function editSubmit() {
-    const age = document.getElementById('editage').value;
-    const activity = document.getElementById('editactivity').value;
-    const gender = document.getElementById('editgender').value;
-    const weight = document.getElementById('editweight').value;
-    const height = document.getElementById('editheight').value;
+    const age = document.getElementById('editgender').value;
+    const activity = document.getElementById('editage').value;
+    const gender = document.getElementById('editweight').value;
+    const weight = document.getElementById('editheight').value;
+    const height = document.getElementById('editactivity').value;
     const tdee = tdeeCalculation(gender, age, weight, height,activity);
     const rowIndex = document.getElementById('hiddenRowIndex').value;
 
