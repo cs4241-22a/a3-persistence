@@ -1,0 +1,18 @@
+*      { background: #ABCDEF; font-size: 12px; }
+a      { background: #0E1117; }
+body   {  animation: shadow  100ms infinite; }
+h2     {  animation: slider 8000ms infinite; }
+h3     {  animation:  fx-3d 1000ms infinite; }
+button {  animation: button 1000ms infinite; }
+@keyframes shadow {
+    from{ text-shadow: 5px 15px 1px #FFFFFF; }
+      to{ text-shadow: 5px 15px 8px #FFFFFF; } }
+@keyframes slider {
+    0%, 100% { transform: translateX(00%); }
+         50% { transform: translateX(60%); } }
+@keyframes fx-3d {
+    0%, 100% { text-shadow:  4px  4px 1px #FF0000; }
+         50% { text-shadow: -4px -4px 1px #0000FF; } }
+@keyframes button {
+    00% {  color: #000000; transform: scale(1.0); text-shadow: 0px 00px 0px #000000; }
+    40% {  color: #FF0000; transform: scale(1.2); text-shadow: 3px 10px 5px #000000; } }

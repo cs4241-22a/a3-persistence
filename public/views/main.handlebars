@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>cs4241 a3</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="webware a3 data page"/>
+  <script type="text/javascript" src="/scripts.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.11/mvp.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="container">
+    <div id="form" class="display-box">
+      <h1>want to know if a movie is directed by zack snyder?</h1>
+      <h2>you're in luck</h2>
+      <h3>disclaimer: zack snyder is not very good at making movies</h3>
+      <form action="">
+        <div class="column">
+          <label for="title">movie title:</label>
+          <input type="text" id="title" value=""></div>
+        <div class="column">
+          <label for="genre">genre:</label>
+          <input type="text" id="genre" value=""></div>
+        <div class="column">
+          <label for="year">year of release:</label>
+          <input type="number" id="year" value=""></div><br>
+        <button id="submit" onclick="window.location.reload();">submit</button></form></div>
+    <div id="display" class="display-box">
+        <h1>data:</h1>
+      <table id="datatable"></table>
+    </div>
+  </div>
+</body>
+</html>
