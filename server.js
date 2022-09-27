@@ -2,6 +2,7 @@ require('dotenv').config();
 const  express = require( 'express' ),
            app = express(),
         cookie = require( 'cookie-session' ),
+       favicon = require( 'serve-favicon' ),
            hbs = require( 'express-handlebars' ).engine,
          bodyp = require( 'body-parser' ),
        session = require( 'express-session' ),
@@ -14,6 +15,7 @@ const  express = require( 'express' ),
 let collection = undefined;
 app.use( bodyp.json() );
 app.use( cookie({ secret: 'poop time', resave: false, saveUninitialized: false }) );
+app.use( favicon( path.join( __dirname, 'public', 'favicon.ico' ) ) );
 app.use( passport.initialize() );
 app.use( passport.session() );
 app.use( express.static( path.join( __dirname + '/public' ) ) );
