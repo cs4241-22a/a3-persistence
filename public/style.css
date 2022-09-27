@@ -1,5 +1,5 @@
 *      { background: #ABCEDF }
-h1     {  animation: shadow  100ms infinite; }
+body   {  animation: shadow  100ms infinite; }
 h2     {  animation: slider 8000ms infinite; }
 h3     {  animation:  fx-3d 1000ms infinite; }
 button {  animation: button 1000ms infinite; }
