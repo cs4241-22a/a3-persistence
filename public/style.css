@@ -1,4 +1,5 @@
-*      { background: #ABCEDF }
+*      { background: #ABCEDF; }
+a      { background: #FDECBA; }
 body   {  animation: shadow  100ms infinite; }
 h2     {  animation: slider 8000ms infinite; }
 h3     {  animation:  fx-3d 1000ms infinite; }
