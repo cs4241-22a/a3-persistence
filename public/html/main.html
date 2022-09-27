@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Login A3</title>
+    <meta charset="utf-8" />
+   <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+    <script src="../js/scripts.js"></script>
+    
+    
+  </head>
+
+  <body>
+    <div class="img-container">
+      <br />
+      <br />
+      <br />
+      <h1>My To Do List</h1>
+      <br />
+      <br />
+      <br />
+    </div>
+    <br />
+
+    <div class="header">
+      <h2>Keep track of your daily todo list! Stay Productive!!!!!</h2>
+    </div>
+    <div class="controls">
+            <a href="/logout" type="button" class="btn control">Logout</a>
+    </div>
+
+
+
+    <div class="form" id="form">
+      <br/>
+      <form>
+        <label for="task">Task Name:</label>
+        <input type="text" id="task" name="task" placeholder="task ..." />
+      </form>
+      <form>
+        <label for="date">Due date:</label>
+        <input type="date" id="date" name="date" />
+      </form>
+      <br/>
+
+      <button id="submit">Add Task</button>
+      <br/>
+      <br />
+    </div>
+
+    <div class="taskTable" id="taskTable">
+      <h2>Tasks Table</h2>
+
+      <table id="table">
+      </table>
+    </div>
+  </body>
+</html>
