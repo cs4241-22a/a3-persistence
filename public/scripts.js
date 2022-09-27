@@ -49,17 +49,17 @@ function deleter( _movID )
 };
 function updater( _movID, title, genre, year )
 {
-    if( tempElement != null && tempID != null ) { updatercanceller( tempID ); }
-    tempID = _movID;
-    tempElement = document.getElementById(_movID);
-    let newRow  = '<br><tr id = "' + _movID + '">';
-        newRow += '<th><input type="text"   value="' + title + '"></th>'
-        newRow += '<th><input type="text"   value="' + genre + '"></th>'
-        newRow += '<th><input type="number" value="' +  year + '"></th>'
+    //Element != null && tempID != null ) { updatercanceller( tempID ); }
+    //tempID = _movID;
+    //tempElement = document.getElementById(_movID);
+    let newRow  = '<tr id = "' + _movID + '">';
+        newRow += '<th><input id="titleedit' + title + '" type="text"   value="' + title + '"></th>'
+        newRow += '<th><input id="genreedit' + title + '" type="text"   value="' + genre + '"></th>'
+        newRow += '<th><input id= "yearedit' + title + '" type="number" value="' +  year + '"></th>'
         newRow += '<th></th>';
         newRow += '<th><button onclick="updatersubmitter(\'' + _movID + '\')">submit</button></th></tr>';
         newRow += '<th><button onclick="updatercanceller(\'' + _movID + '\')">cancel?</button></th>';
-    tempElement.innerHTML += newRow;
+    document.getElementById( _movID ).innerHTML += newRow;
 };
 function updatercanceller( _movID )
 {
@@ -69,30 +69,38 @@ function updatercanceller( _movID )
        newRow  = '<tr id = "' + _movID + '">';
        newRow += '<th>' + title + '</th>';
        newRow += '<th>' + genre + '</th>';
-       newRow += '<th>' + year + '</th>';
+       newRow += '<th>' +  year + '</th>';
        newRow += '<th>' + zackcheck(title, genre) + '</th>';
        newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + title + '\',\'' + genre + '\',\'' + year + '\');">edit?</button></th>';
        newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
-    tempElement.innerHTML = newRow;
-    tempElement = null;
-    tempID = null;
+    document.getElementById( _movID ).innerHTML = newRow;
+    //tempElement.innerHTML = newRow;
+    //tempElement = null;
+    //tempID = null;
 };
 function updatersubmitter( _movID )
 {
-    const json = { _movID: _movID,
-                    title: document.getElementById( _movID ).children[7].children[0].value,
-                    genre: document.getElementById( _movID ).children[8].children[0].value,
-                     year: document.getElementById( _movID ).children[9].children[0].value
-                 },
+    let oldtitle  = document.getElementById( _movID ).children[0].innerHTML,
+        newtitle  = document.getElementById( 'titleedit' + oldtitle ),
+        newgenre  = document.getElementById( 'genreedit' + oldtitle ),
+         newyear  = document.getElementById(  'yearedit' + oldtitle ),
+          newrow  = '<tr id = "' + _movID + '">';
+          newrow += '<th>' + newtitle + '</th>';
+          newrow += '<th>' + newgenre + '</th>';
+          newrow += '<th>' + newyear  + '</th>';
+          newrow += '<th>' + zackcheck(newtitle, newgenre) + '</th>';
+          newRow += '<th><button onclick="updater(\'' + _movID + '\',\'' + newtitle + '\',\'' + newgenre + '\',\'' + newyear + '\');">edit?</button></th>';
+          newRow += '<th><button onclick="deleter(\'' + _movID + '\');">delete?</button></th>';
+    /*const json = { _movID: _movID, title: newtitle, genre: newgenre, year: newyear },
           body = JSON.stringify(json);
     console.log( json.title );
     console.log( body );
     console.log( document.getElementById( _movID ).children );
     fetch( '/update', { method: 'POST', headers: { "Content-Type": "application/json" }, body })
     .then( response => response.json() )
-    .then( dothething() );
-    tempID = null;
-    tempElement = null;
+    .then( dothething() );*/
+    //tempID = null;
+    //tempElement = null;
 }
 const zackcheck = function( title, year ) {
     const years = [ 2004, 2007, 2009, 2010, 2011, 2013, 2016, 2017, 2021, 2021 ];
