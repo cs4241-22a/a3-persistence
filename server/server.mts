@@ -42,9 +42,8 @@ app.get( '/canvas', (req,res) => {
     }
 });
 
-app.post('/submit', (req, res) => {
+app.post('/draw', (req, res) => {
     const newPath = new paper.Path()
-    console.log(req.body);
     newPath.importJSON(req.body);
 
     paths.push(newPath);

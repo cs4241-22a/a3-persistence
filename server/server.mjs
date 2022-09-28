@@ -32,9 +32,8 @@ app.get('/canvas', (req, res) => {
         collection.find({}).toArray().then(result => res.json(result));
     }
 });
-app.post('/submit', (req, res) => {
+app.post('/draw', (req, res) => {
     const newPath = new paper.Path();
-    console.log(req.body);
     newPath.importJSON(req.body);
     paths.push(newPath);
     res.writeHead(200, { 'Content-Type': 'application/json' });

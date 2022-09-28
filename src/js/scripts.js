@@ -16,9 +16,13 @@ let currentPath;
 //**************
 //* Networking *
 //**************
+/**
+ * Submit a POST request with a new path to add to the database
+ * @param path The path to post to the server
+ */
 function submitPath(path) {
     const body = path.exportJSON();
-    fetch('/submit', {
+    fetch('/draw', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: body
@@ -26,6 +30,21 @@ function submitPath(path) {
         .then((response) => response.json())
         .then((json) => {
         console.log(json);
+    });
+}
+function refreshPaths() {
+    fetch('/canvas', { method: 'GET' })
+        .then(response => response.json())
+        .then(json => {
+        // Clear canvas and replace with updated paths
+        const updatedPaths = json;
+        paperView.project.clear();
+        for (let userPath of updatedPaths) {
+            const currPath = new paper.Path();
+            currPath.importJSON(JSON.stringify(userPath.path));
+            userPath.path = currPath;
+            paths.push(userPath);
+        }
     });
 }
 //*********************
@@ -59,7 +78,7 @@ canvas.addEventListener("mousedown", ev => {
             leftMouseDown = true;
             // Init path
             currentPath = initPath();
-            paths.push(currentPath);
+            paths.push({ path: currentPath, user: "cjacobson32", id: paths.length });
             currentPath.add(getMousePos(ev.x, ev.y));
             break;
         case 1: // Left mouse button
@@ -81,7 +100,6 @@ window.addEventListener("mouseup", ev => {
                 paths.pop();
                 currentPath.remove();
             }
-            console.log(JSON.parse(currentPath.exportJSON()));
             submitPath(currentPath);
             currentPath = null;
             break;
