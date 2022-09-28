@@ -14,7 +14,7 @@ window.onload = (event) => {
 saveForm.addEventListener("click", async function(event) {
 
   console.log(link);
-  event.preventDefault();
+  //event.preventDefault();
 
   let JSONObject =
         {"username": link,
