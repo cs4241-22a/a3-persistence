@@ -1,19 +1,15 @@
-// client-side js, loaded by index.html
-// run by the browser each time the page is loaded
-
-// define variables that reference elements on our page
-let reviewsForm = document.getElementById("form");
+let messagesForm = document.getElementById("form");
 let submitButton = document.getElementById("submit");
-let table = document.getElementById("reviews");
+let table = document.getElementById("messages");
 
 let tableIDs = []
 
 let user = localStorage["username"];
 
-document.getElementById("welcomeMessage").innerHTML = `Welcome back, ${user}!`
+document.getElementById("welcomeMessage").innerHTML = `Hello, dear ${user}!`
 
-// fetch the initial list of reviews
-fetch("/reviews", {
+// fetch the initial list of messages
+fetch("/send", {
     method: "POST", //tells it to use the post method
     body: JSON.stringify({ "user": user }),
     headers: {
@@ -22,12 +18,12 @@ fetch("/reviews", {
     }
 })
     .then(response => response.json()) // parse the JSON from the server
-    .then(reviews => {
-        console.log("reviews: ", reviews)
-        // iterate through every review and add it to our page
-        for (let review of reviews) {
-            console.log("review: ", review)
-            populateTable(review)
+    .then(messages => {
+        console.log("messages: ", messages)
+        // iterate through every message and add it to our page
+        for (let message of messages) {
+            console.log("messages: ", message)
+            populateTable(message)
         }
     });
 
@@ -36,21 +32,19 @@ submitButton.addEventListener("click", event => {
     // stop our form submission from refreshing the page
     event.preventDefault();
 
-    const inputTitle = String(document.querySelector('#title').value)
-    const inputAuthor = String(document.querySelector('#author').value)
-    const inputRating = String(document.querySelector('#rating').value)
-    const inputDescription = String(document.querySelector('#description').value)
+    const inputSubject = String(document.querySelector('#title').value)
+    const inputReceiver = String(document.querySelector('#author').value)
+    const inputMsg = String(document.querySelector('#description').value)
 
-    if (inputTitle === '' || inputAuthor === '' ||
-        inputRating === '' || inputDescription === '') {
+    if (inputSubject === '' || inputReceiver === '' || inputMsg === '') {
         // alert("Fill in all the fields")
     } else {
 
-        let newReview = { "title": inputTitle, "author": inputAuthor, "rating": inputRating, "description": inputDescription }
+        let newMessage = { "subject": inputSubject, "receiver": inputReceiver, "message": inputMsg }
 
         fetch("/add", {
             method: "POST", //tells it to use the post method
-            body: JSON.stringify({ "review": newReview, "user": user }),
+            body: JSON.stringify({ "message": msg, "user": user }),
             headers: {
                 //bodyparser only kicks in if the content type is application/json
                 "Content-Type": "application/json"
@@ -58,12 +52,12 @@ submitButton.addEventListener("click", event => {
         })
             .then(response => response.json())
             .then(json => {
-                console.log("review: ", json)
+                console.log("message: ", json)
                 populateTable(json)
             })
 
         // reset form
-        reviewsForm.reset();
+        messagesForm.reset();
     }
 });
 
@@ -121,13 +115,13 @@ const edit = function(e) {
 
         let fromWHO = cells[1].innerHTML;
         console.log("Title: ", String(fromWHO))
-        cells[1].innerHTML = "<input type='text' class='w-100' id='modifyTitle' value='" + String(fromWHO) + "'>";
+        cells[1].innerHTML = "<input type='text' class='w-100' id='modifySubject' value='" + String(fromWHO) + "'>";
 
-        let authorValue = cells[2].innerHTML;
-        cells[2].innerHTML = "<input type='text' class='w-100' id='modifyAuthor' value='" + String(authorValue) + "'>";
+        let receiverValue = cells[2].innerHTML;
+        cells[2].innerHTML = "<input type='text' class='w-100' id='modifyReceiver' value='" + String(receiverValue) + "'>";
 
         let descriptionValue = cells[4].innerHTML;
-        cells[4].innerHTML = "<textarea id='modifyDescription' rows='4' cols='40'>" + String(descriptionValue) + "</textarea>";
+        cells[4].innerHTML = "<textarea id='modifyMessage' rows='4' cols='40'>" + String(descriptionValue) + "</textarea>";
 
         let saveButton = document.createElement('button');
         saveButton.textContent = 'Save';
@@ -153,16 +147,15 @@ const save = function(e) {
     if (target) {
         let cells = target.getElementsByTagName("td");
 
-        if (modifyTitle.value == '' || modifyAuthor.value == '' || modifyRating.value == '' || modifyDescription.value == '') {
+        if (modifySubject.value == '' || modifyReceiver.value == '' || modifyMessage.value == '') {
             alert("Fill in all the fields")
         } else {
 
-            let updatedReview = { "title": modifyTitle.value, "author": modifyAuthor.value, "rating": modifyRating.value, "description": modifyDescription.value }
+            let updatedMessage = { "subject": modifySubject.value, "receiver": modifyReceiver.value, "message": modifyMessage.value }
 
-            cells[1].innerHTML = modifyTitle.value;
-            cells[2].innerHTML = modifyAuthor.value;
-            cells[3].innerHTML = modifyRating.value;
-            cells[4].innerHTML = modifyDescription.value;
+            cells[1].innerHTML = modifySubject.value;
+            cells[2].innerHTML = modifyReceiver.value;
+            cells[4].innerHTML = modifyMessage.value;
 
             let editButton = document.createElement('button');
             editButton.textContent = 'Edit';
@@ -173,7 +166,7 @@ const save = function(e) {
             cells[5].innerHTML = '';
             cells[5].append(editButton);
 
-            var body = JSON.stringify({ "_id": cells[0].innerHTML, "review": updatedReview, "user": user })
+            var body = JSON.stringify({ "_id": cells[0].innerHTML, "message": updatedMessage, "user": user })
             console.log("body:", body)
 
             fetch('/update', {
@@ -196,28 +189,24 @@ const save = function(e) {
 }
 
 function populateTable(data) {
-    const tableBody = document.getElementById("reviews")
+    const tableBody = document.getElementById("messages")
 
     const cellID = document.createElement("td")
     cellID.appendChild(document.createTextNode(String(data._id)))
     tableIDs.push(String(data._id))
     cellID.style.display = "none"
 
-    const cellTitle = document.createElement("td")
-    cellTitle.colSpan = "1"
-    cellTitle.appendChild(document.createTextNode(String(data.review.title)))
+    const cellSubject = document.createElement("td")
+    cellSubject.colSpan = "1"
+    cellSubject.appendChild(document.createTextNode(String(data.message.title)))
 
-    const cellAuthor = document.createElement("td")
-    cellAuthor.colSpan = "1"
-    cellAuthor.appendChild(document.createTextNode(String(data.review.author)))
+    const cellReceiver = document.createElement("td")
+    cellReceiver.colSpan = "1"
+    cellReceiver.appendChild(document.createTextNode(String(data.message.receiver)))
 
-    const cellRating = document.createElement("td")
-    cellRating.colSpan = "1"
-    cellRating.appendChild(document.createTextNode(String(data.review.rating)))
-
-    const cellDescription = document.createElement("td")
-    cellDescription.colSpan = "2"
-    cellDescription.appendChild(document.createTextNode(String(data.review.description)))
+    const cellMessage = document.createElement("td")
+    cellMessage.colSpan = "2"
+    cellMessage.appendChild(document.createTextNode(String(data.message.description)))
 
     const cellEdit = document.createElement("td")
     cellEdit.colSpan = "1"
@@ -239,7 +228,7 @@ function populateTable(data) {
     cellDelete.appendChild(deleteButton)
 
     const newRow = document.createElement("tr")
-    newRow.append(cellID, cellTitle, cellAuthor, cellRating, cellDescription, cellEdit, cellDelete)
+    newRow.append(cellID, cellSubject, cellReceiver, cellMessage, cellEdit, cellDelete)
 
     tableBody.appendChild(newRow)
 }

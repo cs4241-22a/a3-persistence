@@ -48,7 +48,7 @@ client.connect()
     })
 .then(console.log)
 
-app.post("/reviews", bodyParser.json(), (request, response) => {
+app.post("/send", bodyParser.json(), (request, response) => {
   if (collection !== null) {
     collection
         .find({ "user": request.body.user })
@@ -85,7 +85,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //  The keys are used for encryption and should be changed
 app.use(cookie({
-  name: 'session',
+  name: 'cookie',
   keys: ['12345667890']
 }))
 
@@ -148,7 +148,6 @@ app.post("/remove", bodyParser.json(), (request, response) => {
       });
 });
 
-//TODO
 app.post('/update', bodyParser.json(), (request, response) => {
   console.log("id: ", request.body._id)
   collection
