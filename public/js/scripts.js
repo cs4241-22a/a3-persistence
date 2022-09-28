@@ -119,15 +119,12 @@ const edit = function(e) {
 
         let index = tableIDs.indexOf(String(cells[0].innerHTML)) + 1;
 
-        let titleValue = cells[1].innerHTML;
-        console.log("Title: ", String(titleValue))
-        cells[1].innerHTML = "<input type='text' class='w-100' id='modifyTitle' value='" + String(titleValue) + "'>";
+        let fromWHO = cells[1].innerHTML;
+        console.log("Title: ", String(fromWHO))
+        cells[1].innerHTML = "<input type='text' class='w-100' id='modifyTitle' value='" + String(fromWHO) + "'>";
 
         let authorValue = cells[2].innerHTML;
         cells[2].innerHTML = "<input type='text' class='w-100' id='modifyAuthor' value='" + String(authorValue) + "'>";
-
-        let ratingValue = cells[3].innerHTML;
-        cells[3].innerHTML = "<input type='number' class='w-100' id='modifyRating' value='" + String(ratingValue) + "'>";
 
         let descriptionValue = cells[4].innerHTML;
         cells[4].innerHTML = "<textarea id='modifyDescription' rows='4' cols='40'>" + String(descriptionValue) + "</textarea>";
@@ -245,4 +242,4 @@ function populateTable(data) {
     newRow.append(cellID, cellTitle, cellAuthor, cellRating, cellDescription, cellEdit, cellDelete)
 
     tableBody.appendChild(newRow)
-}d
+}
