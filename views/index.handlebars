@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Login project A3</title>
+
+    <style>input { display:block }</style>
+    <meta name="description" content="login landing page" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"
+    />
+<!--     <link
+      id="favicon"
+      rel="icon"
+      href="https://cdn.glitch.global/0edfe2e5-87c5-4a8d-a213-384e484e37ff/a3.jpg?v=1664316207356"
+      type="image/x-icon"
+    /> -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>
+      Login for Restaurant Log
+    </h1>
+    <form action="/login" method="POST">
+
+      <label for="username">name:</label>
+      <input type="text" name="username" id= "username"  />
+      <label for="password">password</label>
+      <input type="password" name="password" id= "password"/>
+      <input type="submit" value="login" />
+
+    </form>
+    <form action="/register" method="POST">
+      <label for="usernamer">name:</label>
+      <input type="text" name="username" id="usernamer"/>
+      <label for="passwordr">password</label>
+      <input type="password" name="password" id= "passwordr"/>
+      <div class="button">
+
+        <input type="submit" value="register" id="submit"/>
+      </div>
+    </form>
+    {{{msg}}}
+    <script  src="/scripts.js" defer></script>
+  </body>
+</html>
