@@ -1,6 +1,11 @@
 const saveForm = document.getElementById("save");
 const email = document.getElementById("email");
 const fullname = document.getElementById("fullname");
+const firstname = document.getElementById("firstname");
+const lastname = document.getElementById("lastname");
+const discordID = document.getElementById("discordID")
+const rank = document.getElementById("rank");
+const steamID = document.getElementById("steamID");
 let link = "";
 
 window.onload = (event) => {
@@ -46,5 +51,11 @@ async function getData(name){
   const responseJSON = await response.json();
   email.innerHTML = responseJSON.username;
   fullname.innerHTML = responseJSON.firstname + " " + responseJSON.lastname;
+  
+  firstname.value = responseJSON.firstname;
+  lastname.value = responseJSON.lastname;
+  discordID.value = responseJSON.discordID;
+  rank.value = responseJSON.rank;
+  steamID.value = responseJSON.steamID; 
   console.log(responseJSON);
 }
