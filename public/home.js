@@ -1,5 +1,6 @@
 const saveForm = document.getElementById("save");
 const email = document.getElementById("email");
+const name = document.getElementById("fullname");
 let link = "";
 
 window.onload = (event) => {
@@ -43,5 +44,6 @@ async function getData(name){
   
   const responseJSON = await response.json();
   email.innerHTML = responseJSON.username;
+  name.innerHTML = responseJSON.firstname + " " + responseJSON.lastname;
   console.log(responseJSON);
 }
