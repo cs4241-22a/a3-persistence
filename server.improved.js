@@ -110,7 +110,7 @@ app.post('/login', (request, response) => {
         request.session.login = true
 
         // since login was successful, send the user to the main content
-        response.redirect('/public/main.html')
+        response.redirect('/public/messenger.html')
       } else {
         request.session.login = false
         // password incorrect, redirect back to login page

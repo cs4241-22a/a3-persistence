@@ -23,7 +23,7 @@ fetch("/send", {
         // iterate through every message and add it to our page
         for (let message of messages) {
             console.log("messages: ", message)
-            populateTable(message)
+            displayTable(message)
         }
     });
 
@@ -32,9 +32,9 @@ submitButton.addEventListener("click", event => {
     // stop our form submission from refreshing the page
     event.preventDefault();
 
-    const inputSubject = String(document.querySelector('#title').value)
-    const inputReceiver = String(document.querySelector('#author').value)
-    const inputMsg = String(document.querySelector('#description').value)
+    const inputSubject = String(document.querySelector('#subject').value)
+    const inputReceiver = String(document.querySelector('#receiver').value)
+    const inputMsg = String(document.querySelector('#message').value)
 
     if (inputSubject === '' || inputReceiver === '' || inputMsg === '') {
         // alert("Fill in all the fields")
@@ -44,7 +44,7 @@ submitButton.addEventListener("click", event => {
 
         fetch("/add", {
             method: "POST", //tells it to use the post method
-            body: JSON.stringify({ "message": msg, "user": user }),
+            body: JSON.stringify({ "message": newMessage, "user": user }),
             headers: {
                 //bodyparser only kicks in if the content type is application/json
                 "Content-Type": "application/json"
@@ -53,7 +53,7 @@ submitButton.addEventListener("click", event => {
             .then(response => response.json())
             .then(json => {
                 console.log("message: ", json)
-                populateTable(json)
+                displayTable(json)
             })
 
         // reset form
@@ -188,7 +188,7 @@ const save = function(e) {
     return false
 }
 
-function populateTable(data) {
+function displayTable(data) {
     const tableBody = document.getElementById("messages")
 
     const cellID = document.createElement("td")
