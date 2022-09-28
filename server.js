@@ -41,15 +41,15 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/home", function(request, response) {
-  response.sendFile(__dirname + "/views/home.html");
-});
+// app.get("/home", function(request, response) {
+//   response.sendFile(__dirname + "/views/home.html");
+// });
 
 app.get("/signup", function(request, response) {
   response.sendFile(__dirname + "/views/signup.html");
 });
 
-app.get("/:username", function(request, response) {
+app.get("/home/:username", function(request, response) {
   response.sendFile(__dirname + "/views/home.html")
 });
 

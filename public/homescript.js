@@ -1,4 +1,4 @@
-const saveForm = document.getElementById("save");
+const saveForm = document.getElementById("saveform");
 const email = document.getElementById("email");
 const fullname = document.getElementById("fullname");
 const firstname = document.getElementById("firstname");
@@ -6,23 +6,23 @@ const lastname = document.getElementById("lastname");
 const discordID = document.getElementById("discordID")
 const rank = document.getElementById("rank");
 const steamID = document.getElementById("steamID");
-let link = "";
+let linkstr = " ";
 
-window.onload = (event) => {
+window.addEventListener('load', (event) => {
   console.log('page is fully loaded');
   email.innerHTML = "faceitlvl2@faceit.com";
-  link = window.location.href;
-  link = link.substring(link.lastIndexOf("/")+1);
-  getData(link);
-};
+  linkstr = window.location.href;
+  linkstr = linkstr.substring(linkstr.lastIndexOf("/")+1);
+  getData(linkstr);
+});
 
 saveForm.addEventListener("click", async function(event) {
 
-  console.log(link);
+  console.log(linkstr);
   //event.preventDefault();
 
   let JSONObject =
-        {"username": link,
+        {"username": linkstr,
          "password": "",
          "firstname": document.getElementById("firstname").value,
          "lastname": document.getElementById("lastname").value,

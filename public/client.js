@@ -19,7 +19,7 @@ loginForm.onsubmit = async function(event) {
   //console.log("Hello Client")
   const responseJSON = await response.json();
   if(responseJSON.status === "SUCCESS"){
-    window.location.replace("/" + JSONObject.username)
+    window.location.replace("/home/" + JSONObject.username)
   }else{
     alert("Incorrect Login")
   }
