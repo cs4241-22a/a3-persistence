@@ -78,14 +78,6 @@ const submit = function( e ) {
     tbl = document.getElementById( 'list_table' )
     tableBody = document.getElementById('table_body')
 
-    // for (let j = 0; j < rowIndex; j++) {
-    //   const itemLabel = document.getElementById("itemLabel" + j)
-    //   itemLabel.remove()
-    //   const dateLabel = document.getElementById("dateLabel" + j)
-    //   dateLabel.remove()
-    //   const priorityLabel = document.getElementById("priorityLabel" + j)
-    //   priorityLabel.remove()
-    // }
     if (tbl != null) {
       if (rowIndex != 0) {
         const divLabel = document.getElementById("divLabel")
@@ -119,7 +111,6 @@ const submit = function( e ) {
         itemText.value = json.item
         itemText.id = "item" + rowIndex
         item.appendChild(itemText)
-        //item.innerText = json.item
     
         const dueDate = document.createElement('td')
         const dateText = document.createElement('input')
@@ -127,7 +118,6 @@ const submit = function( e ) {
         dateText.value = json.date
         dateText.id = "date" + rowIndex
         dueDate.appendChild(dateText)
-        //dueDate.innerText = json.date
         
         const priority = document.createElement('td')
         const priorityText = document.createElement('input')
@@ -135,32 +125,28 @@ const submit = function( e ) {
         priorityText.value = json.priority
         priorityText.id = "priority" + rowIndex
         priority.appendChild(priorityText)
-        //priority.innerText = json.priority
   
         const itemLabel = document.createElement('label')
         itemLabel.id = "itemLabel" + rowIndex
         itemLabel.htmlFor = "item" + rowIndex
-        //itemLabel.hidden = true
         itemLabel.textContent = "-"
+
         const dateLabel = document.createElement('label')
         dateLabel.htmlFor = "date" + rowIndex
         dateLabel.id = "dateLabel" + rowIndex
         dateLabel.textContent = "-"
-        //dateLabel.hidden = true
+
         const priorityLabel = document.createElement('label')
         priorityLabel.id = "priorityLabel" + rowIndex
         priorityLabel.htmlFor = "priority" + rowIndex
         priorityLabel.textContent = "-"
-        //priorityLabel.hidden = true
+        
+
         divLabel.appendChild(itemLabel)
         divLabel.appendChild(dateLabel)
         divLabel.appendChild(priorityLabel)
   
         document.body.appendChild(divLabel)
-    
-        // document.body.appendChild(itemLabel)
-        // document.body.appendChild(dateLabel)
-        // document.body.appendChild(priorityLabel)
     
         const actions = document.createElement('td')
   

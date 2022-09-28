@@ -76,10 +76,8 @@ app.post( '/login', (req,res)=> {
   })
 })
 
-// route to get all docs
 app.get( '/', (req,res) => {
   if( collection !== null ) {
-    // get array and pass to res.json
     collection.find({ }).toArray().then( result => res.json( result ) )
   }
 })
