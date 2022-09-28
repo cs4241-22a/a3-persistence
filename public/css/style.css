@@ -1,0 +1,35 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+input,
+textarea {
+    display: block;
+}
+
+table {
+    border-spacing: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+.login {
+    width: 30%;
+}
+
+.title {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.text-large {
+    font-size: 500%;
+}
+
+.off-white {
+    background-color: #e2e2e2;
+}
