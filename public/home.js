@@ -33,6 +33,7 @@ saveForm.addEventListener("click", async function(event) {
     body:    JSON.stringify(JSONObject)
   })
   console.log("fetch");
+  location.reload();
 })
 
 async function getData(name){
@@ -46,5 +47,4 @@ async function getData(name){
   email.innerHTML = responseJSON.username;
   fullname.innerHTML = responseJSON.firstname + " " + responseJSON.lastname;
   console.log(responseJSON);
-  location.reload();
 }
