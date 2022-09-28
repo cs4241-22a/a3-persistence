@@ -66,7 +66,7 @@ I used font sizes, bold text, and underline text to convey info
 
 - (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
 
-Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. 
+Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. For example, I add a line on the main page dividing titles/subtitles and the information on how to use the site. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. 
 
 How did you use proximity to organize the visual information on your page? 
 What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
