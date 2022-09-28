@@ -8,13 +8,13 @@ const rank = document.getElementById("rank");
 const steamID = document.getElementById("steamID");
 let linkstr = " ";
 
-window.addEventListener('load', (event) => {
+window.onload = (event) => {
   console.log('page is fully loaded');
   email.innerHTML = "faceitlvl2@faceit.com";
   linkstr = window.location.href;
   linkstr = linkstr.substring(linkstr.lastIndexOf("/")+1);
   getData(linkstr);
-});
+};
 
 saveForm.addEventListener("click", async function(event) {
 
