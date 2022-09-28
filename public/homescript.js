@@ -19,7 +19,7 @@ window.addEventListener('load', (event) => {
 saveForm.addEventListener("click", async function(event) {
 
   console.log(linkstr);
-  event.preventDefault();
+  //event.preventDefault();
 
   let JSONObject =
         {"username": linkstr,
