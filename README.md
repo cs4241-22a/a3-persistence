@@ -26,7 +26,7 @@ ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THE
 
 - (10pts) OAuth authentication: I used express to handle the intake of passwords and username, as well as their hashing, and mongoDB to store the data. Express checks for a user on the mongoDB base, and if the user exists, it checks the password. If both cases pass, the user is logged in! This was challenging as I really struggled to get the pages to redirect and reload. I also created a register functionality on a different page to add user data to mongoDB. I used this method because I simply enjoyed working with mongoDB, and find it fun!
 
--Use of MongoDB: I use mongoDB to handle data storage for both cat data and passwords. This allows for the data to be stored more reliably and has a layer of redundancy in case the server crashes.
+- Use of MongoDB: I use mongoDB to handle data storage for both cat data and passwords. This allows for the data to be stored more reliably and has a layer of redundancy in case the server crashes.
 
 Test Account:
 u: webware_grader
