@@ -1,4 +1,4 @@
-# Library Book Hold System
+# Video Game Checkout System
 https://a3-kpanneton.glitch.me/
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:

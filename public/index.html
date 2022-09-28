@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+
+  </head>
+  <h1>Video Game Checkout System</h1>
+  <body>
+    <form action=" " id="myForm">
+    <table class="gameReserve">
+      <tr>
+        <td>Name: </td>
+        <td><input class="textInput" type="text" id="username" name="username" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td><input class="textInput" type="text" id="useremail" name="useremail" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Game Title: </td>
+        <td><input class="textInput" type="text" id="gameTitle" name="bookTitle" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Game System: </td>
+        <td><input class="textInput" type="text" id="gameSystem" name="game System" value="" required/></td>
+      </tr>
+      <tr>
+        <td>Today's Date: </td>
+        <td><input class="date" type="date" id="currentDate" name="currentDate" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="submitButton">Place Hold</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="removeButton">Remove Hold</button></td>
+      </tr>
+
+    </form>
+    <table id="reserveData">
+    </table>
+  </body>
+  <script src="js/scripts.js">
+  </script>
+</html>
