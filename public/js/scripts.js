@@ -6,7 +6,7 @@ let tableIDs = []
 
 let user = localStorage["username"];
 
-document.getElementById("welcomeMessage").innerHTML = `Hello, dear ${user}!`
+document.getElementById("welcomeMessage").innerHTML = `Hello, ${user}!`
 
 // fetch the initial list of messages
 fetch("/send", {

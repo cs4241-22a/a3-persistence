@@ -1,5 +1,5 @@
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: fantasy;
 }
 
 input,
@@ -23,7 +23,7 @@ td {
 }
 
 .title {
-    font-family: 'Bebas Neue', cursive;
+    font-family: fantasy;
 }
 
 .text-large {
@@ -32,4 +32,12 @@ td {
 
 .off-white {
     background-color: #e2e2e2;
+}
+
+h3{
+    font-family: fantasy;
+}
+
+h5{
+    font-family: fantasy;
 }
