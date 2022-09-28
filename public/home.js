@@ -46,4 +46,5 @@ async function getData(name){
   email.innerHTML = responseJSON.username;
   fullname.innerHTML = responseJSON.firstname + " " + responseJSON.lastname;
   console.log(responseJSON);
+  location.reload();
 }
