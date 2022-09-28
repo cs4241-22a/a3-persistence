@@ -114,7 +114,7 @@ app.post('/login', (request, response) => {
       } else {
         request.session.login = false
         // password incorrect, redirect back to login page
-        response.sendFile(__dirname + '/public/login-failed.html')
+        response.sendFile(__dirname + 'login-failed.html')
       }
 
     }
@@ -126,7 +126,7 @@ app.use(function(request, response, next) {
   if (request.session.login === true)
     next()
   else
-    response.sendFile(__dirname + '/public/login-failed.html')
+    response.sendFile(__dirname + 'login-failed.html')
 })
 
 app.post("/add", bodyParser.json(), (request, response) => {
