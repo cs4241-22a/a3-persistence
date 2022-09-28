@@ -1,18 +1,15 @@
-// client-side js, loaded by index.html
-// run by the browser each time the page is loaded
-
-console.log("hello world :o");
-
-// define variables that reference elements on our page
+console.log("hello world :o - login.js");
 
 // define variables that reference elements on our page
 const login_form = document.querySelector("form");
 const login_btn = document.getElementById("login");
 const signup_btn = document.getElementById("signup");
+let current_username = "";
 
 //Listening for button click
 login_btn.addEventListener("click", (event) => {
   event.preventDefault();
+  current_username = login_form.elements.username.value;
   fetch("/login", {
     method: "POST",
     headers: {
@@ -29,6 +26,7 @@ login_btn.addEventListener("click", (event) => {
       console.log("logging in! client");
       if (json.code == 0) {
         console.log("password checked and correct");
+        console.log(json.user_id);
         window.location.href = "index.html";
       } else {
         window.alert("Wrong password");
@@ -38,6 +36,7 @@ login_btn.addEventListener("click", (event) => {
 
 signup_btn.addEventListener("click", (event) => {
   event.preventDefault();
+  current_username = login_form.elements.username.value;
   fetch("/signup", {
     method: "POST",
     headers: {
