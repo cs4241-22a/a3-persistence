@@ -11,7 +11,7 @@ const express = require("express"),
 var ObjectId = require('mongodb').ObjectId;
 
 //Serve favicon using middle ware
-app.use(favicon(__dirname + '/public/assets/open-book.png'));
+app.use(favicon(__dirname + '/public/assets/sending.jpg'));
 
 //Serve static files using middleware
 app.use(serveStatic(path.join(__dirname, 'public')))
@@ -86,7 +86,7 @@ app.use(express.urlencoded({ extended: true }))
 //  The keys are used for encryption and should be changed
 app.use(cookie({
   name: 'session',
-  keys: ['key123456', 'key234567']
+  keys: ['12345667890']
 }))
 
 
