@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>CS4241 Assignment 3: Chore Logger</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chore logger page.">
+<!--   <link rel="stylesheet" href="/style.css"> -->
+  <script src="logger.js"></script>
+<!--   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script> -->
+  <link rel="stylesheet" type="text/css" href="/dist/semantic.min.css">
+<!--   <script src="/dist/semantic.min.js"></script> -->
+</head>
+
+<body>
+  <h1>Chore Logger</h1>
+  <h2 id="welcome">Welcome!</h2>
+  <p>
+    Please select a chore from the dropdown menu and then enter the number of hours spent completeing that chore (between 0-24 hours) and hit submit. 
+    To modify an entry, reselect a chore and reenter the number of hours and then select the modify button inline with the entry you are trying to change. 
+    To delete an entry, select the delete button inline with the entry you are trying to remove. This action is not reversible.
+  </p>
+  <div class="logChore">
+    <form class="ui form" id="add">
+      <div class="submit" id="logout"><button class="ui button">Logout</button></div>
+      <h2>
+        Chore Completed:
+      </h2>
+      <div class="chores">
+        <select id="chores" name="chores">
+          <label><option value="Dust">Dust</option></label>
+          <label><option value="Sweep">Sweep</option></label>
+          <label><option value="Vacuum">Vacuum</option></label>
+          <label><option value="Wipe Surfaces">Wipe Surfaces</option></label>
+          <label><option value="Wash Dishes">Wash Dishes</option></label>
+          <label><option value="Do Laundry">Do Laundry</option></label>
+        </select><br>
+        <label>Hours Spent: <input class="hoursInput" type="number" id="hours" name="hours" min="0" max="24"></label>
+      </div>   
+      <br>
+      <div class="submit" id="submitChore">
+        <button class="ui button">Submit</button>
+      </div>
+    </form>
+  </div>
+  <br><br>
+  <div class="viewChores" id="viewChores">
+      <em>loading chores&hellip;</em>
+  </div>
+</body>
+</html>
