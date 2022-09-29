@@ -1,7 +1,6 @@
 
 import paper from "paper"
 import {UserPath, sUserPath, clientToServerPath, serverToClientPath} from "./UserPath";
-import {response} from "express";
 
 //*********
 //* Setup *

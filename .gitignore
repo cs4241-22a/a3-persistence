@@ -50,3 +50,6 @@ fabric.properties
 
 # Config file
 mongodb.config.json
+
+# Environment file
+.env

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Inkboard - Login</title>
+	<meta charset="utf-8">
+
+	<!--	MUI		-->
+	<script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+	<link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+
+	<!--	Styles		-->
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/login.css" />
+	<link rel="stylesheet" href="css/material-btn.css" />
+
+	<!--	webpack bundle	-->
+	<script src="dist/index.bundle.js" defer></script>
+</head>
+<body>
+<div id="login-box">
+	<h2>Please log in to use Inkboard</h2>
+
+	<form action="/login" method="POST">
+		<div class="mui-textfield">
+			<label for="uname">Username: </label>
+			<input type="text" id="uname" name="username" placeholder="Type username">
+		</div>
+
+		<div class="mui-textfield">
+			<label for="pass">Password: </label>
+			<input type="text" id="pass" name="password" placeholder="Type password">
+		</div>
+
+		<button class="mtl-btn" type="submit">Login</button>
+	</form>
+</div>
+</body>
+</html>

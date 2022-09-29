@@ -2,6 +2,10 @@ import express from "express";
 import * as mongodb from "mongodb";
 import { promises as fs } from "fs";
 import {sUserPath} from "../src/js/UserPath";
+import cookie from "cookie-session";
+import passport from "passport";
+import morgan from "morgan";
+import session from "express-session";
 
 process.env.PORT = '3000';
 
@@ -12,14 +16,41 @@ const uri = "mongodb+srv://"+credentials.username+':'+credentials.password+'@'+c
 // Setup static express
 const app = express();
 
-app.use(express.static('src'));
-app.use(express.json());
+// Middleware
+app.use(morgan('tiny'));										// Logging
+app.use( cookie({
+	name: 'session',
+	keys: ['key1', 'key2']
+}))
+app.use(express.static('src', {index: "login.html"}));	// Login page
+app.use('home', express.static('src'));						// Home page
+app.use(express.json());											// Json parsing
+
+// Express session middleware
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: true }
+}));
+
+app.use(passport.initialize());										// Initialize Passport
+app.use(passport.session());										// Start passport session
 
 // Setup client and connection
 // @ts-ignore
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
 let canvasCollection: mongodb.Collection<mongodb.Document> | null = null
 
+// Login from post request
+app.post('/login',
+	passport.authenticate('local', { failureRedirect: '/' }),
+	(req, res) => {
+		const username = req.body.username;
+		const password = req.body.password;
+		res.redirect('/home');
+	});
 
 // Connect to Paths database
 client.connect()
@@ -36,10 +67,11 @@ client.connect()
 app.get( '/canvas', (req,res) => {
 	canvasCollection?.find({}).toArray()
 		.then(paths => {
-            res.json(paths);
+			res.json(paths);
 		});
 });
 
+// Route push a new line to the server
 app.post('/draw', (req, res) => {
 	const newPath = req.body as sUserPath;
 
@@ -50,10 +82,11 @@ app.post('/draw', (req, res) => {
 			return canvasCollection?.find({}).toArray();
 		})
 		.then(paths => {
-			res.end(paths);
+			res.end(JSON.stringify(paths));
 		})
 });
 
+// Delete all lines associated with user
 app.delete('/clear', (req, res) => {
 	const auth = req.body as {userID: string, password: string};
 
