@@ -5,7 +5,7 @@
 	position: relative;
 
 	display: block;
-	margin: 30px auto;
+	margin: 10px auto;
 	padding: 0;
 
 	overflow: hidden;
@@ -16,14 +16,16 @@
 	border-radius: 4px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
 
-	background-color: #708591;
+	background-color: #e38d21;
 	color: #ecf0f1;
 
 	transition: background-color .3s;
+
+	padding: 10px 20px;
 }
 
 .mtl-btn:hover, .mtl-btn:focus {
-	background-color: #3F4A52;
+	background-color: #b26f1b;
 }
 
 .mtl-btn > * {

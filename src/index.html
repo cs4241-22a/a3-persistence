@@ -5,12 +5,13 @@
 	<meta charset="utf-8">
 
 	<!--	MUI		-->
-	<link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
 	<script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+	<link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
 
 	<!--	Styles		-->
 	<link rel="stylesheet" href="css/styles.css" />
 	<link rel="stylesheet" href="css/canvas.css" />
+	<link rel="stylesheet" href="css/material-btn.css" />
 
 	<!--	webpack bundle	-->
 	<script src="dist/index.bundle.js" defer></script>
@@ -22,16 +23,31 @@
 		<section class="mui-appbar" style="padding-bottom: 20px">
 			<div class="mui-container">
 				<h2>Welcome to Inkboard!</h2>
+				<p>Draw on the canvas and work with others to make art</p>
 			</div>
 		</section>
 
 		<!--    Canvas    -->
 		<section id="canvas-section" class="hbox">
-			<div class="mui-appbar" style="width: 20%">
-				<p>Use your ink (on the right) to contribute to the canvas or type in text</p>
+			<div class="mui-appbar" id="left-sidebar">
+				<div class="mui-container vbox">
+					<div class="vbox">
+						<button class="mtl-btn" id="clear">Clear</button>
+						<div class="hbox">
+							<label for="color-picker">Stroke Color:</label>
+							<input type="color" id="color-picker">
+						</div>
+						<div class="hbox">
+							<label for="color-picker">Stroke Width:</label>
+							<input type="range" id="width" min="1" max="20" >
+						</div>
+					</div>
+
+					<button class="mtl-btn" id="sign-out">Sign out</button>
+				</div>
 			</div>
 			<div id="canvas-container">
-				<canvas id="main-canvas" class="mui-panel"></canvas>
+				<canvas id="main-canvas" class="mui-panel" height="1950" width="1950"></canvas>
 			</div>
 		</section>
 	</div>

@@ -1,14 +1,12 @@
 import express from "express";
 import * as mongodb from "mongodb";
 import { promises as fs } from "fs";
-import paper from "paper";
 process.env.PORT = '3000';
 // get mongodb credentials from mongodb.config.json
 const credentials = JSON.parse(await fs.readFile('./mongodb.config.json', 'utf-8'));
 const uri = "mongodb+srv://" + credentials.username + ':' + credentials.password + '@' + credentials.host;
 // Setup static express
 const app = express(), paths = [];
-paper.setup(new paper.Size(200, 100));
 app.use(express.static('src'));
 app.use(express.json());
 // Setup client and connection
@@ -29,12 +27,12 @@ client.connect()
 app.get('/canvas', (req, res) => {
     if (collection !== null) {
         // get array and pass to res.json
-        collection.find({}).toArray().then(result => res.json(result));
+        // collection!.find({ }).toArray().then(result => res.json(result));
+        res.json(paths);
     }
 });
 app.post('/draw', (req, res) => {
-    const newPath = new paper.Path();
-    newPath.importJSON(req.body);
+    const newPath = req.body;
     paths.push(newPath);
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(paths));

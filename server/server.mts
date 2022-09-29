@@ -1,7 +1,7 @@
 import express from "express";
 import * as mongodb from "mongodb";
 import { promises as fs } from "fs";
-import paper from "paper";
+import {sUserPath} from "../src/js/UserPath";
 
 process.env.PORT = '3000';
 
@@ -11,9 +11,7 @@ const uri = "mongodb+srv://"+credentials.username+':'+credentials.password+'@'+c
 
 // Setup static express
 const app = express(),
-    paths: paper.Path[] = [];
-
-paper.setup(new paper.Size(200, 100));
+    paths: sUserPath[] = [];
 
 app.use(express.static('src'));
 app.use(express.json());
@@ -34,17 +32,19 @@ client.connect()
     })
     .then(console.log);
 
+
+
 // route to get all docs
 app.get( '/canvas', (req,res) => {
     if( collection !== null ) {
         // get array and pass to res.json
-        collection!.find({ }).toArray().then(result => res.json(result));
+        // collection!.find({ }).toArray().then(result => res.json(result));
+        res.json(paths);
     }
 });
 
 app.post('/draw', (req, res) => {
-    const newPath = new paper.Path()
-    newPath.importJSON(req.body);
+    const newPath = req.body as sUserPath;
 
     paths.push(newPath);
     res.writeHead(200, { 'Content-Type': 'application/json' });

@@ -1,6 +1,6 @@
 
 import paper from "paper"
-import UserPath from "./UserPath";
+import {UserPath, sUserPath, clientToServerPath, serverToClientPath} from "./UserPath";
 
 //*********
 //* Setup *
@@ -12,13 +12,17 @@ const canvas = <HTMLCanvasElement>document.getElementById('main-canvas');
 const canvasHolder = <HTMLDivElement>canvas.parentElement;
 
 // Set initial canvas size before adding paperView
-canvas.width = <number>canvasHolder.clientWidth - 100;
-canvas.height = canvas.width/2;
 paperView.setup(canvas);
 
 // Track all paths currently in the scene
 const paths: UserPath[] = []
-let currentPath: paper.Path | null
+let currentPath: UserPath | null
+
+// Get button inputs
+const clearBtn = <HTMLButtonElement>document.getElementById("clear");
+const colorInput = <HTMLInputElement>document.getElementById("color-picker");
+const widthInput = <HTMLInputElement>document.getElementById("width");
+const signOutBtn = <HTMLButtonElement>document.getElementById("sign-out");
 
 
 //**************
@@ -27,20 +31,17 @@ let currentPath: paper.Path | null
 
 /**
  * Submit a POST request with a new path to add to the database
- * @param path The path to post to the server
+ * @param userPath The path to post to the server
  */
-function submitPath(path: paper.Path) {
-	const body = path.exportJSON();
+function submitPath(userPath: UserPath) {
+	const s_UserPath: sUserPath = clientToServerPath(userPath);
+	const body = JSON.stringify(s_UserPath)
 
 	fetch('/draw', {
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'},
 		body: body
-	})
-		.then((response) => response.json())
-		.then((json) => {
-			console.log(json);
-		});
+	}).catch(reason => console.log(reason));
 }
 
 function refreshPaths() {
@@ -48,16 +49,21 @@ function refreshPaths() {
 		.then(response => response.json())
 		.then(json => {
 			// Clear canvas and replace with updated paths
-			const updatedPaths: UserPath[] = json;
+			const updatedPaths: sUserPath[] = json;
 			paperView.project.clear()
-			for (let userPath of updatedPaths) {
-				const currPath = new paper.Path();
-				currPath.importJSON(JSON.stringify(userPath.path));
-				userPath.path = currPath;
-				paths.push(userPath);
+			for (const userPath of updatedPaths) {
+				paths.push(serverToClientPath(userPath));
 			}
 		});
 }
+
+// Get paths at the beginning
+refreshPaths();
+
+// Refresh paths every 5 seconds
+let refreshPaused = false;
+setInterval(() => { if (!refreshPaused) refreshPaths() }, 5000);
+
 
 //*********************
 //* Utility Functions *
@@ -66,10 +72,11 @@ function refreshPaths() {
 // Boilerplate for a new path with stroke color and width
 function initPath(): paper.Path {
 	const newPath = new paper.Path();
-	newPath.strokeColor = new paper.Color("black");
-	newPath.fullySelected = true
-	newPath.strokeWidth = 10;
+	newPath.strokeColor = new paper.Color(colorInput.value);
+	newPath.strokeWidth = parseInt(widthInput.value);
 	newPath.strokeCap = "round"
+
+	// newPath.fullySelected = true
 
 	return newPath;
 }
@@ -80,7 +87,6 @@ function getMousePos(x: number, y: number): paper.Point {
 	const canvasRes = new paper.Point(canvas.width, canvas.height);
 	return new paper.Point(x - rect.left - 15, y - rect.top - 15);
 }
-
 
 //***********************
 //* Handle Mouse Events *
@@ -96,9 +102,12 @@ canvas.addEventListener("mousedown", ev => {
 			leftMouseDown = true;
 
 			// Init path
-			currentPath = initPath();
-			paths.push({ path: currentPath, user: "cjacobson32", id: paths.length });
-			currentPath.add(getMousePos(ev.x, ev.y));
+			currentPath = { path: initPath(), user: "cjacobson32", id: paths.length };
+			paths.push(currentPath);
+			currentPath.path.add(getMousePos(ev.x, ev.y));
+
+			// Stop refreshing canvas
+			refreshPaused = true;
 			break;
 		case 1: // Left mouse button
 			middleMouseDown = true;
@@ -113,18 +122,24 @@ window.addEventListener("mouseup", ev => {
 		case 0: // Left mouse button
 			leftMouseDown = false;
 
-			// Simplify line with fewer points
-			currentPath!.simplify();
+			if (currentPath !== null) {
+				// Simplify line with fewer points
+				currentPath.path.simplify();
 
-			// If the path is empty, remove it immediately (this happens if the user just clicks)
-			if (currentPath!.segments.length <= 1) {
-				paths.pop();
-				currentPath!.remove();
+				// If the path is empty, remove it immediately (this happens if the user just clicks)
+				if (currentPath.path.segments.length <= 1) {
+					paths.pop();
+					currentPath.path.remove();
+				}
+
+				submitPath(currentPath);
+
+				currentPath = null;
+
+				// Resume refreshing canvas
+				refreshPaths();
+				refreshPaused = false;
 			}
-
-			submitPath(currentPath!);
-
-			currentPath = null;
 			break;
 		case 1: // Middle mouse button
 			middleMouseDown = false;
@@ -138,6 +153,15 @@ window.addEventListener("mouseup", ev => {
 // Draw line when mouse is dragged
 canvas.addEventListener("mousemove", ev => {
 	if (leftMouseDown) {
-		currentPath?.add(getMousePos(ev.x, ev.y));
+		currentPath!.path.add(getMousePos(ev.x, ev.y));
 	}
 });
+
+//***********************
+//* Handle Other Events *
+//***********************
+
+// Refresh canvas when window focus changes
+window.addEventListener('focus', ev => refreshPaths())
+
+// .addEventListener('input')
