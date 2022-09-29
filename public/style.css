@@ -1,0 +1,14 @@
+@media (max-width: 800px) {
+    .user-input {
+        margin-bottom: 10px;
+    }
+
+    #add-button {
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .remove-button {
+        margin-top: 8px;
+    }
+}
