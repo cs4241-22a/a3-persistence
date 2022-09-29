@@ -6,35 +6,49 @@ process.env.PORT = '3000';
 const credentials = JSON.parse(await fs.readFile('./mongodb.config.json', 'utf-8'));
 const uri = "mongodb+srv://" + credentials.username + ':' + credentials.password + '@' + credentials.host;
 // Setup static express
-const app = express(), paths = [];
+const app = express();
 app.use(express.static('src'));
 app.use(express.json());
 // Setup client and connection
 // @ts-ignore
 const client = new mongodb.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-let collection = null;
+let canvasCollection = null;
 // Connect to Paths database
 client.connect()
     .then(() => {
     return client.db('Canvas').collection('Paths');
 })
-    .then(__collection => {
-    collection = __collection;
-    return collection.find({}).toArray();
+    .then(_collection => {
+    canvasCollection = _collection;
+    return _collection.find({}).toArray();
 })
     .then(console.log);
 // route to get all docs
 app.get('/canvas', (req, res) => {
-    if (collection !== null) {
-        // get array and pass to res.json
-        // collection!.find({ }).toArray().then(result => res.json(result));
+    canvasCollection?.find({}).toArray()
+        .then(paths => {
         res.json(paths);
-    }
+    });
 });
 app.post('/draw', (req, res) => {
     const newPath = req.body;
-    paths.push(newPath);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(paths));
+    // Push to MongoDB
+    canvasCollection?.insertOne(newPath)
+        .then(result => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return canvasCollection?.find({}).toArray();
+    })
+        .then(paths => {
+        res.end(paths);
+    });
+});
+app.delete('/clear', (req, res) => {
+    const auth = req.body;
+    // Push to MongoDB
+    canvasCollection?.deleteMany({ user: auth.userID })
+        .then(result => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+    });
 });
 app.listen(process.env.PORT);

@@ -1,6 +1,7 @@
 
 import paper from "paper"
 import {UserPath, sUserPath, clientToServerPath, serverToClientPath} from "./UserPath";
+import {response} from "express";
 
 //*********
 //* Setup *
@@ -24,6 +25,9 @@ const colorInput = <HTMLInputElement>document.getElementById("color-picker");
 const widthInput = <HTMLInputElement>document.getElementById("width");
 const signOutBtn = <HTMLButtonElement>document.getElementById("sign-out");
 
+const userID = "cjacobson32";
+const password = "1234";
+
 
 //**************
 //* Networking *
@@ -41,19 +45,29 @@ function submitPath(userPath: UserPath) {
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'},
 		body: body
-	}).catch(reason => console.log(reason));
+	}).catch(console.log);
+}
+
+function clearUserPaths() {
+	const body = JSON.stringify({
+		userID: userID,
+		password: password
+	});
+
+	fetch('/clear', {
+		method: 'DELETE',
+		headers: {'Content-Type': 'application/json'},
+		body: body
+	})
+		.then(response => response.json())
+		.then(paths => replacePaths(paths));
 }
 
 function refreshPaths() {
 	fetch('/canvas', { method: 'GET' })
 		.then(response => response.json())
 		.then(json => {
-			// Clear canvas and replace with updated paths
-			const updatedPaths: sUserPath[] = json;
-			paperView.project.clear()
-			for (const userPath of updatedPaths) {
-				paths.push(serverToClientPath(userPath));
-			}
+			replacePaths(json);
 		});
 }
 
@@ -88,6 +102,14 @@ function getMousePos(x: number, y: number): paper.Point {
 	return new paper.Point(x - rect.left - 15, y - rect.top - 15);
 }
 
+function replacePaths(newPaths: sUserPath[]) {
+	// Clear canvas and replace with updated paths
+	paperView.project.clear()
+	for (const userPath of newPaths) {
+		paths.push(serverToClientPath(userPath));
+	}
+}
+
 //***********************
 //* Handle Mouse Events *
 //***********************
@@ -102,7 +124,7 @@ canvas.addEventListener("mousedown", ev => {
 			leftMouseDown = true;
 
 			// Init path
-			currentPath = { path: initPath(), user: "cjacobson32", id: paths.length };
+			currentPath = { path: initPath(), user: userID };
 			paths.push(currentPath);
 			currentPath.path.add(getMousePos(ev.x, ev.y));
 
@@ -164,4 +186,6 @@ canvas.addEventListener("mousemove", ev => {
 // Refresh canvas when window focus changes
 window.addEventListener('focus', ev => refreshPaths())
 
-// .addEventListener('input')
+clearBtn.addEventListener('click', ev => {
+	clearUserPaths();
+});
