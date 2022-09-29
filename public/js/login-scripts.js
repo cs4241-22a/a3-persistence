@@ -31,7 +31,7 @@ document.getElementById("create").onclick = function() {
                 } else {
                     userAlert.classList.add("alert-danger")
                     userAlert.classList.remove("alert-success", "d-none")
-                    userAlert.innerHTML = "This username is already taken. Please choose a different username."
+                    userAlert.innerHTML = "This username is already taken."
                 }
             });
     }
