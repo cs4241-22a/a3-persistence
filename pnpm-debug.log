@@ -1,0 +1,55 @@
+---
+  0 debug pnpm:scope: 
+    selected: 1
+    workspacePrefix: null
+  1 info pnpm: 
+    message: "A store server is running. All store manipulations are delegated to it."
+    prefix: "/app"
+  2 debug pnpm:package-json: 
+    initial: 
+      //1: "describes your app and its dependencies"
+      //2: "https://docs.npmjs.com/files/package.json"
+      //3: "updating this file will download and update your packages"
+      name: "hello-express"
+      version: "0.0.1"
+      description: "A simple Node app built on Express, instantly up and running."
+      main: "server.js"
+      scripts: 
+        start: "node server.js"
+      dependencies: 
+        body-parser: "^1.20.0"
+        cookie-session: "^2.0.0"
+        css-minify: "^2.0.0"
+        express: "^4.17.1"
+        fomantic-ui: "^2.8.8"
+        mongodb: "^4.10.0"
+        postcss: "^8.4.16"
+      engines: 
+        node: "12.x"
+      repository: 
+        url: "https://glitch.com/edit/#!/hello-express"
+      license: "MIT"
+      keywords: 
+        - "node"
+        - "glitch"
+        - "express"
+      readme: "## Chore Logger\n\nhttps://a3-yasmine-aoua.glitch.me\n\nThis application is a chore logging application that allows a user to select the chore they completed and enter the number of hours they took to complete it. I faced a variety of \nchallenges when making this application. The first problem I ran into was getting the authentication working and learning the CSS framework I chose. I just used a basic authentication \nmethod of creating a unique username and a password in my database and checking that when a user enters login information that it matches an entry in the table. I chose this because I \ndid not have the time to try to figure out a more complex, secure method such as OAuth. I used the Fomatic-UI CSS framework becuase its description says it makes beautiful websites \nfast. I editted the spacing and color scheme of the elements I used to match the following colors:\n![Assignment 2 Color Palette](https://user-images.githubusercontent.com/74080772/192946483-90dff6f5-25b3-42a0-a28e-93b95a57c683.png)\n\nI used 5 middleware express packages. The first package I used is the express static package which serves static files. I also used the body-parser express package which parses incoming \nJSON requests. I also used the urlencoded express package which parses incoming requests of strings or arrays. I used the cookie-session middleware to establish cookie based sessions.\nAnd finally I used a middleware package for the mongodb database connection. \n\n## Technical Achievements\n- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy\n\n### Design/Evaluation Achievements\n- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative..."
+      readmeFilename: "README.md"
+      gitHead: "624d3457abb6057b36a4b0fcfafe98b1ecb18ec2"
+      _id: "hello-express@0.0.1"
+    prefix: "/app"
+  3 warn pnpm: 
+    message: "Moving body-parser that was installed by a different package manager to \"node_modules/.ignored"
+    prefix: "/app"
+  4 error pnpm: 
+    message: 
+      errno: -39
+      code: "ENOTEMPTY"
+      syscall: "rename"
+      path: "/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/body-parser"
+      dest: "/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/.ignored/body-parser"
+    err: 
+      name: "Error"
+      message: "ENOTEMPTY: directory not empty, rename '/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/body-parser' -> '/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/.ignored/body-parser'"
+      code: "ENOTEMPTY"
+      stack: "Error: ENOTEMPTY: directory not empty, rename '/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/body-parser' -> '/rbd/pnpm-volume/a840f276-9d9f-4004-b0c1-fb6cb4ed9e26/node_modules/.ignored/body-parser'"
