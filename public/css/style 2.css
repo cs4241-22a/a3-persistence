@@ -1,0 +1,43 @@
+body {
+    font-family: cursive;
+}
+
+input,
+textarea {
+    display: block;
+}
+
+table {
+    border-spacing: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+.login {
+    width: 30%;
+}
+
+.title {
+    font-family: fantasy;
+}
+
+.text-large {
+    font-size: 500%;
+}
+
+.off-white {
+    background-color: #e2e2e2;
+}
+
+h3{
+    font-family: fantasy;
+}
+
+h5{
+    font-family: fantasy;
+}
