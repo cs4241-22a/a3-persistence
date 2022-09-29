@@ -9,7 +9,7 @@ const express = require("express"),
     morgan = require('morgan');
 
 var ObjectId = require('mongodb').ObjectId;
-
+let collection = null;
 
 //Serve static files using middleware
 app.use(serveStatic(path.join(__dirname, 'public')))
@@ -27,19 +27,17 @@ morgan.token('body', function(req, res) {
 //create logger using morgan middleware
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-const uri = "mongodb+srv://capricieuxV:wangshiyue@cs4241-a3.ofjqjwx.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://capricieuxV:wangshiyue@cs4241-a3.b9hmqhk.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new mongodb.MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-let collection = null;
-
 client.connect()
     .then(() => {
       // will create collection if it doesn't exist
-      return client.db("data").collection("data");
+      return client.db("data").collection("collection");
     })
     .then(__collection => {
       // store reference to collection
@@ -109,7 +107,7 @@ app.post('/login', (request, response) => {
                 request.session.login = true
                 console.log("login succeed")
                 // since login was successful, send the user to the main content
-                response.redirect('main.html')
+                response.redirect('messenger.html')
             } else {
                 request.session.login = false
                 // password incorrect, redirect back to login page

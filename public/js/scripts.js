@@ -113,15 +113,15 @@ const edit = function(e) {
 
         let index = tableIDs.indexOf(String(cells[0].innerHTML)) + 1;
 
-        let fromWHO = cells[1].innerHTML;
-        console.log("Title: ", String(fromWHO))
-        cells[1].innerHTML = "<input type='text' class='w-100' id='modifySubject' value='" + String(fromWHO) + "'>";
+        var subject = cells[1].innerHTML;
+        console.log("Subject: ", String(subject))
+        cells[1].innerHTML = "<input type='text' class='w-100' id='modifySubject' value='" + String(subject) + "'>";
 
         let receiverValue = cells[2].innerHTML;
         cells[2].innerHTML = "<input type='text' class='w-100' id='modifyReceiver' value='" + String(receiverValue) + "'>";
 
-        let descriptionValue = cells[4].innerHTML;
-        cells[4].innerHTML = "<textarea id='modifyMessage' rows='4' cols='40'>" + String(descriptionValue) + "</textarea>";
+        let msgValue = cells[3].innerHTML;
+        cells[3].innerHTML = "<textarea id='modifyMessage' rows='4' cols='40'>" + String(msgValue) + "</textarea>";
 
         let saveButton = document.createElement('button');
         saveButton.textContent = 'Save';
@@ -129,9 +129,8 @@ const edit = function(e) {
         saveButton.style.height = '50px';
         saveButton.style.width = '60px';
         saveButton.onclick = save;
-        cells[5].innerHTML = '';
-        cells[5].append(saveButton);
-
+        cells[4].innerHTML = '';
+        cells[4].append(saveButton);
     }
 }
 
@@ -155,7 +154,7 @@ const save = function(e) {
 
             cells[1].innerHTML = modifySubject.value;
             cells[2].innerHTML = modifyReceiver.value;
-            cells[4].innerHTML = modifyMessage.value;
+            cells[3].innerHTML = modifyMessage.value;
 
             let editButton = document.createElement('button');
             editButton.textContent = 'Edit';
@@ -163,10 +162,10 @@ const save = function(e) {
             editButton.style.height = '50px';
             editButton.style.width = '60px';
             editButton.onclick = edit
-            cells[5].innerHTML = '';
-            cells[5].append(editButton);
+            cells[4].innerHTML = '';
+            cells[4].append(editButton);
 
-            var body = JSON.stringify({ "_id": cells[0].innerHTML, "message": updatedMessage, "user": user })
+            let body = JSON.stringify({ "user": user, "message": updatedMessage})
             console.log("body:", body)
 
             fetch('/update', {

@@ -1,7 +1,7 @@
 let userAlert = document.getElementById("userAlert")
 
 document.getElementById("loginForm").onsubmit = function() {
-    localStorage["username"] = document.getElementById("loginForm").elements["username"].value;
+    window.localStorage["username"] = document.getElementById("loginForm").elements["username"].value;
 }
 
 document.getElementById("create").onclick = function() {
