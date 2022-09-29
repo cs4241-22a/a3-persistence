@@ -10,11 +10,12 @@ const express = require("express"),
 
 var ObjectId = require('mongodb').ObjectId;
 
-//Serve favicon using middle ware
-app.use(favicon(__dirname + '/public/assets/sending.jpg'));
 
 //Serve static files using middleware
 app.use(serveStatic(path.join(__dirname, 'public')))
+
+//Serve favicon using middle ware
+app.use(favicon(__dirname + '/public/assets/sending.jpg'));
 
 //create a token
 morgan.token('body', function(req, res) {
@@ -26,7 +27,7 @@ morgan.token('body', function(req, res) {
 //create logger using morgan middleware
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-const uri ="mongodb+srv://capricieuxV:<wangshiyue>@cs4241-a3.ofjqjwx.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://capricieuxV:wangshiyue@cs4241-a3.ofjqjwx.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new mongodb.MongoClient(uri, {
   useNewUrlParser: true,
@@ -65,7 +66,6 @@ app.post("/addUser", bodyParser.json(), (request, response) => {
         .toArray()
         .then(result => {
           if (result.length === 0) {
-
             collection.insertOne(request.body)
                 .then(insertResponse => collection.findOne(insertResponse.insertedId))
                 .then(findResponse => {
@@ -89,36 +89,34 @@ app.use(cookie({
   keys: ['12345667890']
 }))
 
-
 app.post('/login', (request, response) => {
-  // express.urlencoded will put your key value pairs
-  // into an object, where the key is the name of each
-  // form field and the value is whatever the user entered
+    // express.urlencoded will put your key value pairs
+    // into an object, where the key is the name of each
+    // form field and the value is whatever the user entered
 
-  collection.find({ "username": request.body.username }).toArray(function(err, results) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (results[0] === undefined) {
-        request.session.login = false
-
-        // username incorrect, redirect back to login page
-        response.sendFile(__dirname + '/public/login-failed.html')
-      } else if (results[0].password === request.body.password) {
-        // define a variable that we can check in other middleware
-        // the session object is added to our requests by the cookie-session middleware
-        request.session.login = true
-
-        // since login was successful, send the user to the main content
-        response.redirect('/public/messenger.html')
-      } else {
-        request.session.login = false
-        // password incorrect, redirect back to login page
-        response.sendFile(__dirname + '/public/login-failed.html')
-      }
-
-    }
-  })
+    collection.find({ "username": request.body.username }).toArray(function(err, results) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (results[0] === undefined) {
+                request.session.login = false
+                console.log("login failed")
+                // username incorrect, redirect back to login page
+                response.sendFile(__dirname + '/public/login-failed.html')
+            } else if (results[0].password === request.body.password) {
+                // define a variable that we can check in other middleware
+                // the session object is added to our requests by the cookie-session middleware
+                request.session.login = true
+                console.log("login succeed")
+                // since login was successful, send the user to the main content
+                response.redirect('main.html')
+            } else {
+                request.session.login = false
+                // password incorrect, redirect back to login page
+                response.sendFile(__dirname + '/public/login-failed.html')
+            }
+        }
+    })
 })
 
 // add some middleware that always sends unauthenicated users to the login page
@@ -158,6 +156,7 @@ app.post('/update', bodyParser.json(), (request, response) => {
       });
 });
 
-const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+
+const listener = app.listen(3000, () => {
+  console.log("Your app is listening on port " + 3000);
 });

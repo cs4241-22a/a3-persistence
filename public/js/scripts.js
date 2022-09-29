@@ -37,7 +37,7 @@ submitButton.addEventListener("click", event => {
     const inputMsg = String(document.querySelector('#message').value)
 
     if (inputSubject === '' || inputReceiver === '' || inputMsg === '') {
-        // alert("Fill in all the fields")
+        alert("Fill in all the fields")
     } else {
 
         let newMessage = { "subject": inputSubject, "receiver": inputReceiver, "message": inputMsg }
@@ -198,7 +198,7 @@ function displayTable(data) {
 
     const cellSubject = document.createElement("td")
     cellSubject.colSpan = "1"
-    cellSubject.appendChild(document.createTextNode(String(data.message.title)))
+    cellSubject.appendChild(document.createTextNode(String(data.message.subject)))
 
     const cellReceiver = document.createElement("td")
     cellReceiver.colSpan = "1"
@@ -206,7 +206,7 @@ function displayTable(data) {
 
     const cellMessage = document.createElement("td")
     cellMessage.colSpan = "2"
-    cellMessage.appendChild(document.createTextNode(String(data.message.description)))
+    cellMessage.appendChild(document.createTextNode(String(data.message.message)))
 
     const cellEdit = document.createElement("td")
     cellEdit.colSpan = "1"

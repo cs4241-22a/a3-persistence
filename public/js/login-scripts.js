@@ -6,6 +6,7 @@ document.getElementById("loginForm").onsubmit = function() {
 
 document.getElementById("create").onclick = function() {
     let currUsername = document.getElementById("loginForm").elements["username"].value
+    console.log("create an account "+currUsername)
     let currPassword = document.getElementById("loginForm").elements["password"].value
     if (currUsername === "" || currPassword === "") {
         userAlert.classList.add("alert-danger")
