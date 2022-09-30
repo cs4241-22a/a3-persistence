@@ -29,10 +29,27 @@ Digital Ocean: http://165.227.253.229/
 <summary>I followed the following tips from the W3C Web Accessibility Initiative</summary>
  
  1. Provide informative, unique page titles
+  * I added page tile and corresponding favicon to inform about the page
  2. Make link text meaningful
+  * I made each link followed url-friendly rule and are meaninngful to lead to
  3. Provide clear instructions
+  * I have instructiona and alerts for each steps/mistakes user would ever made
  4. Keep content clear and concise
+  * I have everything set up clearly and organized. Codes are written with `<div>` to stay in organized paragraph
  5. Associate a label with every form control
- 
+  * Having label for every form control and placeholder for instruction
+ 6. Identify page language and language changes
+  * I identified the page language to be English
+ 7. Provide sufficient contrast between foreground and background
+  * I have everything in off-white, and significant colors of interactive items
+ 8. Ensure that interactive elements are easy to identify
+  * Buttons/Inputs/Links are easy to find with placeholder/labels/captions
+ 9. Provide clear and consistent navigation options
+  * Have nice label/instruction on every element, having alearts to guide the users if they have misoperations
+ 10. Ensure that form elements include clearly associated labels
+  * Form has label shows the detail info and placeholder for user to take as an example
+ 11. Provide easily identifiable feedback
+ 12. Use headings and spacing to group related content
  
 </details>
+
