@@ -5,7 +5,7 @@ import morgan from "morgan";
 import sha256 from 'crypto-js/sha256.js';
 import path, { dirname } from "path";
 import { fileURLToPath } from 'url';
-process.env.PORT = '3000';
+const port = '3000';
 // get mongodb credentials from mongodb.config.json
 const credentials = JSON.parse(await fs.readFile('./mongodb.config.json', 'utf-8'));
 const uri = "mongodb+srv://" + credentials.username + ':' + credentials.password + '@' + credentials.host;
@@ -94,4 +94,4 @@ app.delete('/clear', (req, res) => {
             .then(paths => res.end(JSON.stringify(paths)));
     });
 });
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || port);
