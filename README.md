@@ -97,9 +97,10 @@ Sample Readme (delete the above when you're ready to submit, and modify the belo
 
 ## Inkboard
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+Website link: http://157.230.2.81:443/
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+
+The goal of this application was to create a synced Canvas for people to draw on. I used the 
 
 - the goal of the application
 - challenges you faced in realizing the application
@@ -113,4 +114,5 @@ add a little more detail about what it does.
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+- **Semantic HTML**: The login form uses semantic HTML to allow for third-party tools to interact with it
+- **CSS Framework**
