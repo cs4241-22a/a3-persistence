@@ -112,3 +112,4 @@ app.delete('/clear', (req, res) => {
 });
 
 app.listen( process.env.PORT || port );
+console.log(`Listening on port ${process.env.PORT || port}`);
