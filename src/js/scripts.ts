@@ -24,8 +24,8 @@ const colorInput = <HTMLInputElement>document.getElementById("color-picker");
 const widthInput = <HTMLInputElement>document.getElementById("width");
 const signOutBtn = <HTMLButtonElement>document.getElementById("sign-out");
 
-const userID = "cjacobson32";
-const password = "1234";
+const userID = <string>localStorage.getItem("username");
+const password = <string>localStorage.getItem("password");
 
 
 //**************
@@ -183,8 +183,14 @@ canvas.addEventListener("mousemove", ev => {
 //***********************
 
 // Refresh canvas when window focus changes
-window.addEventListener('focus', ev => refreshPaths())
+window.addEventListener('focus', refreshPaths)
 
-clearBtn.addEventListener('click', ev => {
-	clearUserPaths();
+// Clear all User paths
+clearBtn.addEventListener('click', clearUserPaths);
+
+// Sign out (redirect to login page)
+signOutBtn.addEventListener('click', () => {
+	let homeURL = window.location.toString();
+	homeURL = homeURL.substring(0, homeURL.length - 4);
+	window.location.replace(homeURL);
 });

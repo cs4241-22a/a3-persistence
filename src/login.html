@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="css/login.css" />
 	<link rel="stylesheet" href="css/material-btn.css" />
 
-	<!--	webpack bundle	-->
-	<script src="dist/index.bundle.js" defer></script>
+	<!--    Main Script 	-->
+	<script src="js/login.js" defer></script>
 </head>
 <body>
 <div id="login-box">
@@ -28,10 +28,10 @@
 
 		<div class="mui-textfield">
 			<label for="pass">Password: </label>
-			<input type="text" id="pass" name="password" placeholder="Type password">
+			<input type="password" id="pass" name="password" placeholder="Type password">
 		</div>
 
-		<button class="mtl-btn" type="submit">Login</button>
+		<button class="mtl-btn" type="submit" id="login-btn">Login</button>
 	</form>
 </div>
 </body>

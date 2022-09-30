@@ -2,10 +2,11 @@ import express from "express";
 import * as mongodb from "mongodb";
 import { promises as fs } from "fs";
 import {sUserPath} from "../src/js/UserPath";
-import cookie from "cookie-session";
-import passport from "passport";
 import morgan from "morgan";
-import session from "express-session";
+import CryptoJS from "crypto-js";
+import sha256 from 'crypto-js/sha256.js';
+import path, {dirname} from "path";
+import { fileURLToPath } from 'url';
 
 process.env.PORT = '3000';
 
@@ -18,38 +19,37 @@ const app = express();
 
 // Middleware
 app.use(morgan('tiny'));										// Logging
-app.use( cookie({
-	name: 'session',
-	keys: ['key1', 'key2']
-}))
 app.use(express.static('src', {index: "login.html"}));	// Login page
-app.use('home', express.static('src'));						// Home page
 app.use(express.json());											// Json parsing
 
-// Express session middleware
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: true,
-	cookie: { secure: true }
-}));
-
-app.use(passport.initialize());										// Initialize Passport
-app.use(passport.session());										// Start passport session
 
 // Setup client and connection
 // @ts-ignore
 const client = new mongodb.MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology:true })
-let canvasCollection: mongodb.Collection<mongodb.Document> | null = null
+let canvasCollection: mongodb.Collection<mongodb.Document> | null = null;
+let userCollection: mongodb.Collection<mongodb.Document> | null = null;
+
+app.get('/home', (req, res) => {
+	res.sendFile(path.join(dirname(fileURLToPath(import.meta.url)), "../src/index.html"));
+});
 
 // Login from post request
-app.post('/login',
-	passport.authenticate('local', { failureRedirect: '/' }),
-	(req, res) => {
-		const username = req.body.username;
-		const password = req.body.password;
-		res.redirect('/home');
+app.post('/login',	(req, res) => {
+		const username = req.body.username as string;
+		const password = req.body.password as string;
+		const hashed = sha256(password).toString();
+
+		userCollection?.findOne({ userID: username })
+			.then(doc => {
+				if (doc === null) { // Create a new account
+					userCollection?.insertOne({ userID: username, password: hashed });
+					res.redirect('/home');
+				} else if (doc.password === hashed) {
+					res.redirect('/home');
+				} else {
+					res.status(401).send({ error: "Wrong password" });
+				}
+			});
 	});
 
 // Connect to Paths database
@@ -59,6 +59,18 @@ client.connect()
 	})
 	.then( _collection => {
 		canvasCollection = _collection;
+		return _collection.find({}).toArray();
+	})
+	.then(console.log);
+
+// Connect to User database
+// Connect to Paths database
+client.connect()
+	.then( () => {
+		return client.db( 'Canvas' ).collection('Users');
+	})
+	.then( _collection => {
+		userCollection = _collection;
 		return _collection.find({}).toArray();
 	})
 	.then(console.log);
@@ -94,7 +106,8 @@ app.delete('/clear', (req, res) => {
 	canvasCollection?.deleteMany({user: auth.userID})
 		.then(result => {
 			res.writeHead(200, { 'Content-Type': 'application/json' });
-			res.end(JSON.stringify(result));
+			canvasCollection?.find({}).toArray()
+				.then(paths => res.end(JSON.stringify(paths)));
 		});
 });
 
