@@ -18,15 +18,17 @@ Digital Ocean: http://165.227.253.229/
 ![100](https://media.discordapp.net/attachments/1025448793862316124/1025448875638661160/Xnip2022-09-29_05-28-54.jpg?width=1872&height=936)
 
 ## Technical Achievements
-- **Tech Achievement 1**:  
+- **Tech Achievement**:  
  - I used OAuth authentication via the GitHub strategy
  - I host your site on Digital Ocean
  - Get 100% in all four lighthouse tests
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+- **Design Achievement**: 
 <details>
-<summary>I followed the following tips from the W3C Web Accessibility Initiative</summary>
+<summary>
+ - I followed the following tips from the W3C Web Accessibility Initiative</summary>
+ 
  
  1. Provide informative, unique page titles
   * I added page tile and corresponding favicon to inform about the page
@@ -55,3 +57,4 @@ Digital Ocean: http://165.227.253.229/
  
 </details>
 
+ - 
