@@ -1,4 +1,5 @@
-## Assignment 3 - Homework Assignment List with Login Functionality
+Assignment 3 - Homework Assignment List with Login Functionality
+===
 
 <b>Jacob Chlebowski - </b> <br>
 Heroku---> https://a3-jacob-chlebowski.herokuapp.com/  <br>
