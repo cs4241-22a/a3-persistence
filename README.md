@@ -1,7 +1,7 @@
 Assignment 3 - Homework Assignment List with Login Functionality
 ===
 
-<b>Jacob Chlebowski - </b> <br>
+<b>Jacob Chlebowski - jachlebowski@wpi.edu</b> <br>
 Heroku---> https://a3-jacob-chlebowski.herokuapp.com/  <br>
 
 
