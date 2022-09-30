@@ -15,7 +15,7 @@ Digital Ocean: http://165.227.253.229/
   * serve-static - Serve static files.
   
 ## Lighthouse Score
-https://media.discordapp.net/attachments/1025448793862316124/1025448875638661160/Xnip2022-09-29_05-28-54.jpg?width=1872&height=936
+![100](https://media.discordapp.net/attachments/1025448793862316124/1025448875638661160/Xnip2022-09-29_05-28-54.jpg?width=1872&height=936)
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
