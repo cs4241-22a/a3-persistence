@@ -49,7 +49,9 @@ Digital Ocean: http://165.227.253.229/
  10. Ensure that form elements include clearly associated labels
   * Form has label shows the detail info and placeholder for user to take as an example
  11. Provide easily identifiable feedback
+  * I have pop-up feedback for actions users do
  12. Use headings and spacing to group related content
+  * I have heading and spacing to be organized well for related content
  
 </details>
 
