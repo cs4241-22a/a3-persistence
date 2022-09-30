@@ -2,7 +2,7 @@ Assignment 3 - Homework Assignment List with Login Functionality
 ===
 
 <b>Jacob Chlebowski - jachlebowski@wpi.edu</b> <br>
-Heroku---> https://a3-jacob-chlebowski.herokuapp.com/  <br>
+Heroku &rarr; https://a3-jacob-chlebowski.herokuapp.com/  <br>
 
 
 Welcome to my WebWare Assignment 3. This assignment focuses on the same functionality as Assignment 2, but with a login functionality, and a database that holds all information for a particular user.
