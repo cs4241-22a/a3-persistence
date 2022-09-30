@@ -16,12 +16,6 @@ I also used express middleware in this website. Some examples include...
 Acheivements
 ---
 
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
 *Technical*
 
 - (10pts) OAuth authentication: I used express to handle the intake of passwords and username, as well as their hashing, and mongoDB to store the data. Express checks for a user on the mongoDB base, and if the user exists, it checks the password. If both cases pass, the user is logged in! This was challenging as I really struggled to get the pages to redirect and reload. I also created a register functionality on a different page to add user data to mongoDB. I used this method because I simply enjoyed working with mongoDB, and find it fun! Test Account: (username - webware_grader, pass - gompei)
@@ -31,11 +25,11 @@ ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THE
 - (3.5pts) Lighthouse tesitng: I scored highly on the lighthouse testing, while not 100%, I attribute the score decreases on the CSS framework I used, as well as the fact there are many cats on the internet for SEO.
 
 *Design/UX*
--Use of a CSS framework: I used the chota framework. https://jenil.github.io/chota/
+-Use of a CSS framework: I used the pico framework.
 
 - (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/)
 1) Provide sufficient contrast between foreground and background
-This was part of the reason i picked chota CSS as the contrast was very clear for their built-in styling
+This was part of the reason i picked pico CSS as the contrast was very clear for their built-in styling
 
 2) Ensure that interactive elements are easy to identify
 All links are in the forms of buttons and they have contrasting colors to the background.
@@ -66,7 +60,7 @@ I used font sizes, bold text, and underline text to convey info
 
 - (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
 
-Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. For example, I add a line on the main page dividing titles/subtitles and the information on how to use the site. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. 
+Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. For example, I add a line on the main page dividing titles/subtitles and the information on how to use the site. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. The CSS framework also automatically adjusts to light/dark mode based on browser settings and preferences.
 
 How did you use proximity to organize the visual information on your page? 
 What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
