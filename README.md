@@ -28,11 +28,11 @@ Digital Ocean: http://165.227.253.229/
 <details>
 <summary>I followed the following tips from the W3C Web Accessibility Initiative</summary>
  
- - Provide informative, unique page titles
- - Make link text meaningful
- - Provide clear instructions
- - Keep content clear and concise
- - Associate a label with every form control
+ 1. Provide informative, unique page titles
+ 2. Make link text meaningful
+ 3. Provide clear instructions
+ 4. Keep content clear and concise
+ 5. Associate a label with every form control
  
  
 </details>
