@@ -62,7 +62,8 @@ I used font sizes, bold text, and underline text to convey info
 
 Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. For example, I add a line on the main page dividing titles/subtitles and the information on how to use the site. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. The CSS framework also automatically adjusts to light/dark mode based on browser settings and preferences.
 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
+Repetition: I used repetition to make the site easy to use. Colors themes are the same, and the general layout of each page is the same. Button colors follow a theme, where white is the primary button and blue is the secondary. 
+
+Allignment: Text is alligned to the left and important interfaces like inputs and buttons centered. All elements are given a proper margin so they are in the center of the screen and not bunched up towards the edges. This is to also add emphasis to important functions that the user needs to see, such as inputs. 
+
+Proximity: Elements are spaced apart to the specifications of Pico CSS. This ensures that objects are evenly spaced and do not appear bunched up or cluttered. Groups of objects are closer together, and groups are spaced apart based on their connection and relevence to eachother. For example, the title and instructions for the main page are together, and that cluster is placed away from the user input. The button is close to the user input given its relevance and importance. Finally, there is a slight gap between the previously mentioned "input" cluster and the table.
