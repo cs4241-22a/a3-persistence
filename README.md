@@ -25,7 +25,7 @@ Digital Ocean: http://165.227.253.229/
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
- - <details>
+<details>
 <summary>I followed the following tips from the W3C Web Accessibility Initiative</summary>
   1. Provide informative, unique page titles
   2. Make link text meaningful
