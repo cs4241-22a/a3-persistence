@@ -14,10 +14,12 @@ Digital Ocean: http://165.227.253.229/
   * serve-favicon - Serve a favicon.
   * serve-static - Serve static files.
   
-add a little more detail about what it does.
+## Lighthouse Score
+https://media.discordapp.net/attachments/1025448793862316124/1025448875638661160/Xnip2022-09-29_05-28-54.jpg?width=1872&height=936
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+
