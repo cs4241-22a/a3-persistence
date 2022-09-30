@@ -1,116 +1,69 @@
+Catbase:
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
-Due: September 22nd, by 11:59 AM.
+https://a3-jackleserman-catbase.glitch.me/
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+Have you ever wanted a database to store and share cat pictures? Well catbase is the solution! Catbase allows users to add, remove and update cat photos posted to a community wall where users can title their photographs and share for the world to see! The hardest parts of this project was getting oauth to work, and rewriting the client side functions to work with mongoDB. Formerly, reodering the items on the database was done client side, but with the addition of mongoDB I had to move this server side, and have the server post a request to "redraw" the table. I also ran into challenges with oauth. Getting pages to redirect during oauth was very challenging. I described my oauth logic below in my technical acheivements. I used Chota to handle css as it has a minimalist UI and great documentation. I wrote some custom CSS to make the table easier to read.
 
-Baseline Requirements
----
-
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
+I also used express middleware in this website. Some examples include...
+1) app.set() -- for using handlebars
+2) app.use() -- handling cookies
+3) redirect -- redirecting users during login
+4) render -- rendering elements on page
+5) app.post() -- posts data but in one line, avoiding the chaos of A2
 
 Acheivements
 ---
 
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
 *Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
+
+- (10pts) OAuth authentication: I used express to handle the intake of passwords and username, as well as their hashing, and mongoDB to store the data. Express checks for a user on the mongoDB base, and if the user exists, it checks the password. If both cases pass, the user is logged in! This was challenging as I really struggled to get the pages to redirect and reload. I also created a register functionality on a different page to add user data to mongoDB. I used this method because I simply enjoyed working with mongoDB, and find it fun! Test Account: (username - webware_grader, pass - gompei)
+
+- Use of MongoDB: I use mongoDB to handle data storage for both cat data and passwords. This allows for the data to be stored more reliably and has a layer of redundancy in case the server crashes.
+
+- (3.5pts) Lighthouse tesitng: I scored highly on the lighthouse testing, while not 100%, I attribute the score decreases on the CSS framework I used, as well as the fact there are many cats on the internet for SEO.
 
 *Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
+-Use of a CSS framework: I used the pico framework.
+
+- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/)
+1) Provide sufficient contrast between foreground and background
+This was part of the reason i picked pico CSS as the contrast was very clear for their built-in styling
+
+2) Ensure that interactive elements are easy to identify
+All links are in the forms of buttons and they have contrasting colors to the background.
+
+3) Use headings and spacing to group related content
+I used subheadings and headings to group info like titles, subtitles, and instructional information for the page
+
+4) Provide clear instructions
+Instructions are listed at the top of the page
+
+5) Use headings to convey meaning and structure
+
+6) Provide informative, unique page titles
+
+7) Create designs for different viewport sizes
+
+8) Write code that adapts to the user’s technology
+
+9) Keep content clear and concise
+
+10) Ensure that all interactive elements are keyboard accessible
+
+11) Avoid CAPTCHA where possible
+
+12) Don’t use color alone to convey information
+I used font sizes, bold text, and underline text to convey info
+
+
 - (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
 
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
+Contrast: I made sure the buttons had the most contrast as they pave the way for the user. The user cannot continue without them. The more important an element was, the more contrast I assigned. I really wanted these elements to stand out. I made titles large and important information like instructions bold. Font also was a player in making sure there was contrast between elements as well as dividers like lines and boxes. For example, I add a line on the main page dividing titles/subtitles and the information on how to use the site. I also made sure the text was easy to read on background colors, on pages, buttons, or tables. The CSS framework also automatically adjusts to light/dark mode based on browser settings and preferences.
 
-## Your Web Application Title
+Repetition: I used repetition to make the site easy to use. Colors themes are the same, and the general layout of each page is the same. Button colors follow a theme, where white is the primary button and blue is the secondary. 
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+Allignment: Text is alligned to the left and important interfaces like inputs and buttons centered. All elements are given a proper margin so they are in the center of the screen and not bunched up towards the edges. This is to also add emphasis to important functions that the user needs to see, such as inputs. 
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
-
-## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
-
-### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+Proximity: Elements are spaced apart to the specifications of Pico CSS. This ensures that objects are evenly spaced and do not appear bunched up or cluttered. Groups of objects are closer together, and groups are spaced apart based on their connection and relevence to eachother. For example, the title and instructions for the main page are together, and that cluster is placed away from the user input. The button is close to the user input given its relevance and importance. Finally, there is a slight gap between the previously mentioned "input" cluster and the table.

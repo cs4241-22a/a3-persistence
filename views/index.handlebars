@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS4241 Assignment 3</title>
+    <meta name="description" content="Login Page for CatBase">
+    <link rel="canonical" href="https://picocss.com/examples/sign-in/">
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <link rel="stylesheet" href="login.css">
+  </head>
+
+  <body>
+    <!-- Main -->
+    <main class="container">
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Catbase</h1>
+            <h2>A Cat Image Sharing Site!</h2>
+          </hgroup>
+          <form action = "/login" method = "POST">
+             username: <input type="text" name="username" />
+             password:<input type="password" name="password"/>
+            <button type="submit">Login</button>
+          </form>
+          <form action = "/register" method = "POST">
+            <button type="submit" class="contrast">Register</button>
+          </form>
+        <h3>{{{msg}}}</h3>
+        </div>
+        <div><img src="https://catadoptionteam.org/wp-content/uploads/2019/05/Transparent-OrangeWhiteCat-764x1024.png"></div>
+      </article>
+    </main><!-- ./ Main -->
+  </body>
+
+</html>

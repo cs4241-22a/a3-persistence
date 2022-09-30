@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS4241 Assignment 3</title>
+    <meta name="description" content="A minimalist layout for Login pages. Built with Pico CSS.">
+    <script src="js/register.js"></script>
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <!-- Custom styles for this example -->
+    <link rel="stylesheet" href="custom.css">
+  </head>
+
+    <!-- Main -->
+    <main class="container">
+      <article class="grid">
+        <div>
+          <hgroup>
+            <h1>Register</h1>
+            <h2><b>Create your CatBase account!!</b><br>Click "Register" to create your account then hit "Return to Login" to continue
+            <br>----------<br><small>I know this is annoying UX, but it was a bug that the SAs and I couldn't figure out, so here is a cookie for your troubles 🍪</small>
+            </h2>
+          </hgroup>
+          <form action="/create_account" method="POST">
+             Username: <input type="text" name="username" id="username" />
+             Password:<input type="password" name="password" id="password" value="password" />
+            <button type="submit">Register</button>
+          </form>
+          <form action="/redirect" method="POST">
+            <button type="submit" class = "contrast">Return to Login</button>
+          </form>
+          {{{msg}}}
+        </div>
+        <div></div>
+      </article>
+    </main><!-- ./ Main -->
+</html>
