@@ -24,9 +24,9 @@ Digital Ocean: http://165.227.253.229/
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
-<details>
-<summary>followed the following tips from the W3C Web Accessibility Initiative</summary>
- 
+ <details>
+ <summary>followed the following tips from the W3C Web Accessibility Initiative</summary>
+
  
  1. Provide informative, unique page titles
   * I added page tile and corresponding favicon to inform about the page
@@ -53,7 +53,7 @@ Digital Ocean: http://165.227.253.229/
  12. Use headings and spacing to group related content
   * I have heading and spacing to be organized well for related content
  
-</details>
+ </details>
 
 - **Design Achievement 2**: 
-- 
+- I put the interactive element and all the infomation elements in their respective divisions, so that they can be simply identified. After logging in, the various sections of my messenger page are also very well organized, separated by columns. The alignment principle says that elements on a page should have a visual connection to other content on the page. On my login page, the username input, password input, submit button and create account button are all aligned with each other, in this step I used the alignment method in bootstap to make them the same width. On the message page, subject and receipt are aligned, just like how email is designed. The message box is on the right and has a relatively large height to align with the subject and receiver. The principle of repetition means that my important elements will be repeated. For example, the title of the messenger will be displayed very large on the running page of the entire system. The principle of contrast means that if two elements are not exactly the same, then they should look different. My reflection in this regard is mainly the contrast of page colors. Black and white are the most obvious contrasting colors, which I use on most of the body. And for buttons, different colors are arranged on buttons with different functions, which related to our common knowlege.
