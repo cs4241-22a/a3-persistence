@@ -1,116 +1,124 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
+## Class Data Manager
 
-Due: September 22nd, by 11:59 AM.
+link: https://a3-sidney-goldinger.glitch.me/
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+Summary of project:
+The goal of this project is to allow individual users to store, edit,
+and revisit class data on this website. Creating this application was
+incredibly challenging. This was mostly because for a long time, I didn’t
+have a good understanding of how .js to .html and how server to .js
+communication was supposed to work, and it was only after meeting
+with a TA for 40 minutes that I understood how the code was supposed
+to work, even if I didn’t fully know how to code it. The learning
+curve of figuring that out also created a significant challenge.
 
-Baseline Requirements
----
+The authentication strategy I chose was using usernames and passwords
+because it seemed like the simplest solution.
+I used bootstrap as a CSS framework because I had heard from friends
+that it was a popular framework and a good one to learn. I did not
+make many modifications to the framework, as I was satisfied with the
+results it provided.
+For express middleware, I used body-parser, cookie-session, timeout,
+express-slash, and helmet. I used body-parser to read through the class
+data input. Cookie-session was also used to create cookies to keep track
+of the logged-in user. I used timeout to make sure the http requests
+didn’t take too long, as it limits the amount of time they can take.
+I used errorhandler, which helps monitor and show errors, to try to
+help with development. Finally, I used helmet, which creates default
+security headers, to secure the site; even though it isn’t necessary,
+I thought it would be good to include. I did not create helmet, but it
+was made by a third party; all other middleware I used were created
+and are maintained by Express.
 
-Your application is required to implement the following functionalities:
-
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
-
-Your application is required to demonstrate the use of the following concepts:  
-
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+Note: Although the “register” button leads to the website having issues, it
+does successfully create a new user, and should you go back to login, you can
+log in with the registered username and password.
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+
+- **Design Achievement 1**: I followed 12 tips from W3C:
+
+1. Provide clear instructions: I have very clear instructions describing how to
+   delete, edit, and add data.
+2. Make link text meaningful: I added a link to my family’s website at the
+   bottom of the records page, which has the meaningful text “Learn about the
+   author and her farm here”.
+3. Use headings to convey meaning and structure: On the records page I have
+   a title for the whole page and created a clear heading for the directions for
+   how to use the website.
+4. Associate a label for every form control: I have a label for every form.
+5. Provide sufficient contrast between foreground and background: All my text
+   colors are black, blue, or a dark gray, and the background is a very light gray.
+   Lighthouse thinks that this contrast is sufficient.
+6. Form elements include clearly associated labels: The labels for each form
+   element are directly to their left or directly above them, making it clear
+   what the purpose of each form is.
+7. Create designs for different viewport sizes: the viewport uses content=
+   “width=device-width”, changing comfortably as the size of the screen changes.
+8. Reflect the reading order in the code order: the order of the elements in
+   the html code directly corresponds with the order of the elements on the webpage.
+9. Keep content clear and concise: the description and titles have short,
+   to-the-point sentences and clearly describe exactly what needs to be done
+   for the website to function properly.
+10. Identify page language: <html lang=“en”> is on each html page, clearly
+    identifying the language.
+11. Provide informative, unique page titles: the page title for my login page
+    is “Class Records Data Website Login”; the page title for the data entry
+    page is “Class Records Data Interaction”.
+12. Include alternative text for images: There is a simple agenda image on
+    the records page of the website, which has an alt=“Simple image of an agenda
+    book”.
+
+- **Design Achievement 2**: I used the CRAP principles in the following ways:
+
+Contrast:
+My website implemented contrast to make the most important elements stand out
+and make the page appear less muted and more interesting. The titles on both
+the login and the data entry/view page are both a big, bright blue in a bold
+font. No other text in the website is anywhere near this big or bold, allowing
+users’ attention to be easily drawn to it. On the data entry page, the
+“DIRECTIONS” header is also in a bold font, although slightly smaller,
+allowing attention to be drawn to it as well but not taking too much away
+from the page’s header a short distance above it. There is also spacing
+between different elements on the pages, such as between the login and register
+sections of the introduction page, and between the data and the logout button
+on the data entry/view page.
+
+Repetition:
+My website used repetition for a cohesive and intuitive look and feel. On both
+pages of the website, the title of the page was the same color, font, and
+size, a bold bright blue at the top of the page. Nothing else in the website
+was this bold or big, making this particular type of text stand out as the
+title. I also used the same calm gray shade on all pages, making the website
+look like it is cohesive. The font throughout the website is also consistent
+throughout as to not give the jarring look of having large visual changes in
+the same page or website. Finally, the vast majority of the text on all of the
+pages is the same dark gray, also contributing to the cohesiveness.
+
+Alignment:
+My website uses alignment to make a clean and cohesive look and feel. Most of
+the text/data entry/data visuals are directly on the left side of the screen,
+allowing the website to look very cohesive. It also allows everything to line
+up together so that the website looks more cohesive. For example, the name
+and password entry titles are directly above their buttons on the left side
+of the screen, making it very clear which entry bar is meant for the username
+and which is meant for the password. In the data management page, the
+“DIRECTIONS” header is also left-aligned directly above the directions,
+allowing for the user to easily understand what it is referring to. This also
+contributes to the cohesiveness of the site by matching the rest of the text
+and the title.
+
+Proximity:
+My website used proximity to make related pieces of the website look and feel
+related to the user. For example, on the login page, the title is separated
+from the login entry and button, which is also separated from the register
+entry and button. This separation allows the users to easily direct themselves
+to the part of the page that they need to interact with, without cluttering
+their view by keeping the other parts of the page too close by. I have done a
+similar thing on the data management page, where the data entry/data list is
+significantly separated from the logout button. This allows the page to have
+more of a comfortably spaced feel, rather than look uncomfortably clustered,
+and it allows the logout button to stay out of the user’s mind and view until
+they decide to utilize it.
