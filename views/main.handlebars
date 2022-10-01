@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A website to manage and store data about classes"
+    />
+    <title>Class Records Data Interaction</title>
+    <script src="/client.js" defer></script>
+  </head>
+  <body class="bg-light">
+    {{{msg}}}
+    
+    <br><br>
+    <h1 class="text-primary ms-1">Class Data Manager</h1>
+    
+    <p class="text-dark text-dark text-left ms-1">Welcome to a website to manage
+      and save your classes.</p>
+    
+    <img src="https://cdn.glitch.global/a5e199f1-1761-4a3c-ad8c-352c78b69994/agenda.png?v=1664653315547" alt="Simple image of an agenda book">
+    
+    <h2 class="text-secondary text-dark">
+      DIRECTIONS:
+    </h2>
+    
+    <p class="text-dark ms-1">
+      Input your class name and number and press submit to see results. If you enter
+      a new class name with the same class number, we will update that class's name
+      in the server. If you enter a class name and number that already exist, we will delete it
+      (if it is the first class name and number listed here. You cannot delete newer
+      classes without deleting those above them).
+    </p>
+    <form>
+      <label>
+        <br>
+        Class Name
+        <input name="dream" type="text" maxlength="100" required placeholder="Class Name">
+        <br>
+        Class Number
+        <input name="classNumber" type="text" maxlength="100" required placeholder="Class Number">
+      </label>
+      <br>
+      <button type="submit" id="submit-dream">Add Class</button>
+      <button type="edit" id="edit-dream">Edit Class</button>
+      <button type="delete" id="delete-dream">Delete Class</button>
+    </form>
+
+    <section class="dreams">
+      <ul id="dreams">
+        <em>loading classes&hellip;</em>
+      </ul>
+    </section>
+    
+    <br><br><br><br>
+    <form>
+      <label><button type="logout" id="logout">Logout</button></label>
+    </form>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    
+    <p class="text-dark ms-1"> <a href="http://www.silkfields.com/" style="color:black">Learn about the author and her farm here</a> </p>
+  </body>
+</html>
