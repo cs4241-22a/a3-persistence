@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Moene's Guest Book</title>
+  <meta name="description" content="Kawane Moene's guest book - In true retro WPI style!">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" href="/static/semantic.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/static/semantic.css">
+  </noscript>
+  <link rel="stylesheet" href="/static/style.css">
+  <!--Crtitcal CSS here to reduce content shift-->
+  <style>
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child,
+    h5:first-child {
+      margin-top: 0em;
+    }
+    .ui.input {
+      font-size: 1em;
+    }
+    .ui.input {
+      position: relative;
+      font-weight: 400;
+      font-style: normal;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      color: rgba(0,0,0,.87);
+    }
+    .ui.action.input > .button, .ui.action.input > .buttons > .button {
+      padding-top: .78571429em;
+      padding-bottom: .78571429em;
+      margin: 0;
+    }
+    .ui.action.input > .button, .ui.action.input > .buttons {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+    }
+    .ui.secondary.button {
+      -webkit-box-shadow: 0 0 0 0 rgba(34,36,38,.15) inset;
+      box-shadow: 0 0 0 0 rgba(34,36,38,.15) inset;
+    }
+    .ui.secondary.buttons .button, .ui.secondary.button {
+      background-color: #1b1c1d;
+      color: #fff;
+      text-shadow: none;
+      background-image: none;
+    }
+    .ui.buttons .button, .ui.buttons .or, .ui.button {
+      font-size: 1rem;
+    }
+    .ui.button {
+      cursor: pointer;
+      display: inline-block;
+      min-height: 1em;
+      outline: none;
+      border: none;
+      vertical-align: baseline;
+      background: #e0e1e2 none;
+        background-color: rgb(224, 225, 226);
+        background-image: none;
+      color: rgba(0,0,0,.6);
+      font-family: lato,helvetica neue,Arial,Helvetica,sans-serif;
+      margin: 0 .25em 0 0;
+      padding: .78571429em 1.5em;
+        padding-top: 0.785714em;
+        padding-bottom: 0.785714em;
+      text-transform: none;
+      text-shadow: none;
+      font-weight: 700;
+      line-height: 1em;
+      font-style: normal;
+      text-align: center;
+      text-decoration: none;
+      border-radius: .28571429rem;
+      -webkit-box-shadow: 0 0 0 1px transparent inset,0 0 0 0 rgba(34,36,38,.15) inset;
+      box-shadow: 0 0 0 1px transparent inset,0 0 0 0 rgba(34,36,38,.15) inset;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-transition: opacity .1s ease,background-color .1s ease,color .1s ease,background .1s ease,-webkit-box-shadow .1s ease;
+      transition: opacity .1s ease,background-color .1s ease,color .1s ease,background .1s ease,-webkit-box-shadow .1s ease;
+      transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+      transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease,-webkit-box-shadow .1s ease;
+      will-change: '';
+      -webkit-tap-highlight-color: transparent;
+    }
+    button, html [type="button"], [type="reset"], [type="submit"] {
+      -webkit-appearance: button;
+    }
+    button, select {
+      text-transform: none;
+    }
+    button, input {
+      overflow: visible;
+    }
+    button, input, optgroup, select, textarea {
+      font-family: sans-serif;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Moene's Guest Book</h1>
+  <img src="/static/banner.webp" alt="morgan hall" width="896" height="256">
+  <div class="maingrid">
+    <div class="nav-grid">
+      <div id="nav-area">
+        <a href="#" onclick="showNew()">Add</a> | <a href="#" onclick="showMessages()">View/Edit</a> | <a
+          href="/logout">Logout</a><!-- | &nbsp;<div id="serv-conn" href="#">Please wait...</div>--> &nbsp; <div>
+          <i class="icon bullhorn"></i>
+          <%= motd %>
+        </div><span style="visibility:hidden;" id="username">
+          <%= name %>
+        </span>
+      </div>
+    </div>
+    <div class="policy-grid">
+      <h2>Policy</h2>
+      <p>Avoid blame, speculation, and inflammatory language</p>
+      <p>Do not mention someone else unless you have their permission</p>
+      <p>Do not spam messages</p>
+      <p>Absolutely no sexist, raciest, etc. messages.</p>
+    </div>
+    <div class="data-grid">
+      <div id="entry-area" style="display: none;">
+        <h2>Guest Book Entry</h2>
+        <p>Thank you for visiting!</p>
+        <p>Please sign my guest book before you leave.<br>
+        <div id="add-help">Enter your entry by typing in the text box.</div>
+        </p>
+        </p>
+        <form class="ui action left icon input">
+          <i class="pencil icon"></i>
+          <input title="Message" aria-describedby="add-help" type='text' id='message' placeholder="Message" value=""
+            required><br>
+          <button class="ui secondary button" id="newsub">Submit</button>
+        </form>
+      </div>
+      <div id="edit-area" style="display: none;">
+        <h2>Entry Edit</h2>
+        <p>Made a mistake? No worry! Edit your entry here.<br>
+        <div id="edit-help">Edit your entry by typing in the text box.</div>
+        </p>
+        <form class="ui action left icon input">
+          <i class="pencil icon"></i>
+          <input title="Message" aria-describedby="edit-help" type='text' id='edit-message' placeholder="Message"
+            value="" required><br>
+          <input style="display: none;" type="number" id='edit-mid' value=0>
+          <button class="ui secondary button" id="editsub">Submit</button>
+          <button class="ui button" id="editcan">Cancel</button>
+        </form>
+      </div>
+      <div id="delete-area" style="display: none;">
+        <h2>Entry Delete</h2>
+        <p><i class="exclamation triangle icon"></i> This message will be deleted permanently! Are you sure?</p>
+        <form action="">
+          <input style="display: none;" type="number" id='del-mid' value=0>
+          <button class="ui red button" id="delsub"><i class="trash alternate icon"></i> Delete</button>
+          <button class="ui button" id="delcan">Cancel</button>
+        </form>
+      </div>
+      <div id="view-area" style="display: none;">
+        <h2>Guest Messages</h2>
+        <p>These are messages that leaved by my guests.<br><b>You can only edit or delete your own message.</b></p>
+        <div id="msglist" class="typewriter">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/scripts.js"></script>
+</body>
+
+</html>

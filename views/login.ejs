@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Login | Moene's Guest Book</title>
+    <meta name="description" content="Kawane Moene's guest book - In true retro WPI style!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" href="/static/semantic.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/static/semantic.css">
+  </noscript>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child,
+    h5:first-child {
+      margin-top: 0em;
+    }</style>
+</head>
+
+<body>
+    <h1>Moene's Guest Book</h1>
+    <img src="/static/banner.webp" alt="morgan hall" width="896" height="256">
+    <div>
+        <h2>Login</h2>
+        <div class="ui stackable center aligned page grid segment">
+            <div class="column twelve wide ui header">Please login with</div>
+            <a href="https://github.com/login/oauth/authorize?client_id=<%= client_id %>"
+                class="column six wide ui secondary button"><i class="icon github"></i> Github Login</a>
+        </div>
+
+    </div>
+</body>
+
+</html>
