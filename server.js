@@ -7,6 +7,7 @@ app.use( express.static('public') )
 app.use( express.json() )
 
 require('dotenv').config()
+
 app.use( express.urlencoded({ extended:true }) )
 
 const { MongoClient, ServerApiVersion } = require('mongodb')
