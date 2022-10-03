@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -13,42 +12,107 @@
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap"
       rel="stylesheet"
     />
-
     <title>CS4241 Assignment 2</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Author: Vishnu Priya Dendukuri,
-    Illustrator: Vishnu Priya Dendukuri, Category: GradingList, Price: free,
-    A website where you can store your scores and get a grade"
-    />
-
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="./JS/login.js" defer></script>
+    <script src="./JS/grader.js"></script>
   </head>
   <body>
-    <h1>Grader</h1>
-    <p>Please login to enter</p>
+    <div class="grid-container">
+      <div class="item1"><h1>Grade Calculator</h1></div>
+      <div class="item5">
+        <p>
+          Hey! You want to calculate your grade? Here is your grade calculator.
+        </p>
+        <p>
+          Just type in your scores (out of 100) and you will be able to recieve
+          your grade in seconds! Above 90% would be an A, above 80% = B, above
+          70% is C and anything less than 70% would give you NR
+        </p>
+      </div>
+      <div class="item2">
+        <form action="" , id="firstPage">
+          <table id="inputTable" class="inputInfoTable">
+            <tr>
+              <td>Class:</td>
+              <td>
+                <input
+                  type="text"
+                  id="studentName"
+                  name="studentName"
+                  value=""
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Assignment1 Score:</td>
+              <td>
+                <input
+                  type="number"
+                  id="a1score"
+                  name="a1score"
+                  value=""
+                  min="0"
+                  max="100"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Assignment2 Score:</td>
+              <td>
+                <input
+                  type="number"
+                  id="a2score"
+                  name="a2score"
+                  value=""
+                  min="0"
+                  max="100"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Project Score:</td>
+              <td>
+                <input
+                  type="number"
+                  id="projectSc"
+                  name="projectSc"
+                  value=""
+                  min="0"
+                  max="100"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Exam Score:</td>
+              <td>
+                <input
+                  type="number"
+                  id="examScore"
+                  name="examScore"
+                  value=""
+                  min="0"
+                  max="100"
+                />
+              </td>
+            </tr>
+            <!-- <tr>
+          <td>Final Grade: </td>
+          <td><input type = "hidden" id ="finalScore" name = "finalScore" value = "" > </td>
+        </tr> -->
+            <tr>
+              <td></td>
+              <td id="submittd">
+                <button id="submitButton">Add the record!</button>
+              </td>
+            </tr>
+          </table>
+          <!-- <button id = "submitButton">submit</button> -->
+        </form>
+      </div>
 
-    <label>
-      <form id="userForm">
-        Username:
-        <input type="text" name="user" size="15" />
-        <br />
-        Password: (should be at least six characters with at least one number)
-        <input type="password" name="pwd" size="15" />
-      </form>
-    </label>
-
-    <button type="submit" id="logIn">Login!</button>
-
-    <nav>
-        <a href = "/">Login</a>
-    </nav>
-    <!--           <button type="submit" id="register">Register!</button>
-     -->
-
-<!--     <button type="button">Click Me!</button> -->
+      <div class="index3"><table id="storedData"></table></div>
+    </div>
+    <div class="index4"><p></p></div>
   </body>
 </html>
