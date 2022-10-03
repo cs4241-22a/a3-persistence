@@ -171,8 +171,8 @@
                                     <th scope="row">${index}</th>
                                     <td>${val.title}</td>
                                     <td>${val.description}</td>
-                                    <td><button class='btn btn-warning' id="btnEdit" data-title="${val.title}" data-description="${val.description}">Edit</button></td>
-                                    <td><button class='btn btn-danger' id="btnDelete" data-title="${val.title}">delete</button></td></tr>`
+                                    <td><button class='btn btn-warning' id="btnEdit btnEdit${index}" data-title="${val.title}" data-description="${val.description}">Edit</button></td>
+                                    <td><button class='btn btn-danger' id="btnDelete btnDelete${index}" data-title="${val.title}">delete</button></td></tr>`
                 tableRowElement.dataset.ind = index
 
 

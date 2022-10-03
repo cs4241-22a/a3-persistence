@@ -31,7 +31,7 @@ app.use('/user', UserRouter)
 
 app.use('/todo', UserDataRouter)
 
-app.get('/profile/:id', lazyDebug, (req, res) => {
+app.get('/profile/:id', (req, res) => {
     res.render('profile', { username: req.params.id })
 })
 
