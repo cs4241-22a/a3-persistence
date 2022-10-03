@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href ="./css/style.css" />
+    {{!-- <link rel="stylesheet" href="https://fonts.google.com/specimen/Antonio"> --}}
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <meta name='viewport' content="width=device-width">
+    <meta name="description" content="tablePage">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class="wrapper">
+    <div id="header">
+    {{{msg}}}
+    <h2 class="header">My Homework Assignments</h2>
+    <p>Add, modify, or remove assignments from the table.</p>
+  </div>
+    <table style="width:100%" id="table" >
+      <tr>
+        <th><b>Assignment</b></th>
+        <th><b>Course</b></th>
+        <th><b>Due Date</b></th>
+        <th><b>Days Until Due</b></th>
+      </tr>
+  
+      <tr>
+        <td><b><b>Example Assignment #1</b></td>
+        <td><b>Software Engineering</b></td>
+        <td><b>09/24/2022</b></td>
+        <td><b>19 (example)</b></td>
+      </tr>
+  
+    </table>
+    <br><br><br><br>
+
+    <div id="forms">
+    <form action="">
+      <h3 class="header"><b>Add Assignment:</b></h3>
+      <label for="assignment">Assignment:</label>
+      <input type="text" id="assignment" name="assignment" size ="15" placeholder="assignment">
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="assignment" size ="15" placeholder="course">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" size ="15" placeholder="DD/MM/YYYY">
+     <button id="add_button">submit</button>
+     </form>
+     <br>
+
+      <form action="">
+      <h3 class="header"><b>Remove Assignment:</b></h3>
+      <label for="remove_assignment">Assignment:</label>
+      <input type="text" id="remove_assignment" name="remove_assignment" size ="15" style="font-family:'Courier New'" placeholder="assignment">
+      <button id="remove_button">submit</button>
+      </form>
+      <br>
+
+
+      <br>
+      <br>
+      <h3 class="header"><b>Modify Assignment:</b></h3>
+      <form action="">
+      <label for="modify_assignment">Assignment to Modify:</label>
+      <input type="text" type="submit" id="modify_assignment_input" name="modify_assignment" size ="25"  placeholder="assignment to modify">
+      <br>
+      <label for="modify_course">Corresponding Course:</label>
+      <input type="text" id="corresponding_course" name="corresponding_course" size ="25" style="font-family:'Courier New'" placeholder="corresponding course">
+      <br>
+      <br>
+      <br>
+
+      <label for="modified_assignment">Change assingment name to:</label>
+      <input type="text" id="modified_assignment_input" name="modified_assignment" size ="25" style="font-family:'Courier New'" placeholder="new assignment name">
+      <br>
+
+      <label for="modified_course">Change course name to:</label>
+      <input type="text" id="modified_course_input" name="modified_course" size ="25" style="font-family:'Courier New'" placeholder="new course name">
+      <br>
+
+      <label for="modified_due_date">Change due date to:</label>
+      <input type="date" id="modified_due_date_input" name="date" size ="25" placeholder="DD/MM/YYYY">
+    
+      <button id="modify_button">submit changes</button>
+      </form>
+
+    </div>
+       
+  </div>
+  
+  </body>
+  <script src="./js/scripts.js"></script>
+</html>

@@ -1,0 +1,58 @@
+/*Style your own assignment! This is fun! */
+
+ /*Element Selector*/
+ table, th, td {
+    border: 1px solid black;
+        border-collapse: collapse;
+        background-color: #96D4D4;
+ }
+
+ /*Element Selector WITH GOOGLE FONT -- "ANTONIO"*/
+ body {
+   font-family: "Antonio",sans-serif;
+   text-align: center;
+   background-color: aliceblue;
+ }
+
+ /*ID Selector*/
+ #assignment, #course, #date, #remove_assignment{
+  background-color: yellow;
+ }
+
+ /*Class Selector*/
+ .header {
+   text-decoration: underline;
+   text-decoration-color: rgb(77, 0, 243);
+   text-decoration-thickness: 10%;
+ }
+
+
+ #header{
+  grid-area: header;
+ }
+
+ #table{
+  grid-area: content;
+ }
+
+ #forms{
+  grid-area: sidebar;
+ }
+
+ .wrapper {
+  display: grid;
+  grid-gap: 100px;
+  grid-template-columns: 450px  250px  100px;
+  grid-template-areas:
+             "....... header  header"
+             "sidebar content content";
+  background-color: aliceblue;
+  color: #444;
+}
+.box {
+background-color: #444;
+color: #fff;
+border-radius: 5px;
+padding: 20px;
+font-size: 100%;
+}
