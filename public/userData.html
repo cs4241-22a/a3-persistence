@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./userData.css">
+    <script src="./userData.js"></script>
+    <title>MINESWEEPERDLE | Data</title>
+</head>
+<body>
+    <div class="d-flex align-items-center justify-content-center flex-column">
+        <h1>Minesweeperdle</h1>
+        <h2>My Data:</h2>
+        <div class="d-flex setting-flex justify-content-center flex-row">
+            <p id="user-id"></p>
+            <button class="btn btn-outline-secondary" id="delete-account-button">
+                Delete User
+            </button>
+        </div>
+        <div class="d-flex setting-flex justify-content-center flex-row">
+            <p id="email"></p>
+            <button class="btn btn-outline-secondary" id="change-email-button">
+                Change
+            </button>
+        </div>
+        <div class="d-flex form-group justify-content-center flex-row" id="email-input-wrapper">
+            <input type="email" class="form-control hidden" id="email-input" placeholder="Enter new email">
+            <button class="btn btn-outline-primary hidden" id="submit-new-email-button">Submit</button>
+        </div>
+        <div class="d-flex setting-flex justify-content-center flex-row">
+            <p id="save-data"></p>
+            <button class="btn btn-outline-secondary" id="change-toggle-button">
+                Toggle
+            </button>
+        </div>
+        <div id="game-history-list">
+        </div>
+    </div>
+</body>
+</html>

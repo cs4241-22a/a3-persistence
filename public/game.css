@@ -1,0 +1,106 @@
+:root {
+    --board-dimensions: 60vh;
+    --quarter-boardwidth: calc(100vw - calc(var(--board-dimensions) / 4));
+    --square-dimensions: calc(var(--board-dimensions) / 16);
+}
+
+.border {
+    height: 100vh;
+    width: var(--quarter-boardwidth);
+    padding-left: 2vw;
+    padding-right: 2vw;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.board {
+    height: var(--board-dimensions);
+    width: var(--board-dimensions);
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: var(--quarter-boardwidth);
+    margin-right: var(--quarter-boardwidth);
+    display: grid;
+    column-gap: 0;
+    row-gap: 0;
+    grid-template-columns: repeat(16, var(--square-dimensions));
+}
+
+.space {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: darkgray;
+    border: 1px solid black;
+    width: var(--square-dimensions);
+    height: var(--square-dimensions);
+}
+
+.space:hover {
+    background-color: lightgray;
+}
+
+.space.revealed {
+    background-color: white;
+}
+
+.space.revealed.mine {
+    background-color: red;
+}
+
+.space.revealed.green {
+    background-color: green;
+}
+
+.bomb1 {
+    color: blue;
+}
+.bomb2 {
+    color: green;
+}
+.bomb3 {
+    color: red;
+}
+.bomb4 {
+    color: darkblue;
+}
+.bomb5 {
+    color: darkred;
+}
+.bomb6 {
+    color: turquoise;
+}
+.bomb7 {
+    color: black;
+}
+.bomb8 {
+    color: darkgray;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-top: 5px;
+}
+
+li:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-footer {
+    width: 40%;
+}
