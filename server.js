@@ -110,16 +110,15 @@ app.post("/add", async (req, res) => {
 })
 
 // find groceryId in db and update value to given value
-app.put("/update", async (req, res) => {
-  const updatedEntry = {
-    quantity: req.body.quantity,
-    itemName: req.body.itemName,
-    priority: req.body.priority
-  }
-  const result = await(groceryList.updateOne({
-    groceryId: req.body.groceryId, 
-    $set: updatedEntry
-  }))
+app.post("/update", async (req, res) => {
+  const result = await(groceryList.updateOne( 
+    { groceryId: req.body.groceryId }, 
+    {$set: {
+      quantity: req.body.quantity,
+      itemName: req.body.itemName,
+      priority: req.body.priority
+    }} 
+  ))
   res.redirect("/main.html")
   // res.json(result)
 })

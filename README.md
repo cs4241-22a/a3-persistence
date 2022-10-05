@@ -11,7 +11,5 @@ Styles: I used the MUI framework for styling because I have used MUI a little bi
 
 Middleware:
 Cookies are used, as well as another middleware to confirm the user's account exists or was created by checking the db.
-Another middleware that the db collection was found. 
-
-The Edit button does not work for some reason. It fails 
+Another middleware that the db collection was found.
 

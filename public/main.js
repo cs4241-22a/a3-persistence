@@ -87,7 +87,7 @@ const updateItem = (e) => {
   const newPrior = document.getElementById("priority").value
 debugger
   fetch("/update", {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify({
       groceryId: groceryId,
       quantity: newQuant,

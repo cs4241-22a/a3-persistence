@@ -3,6 +3,8 @@
   <head>
     <title>CS4241 A3</title>
     <meta charset="utf-8" />
+    <meta name="description" content="grocery list editor">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="//cdn.muicss.com/mui-latest/css/mui.min.css"
       rel="stylesheet"
@@ -18,12 +20,12 @@
 
     <div class="container">
       <form action="/createAccount" method="POST" class="mui-form">
-        <label style="font-weight: bolder;">New Username</label>
+        <label style="font-weight: bolder;" for="username">New Username</label>
         <div class="mui-textfield">
           <input type="text" name="username" class="mui-textfield"required/>
         </div>
         <br />
-        <label style="font-weight: bolder;">New Password</label>
+        <label style="font-weight: bolder;" for="password">New Password</label>
         <div class="mui-textfield">
           <input type="text" name="password" required/>
         </div>
