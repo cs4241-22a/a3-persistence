@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 A3</title>
+    <meta charset="utf-8">
+    <meta name="description" content="grocery list editor">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="//cdn.muicss.com/mui-latest/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+    <script rel="script" src="main.js"></script>
+  </head>
+
+  <body style="margin:20px; font-size:15px;">
+    
+    <h1>Grocery List</h1>
+    <p>Add a new item's details below.</p>
+
+    <form action="/add" method="POST" class="mui-form" style="width:500px;">
+      <label style="font-weight: bolder;" for="quantity">Quantity:</label>
+      <div class="mui-textfield">
+        <input type="text" name="quantity" id="quantity" value="1" class="mui-textfield mui-textfield--float-label" required/>
+      </div>
+      <label style="font-weight: bolder;" for="itemName">Item name:</label>
+      <div class="mui-textfield">
+        <input type="text" name="itemName" id="itemName" class="mui-textfield" required/>
+      </div>
+      <label style="font-weight: bolder;" for="priority">Priority:</label>
+      <div class="mui-select">
+        <select name="priority" id="priority" required>
+          <option>Need</option>
+          <option>Want</option>
+          <option>Maybe buy</option>
+        </select>
+      </div>
+      <div class="mui-row mui-col-md-4">
+        <input type="submit" value="Add item" class="mui-btn mui-btn--small mui-btn--primary mui-btn--raised" style="background-color:#005b96"/>
+      </div>
+    </form>
+
+    <p>To edit an item, put the new values into the above form and then click the desired line item.</p>
+
+    <table id="data_table" class="mui-table mui-table--bordered">
+      <tr>
+        <th>Quantity</th>
+        <th>Item</th>
+        <th>Priority</th>
+        <th>Actions</th>
+      </tr>
+    </table>
+  </body>
+</html>

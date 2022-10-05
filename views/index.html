@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 A3</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="grocery list editor">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="//cdn.muicss.com/mui-latest/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+  </head>
+
+  <body style="margin:20px; font-size:15px;">
+    <h1>Grocery List Maker</h1>
+    <p>Login below to view and edit your grocery list.</p>
+
+    <div class="container">
+      <form action="/login" method="POST" class="mui-form" style="width:500px;">
+        <label style="font-weight: bolder;" for="username">Username:</label>
+        <div class="mui-textfield">
+          <input type="text" name="username" class="mui-textfield" required/>
+        </div>
+        <br />
+        <label style="font-weight: bolder;" for="password">Password:</label>
+        <div class="mui-textfield">
+          <input type="password" name="password" required/>
+        </div>
+        <br />
+        <input type="submit" value="Login" class="mui-btn mui-btn--small mui-btn--primary mui-btn--raised" style="background-color:#005b96"/>
+        <p id="login_fail"></p>
+      </form>
+    </div>
+  </body>
+</html>
