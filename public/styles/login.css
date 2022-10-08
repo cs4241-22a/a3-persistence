@@ -1,0 +1,15 @@
+.login {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+}
+
+.login-btn svg {
+    margin-left: 10px;
+}

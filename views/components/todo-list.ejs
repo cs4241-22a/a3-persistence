@@ -1,0 +1,20 @@
+
+<h2 class="pt-3 pb-1">List of notes:</h2>
+<ul class="todos__list px-0">
+    <% todos.forEach(function(todo) { %>
+        <li id="<%= todo._id %>" class="todos__item mb-3">
+                <div class="input-group">
+                        <input
+                                type="text"
+                                class="form-control todo-title"
+                                value="<%= todo.title %>"
+                                disabled
+                                placeholder=""
+                                aria-label=""
+                        >
+                        <button class="btn btn-warning show-edit-modal" type="button"  data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
+                        <button class="btn btn-danger delete-todo-btn" type="button">Delete</button>
+                </div>
+        </li>
+    <% }); %>
+</ul>
