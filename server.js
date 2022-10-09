@@ -28,6 +28,7 @@ var cookieParser = require("cookie-parser")
 const ApplicationRouter = require("./route/grader_route");
 const { stringify } = require("querystring");
 var responseTime = require('response-time');
+const { json } = require("express");
 app = express();
 
 app.set("view engine", "ejs");
@@ -50,6 +51,99 @@ app.use(responseTime())
 
 const port =  process.env.PORT || 3000
 app.listen(port, () => {console.log(`listening on PORT: ${port}`)} )
+
+//----------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------
+
+// MONGODB RELATED 
+
+const db = client.db('CS4241')
+const collection = db.collection('data')
+const database = keys.database.database;
+const c_data = keys.database.c_d;
+
+//Add middleware to check connection
+app.use( (req,res,next) => {
+  if( collection !== null ) {
+    next()
+  }else{
+    res.status( 503 ).send()
+  }
+})
+
+app.post("/AddRecord", (req, res)=>{
+  const user = req.user.username;
+  eachColumn = JSON.parse(req.json);
+  ec = JSON.parse(eachColumn);
+
+  const json = {
+    studentName: ec.value,
+    a1score: ec.value,
+    a2score: ec.value,
+    projectSc: ec.value,
+    examScore: ec.value,
+    user: req.user.username
+  };
+  addGradeColumn(user, json, database, c_data,);
+  res.end();
+
+});
+
+async function addGradeColumn(user, json, database, c_data,){
+  const studentName = json.studentName,
+        a1score = json.a1score,
+        a2score = json.a2score,
+        projectSc = json.projectSc,
+        examScore = json.examScore,
+        finalScore = finalGrade(newStudent.a1score, newStudent.a2score, newStudent.projectSc, newStudent.examScore)
+        //       newStudent.finalScore = finalGrade(newStudent.a1score, newStudent.a2score, newStudent.projectSc, newStudent.examScore)
+
+  try{
+    console.log(`Connected to ${database}, Collection: ${c_data}`);
+    const db = client.db(database);
+    const allData = db.collection(c_data);
+    console.log("!!Connected to the data succesfully!!")
+
+    const column = {
+      studentName: studentName,
+      a1score: a1score,
+      a2score:  a2score,
+      projectSc: projectSc,
+      examScore: examScore,
+      finalScore: finalScore,
+      user: user
+    };
+
+    const result = await allData.insertOne(column);
+
+    console.log(`A new column with object_id: ${result.insertedId} has been added to the data collection`);
+
+  } catch{
+    console.log("error occure while adding a document to database");
+  }
+}
+
+
+// client.connect()
+//   .then( () => {
+//     // will only create collection if it doesn't exist
+//     return client.db( 'XXXtest' ).collection( 'XXXtodos' )
+//   })
+//   .then( __collection => {
+//     // store reference to collection
+//     collection = __collection
+//     // blank query returns all documents
+//     return collection.find({ }).toArray()
+//   })
+//   .then( console.log )
+  
+// // route to get all docs
+// app.get( '/', (req,res) => {
+//   if( collection !== null ) {
+//     // get array and pass to res.json
+//     collection.find({ }).toArray().then( result => res.json( result ) )
+//   }
+// })
 
 
 // const http = require( 'http' ),
@@ -136,28 +230,28 @@ app.listen(port, () => {console.log(`listening on PORT: ${port}`)} )
 // }
 
 
-// function finalGrade(a1,a2,project,exam){
-//   console.log(a1,a2,project,exam)
-//   let score =0;
-//   console.log(((parseInt(a1) + parseInt(a2))/2)* 0.55,((project) * 0.35),((exam)*0.1))
-//   score = ((parseInt(a1) + parseInt(a2))/2)* 0.55 + (parseInt(project)) * 0.35 + (parseInt(exam))*0.1;
-//   //score = (+a1 + +a2)*0.55 + +project*0.35 + +exam*0.1
-//   let grade =""
+function finalGrade(a1,a2,project,exam){
+  console.log(a1,a2,project,exam)
+  let score =0;
+  console.log(((parseInt(a1) + parseInt(a2))/2)* 0.55,((project) * 0.35),((exam)*0.1))
+  score = ((parseInt(a1) + parseInt(a2))/2)* 0.55 + (parseInt(project)) * 0.35 + (parseInt(exam))*0.1;
+  //score = (+a1 + +a2)*0.55 + +project*0.35 + +exam*0.1
+  let grade =""
   
-//   if(score > 90.0 ){
-//     grade = "A"
-//     console.log(score);
-//   }
-//   else if(score > 80.0){
-//     grade = "B"
-//   }
-//   else if(score > 70.0 ){
-//     grade = "C"
-//   }
-//   else{
-//     grade = "NR"
-//   }
-//   return grade;
-// }
+  if(score > 90.0 ){
+    grade = "A"
+    console.log(score);
+  }
+  else if(score > 80.0){
+    grade = "B"
+  }
+  else if(score > 70.0 ){
+    grade = "C"
+  }
+  else{
+    grade = "NR"
+  }
+  return grade;
+}
 
 // server.listen( process.env.PORT || port )

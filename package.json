@@ -4,8 +4,8 @@
     "description": "attempt on the oAuth",
     "author": "Vishnu Priya Dendukuri",
     "scripts": {
-        "dev": "nodemon server.js",
-        "start": "node server.js"
+        "dev": "nodemon server2.js",
+        "start": "node server2.js"
     },
     "dependencies": {
         "cookie": "^0.5.0",
