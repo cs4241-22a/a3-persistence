@@ -115,5 +115,5 @@ app.get('/login', (req,res) => {
     res.redirect('/login.html')
 })
 
-const port =  process.env.PORT || 3000
+const port =  process.env.PORT || 80
 app.listen(port, () => {console.log(`listening on PORT: ${port}`)} )
