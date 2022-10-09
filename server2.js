@@ -20,7 +20,7 @@ const passport = require("passport");
 const path = require("path");
 const AuthorizationRoute = require("./route/gitAuth_route");
 var express_session = require("express-session");
-const passportSetup = require("./config/passportSetup");
+const passportSetUp = require("./config/passportSetUp");
 const client = require("./config/mongodbSetUp");
 const keys = require("./config/keys");
 const cookieSession = require("cookie-session");
@@ -87,7 +87,7 @@ app.post('/AddRecord', (req,res) => {
     const exam_score = req.body.examScore
     const final_score = finalGrade(a1,a2,project_score,exam_score)
     const user = req.user.username;
-    
+
     const docs = {
         studentName: student_name,
         a1score: a1,
