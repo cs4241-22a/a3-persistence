@@ -1,6 +1,6 @@
 ## Genshin Impact Character Tracker
 
-https://glitch.com/~a3-tia-mehta
+https://a3-webware.herokuapp.com/
 
 Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
 
