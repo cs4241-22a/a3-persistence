@@ -94,18 +94,24 @@ app.post('/AddRecord', (req,res) => {
         a2score: a2,
         projectSc: project_score,
         examScore: exam_score,
-        fincal_score: final_score,
+        final_score: final_score,
         user: user
       };
       console.log("_____",docs)
     collection.insertOne(docs).then(result => {
         if (result) {
             console.log('success')
+            //res.json(collection.findOne({ studentName: 3131}))
+            //console.log()
+            //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
+            //res.json(result);
+            //let newStudent = JSON.parse(docs)
             res.redirect('/login')
         } else {
             console.log('failuer')
             res.redirect('/login')
         }
+
     }).catch(err => {
         console.log('/insert failed',err)
     })
@@ -115,5 +121,5 @@ app.get('/login', (req,res) => {
     res.redirect('/login.html')
 })
 
-const port =  process.env.PORT || 80
+const port =  process.env.PORT || 3000
 app.listen(port, () => {console.log(`listening on PORT: ${port}`)} )

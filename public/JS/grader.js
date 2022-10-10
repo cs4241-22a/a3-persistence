@@ -1,12 +1,25 @@
 window.onload = function () {
-  // const sbutton = document.querySelector('button')
-  // const sbutton = document.getElementById("addrecord");
-  // sbutton.onclick = AddRecord;
+  //const sbutton = document.querySelector('button')
+  const sbutton = document.getElementById("addrecord");
+  sbutton.onclick = AddRecord;
 };
 
 const AddRecord = function (e) {
   // prevent default form action from being carried out
   e.preventDefault();
+  const firstPage = document.querySelector("#firstPage");
+  //const table = document.createElement("table")
+  //table.id = "storedData"
+  const table = document.getElementById("storedData");
+  table.innerHTML = "";
+  table.innerHTML +=
+    "<tr><th>Class</th>" +
+    "<th>Assignment1 Score</th>" +
+    "<th>Assignment2 Score</th>" +
+    "<th>Project Score </th>" +
+    "<th>Exam Score</th>" +
+    "<th>Final Grade</th>" +
+    "<th>Delete</th></tr>";
   //const firstPage = document.querySelector("#firstPage");
   const studentName = document.querySelector("#studentName"),
     a1score = document.querySelector("#a1score"),
@@ -29,11 +42,54 @@ const AddRecord = function (e) {
     body
   })
   .then((response) => {
-     return response.json() 
+    console.log(response)
+    return response.json() 
   })
-  .then(response => {
-    extra = document.querySelector("#studentName");
-    extra = "";
+  .then((json) => {
+          //table.innerHTML = "<form>"
+          json.forEach((student, index) => {
+            table.innerHTML +=
+              "<tr id=entry" +
+              index +
+              "><td>" +
+              student.studentName +
+              "</td>" +
+              "<td>" +
+              student.a1score +
+              "</td>" +
+              "<td>" +
+              student.a2score +
+              "</td>" +
+              "<td>" +
+              student.projectSc +
+              "</td>" +
+              "<td>" +
+              student.examScore +
+              "</td>" +
+              "<td>" +
+              student.finalScore +
+              "</td>" +
+              //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
+              //"</td></tr>"
+              "<td>" +
+              "<button type='button' id =" +
+              index +
+              " onclick=deleteStudent(this.id)>X</button>" +
+              "</td></tr>";
+          });
+          //table.innerHTML += "</form>"
+        });
+      //"<span class='glyphicon glyphicon-remove' />"
+      //console.log(student.finalScore)
+      document.body.appendChild(table);
+      firstPage.reset(); // this resets the forms fields to empty
+      return false;
+};
+
+/*   const deleteRow = function (e){
+    e.preventDefault()
+ 
+    return false
   });
   //firstPage.reset(); // this resets the forms fields to empty
   //return false;
@@ -116,31 +172,7 @@ const AddRecord = function (e) {
 //   document.body.appendChild(table);
 //   firstPage.reset(); // this resets the forms fields to empty
 //   return false;
-
-//   // const input = document.querySelector( '#yourname' ),
-//   //       json = { yourname: input.value },
-//   //       body = JSON.stringify( json )
-//   //   console.log(body)
-//   //  fetch( '/submit', {
-//   //    method:'POST',
-//   //    body
-//   //  })
-//   //  .then(response => response.json())
-//   //  .then(json => {
-//   //      json.forEach(item => {
-//   //        const p = document.createElement("p")
-//   //        p.innerText = JSON.stringify(item)
-//   //       document.body.appendChild(p)
-//   //      })
-//   // })
-//   // /*  .then(json => {
-//   //   json.forEach(element => {
-//   //     els
-//   //   });
-//   // }) */
-
-//   // return false
-// };
+//};
 
 /*   const deleteRow = function (e){
     e.preventDefault()
