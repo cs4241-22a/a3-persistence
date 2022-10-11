@@ -26,7 +26,7 @@ const AddRecord = function (e) {
     a2score = document.querySelector("#a2score"),
     projectSc = document.querySelector("#projectSc"),
     examScore = document.querySelector("#examScore");
-    console.log(studentName.value);
+  console.log("this is the recently added class" + studentName.value);
   const json = {
     studentName: studentName.value,
     a1score: a1score.value,
@@ -34,9 +34,12 @@ const AddRecord = function (e) {
     projectSc: projectSc.value,
     examScore: examScore.value,
   };
-  
+
   const body = JSON.stringify(json);
-  console.log(body);
+  console.log("Recently adding record (body): ------------")
+  console.log(json)
+  console.log("------------------------------")
+
 
   fetch("/AddRecord", {
     method: "POST",
@@ -44,89 +47,91 @@ const AddRecord = function (e) {
     headers: {
       "Content-Type": "application/json"
     }
-
+    
   })
-  .then(response => response.json())
-  .then(json => {
-          //table.innerHTML = "<form>"
-          console.log(json)
-          json.forEach((student, index) => {
-            table.innerHTML +=
-              "<tr id=entry" +
-              index +
-              "><td>" +
-              student.studentName +
-              "</td>" +
-              "<td>" +
-              student.a1score +
-              "</td>" +
-              "<td>" +
-              student.a2score +
-              "</td>" +
-              "<td>" +
-              student.projectSc +
-              "</td>" +
-              "<td>" +
-              student.examScore +
-              "</td>" +
-              "<td>" +
-              student.finalScore +
-              "</td>" +
-              //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
-              //"</td></tr>"
-              "<td>" +
-              "<button type='button' id =" +
-              index +
-              " onclick=deleteStudent(this.id)>X</button>" +
-              "</td></tr>";
-          });
-          //table.innerHTML += "</form>"
-        });
-      //"<span class='glyphicon glyphicon-remove' />"
-      //console.log(student.finalScore)
-      document.body.appendChild(table);
-      firstPage.reset(); // this resets the forms fields to empty
+    .then(response => response.json())
+    .then(json => {
+      //table.innerHTML = "<form>"
+      console.log("adding a record after fetching: ------------")
+      console.log(json)
+      console.log("------------------------------")
+      json.forEach((student, index) => {
+        table.innerHTML +=
+          "<tr id=entry" +
+          index +
+          "><td>" +
+          student.studentName +
+          "</td>" +
+          "<td>" +
+          student.a1score +
+          "</td>" +
+          "<td>" +
+          student.a2score +
+          "</td>" +
+          "<td>" +
+          student.projectSc +
+          "</td>" +
+          "<td>" +
+          student.examScore +
+          "</td>" +
+          "<td>" +
+          student.finalScore +
+          "</td>" +
+          //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
+          //"</td></tr>"
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=deleteStudent(this.id)>X</button>" +
+          "</td></tr>";
+      });
+      //table.innerHTML += "</form>"
+    });
+  //"<span class='glyphicon glyphicon-remove' />"
+  //console.log(student.finalScore)
+  document.body.appendChild(table);
+  firstPage.reset(); // this resets the forms fields to empty
 
   fetch("/getRecords", {
     method: "GET"
   })
-  .then(response => response.json())
-  .then(json => {
-    console.log(json)
-          json.forEach((student, index) => {
-            table.innerHTML +=
-              "<tr id=entry" +
-              index +
-              "><td>" +
-              student.studentName +
-              "</td>" +
-              "<td>" +
-              student.a1score +
-              "</td>" +
-              "<td>" +
-              student.a2score +
-              "</td>" +
-              "<td>" +
-              student.projectSc +
-              "</td>" +
-              "<td>" +
-              student.examScore +
-              "</td>" +
-              "<td>" +
-              student.final_score +
-              "</td>" +
-              //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
-              //"</td></tr>"
-              "<td>" +
-              "<button type='button' id =" +
-              index +
-              " onclick=deleteStudent(this.id)>X</button>" +
-              "</td></tr>";
-          });
-  });
+    .then(response => response.json())
+    .then(json => {
+      console.log("Getting the records after fetching: ------------")
+      console.log(json)
+      console.log("------------------------------")
+      json.forEach((student, index) => {
+        table.innerHTML +=
+          "<tr id=entry" +
+          index +
+          "><td>" +
+          student.studentName +
+          "</td>" +
+          "<td>" +
+          student.a1score +
+          "</td>" +
+          "<td>" +
+          student.a2score +
+          "</td>" +
+          "<td>" +
+          student.projectSc +
+          "</td>" +
+          "<td>" +
+          student.examScore +
+          "</td>" +
+          "<td>" +
+          student.final_score +
+          "</td>" +
+          //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
+          //"</td></tr>"
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=deleteStudent(this.id)>X</button>" +
+          "</td></tr>";
+      });
+    });
 
   return false;
-  
+
 };
 
 /*   const deleteRow = function (e){
@@ -242,14 +247,23 @@ function deleteStudent(buttonId) {
   let json = {
     index: buttonId,
   };
+  console.log("Json of the record we are trying to delete: ------------")
+  console.log(json)
+  console.log("------------------------------")
+
   let body = JSON.stringify(json);
-  fetch("/delete", {
+  fetch("/deleteRecord", {
     method: "POST",
     body,
+    headers: {
+      "Content-Type": "application/json"
+    }
   })
     .then((response) => response.json())
     .then((json) => {
-      //     console.log(json)
+      console.log("returning json record after deleting: ------------")
+      console.log(json)
+      console.log("------------------------------")
       //table.innerHTML = "<form>"
       table.innerHTML = "";
       //let table =
@@ -263,7 +277,7 @@ function deleteStudent(buttonId) {
         "<th>Delete</th></tr>";
 
       json.forEach((student, index) => {
-        console.log(index);
+        console.log(student);
         table.innerHTML +=
           "<tr id=entry" +
           index +
@@ -283,12 +297,11 @@ function deleteStudent(buttonId) {
           student.examScore +
           "</td>" +
           "<td>" +
-          student.finalScore +
+          student.final_score +
           "</td>" +
           //+ "<td>" + "<button type='button' onclick=deleteStudent("+ index + ")>X</button>" +"</td></tr>"
           "<td>" +
-          "<button type='button' id =" +
-          index +
+          "<button type='button' id =" + student.index +
           " onclick=deleteStudent(this.id)>X</button>" +
           "</td></tr>";
       });

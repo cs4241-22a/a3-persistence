@@ -3,7 +3,7 @@
 
 // app.use(express.static('a3-persistance'))
 // app.use(express.static('public'))
-     
+
 // const logger = (req,res,next) => {
 //   console.log( 'url:', req.url )
 //   next()
@@ -33,7 +33,7 @@ const { session } = require("passport");
 app = express();
 
 app.use(express.json())
-app.use(urlencoded({extended:true}))
+app.use(urlencoded({ extended: true }))
 
 app.use(
   cookieSession({
@@ -56,95 +56,149 @@ const db = client.db('CS4241')
 const collection = db.collection('data')
 
 
-function finalGrade(a1,a2,project,exam){
-    console.log(a1,a2,project,exam)
-    let score =0;
-    console.log(((parseInt(a1) + parseInt(a2))/2)* 0.55,((project) * 0.35),((exam)*0.1))
-    score = ((parseInt(a1) + parseInt(a2))/2)* 0.55 + (parseInt(project)) * 0.35 + (parseInt(exam))*0.1;
-    //score = (+a1 + +a2)*0.55 + +project*0.35 + +exam*0.1
-    let grade =""
-    
-    if(score > 90.0 ){
-      grade = "A"
-      console.log(score);
-    }
-    else if(score > 80.0){
-      grade = "B"
-    }
-    else if(score > 70.0 ){
-      grade = "C"
-    }
-    else{
-      grade = "NR"
-    }
-    return grade;
+function finalGrade(a1, a2, project, exam) {
+  console.log(a1, a2, project, exam)
+  let score = 0;
+  console.log(((parseInt(a1) + parseInt(a2)) / 2) * 0.55, ((project) * 0.35), ((exam) * 0.1))
+  score = ((parseInt(a1) + parseInt(a2)) / 2) * 0.55 + (parseInt(project)) * 0.35 + (parseInt(exam)) * 0.1;
+  //score = (+a1 + +a2)*0.55 + +project*0.35 + +exam*0.1
+  let grade = ""
+
+  if (score > 90.0) {
+    grade = "A"
+    console.log(score);
+  }
+  else if (score > 80.0) {
+    grade = "B"
+  }
+  else if (score > 70.0) {
+    grade = "C"
+  }
+  else {
+    grade = "NR"
+  }
+  return grade;
 };
 
-app.get('/getRecords', (req,res) => {
+function randomString() {
+  let length = 11;
+  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+}
+
+app.get('/getRecords', (req, res) => {
 
   collection
     .find({ user: req.user.username })
     .toArray()
     .then(result => {
-    let records = [];
-    console.log("result = ")
-    console.log(result)
-    for(const row of result){
-      records.push({
-        studentName: row.studentName,
-        a1score: row.a1score,
-        a2score: row.a2score,
-        projectSc: row.projectSc,
-        examScore: row.examScore,
-        final_score: row.final_score
-      });
+      let records = [];
+      console.log("result = ")
+      console.log(result)
+      for (const row of result) {
+        records.push({
+          studentName: row.studentName,
+          a1score: row.a1score,
+          a2score: row.a2score,
+          projectSc: row.projectSc,
+          examScore: row.examScore,
+          final_score: row.final_score,
+          index: row.index
+        });
+      }
+      res.json(records);
+    });
+});
+
+
+app.post('/AddRecord', (req, res) => {
+  console.log(req.body);
+  const student_name = req.body.studentName
+  const a1 = req.body.a1score
+  const a2 = req.body.a2score
+  const project_score = req.body.projectSc
+  const exam_score = req.body.examScore
+  const final_score = finalGrade(a1, a2, project_score, exam_score)
+  const user = req.user.username;
+  const index = randomString();
+
+  const docs = {
+    studentName: student_name,
+    a1score: a1,
+    a2score: a2,
+    projectSc: project_score,
+    examScore: exam_score,
+    final_score: final_score,
+    user: user,
+    index: index
+  };
+  console.log("_____", docs)
+  collection.insertOne(docs).then(result => {
+    if (result) {
+      console.log('success')
+      //res.json(collection.findOne({ studentName: 3131}))
+      //console.log()
+      //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
+      //res.json(result);
+      //let newStudent = JSON.parse(docs)
+      res.redirect('/login')
+    } else {
+      console.log('failuer')
+      res.redirect('/login')
     }
-    res.json(records);
-  });
+
+  }).catch(err => {
+    console.log('/insert failed', err)
+  })
 });
 
-app.post('/AddRecord', (req,res) => {
-    console.log(req.body);
-    const student_name = req.body.studentName
-    const a1 = req.body.a1score
-    const a2 = req.body.a2score
-    const project_score = req.body.projectSc
-    const exam_score = req.body.examScore
-    const final_score = finalGrade(a1,a2,project_score,exam_score)
-    const user = req.user.username;
+app.post("/deleteRecord", (req, res) => {
+  console.log("this in the server2 deleteRecord")
+  console.log(req.body);
 
-    const docs = {
-        studentName: student_name,
-        a1score: a1,
-        a2score: a2,
-        projectSc: project_score,
-        examScore: exam_score,
-        final_score: final_score,
-        user: user
-      };
-      console.log("_____",docs)
-    collection.insertOne(docs).then(result => {
-        if (result) {
-            console.log('success')
-            //res.json(collection.findOne({ studentName: 3131}))
-            //console.log()
-            //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
-            //res.json(result);
-            //let newStudent = JSON.parse(docs)
-            res.redirect('/login')
-        } else {
-            console.log('failuer')
-            res.redirect('/login')
+  // collection
+  //   .find({ user: req.user.username, index: req.index }) //, index: req.index
+  //   .toArray()
+  //   .then(result => {
+  collection.deleteOne({ index: req.body.index })
+    .then(collection
+      .find({ user: req.user.username })
+      .toArray()
+      .then(result => {
+        let records = [];
+        console.log("result = ")
+        console.log(result)
+        for (const row of result) {
+          records.push({
+            studentName: row.studentName,
+            a1score: row.a1score,
+            a2score: row.a2score,
+            projectSc: row.projectSc,
+            examScore: row.examScore,
+            final_score: row.final_score,
+            index: row.index
+          });
         }
+        res.json(records);
+      })
+    )
 
-    }).catch(err => {
-        console.log('/insert failed',err)
-    })
+  // let records = [];
+  // console.log("result = ")
+  // console.log(result)
+  // for(const row of result){
+  //   if(records[req.index]){
+  //     records.splice(req.index, 1);
+  //   }
+  // }
+  // res.json(records);
+  //   });
+
+
 });
 
-app.get('/login', (req,res) => {
-    res.redirect('/login.html')
+app.get('/login', (req, res) => {
+  res.redirect('/login.html')
 })
 
-const port =  process.env.PORT || 3000
-app.listen(port, () => {console.log(`listening on PORT: ${port}`)} )
+const port = process.env.PORT || 3000
+app.listen(port, () => { console.log(`listening on PORT: ${port}`) })
