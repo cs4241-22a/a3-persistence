@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"
+      integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  
+  <body>
+    <div class="body">
+      <h1>
+        Genshin Impact Character Tracker
+      </h1>
+      <hr />
+      <div class="container">
+        <div class="label">
+          Login to existing account
+        </div>
+        You must already have an account.
+        <form class="pure-form pure-form-stacked" id="prelogin">
+          <fieldset>
+            <label for="preusername"> Username:</label>
+            <input type="text" id="preusername" />
+            
+            <label for="prepassword"> Password:</label>
+            <input type="text" id="prepassword" />
+          </fieldset>
+        </form>
+        <a href="\index.html">
+        <button class="pure-button" id="buttonLogin">Login</button>
+      </a>
+        
+        <div class="label">
+          Make a new account
+        </div>
+        <form class="pure-form pure-form-stacked" id="newlogin">
+          <fieldset>
+            <label for="newusername"> Username: </label>
+            <input type="text" id="newusername" />
+            
+            <label for="newpassword"> Password: </label>
+            <input type="text" id="newpassword" />
+          </fieldset>
+        </form>
+        <button class="pure-button" id="buttonNewAcc">Done</button>
+      </div>
+    </div>
+    <script src="scripts.js" type="text/javascript"></script>
+  </body>
+</html>
