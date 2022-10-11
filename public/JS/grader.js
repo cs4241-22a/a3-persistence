@@ -24,7 +24,8 @@ const AddRecord = function (e) {
     "<th>Project Score </th>" +
     "<th>Exam Score</th>" +
     "<th>Final Grade</th>" +
-    "<th>Delete</th></tr>";
+    "<th>Delete</th>"+
+    "<th>Edit</th></tr>";
   //const firstPage = document.querySelector("#firstPage");
   const studentName = document.querySelector("#studentName"),
     a1score = document.querySelector("#a1score"),
@@ -32,6 +33,7 @@ const AddRecord = function (e) {
     projectSc = document.querySelector("#projectSc"),
     examScore = document.querySelector("#examScore");
   console.log("this is the recently added class" + studentName.value);
+  
   const json = {
     studentName: studentName.value,
     a1score: a1score.value,
@@ -90,6 +92,10 @@ const AddRecord = function (e) {
           "<td>" +
           "<button type='button' id =" + student.index +
           " onclick=deleteStudent(this.id)>X</button>" +
+          "</td>"+
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=editStudent(this.id)>O</button>" +
           "</td></tr>";
       });
       //table.innerHTML += "</form>"
@@ -282,7 +288,8 @@ function deleteStudent(buttonId) {
         "<th>Project Score </th>" +
         "<th>Exam Score</th>" +
         "<th>Final Grade</th>" +
-        "<th>Delete</th></tr>";
+        "<th>Delete</th>"+
+        "<th>Edit</th></tr>";
 
       json.forEach((student, index) => {
         console.log(student);
@@ -311,6 +318,96 @@ function deleteStudent(buttonId) {
           "<td>" +
           "<button type='button' id =" + student.index +
           " onclick=deleteStudent(this.id)>X</button>" +
+          "</td>" +
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=editStudent(this.id)>O</button>" +
+          "</td></tr>";
+      });
+      //table.innerHTML += "</form>"
+    });
+  //const table = document.getElementById("storedData")
+
+  //firstPage.reset(); // this resets the forms fields to empty
+  //table.innerHTML = ""
+
+  return false;
+}
+
+function editStudent(buttonId) {
+  const table = document.getElementById("storedData");
+  /* table.innerHTML += "<tr><th>Student</th>"
+      + "<th>Assignment1 Score</th>"
+      + "<th>Assignment2 Score</th>"
+      + "<th>Project Score </th>"
+      + "<th>Exam Score</th>"
+      + "<th>Final Grade</th>"
+      + "<th>Delete</th></tr>" */
+
+  let json = {
+    index: buttonId,
+  };
+  console.log("Json of the record we are trying to edit: ------------")
+  console.log(json)
+  console.log("------------------------------")
+
+  let body = JSON.stringify(json);
+  fetch("/editRecord", {
+    method: "POST",
+    body,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log("returning all records after updating: ------------")
+      console.log(json)
+      console.log("------------------------------")
+      //table.innerHTML = "<form>"
+      table.innerHTML = "";
+      //let table =
+      table.innerHTML +=
+        "<tr><th>Class</th>" +
+        "<th>Assignment1 Score</th>" +
+        "<th>Assignment2 Score</th>" +
+        "<th>Project Score </th>" +
+        "<th>Exam Score</th>" +
+        "<th>Final Grade</th>" +
+        "<th>Delete</th>"+
+        "<th>Edit</th></tr>";
+
+      json.forEach((student, index) => {
+        console.log(student);
+        table.innerHTML +=
+          "<tr id=entry" +
+          index +
+          "><td>" +
+          student.studentName +
+          "</td>" +
+          "<td>" +
+          student.a1score +
+          "</td>" +
+          "<td>" +
+          student.a2score +
+          "</td>" +
+          "<td>" +
+          student.projectSc +
+          "</td>" +
+          "<td>" +
+          student.examScore +
+          "</td>" +
+          "<td>" +
+          student.final_score +
+          "</td>" +
+          //+ "<td>" + "<button type='button' onclick=deleteStudent("+ index + ")>X</button>" +"</td></tr>"
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=deleteStudent(this.id)>X</button>" +
+          "</td>" +  
+          "<td>" +
+          "<button type='button' id =" + student.index +
+          " onclick=editStudent(this.id)>O</button>" +
           "</td></tr>";
       });
       //table.innerHTML += "</form>"

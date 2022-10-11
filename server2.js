@@ -155,15 +155,22 @@ app.post('/AddRecord', (req, res) => {
   })
 });
 
-app.post("/deleteRecord", (req, res) => {
-  console.log("this in the server2 deleteRecord")
+app.post("/editRecord", (req, res) => {
+  console.log("this in the server2 editRecord")
   console.log(req.body);
+
+
+});
+
+app.post("/deleteRecord", (req, res) => {
+  // console.log("this in the server2 deleteRecord")
+  // console.log(req.body);
 
   // collection
   //   .find({ user: req.user.username, index: req.index }) //, index: req.index
   //   .toArray()
   //   .then(result => {
-  collection.deleteOne({ index: req.body.index })
+  collection.updateOne({ index: req.body.index })
     .then(result => {
       if (result) {
         console.log('success')
@@ -201,7 +208,7 @@ app.post("/deleteRecord", (req, res) => {
       }
 
     }).catch(err => {
-      console.log('/delete failed', err)
+      console.log('/update failed', err)
     })
 });
 
