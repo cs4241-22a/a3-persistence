@@ -1,7 +1,12 @@
+// const { Collection } = require("mongodb");
+// const { database } = require("../../config/keys");
+
 window.onload = function () {
   //const sbutton = document.querySelector('button')
   const sbutton = document.getElementById("addrecord");
   sbutton.onclick = AddRecord;
+  // const ebutton = document.getElementById("editrecord");
+  // ebutton.onclick = EditRecord;
 };
 
 const AddRecord = function (e) {
@@ -41,62 +46,21 @@ const AddRecord = function (e) {
   console.log("------------------------------")
 
 
+// client: /AddRecord                      server: /AddRecord
+// client expects: the whole database              add the record to the database, then Collection.find({})
+
   fetch("/AddRecord", {
     method: "POST",
     body,
     headers: {
       "Content-Type": "application/json"
     }
-    
   })
     .then(response => response.json())
     .then(json => {
+      // here the response is an array of the records in the whole database with the specific user
       //table.innerHTML = "<form>"
-      console.log("adding a record after fetching: ------------")
-      console.log(json)
-      console.log("------------------------------")
-      json.forEach((student, index) => {
-        table.innerHTML +=
-          "<tr id=entry" +
-          index +
-          "><td>" +
-          student.studentName +
-          "</td>" +
-          "<td>" +
-          student.a1score +
-          "</td>" +
-          "<td>" +
-          student.a2score +
-          "</td>" +
-          "<td>" +
-          student.projectSc +
-          "</td>" +
-          "<td>" +
-          student.examScore +
-          "</td>" +
-          "<td>" +
-          student.finalScore +
-          "</td>" +
-          //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
-          //"</td></tr>"
-          "<td>" +
-          "<button type='button' id =" + student.index +
-          " onclick=deleteStudent(this.id)>X</button>" +
-          "</td></tr>";
-      });
-      //table.innerHTML += "</form>"
-    });
-  //"<span class='glyphicon glyphicon-remove' />"
-  //console.log(student.finalScore)
-  document.body.appendChild(table);
-  firstPage.reset(); // this resets the forms fields to empty
-
-  fetch("/getRecords", {
-    method: "GET"
-  })
-    .then(response => response.json())
-    .then(json => {
-      console.log("Getting the records after fetching: ------------")
+      console.log("getting all the records after fetching: ------------")
       console.log(json)
       console.log("------------------------------")
       json.forEach((student, index) => {
@@ -128,7 +92,51 @@ const AddRecord = function (e) {
           " onclick=deleteStudent(this.id)>X</button>" +
           "</td></tr>";
       });
+      //table.innerHTML += "</form>"
     });
+  //"<span class='glyphicon glyphicon-remove' />"
+  //console.log(student.finalScore)
+  document.body.appendChild(table);
+  firstPage.reset(); // this resets the forms fields to empty
+
+  // fetch("/getRecords", {
+  //   method: "GET"
+  // })
+  //   .then(response => response.json())
+  //   .then(json => {
+  //     console.log("Getting the records after fetching: ------------")
+  //     console.log(json)
+  //     console.log("------------------------------")
+  //     json.forEach((student, index) => {
+  //       table.innerHTML +=
+  //         "<tr id=entry" +
+  //         index +
+  //         "><td>" +
+  //         student.studentName +
+  //         "</td>" +
+  //         "<td>" +
+  //         student.a1score +
+  //         "</td>" +
+  //         "<td>" +
+  //         student.a2score +
+  //         "</td>" +
+  //         "<td>" +
+  //         student.projectSc +
+  //         "</td>" +
+  //         "<td>" +
+  //         student.examScore +
+  //         "</td>" +
+  //         "<td>" +
+  //         student.final_score +
+  //         "</td>" +
+  //         //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
+  //         //"</td></tr>"
+  //         "<td>" +
+  //         "<button type='button' id =" + student.index +
+  //         " onclick=deleteStudent(this.id)>X</button>" +
+  //         "</td></tr>";
+  //     });
+  //   });
 
   return false;
 

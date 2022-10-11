@@ -87,30 +87,12 @@ function randomString() {
 
 app.get('/getRecords', (req, res) => {
 
-  collection
-    .find({ user: req.user.username })
-    .toArray()
-    .then(result => {
-      let records = [];
-      console.log("result = ")
-      console.log(result)
-      for (const row of result) {
-        records.push({
-          studentName: row.studentName,
-          a1score: row.a1score,
-          a2score: row.a2score,
-          projectSc: row.projectSc,
-          examScore: row.examScore,
-          final_score: row.final_score,
-          index: row.index
-        });
-      }
-      res.json(records);
-    });
+
 });
 
 
 app.post('/AddRecord', (req, res) => {
+  console.log("******")
   console.log(req.body);
   const student_name = req.body.studentName
   const a1 = req.body.a1score
@@ -135,15 +117,37 @@ app.post('/AddRecord', (req, res) => {
   collection.insertOne(docs).then(result => {
     if (result) {
       console.log('success')
+      collection
+        .find({ user: req.user.username })
+        .toArray()
+        .then(result => {
+          let records = [];
+          console.log("result = ")
+          console.log(result)
+          for (const row of result) {
+            records.push({
+              studentName: row.studentName,
+              a1score: row.a1score,
+              a2score: row.a2score,
+              projectSc: row.projectSc,
+              examScore: row.examScore,
+              final_score: row.final_score,
+              index: row.index
+            });
+          }
+          res.json(records);
+        });
+      //console.log(result);
+      //res.json(docs);
       //res.json(collection.findOne({ studentName: 3131}))
       //console.log()
       //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
       //res.json(result);
       //let newStudent = JSON.parse(docs)
-      res.redirect('/login')
+      //res.redirect('/login')
     } else {
       console.log('failuer')
-      res.redirect('/login')
+      //res.redirect('/login')
     }
 
   }).catch(err => {
@@ -160,40 +164,45 @@ app.post("/deleteRecord", (req, res) => {
   //   .toArray()
   //   .then(result => {
   collection.deleteOne({ index: req.body.index })
-    .then(collection
-      .find({ user: req.user.username })
-      .toArray()
-      .then(result => {
-        let records = [];
-        console.log("result = ")
-        console.log(result)
-        for (const row of result) {
-          records.push({
-            studentName: row.studentName,
-            a1score: row.a1score,
-            a2score: row.a2score,
-            projectSc: row.projectSc,
-            examScore: row.examScore,
-            final_score: row.final_score,
-            index: row.index
+    .then(result => {
+      if (result) {
+        console.log('success')
+        collection
+          .find({ user: req.user.username })
+          .toArray()
+          .then(result => {
+            let records = [];
+            console.log("result = ")
+            console.log(result)
+            for (const row of result) {
+              records.push({
+                studentName: row.studentName,
+                a1score: row.a1score,
+                a2score: row.a2score,
+                projectSc: row.projectSc,
+                examScore: row.examScore,
+                final_score: row.final_score,
+                index: row.index
+              });
+            }
+            res.json(records);
           });
-        }
-        res.json(records);
-      })
-    )
+        //console.log(result);
+        //res.json(docs);
+        //res.json(collection.findOne({ studentName: 3131}))
+        //console.log()
+        //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
+        //res.json(result);
+        //let newStudent = JSON.parse(docs)
+        //res.redirect('/login')
+      } else {
+        console.log('failure')
+        //res.redirect('/login')
+      }
 
-  // let records = [];
-  // console.log("result = ")
-  // console.log(result)
-  // for(const row of result){
-  //   if(records[req.index]){
-  //     records.splice(req.index, 1);
-  //   }
-  // }
-  // res.json(records);
-  //   });
-
-
+    }).catch(err => {
+      console.log('/delete failed', err)
+    })
 });
 
 app.get('/login', (req, res) => {
