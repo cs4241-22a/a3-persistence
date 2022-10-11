@@ -29,6 +29,7 @@ const ApplicationRouter = require("./route/grader_route");
 const { stringify } = require("querystring");
 var responseTime = require('response-time');
 const { json, urlencoded } = require("express");
+const { session } = require("passport");
 app = express();
 
 app.use(express.json())
@@ -36,6 +37,7 @@ app.use(urlencoded({extended:true}))
 
 app.use(
   cookieSession({
+    //name: "session",
     keys: ["khdkasdhaksdhasdaks"],
   })
 );
@@ -78,6 +80,29 @@ function finalGrade(a1,a2,project,exam){
     return grade;
 };
 
+app.get('/getRecords', (req,res) => {
+
+  collection
+    .find({ user: req.user.username })
+    .toArray()
+    .then(result => {
+    let records = [];
+    console.log("result = ")
+    console.log(result)
+    for(const row of result){
+      records.push({
+        studentName: row.studentName,
+        a1score: row.a1score,
+        a2score: row.a2score,
+        projectSc: row.projectSc,
+        examScore: row.examScore,
+        final_score: row.final_score
+      });
+    }
+    res.json(records);
+  });
+});
+
 app.post('/AddRecord', (req,res) => {
     console.log(req.body);
     const student_name = req.body.studentName
@@ -115,7 +140,7 @@ app.post('/AddRecord', (req,res) => {
     }).catch(err => {
         console.log('/insert failed',err)
     })
-})
+});
 
 app.get('/login', (req,res) => {
     res.redirect('/login.html')

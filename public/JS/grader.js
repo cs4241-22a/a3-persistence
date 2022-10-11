@@ -26,6 +26,7 @@ const AddRecord = function (e) {
     a2score = document.querySelector("#a2score"),
     projectSc = document.querySelector("#projectSc"),
     examScore = document.querySelector("#examScore");
+    console.log(studentName.value);
   const json = {
     studentName: studentName.value,
     a1score: a1score.value,
@@ -33,20 +34,22 @@ const AddRecord = function (e) {
     projectSc: projectSc.value,
     examScore: examScore.value,
   };
-
+  
   const body = JSON.stringify(json);
   console.log(body);
 
   fetch("/AddRecord", {
     method: "POST",
-    body
+    body,
+    headers: {
+      "Content-Type": "application/json"
+    }
+
   })
-  .then((response) => {
-    console.log(response)
-    return response.json() 
-  })
-  .then((json) => {
+  .then(response => response.json())
+  .then(json => {
           //table.innerHTML = "<form>"
+          console.log(json)
           json.forEach((student, index) => {
             table.innerHTML +=
               "<tr id=entry" +
@@ -83,7 +86,47 @@ const AddRecord = function (e) {
       //console.log(student.finalScore)
       document.body.appendChild(table);
       firstPage.reset(); // this resets the forms fields to empty
-      return false;
+
+  fetch("/getRecords", {
+    method: "GET"
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json)
+          json.forEach((student, index) => {
+            table.innerHTML +=
+              "<tr id=entry" +
+              index +
+              "><td>" +
+              student.studentName +
+              "</td>" +
+              "<td>" +
+              student.a1score +
+              "</td>" +
+              "<td>" +
+              student.a2score +
+              "</td>" +
+              "<td>" +
+              student.projectSc +
+              "</td>" +
+              "<td>" +
+              student.examScore +
+              "</td>" +
+              "<td>" +
+              student.final_score +
+              "</td>" +
+              //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
+              //"</td></tr>"
+              "<td>" +
+              "<button type='button' id =" +
+              index +
+              " onclick=deleteStudent(this.id)>X</button>" +
+              "</td></tr>";
+          });
+  });
+
+  return false;
+  
 };
 
 /*   const deleteRow = function (e){
