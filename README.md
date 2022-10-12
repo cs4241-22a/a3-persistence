@@ -48,7 +48,7 @@ The five Express middleware packages that I used include:
 
 
 ## Technical Achievements
-- (5pts)**Tech Achievement 1**: Hosted my site on [Heroku](https://github.com/cs4241-22a/a3-persistence/blob/main/README.md). Link is at top of repo if you want to visit. What was better about this was the integration with GitHub so you can enable Automatic Deploys. Every push to `master` will deploy a new version of my app. I didn't find anything worse really. I enjoyed this much more than glitch. 
+- (5pts)**Tech Achievement 1**: Hosted my site on [Heroku](https://www.heroku.com/). Link is at top of repo if you want to visit. What was better about this was the integration with GitHub so you can enable Automatic Deploys. Every push to `master` will deploy a new version of my app. I didn't find anything worse really. I enjoyed this much more than glitch. 
 
 - (5pts)**Tech Achievement 2**: 100% in all four lighthose tests required for this assignment. 100% on `Performance`, `Best Practices`, `Accessibility` and `SEO`.
 
