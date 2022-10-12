@@ -2,13 +2,18 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" href="style.css" />
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Michroma&effect=shadow-multiple" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
   <title>CS4241 Assignment 2</title>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content="Author: Vishnu Priya Dendukuri,
+    Illustrator: Vishnu Priya Dendukuri, Category: GradingList, Price: free,
+    A website where you can store your scores and get a grade" />
+
   <link rel="stylesheet" href="/css/style.css" />
   <script src="./JS/grader.js"></script>
 </head>
@@ -29,36 +34,38 @@
       </p>
     </div>
     <div class="item2">
-       <form id="firstPage"> <!-- method="POST" action="/AddRecord" -->
-        <table id="inputTable" class="inputInfoTable">
+      <form id="firstPage">
+        <!-- method="POST" action="/AddRecord" -->
+        <table label="table" id="inputTable" class="inputInfoTable">
           <tr>
-            <td>Class:</td>
+            <td><label for="studentName">Class:</label></td>
             <td>
-              <input type="text" id="studentName" name="studentName" value="" />
+              <input type="text" id="studentName" name="studentName" value="" /></label>
             </td>
           </tr>
           <tr>
-            <td>Assignment1 Score:</td>
+            <td><label for="a1score">Assignment1 Score:</label></td>
             <td>
               <input type="number" id="a1score" name="a1score" value="" min="0" max="100" />
             </td>
           </tr>
           <tr>
-            <td>Assignment2 Score:</td>
+            <td><label for="a2score">Assignment2 Score:</label></td>
             <td>
               <input type="number" id="a2score" name="a2score" value="" min="0" max="100" />
             </td>
           </tr>
           <tr>
-            <td>Project Score:</td>
+            <td><label for="projectSc">Project Score:</label></td>
             <td>
               <input type="number" id="projectSc" name="projectSc" value="" min="0" max="100" />
             </td>
           </tr>
           <tr>
-            <td>Exam Score:</td>
+            <td><label for="examScore">Exam Score:</label></td>
             <td>
               <input type="number" id="examScore" name="examScore" value="" min="0" max="100" />
+            </td>
             </td>
           </tr>
           <!-- <tr>
@@ -73,10 +80,10 @@
           </tr> -->
         </table>
         <!-- <button id = "addrecord">submit</button> -->
-        <input type="submit" id ="addrecord" value="Submit" />
-        <input type="submit" id="editrecord" value="Submit the edited changes"/>
+        <input type="submit" id="addrecord" value="Submit" />
+        <input type="submit" id="editrecord" value="Submit the edited changes" />
       </form>
-      
+
     </div>
 
     <div class="index3">

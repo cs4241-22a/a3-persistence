@@ -44,7 +44,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.use("/auth", AuthorizationRoute);
 app.use("/application", ApplicationRouter);
@@ -159,15 +159,10 @@ app.post("/editRecord", (req, res) => {
   console.log("this in the server2 editRecord")
   console.log(req.body);
 
-  collection.updateOne({ index: req.body.index }, 
-    {$set:{studentName: req.body.studentName,
-      a1score: req.body.a1score,
-      a2score: req.body.a2score,
-      projectSc: req.body.projectSc,
-      examScore: req.body.examScore}})
+  collection.updateOne({ index: req.body.index }, {$set:{studentName: req.body.studentName,a1score: req.body.a1score,a2score: req.body.a2score,projectSc: req.body.projectSc,examScore: req.body.examScore}})
   .then(result => {
     if (result) {
-      console.log('success')
+      console.log('success update')
       collection
         .find({ user: req.user.username })
         .toArray()

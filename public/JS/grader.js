@@ -5,8 +5,8 @@ window.onload = function () {
   //const sbutton = document.querySelector('button')
   const sbutton = document.getElementById("addrecord");
   sbutton.onclick = AddRecord;
-  // const ebutton = document.getElementById("editrecord");
-  // ebutton.onclick = EditRecord;
+  const ebutton = document.getElementById("editrecord");
+  ebutton.onclick = returnEditedStudent;
 };
 
 const AddRecord = function (e) {
@@ -147,106 +147,6 @@ const AddRecord = function (e) {
 
 };
 
-/*   const deleteRow = function (e){
-    e.preventDefault()
- 
-    return false
-  });
-  //firstPage.reset(); // this resets the forms fields to empty
-  //return false;
-};
-
-// const submit1 = function (e) {
-//   // prevent default form action from being carried out
-//   e.preventDefault();
-
-//   const firstPage = document.querySelector("#firstPage");
-//   //const table = document.createElement("table")
-//   //table.id = "storedData"
-//   const table = document.getElementById("storedData");
-//   table.innerHTML = "";
-//   table.innerHTML +=
-//     "<tr><th>Class</th>" +
-//     "<th>Assignment1 Score</th>" +
-//     "<th>Assignment2 Score</th>" +
-//     "<th>Project Score </th>" +
-//     "<th>Exam Score</th>" +
-//     "<th>Final Grade</th>" +
-//     "<th>Delete</th></tr>";
-
-//   const studentName = document.querySelector("#studentName"),
-//     a1score = document.querySelector("#a1score"),
-//     a2score = document.querySelector("#a2score"),
-//     projectSc = document.querySelector("#projectSc"),
-//     examScore = document.querySelector("#examScore");
-//   const json = {
-//     studentName: studentName.value,
-//     a1score: a1score.value,
-//     a2score: a2score.value,
-//     projectSc: projectSc.value,
-//     examScore: examScore.value,
-//   };
-
-//   const body = JSON.stringify(json);
-
-//   fetch("/submit", {
-//     method: "POST",
-//     body,
-//   })
-//     .then((response) => response.json())
-//     .then((json) => {
-//       //table.innerHTML = "<form>"
-//       json.forEach((student, index) => {
-//         table.innerHTML +=
-//           "<tr id=entry" +
-//           index +
-//           "><td>" +
-//           student.studentName +
-//           "</td>" +
-//           "<td>" +
-//           student.a1score +
-//           "</td>" +
-//           "<td>" +
-//           student.a2score +
-//           "</td>" +
-//           "<td>" +
-//           student.projectSc +
-//           "</td>" +
-//           "<td>" +
-//           student.examScore +
-//           "</td>" +
-//           "<td>" +
-//           student.finalScore +
-//           "</td>" +
-//           //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
-//           //"</td></tr>"
-//           "<td>" +
-//           "<button type='button' id =" +
-//           index +
-//           " onclick=deleteStudent(this.id)>X</button>" +
-//           "</td></tr>";
-//       });
-//       //table.innerHTML += "</form>"
-//     });
-//   //"<span class='glyphicon glyphicon-remove' />"
-//   //console.log(student.finalScore)
-//   document.body.appendChild(table);
-//   firstPage.reset(); // this resets the forms fields to empty
-//   return false;
-//};
-
-/*   const deleteRow = function (e){
-    e.preventDefault()
- 
-    return false
-  } */
-
-
-
-/* function productDelete(ctl) {
-    $(ctl).parents("tr").remove();
-  } */
-
 function deleteStudent(buttonId) {
   const table = document.getElementById("storedData");
   /* table.innerHTML += "<tr><th>Student</th>"
@@ -346,6 +246,8 @@ function editStudent(buttonId) {
   
   //const inputForm = document.forms("firstPage");
 
+  sessionStorage.setItem("index", buttonId)
+
   document.querySelector("#studentName").value = document.querySelector("#class-entry"+buttonId).innerHTML;
   document.querySelector("#a1score").value = document.querySelector("#a1-entry"+buttonId).innerHTML;
   document.querySelector("#a2score").value = document.querySelector("#a2-entry"+buttonId).innerHTML;
@@ -371,6 +273,59 @@ function editStudent(buttonId) {
   console.log("------------------------------")
 
   let body = JSON.stringify(json);
+  //const table = document.getElementById("storedData")
+
+  //firstPage.reset(); // this resets the forms fields to empty
+  //table.innerHTML = ""
+
+  console.log("*************")
+  console.log(body)
+  console.log("*************")
+  return false;
+}
+
+
+
+const returnEditedStudent = function(e){
+  
+  //let index = editStudent(buttonId);
+
+  e.preventDefault();
+  const firstPage = document.querySelector("#firstPage");
+  //const table = document.createElement("table")
+  //table.id = "storedData"
+  const table = document.getElementById("storedData");
+  table.innerHTML = "";
+  table.innerHTML +=
+    "<tr><th>Class</th>" +
+    "<th>Assignment1 Score</th>" +
+    "<th>Assignment2 Score</th>" +
+    "<th>Project Score </th>" +
+    "<th>Exam Score</th>" +
+    "<th>Final Grade</th>" +
+    "<th>Delete</th>"+
+    "<th>Edit</th></tr>";
+  //const firstPage = document.querySelector("#firstPage");
+  const studentName = document.querySelector("#studentName"),
+    a1score = document.querySelector("#a1score"),
+    a2score = document.querySelector("#a2score"),
+    projectSc = document.querySelector("#projectSc"),
+    examScore = document.querySelector("#examScore");
+  console.log("this is the recently edited class" + studentName.value);
+  
+  const json = {
+    studentName: studentName.value,
+    a1score: a1score.value,
+    a2score: a2score.value,
+    projectSc: projectSc.value,
+    examScore: examScore.value,
+    index: sessionStorage.getItem("index")
+  };
+
+  const body = JSON.stringify(json);
+  console.log("Recently editing record (body): ------------")
+  console.log(json)
+  console.log("------------------------------")
 
   fetch("/editRecord", {
     method: "POST",
@@ -402,10 +357,10 @@ function editStudent(buttonId) {
         table.innerHTML +=
         "<tr id=entry" +
         index +
-        "><td id=class-entry"+student.index+">" +
+        "><td id=class-entry"+student.index+">" + 
         student.studentName +
         "</td>" +
-        "<td id=a1-entry"+student.index+">" +
+        "<td id=a1-entry"+student.index+">" + 
         student.a1score +
         "</td>" +
         "<td id=a2-entry"+student.index+">" +
@@ -432,12 +387,10 @@ function editStudent(buttonId) {
       });
       //table.innerHTML += "</form>"
     });
-  //const table = document.getElementById("storedData")
+    document.body.appendChild(table);
+    firstPage.reset(); 
 
-  //firstPage.reset(); // this resets the forms fields to empty
-  //table.innerHTML = ""
-
-  return false;
+    return false;
 }
 
 
