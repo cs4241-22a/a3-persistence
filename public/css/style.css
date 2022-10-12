@@ -15,6 +15,11 @@ p{
     text-size-adjust: auto
 }
 
+a{
+  text-align: right;
+  
+}
+
 ul{
   text-align: left;
 }
