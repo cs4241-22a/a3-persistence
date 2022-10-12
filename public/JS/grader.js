@@ -69,30 +69,29 @@ const AddRecord = function (e) {
         table.innerHTML +=
           "<tr id=entry" +
           index +
-          "><td>" +
+          "><td id=class-entry"+student.index+">" +
           student.studentName +
           "</td>" +
-          "<td>" +
+          "<td id=a1-entry"+student.index+">" +
           student.a1score +
           "</td>" +
-          "<td>" +
+          "<td id=a2-entry"+student.index+">" +
           student.a2score +
           "</td>" +
-          "<td>" +
+          "<td id=p-entry"+student.index+">" +
           student.projectSc +
           "</td>" +
-          "<td>" +
+          "<td id=e-entry"+student.index+">" +
           student.examScore +
           "</td>" +
           "<td>" +
           student.final_score +
           "</td>" +
-          //+ "<td>" + "<button type='button' id ="+index+" onclick=deleteStudent("+ index + ")>X</button>" +
-          //"</td></tr>"
+          //+ "<td>" + "<button type='button' onclick=deleteStudent("+ index + ")>X</button>" +"</td></tr>"
           "<td>" +
           "<button type='button' id =" + student.index +
           " onclick=deleteStudent(this.id)>X</button>" +
-          "</td>"+
+          "</td>" +
           "<td>" +
           "<button type='button' id =" + student.index +
           " onclick=editStudent(this.id)>O</button>" +
@@ -334,6 +333,7 @@ function deleteStudent(buttonId) {
   return false;
 }
 
+
 function editStudent(buttonId) {
   const table = document.getElementById("storedData");
   /* table.innerHTML += "<tr><th>Student</th>"
@@ -343,8 +343,27 @@ function editStudent(buttonId) {
       + "<th>Exam Score</th>"
       + "<th>Final Grade</th>"
       + "<th>Delete</th></tr>" */
+  
+  //const inputForm = document.forms("firstPage");
 
+  document.querySelector("#studentName").value = document.querySelector("#class-entry"+buttonId).innerHTML;
+  document.querySelector("#a1score").value = document.querySelector("#a1-entry"+buttonId).innerHTML;
+  document.querySelector("#a2score").value = document.querySelector("#a2-entry"+buttonId).innerHTML;
+  document.querySelector("#projectSc").value = document.querySelector("#p-entry"+buttonId).innerHTML;
+  document.querySelector("#examScore").value = document.querySelector("#e-entry"+buttonId).innerHTML;
+
+  const studentName = document.querySelector("#studentName"),
+    a1score = document.querySelector("#a1score"),
+    a2score = document.querySelector("#a2score"),
+    projectSc = document.querySelector("#projectSc"),
+    examScore = document.querySelector("#examScore");
+  
   let json = {
+    studentName: studentName.value,
+    a1score: a1score.value,
+    a2score: a2score.value,
+    projectSc: projectSc.value,
+    examScore: examScore.value,
     index: buttonId,
   };
   console.log("Json of the record we are trying to edit: ------------")
@@ -352,6 +371,7 @@ function editStudent(buttonId) {
   console.log("------------------------------")
 
   let body = JSON.stringify(json);
+
   fetch("/editRecord", {
     method: "POST",
     body,
@@ -380,35 +400,35 @@ function editStudent(buttonId) {
       json.forEach((student, index) => {
         console.log(student);
         table.innerHTML +=
-          "<tr id=entry" +
-          index +
-          "><td>" +
-          student.studentName +
-          "</td>" +
-          "<td>" +
-          student.a1score +
-          "</td>" +
-          "<td>" +
-          student.a2score +
-          "</td>" +
-          "<td>" +
-          student.projectSc +
-          "</td>" +
-          "<td>" +
-          student.examScore +
-          "</td>" +
-          "<td>" +
-          student.final_score +
-          "</td>" +
-          //+ "<td>" + "<button type='button' onclick=deleteStudent("+ index + ")>X</button>" +"</td></tr>"
-          "<td>" +
-          "<button type='button' id =" + student.index +
-          " onclick=deleteStudent(this.id)>X</button>" +
-          "</td>" +  
-          "<td>" +
-          "<button type='button' id =" + student.index +
-          " onclick=editStudent(this.id)>O</button>" +
-          "</td></tr>";
+        "<tr id=entry" +
+        index +
+        "><td id=class-entry"+student.index+">" +
+        student.studentName +
+        "</td>" +
+        "<td id=a1-entry"+student.index+">" +
+        student.a1score +
+        "</td>" +
+        "<td id=a2-entry"+student.index+">" +
+        student.a2score +
+        "</td>" +
+        "<td id=p-entry"+student.index+">" +
+        student.projectSc +
+        "</td>" +
+        "<td id=e-entry"+student.index+">" +
+        student.examScore +
+        "</td>" +
+        "<td>" +
+        student.final_score +
+        "</td>" +
+        //+ "<td>" + "<button type='button' onclick=deleteStudent("+ index + ")>X</button>" +"</td></tr>"
+        "<td>" +
+        "<button type='button' id =" + student.index +
+        " onclick=deleteStudent(this.id)>X</button>" +
+        "</td>" +
+        "<td>" +
+        "<button type='button' id =" + student.index +
+        " onclick=editStudent(this.id)>O</button>" +
+        "</td></tr>";
       });
       //table.innerHTML += "</form>"
     });

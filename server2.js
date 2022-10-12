@@ -159,6 +159,51 @@ app.post("/editRecord", (req, res) => {
   console.log("this in the server2 editRecord")
   console.log(req.body);
 
+  collection.updateOne({ index: req.body.index }, 
+    {$set:{studentName: req.body.studentName,
+      a1score: req.body.a1score,
+      a2score: req.body.a2score,
+      projectSc: req.body.projectSc,
+      examScore: req.body.examScore}})
+  .then(result => {
+    if (result) {
+      console.log('success')
+      collection
+        .find({ user: req.user.username })
+        .toArray()
+        .then(result => {
+          let records = [];
+          console.log("result = ")
+          console.log(result)
+          for (const row of result) {
+            records.push({
+              studentName: row.studentName,
+              a1score: row.a1score,
+              a2score: row.a2score,
+              projectSc: row.projectSc,
+              examScore: row.examScore,
+              final_score: row.final_score,
+              index: row.index
+            });
+          }
+          res.json(records);
+        });
+      //console.log(result);
+      //res.json(docs);
+      //res.json(collection.findOne({ studentName: 3131}))
+      //console.log()
+      //collection.deleteOne({ _id:MongoClient.ObjectId( '6344319fd97f41bff58e7267' ) })
+      //res.json(result);
+      //let newStudent = JSON.parse(docs)
+      //res.redirect('/login')
+    } else {
+      console.log('failure')
+      //res.redirect('/login')
+    }
+
+  }).catch(err => {
+    console.log('/edit failed', err)
+  })
 
 });
 
