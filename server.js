@@ -1,7 +1,7 @@
 const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       cookie  = require( 'cookie-session' ),
-      parser  = require( 'body-parser' ),
+      bodyParser  = require( 'body-parser' ),
       timeout  = require( 'connect-timeout' ),
       response  = require( 'response-time' ),
       hbs  = require( 'express-handlebars' ),
@@ -9,6 +9,10 @@ const express = require( 'express' ),
 
 app.use( express.static('public') )
 app.use( express.json() )
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 require('dotenv').config()
 
@@ -44,24 +48,39 @@ app.use( (req,res,next) => {
   }
 })
 
-app.post( '/add', (req,res) => {
-  // assumes only one object to insert
-  collection.insertOne( req.body ).then( result => res.json( result ) )
+app.post('/form', function(req,res){
+  const username = req.body.username;
+  const useremail = req.body.useremail;
+  const gameTitle = req.body.gameTitle;
+  const gameSystem = req.body.gameSystem;
+  const currentDate = req.body.currentDate;
+
+  const data = {
+      "name": username,
+      "email": useremail,
+      "gameTitle": gameTitle,
+      "gameSystem": gameSystem,
+      "currentDate": currentDate
+  }
+
+  db.collection('details').insertOne(data,function(err, collection){
+    if (err) throw err;
+    console.log("Record inserted Successfully");
+          
+});
+
+return res.redirect('signup_success.html');
 })
 
-app.post( '/remove', (req,res) => {
-  collection
-    .deleteOne({ _id:mongodb.ObjectId( req.body._id ) })
-    .then( result => res.json( result ) )
-})
+app.use( cookie({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
-app.post( '/update', (req,res) => {
-  collection
-    .updateOne(
-      { _id:mongodb.ObjectId( req.body._id ) },
-      { $set:{ name:req.body.name } }
-    )
-    .then( result => res.json( result ) )
+//pages
+app.get( '/', (req,res) => {
+  res.render( 'index', { msg:'', layout:false })
 })
 
 app.listen( 3000 )
+console.log("server listening at port 3000");

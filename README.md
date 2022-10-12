@@ -11,7 +11,8 @@ Include a very brief summary of your project here. Images are encouraged, along 
 - the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for one (and one alone) middleware please add a little more detail about what it does.
 
 # Technical Achievements
-- Tech Achievement 1: I used OAuth authentication via the GitHub strategy
+- Tech Achievement 1: Instead of hosting my website on Glitch, I used DigitalOcean. This was easier because it could pull directly from my GitHub repo.
+- Tech Achievement 2: I achieved 100% in all four lighthouse tests.
 
 # Design/Evaluation Achievements
 - Design Achievement 1: I followed the following tips from the W3C Web Accessibility Initiative...

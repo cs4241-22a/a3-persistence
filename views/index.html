@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website where a user can input the detail for a video game and place a hold for checkout from the system.">
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
+    <link rel="preload" as="font">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+
+  </head>
+  <h1>Video Game Checkout System</h1>
+  <body>
+    <form action=" " id="myForm">
+    <table class="gameReserve">
+      <tr>
+        <td></td>
+        <td> <label for="username">Name:</label> <input type="text" id="username" name="username" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="useremail">Email:</label> <input type="text" id="useremail" name="useremail" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameTitle">Game Title</label> <input  type="text" id="gameTitle" name="gameTitle" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameSystem">Game System:</label> <input  type="text" id="gameSystem" name="gameSystem" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="currentDate">Today's Date:</label> <input type="date" id="currentDate" name="currentDate" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="submitButton">Place Hold</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="removeButton">Remove Hold</button></td>
+      </tr>
+
+    </form>
+    <table id="reserveData">
+    </table>
+  </body>
+  <script src="js/scripts.js"></script>
+  
+</html>
