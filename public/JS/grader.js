@@ -296,19 +296,19 @@ function deleteStudent(buttonId) {
         table.innerHTML +=
           "<tr id=entry" +
           index +
-          "><td>" +
+          "><td id=class-entry"+student.index+">" +
           student.studentName +
           "</td>" +
-          "<td>" +
+          "<td id=a1-entry"+student.index+">" +
           student.a1score +
           "</td>" +
-          "<td>" +
+          "<td id=a2-entry"+student.index+">" +
           student.a2score +
           "</td>" +
-          "<td>" +
+          "<td id=p-entry"+student.index+">" +
           student.projectSc +
           "</td>" +
-          "<td>" +
+          "<td id=e-entry"+student.index+">" +
           student.examScore +
           "</td>" +
           "<td>" +
