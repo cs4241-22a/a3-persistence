@@ -1,3 +1,4 @@
+Unfinished but submitting for credit. 
 Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
 ===
 
