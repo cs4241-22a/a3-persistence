@@ -170,7 +170,7 @@ app.post("/deleteRecord", (req, res) => {
   //   .find({ user: req.user.username, index: req.index }) //, index: req.index
   //   .toArray()
   //   .then(result => {
-  collection.updateOne({ index: req.body.index })
+  collection.deleteOne({ index: req.body.index })
     .then(result => {
       if (result) {
         console.log('success')
@@ -208,7 +208,7 @@ app.post("/deleteRecord", (req, res) => {
       }
 
     }).catch(err => {
-      console.log('/update failed', err)
+      console.log('/delete failed', err)
     })
 });
 
