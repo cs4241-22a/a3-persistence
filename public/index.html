@@ -1,64 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Michroma&effect=shadow-multiple"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap"
-      rel="stylesheet"
-    />
 
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Author: Vishnu Priya Dendukuri,
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"
+    integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Michroma&effect=shadow-multiple" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+
+
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, , initial-scale=1" />
+  <meta name="description" content="Author: Vishnu Priya Dendukuri,
     Illustrator: Vishnu Priya Dendukuri, Category: GradingList, Price: free,
-    A website where you can store your scores and get a grade"
-    />
+    A website where you can store your scores and get a grade" />
 
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="./JS/login.js" defer></script>
-  </head>
-  <body>
-    <h1>Grader</h1>
-    <p>Please login to enter</p>
-    <a herf="public/login.html"> Sign up using github</a>
+  <link rel="stylesheet" href="/css/loginstyle.css" />
+  <!-- <link rel="stylesheet" href="/css/pure/pure-min.css"> -->
+  <!-- <link rel="stylesheet" href="/css/pure/grids-responsive-min.css"> -->
+  <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> -->
+  <!-- <link rel="stylesheet" href="/layouts/marketing/styles.css"> -->
+  <script src="./JS/login.js" defer></script>
+</head>
 
-    <label>
-      <form id="userForm">
-        Username:
-        <input type="text" name="user" size="15" />
-        <br />
-        Password: (should be at least six characters with at least one number)
-        <input type="password" name="pwd" size="15" />
-      </form>
-    </label>
+<body>
 
-    <button type="submit" id="logIn">Login!</button>
+  <div class="splash-container">
+    <div class="splash">
+      <h1 class="splash-head">Grader</h1>
+      <p class="splash-subhead">
+        Please login through GITHUB to enter
+        <!-- <a herf="public/login.html"> Sign up using github</a> -->
+      </p>
+      <p>
+        <a href="/auth/github" class="pure-button pure-button-primary">Get Started</a>
+      </p>
+    </div>
+  </div>
+<!-- 
+  <h1>Grader</h1>
+  <p>Please login to enter</p>
+  <a herf="public/login.html"> Sign up using github</a>
 
-    <nav>
-        <a href = "/">Login</a>
-        <ul>
-          <a href="/auth/logout">Logout</a>
-        </ul>
-    </nav>
-    <main>
-      <a class = 'google-btn' href="/auth/github"> GitHub</a>
-    </main>
-    <!--           <button type="submit" id="register">Register!</button>
+  <main>
+    <a class='google-btn' href="/auth/github"> GitHub</a>
+  </main> -->
+  <!-- <label>
+    <form id="userForm">
+      Username:
+      <input type="text" name="user" size="15" />
+      <br />
+      Password: (should be at least six characters with at least one number)
+      <input type="password" name="pwd" size="15" />
+    </form>
+  </label> -->
+
+  <!-- <button type="submit" id="logIn">Login!</button> -->
+
+  <!-- <nav>
+    <a href="/">Login</a>
+    <ul>
+      <a href="/auth/logout">Logout</a>
+    </ul>
+  </nav> -->
+ 
+  <!--           <button type="submit" id="register">Register!</button>
      -->
 
-<!--     <button type="button">Click Me!</button> -->
-  </body>
+  <!--     <button type="button">Click Me!</button> -->
+</body>
+
 </html>
-
-
-
