@@ -1,6 +1,10 @@
 const express = require( 'express' ),
       mongodb = require( 'mongodb' ),
       cookie  = require( 'cookie-session' ),
+      parser  = require( 'body-parser' ),
+      timeout  = require( 'connect-timeout' ),
+      response  = require( 'response-time' ),
+      hbs  = require( 'express-handlebars' ),
       app = express()
 
 app.use( express.static('public') )
