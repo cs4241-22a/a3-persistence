@@ -12,18 +12,13 @@ To delete, you can just click in the "X" button corresponding to the row you wan
 To edit, click on the "O" button corresponsing to the row you want to edit and the data would appear back on the form.You can edit whatever specific data you want and click on the "Submit the edited changes" button.
 
 
-- challenges you faced in realizing the application
-   I really faced a lot of challenges while implementing the git auth. I also faced difficulties with mongo as I have never worked with it 
+- challenges you faced in realizing the application: I really faced a lot of challenges while implementing the git auth. I also faced difficulties with mongo as I have never worked with it 
    
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-   I chose git auth as it is something that our grader can access and also it seemed easier to implement. 
+- what authentication strategy you chose to use and why: I chose git auth as it is something that our grader can access and also it seemed easier to implement. 
 
-- what CSS framework you used and why
-  For the CSS, I used pure template and CSS because they seemed simple which is perfect for my simple app. I have also changed up the colors in the   css files such that I like them
+- what CSS framework you used and why: For the CSS, I used pure template and CSS because they seemed simple which is perfect for my simple app. I have also changed up the colors in the   css files such that I like them
   
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-
-For the middleware
+- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please : For the middleware
 first one was passport, which helps me to handle the git oauth. Second one was response-time which records the response time for requests in HTTP servers so that I'm able check it. Thirdly, i used cookie-parser which parses cookies attached to the client request object and helps keep track of cookies in the server. Lastly, I used cookieSession to encrypt and manage the cookies
   
 Persistent data storage in between server sessions I used [mongodb]
