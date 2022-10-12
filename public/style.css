@@ -7,6 +7,8 @@ body {
   margin: 2em 1em;
   line-height: 1.5em;
   font-display: swap;
+  background-color: black;
+  color: white;
 }
 
 h1 {
@@ -17,7 +19,7 @@ h1 {
 }
 
 form {
-  background-color: #eee;
+  background-color: black;
   display: grid;
   grid-gap: 1em;
   padding: 1em;
