@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Michroma&effect=shadow-multiple" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
+  <title>CS4241 Assignment 2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content="Author: Vishnu Priya Dendukuri,
+    Illustrator: Vishnu Priya Dendukuri, Category: GradingList, Price: free,
+    A website where you can store your scores and get a grade" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="./JS/grader.js"></script>
+</head>
+
+<body>
+  <div class="grid-container">
+    <div class="item1">
+      <h1>Grade Calculator</h1>
+    </div>
+    <div class="item5">
+      <a href="/auth/logout">Logout</a>
+      <p>
+        Hey! You want to calculate your grade? Here is your grade calculator.
+        Just type in your scores (out of 100) and you will be able to recieve
+        your grade in seconds! Above 90% would be an A, above 80% = B, above
+        70% is C and anything less than 70% would give you NR
+      </p>
+      <ul>
+        <li>To add information, go to the form below and type the details to add a class and the scores and click on "Submit"</li>
+        <li>To delete, you can just click in the "X" button corresponding to the row you want to delete</li>
+        <li>To edit, click on the "O" button corresponsing to the row you want to edit and the data would appear back on the form.
+          You can edit whatever specific data you want and click on the "Submit the edited changes" buttn.
+        </li>
+      </ul>
+    </div>
+    <div class="item2">
+      <form id="firstPage">
+        <!-- method="POST" action="/AddRecord" -->
+        <table label="table" id="inputTable" class="inputInfoTable">
+          <tr>
+            <td><label for="studentName">Class:</label></td>
+            <td>
+              <input type="text" id="studentName" name="studentName" value="" /></label>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="a1score">Assignment1 Score:</label></td>
+            <td>
+              <input type="number" id="a1score" name="a1score" value="" min="0" max="100" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="a2score">Assignment2 Score:</label></td>
+            <td>
+              <input type="number" id="a2score" name="a2score" value="" min="0" max="100" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="projectSc">Project Score:</label></td>
+            <td>
+              <input type="number" id="projectSc" name="projectSc" value="" min="0" max="100" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="examScore">Exam Score:</label></td>
+            <td>
+              <input type="number" id="examScore" name="examScore" value="" min="0" max="100" />
+            </td>
+            </td>
+          </tr>
+          <!-- <tr>
+          <td>Final Grade: </td>
+          <td><input type = "hidden" id ="finalScore" name = "finalScore" value = "" > </td>
+          </tr> -->
+          <!-- <tr>
+            <td></td>
+            <td id="submittd">
+              <button type="submit" id="addrecord">Add the record!</button>
+            </td>
+          </tr> -->
+        </table>
+        <!-- <button id = "addrecord">submit</button> -->
+        <input type="submit" id="addrecord" value="Submit" />
+        <input type="submit" id="editrecord" value="Submit the edited changes" />
+      </form>
+
+    </div>
+
+    <div class="index3">
+      <table id="storedData"></table>
+    </div>
+  </div>
+  <div class="index4">
+    <p></p>
+  </div>
+</body>
+
+</html>
