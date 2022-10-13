@@ -18,7 +18,7 @@ The five Express middleware packages I used were body-parser, cookie-session, co
 
 # Technical Achievements
 - Tech Achievement 1: Instead of hosting my website on Glitch, I used DigitalOcean. This was easier because it could pull directly from my GitHub repo.
-- Tech Achievement 2: I achieved 100% in all four lighthouse tests. Screenshots are provided in the "GoogleLighthouse" folder.
+- Tech Achievement 2: I achieved 100% in all four lighthouse tests on both of my website pages. Screenshots are provided in the "GoogleLighthouse" folder.
 
 # Design/Evaluation Achievements
 - Design Achievement 1: I followed the following tips from the W3C Web Accessibility Initiative:
