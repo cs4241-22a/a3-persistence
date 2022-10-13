@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website where a user can input the detail for a video game and place a hold for checkout from the system.">
+    {{!-- <link rel="stylesheet" href="/node_modules/nes.css/css/nes.min.css"> --}}
+    {{!-- <link rel="preload" as="font"> --}}
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+
+  </head>
+  <h1>Video Game Checkout System</h1>
+  <body>
+    <form action="/add" method="POST" id="myForm">
+    <table class="gameReserve">
+      <tr>
+        <td></td>
+        <td> <label for="username">Name:</label> <input type="text" id="userName" name="username" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="useremail">Email:</label> <input type="text" id="useremail" name="useremail" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameTitle">Game Title</label> <input  type="text" id="gameTitle" name="gameTitle" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameSystem">Game System:</label> <input  type="text" id="gameSystem" name="gameSystem" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="currentDate">Today's Date:</label> <input type="date" id="currentDate" name="currentDate" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="submitButton">Place Hold</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    </form>
+
+    <form action="/remove" method="POST" id="deleteForm">
+        <label for="gameID">Game ID:</label> <input type="text" id="gameID" name="gameID" value="" required/>
+        <button id="removeButton">Remove Hold</button>
+    </form>
+
+    <form action="/modify" method="POST" id="updateForm">
+    <table class="gamemodifyReserve">
+      <tr>
+        <td></td>
+        <td> <label for="username">Name:</label> <input type="text" id="modifyusername" name="username" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="useremail">Email:</label> <input type="text" id="modifyuseremail" name="useremail" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameTitle">Game Title</label> <input  type="text" id="modifygameTitle" name="gameTitle" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameSystem">Game System:</label> <input  type="text" id="modifygameSystem" name="gameSystem" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="currentDate">Today's Date:</label> <input type="date" id="modifycurrentDate" name="currentDate" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <label for="gameID">Game ID:</label> <input type="text" id="modifygameID" name="gameID" value="" required/></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button id="updateButton" type="submit">Update Hold</button></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    </form>
+      
+    <table>
+      <thead>
+        <tr>
+        <th class="gameEntry">Game ID</th>
+        <th class="gameEntry">Name</th>
+        <th class="gameEntry">User Email</th>
+        <th class="gameEntry">Game Title</th>
+        <th class="gameEntry">Game System</th>
+        <th class="gameEntry">Current Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each array}}
+          <tr>
+    	      {{#each this}}
+              <td>{{this}}</td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </body>
+  
+</html>

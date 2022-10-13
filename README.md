@@ -1,116 +1,37 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
+# Video Game Checkout System
+https://plankton-app-wc2af.ondigitalocean.app/ 
+Note: I was unable to change the domain of my website on digital ocean, so I was unable to use the a4-kpanneton format.
 
-Due: September 22nd, by 11:59 AM.
+The goal of my application is a system where users can check out and place holds for various video games, similar to a library but for games instead of books. This is a modified version of my library from A2, but instead of a book checkout system I changed it to video games in order to make it more unique.
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+Some challenges I faced in realizing the application was defintely figuring out how to do the add, delete, and modify functions using MongoDB. Connecting to the database and setting up the user login system wasn't that hard to figure out, but figuring out how to store the data as an array and then have the array changed was challenging to figure out. I really struggled with this part, but was eventually able to get all three working, though if I had more time I may have may the interface more clear.
 
-Baseline Requirements
----
+The authentication strategy I chose to use was creating a single test user with a test password that can be used to access the database. The username is "kpanneton" and the password is "test123". I used this method instead of allowing the user to create an account was that this was all I was able to do in the time given. If I had more time I would like to add a create account feature that will let the user make a new account on the login page.
 
-Your application is required to implement the following functionalities:
+For my CSS framework I used NES.css because I enjoyed the font style and the way the mouse turned into a pixeled glove pointer. It gave me nostalgic vibes and I think anyone using the website can feel that. Some modifications I made to the CSS framework were some changes so the styling of the background and text, by changing the color and size. I wanted to background to be black because I think dark mode websites are easier on the eyes, but was unable to get it to work on the final site. I was also struggling to fix the spacing of items on my page so the bottom display is a bit strange to read, but the functionality works.
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows all data associated with a logged in user (except passwords)
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! One of these five middleware 
-can be a custom function that you write yourself; if you choose to do this, make sure to describe what this function is in your README.  
-- Persistent data storage in between server sessions using [mongodb](https://www.mongodb.com/cloud/atlas)
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). 
-This should do the bulk of your styling/CSS for you and be appropriate to your application. 
-For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+The five Express middleware packages I used were body-parser, cookie-session, connect-timeout, handlebars, and response-time.
+- body-parser: Parses the JSON.
+- cookie-session: Stores the cookies for the current session of the user.
+- connect-timeout: Times out the server's session after a specific instance of time, in this case it is set to 5 seconds.
+- handlebars: These are used to connect the HTML elements with the server.
+- response-time: Records the response time for the server's HTTP request.
 
-Your application is required to demonstrate the use of the following concepts:  
+# Technical Achievements
+- Tech Achievement 1: Instead of hosting my website on Glitch, I used DigitalOcean. This was easier because it could pull directly from my GitHub repo.
+- Tech Achievement 2: I achieved 100% in all four lighthouse tests on both of my website pages. Screenshots are provided in the "GoogleLighthouse" folder.
 
-HTML:  
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
-
-Note that it might make sense to have two pages for this assignment, one that handles login / authentication, and one that contains the rest of your application.
-For example, when visiting the home page for the assignment, users could be presented with a login form. After submitting the login form, if the login is 
-successful, they are taken to the main application. If they fail, they are sent back to the login to try again. For this assignment, it is acceptable to simply create 
-new user accounts upon login if none exist, however, you must alert your users to this fact.  
-
-CSS:  
-- CSS styling should primarily be provided by your chosen template/framework. 
-Oftentimes a great deal of care has been put into designing CSS templates; 
-don't override their stylesheets unless you are extremely confident in your graphic design capabilities. 
-The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:  
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. 
-See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:  
-- A server using Express, at least five pieces of Express middleware, and a persistent database (mongodb).
-
-General:  
-- Your site should achieve at least 90% on the `Performance`, `Best Practices`, `Accessibility`, and `SEO` tests 
-using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
-Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
-
-*Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/), Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. 
-For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. 
-Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
-Which element received the most emphasis (contrast) on each page? 
-How did you use proximity to organize the visual information on your page? 
-What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? 
-How did you use alignment to organize information and/or increase contrast for particular elements. 
-Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
-
-## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
-
-### Design/Evaluation Achievements
-- **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
+# Design/Evaluation Achievements
+- Design Achievement 1: I followed the following tips from the W3C Web Accessibility Initiative:
+1. Provide informative, unique page titles: Each page has a title that diferentiates it from the other.
+2. Provide clear instructions: My website provides instructions for how to submit a hold and input information.
+3. Keep content clear and concise: Only necessary information is provided on the page such as the input fields in the form, the submit button, and simple instructions.
+4. Provide easily identifiable feedback: When the user leavs a field blank or puts improper inputs, they are notfied.
+5. Ensure that interactive elements are easy to identify: The only interactive elements are the calender to select the date, and the submit, add, delete, modify buttons. They are all clearly labeled.
+6. Provide clear and consistent navigation options: The page is pretty simple to navigate, there are minimal pages to make it easier for the user to interact with.
+7. Create designs for different viewport sizes: The page adapts to different devices, creating different spacing for different devices.
+8. Associate a label with every form control: Each form element on the page has a corresponding label.
+9. Identify page language and language changes: The primary page language is denoted at the top of all my html files, in the header using the lang atribute.
+10. Reflect the reading order in the code order: I have written my HTML code in order of what the user will be reading on the page, including CSS in a completely seperate file for increased readability.
+11. Write code that adapts to the user’s technology: My code adapts the size of the screen to fit on their device, such as desktop, mobile, etc.
+12. Ensure that all interactive elements are keyboard accessible: All my text input fields provided in my form are keyboard accessible. 
