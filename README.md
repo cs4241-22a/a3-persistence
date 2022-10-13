@@ -1,5 +1,5 @@
 # Video Game Checkout System
-https://a3-kpanneton.glitch.me/
+https://plankton-app-wc2af.ondigitalocean.app/
 
 The goal of my application is a system where users can check out and place holds for various video games, similar to a library but for games instead of books. This is a modified version of my library from A2, but instead of a book checkout system I changed it to video games in order to make it more unique.
 
