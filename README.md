@@ -3,11 +3,11 @@ https://a3-kpanneton.glitch.me/
 
 The goal of my application is a system where users can check out and place holds for various video games, similar to a library but for games instead of books. This is a modified version of my library from A2, but instead of a book checkout system I changed it to video games in order to make it more unique.
 
-Some challenges I faced in realizing the application was defintely figuring out out to both store and then manipulate the data using MongoDB.
+Some challenges I faced in realizing the application was defintely figuring out how to do the add, delete, and modify functions using MongoDB. Connecting to the database and setting up the user login system wasn't that hard to figure out, but figuring out how to store the data as an array and then have the array changed was challenging to figure out. I really struggled with this part, but was eventually able to get all three working, though if I had more time I may have may the interface more clear.
 
-The authentication strategy I chose to use was
+The authentication strategy I chose to use was creating a single test user with a test password that can be used to access the database. The username is "kpanneton" and the password is "test123". I used this method instead of allowing the user to create an account was that this was all I was able to do in the time given. If I had more time I would like to add a create account feature that will let the user make a new account on the login page.
 
-For my CSS framework I used NES.css because I enjoyed the font style and the way the mouse turned into a pixeled glove pointer. It gave me nostalgic vibes and I think anyone using the website can feel that. Some modifications I made to the CSS framework were some changes so the styling of the background and text, by changing the color and size. I wanted to background to be black because I think dark mode websites are easier on the eyes, so I also modified the text to be white.
+For my CSS framework I used NES.css because I enjoyed the font style and the way the mouse turned into a pixeled glove pointer. It gave me nostalgic vibes and I think anyone using the website can feel that. Some modifications I made to the CSS framework were some changes so the styling of the background and text, by changing the color and size. I wanted to background to be black because I think dark mode websites are easier on the eyes, but was unable to get it to work on the final site. I was also struggling to fix the spacing of items on my page so the bottom display is a bit strange to read, but the functionality works.
 
 The five Express middleware packages I used were body-parser, cookie-session, connect-timeout, handlebars, and response-time.
 - body-parser: Parses the JSON.
@@ -18,7 +18,7 @@ The five Express middleware packages I used were body-parser, cookie-session, co
 
 # Technical Achievements
 - Tech Achievement 1: Instead of hosting my website on Glitch, I used DigitalOcean. This was easier because it could pull directly from my GitHub repo.
-- Tech Achievement 2: I achieved 100% in all four lighthouse tests.
+- Tech Achievement 2: I achieved 100% in all four lighthouse tests. Screenshots are provided in the "GoogleLighthouse" folder.
 
 # Design/Evaluation Achievements
 - Design Achievement 1: I followed the following tips from the W3C Web Accessibility Initiative:
