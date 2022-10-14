@@ -5,6 +5,21 @@ function clearEntry() {
   document.getElementById("gameToDelete").value = "";
 }
 
+const getList = function () {
+  fetch("/get-game", {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      reloadList(data);
+    })
+    .catch((err) => console.log(err));
+
+  return false;
+};
+
 const submit = function (e) {
   // prevent default form action from being carried out
   e.preventDefault();

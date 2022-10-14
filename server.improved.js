@@ -36,8 +36,19 @@ const auth = (req, res, next) => {
   }
 };
 
-app.use(express.static("public"));
-app.use(express.static("./"));
+app.use("/index", express.static("public"));
+app.get("/index", auth, (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+//app.use(express.static("./",(req, res) => {
+//  res.sendFile(path.resolve(__dirname, "/public/login.html"));
+//}));
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
+
 
 app.use(cookieParser("" + process.env.COOKIE_SECRET));
 app.use(
@@ -100,10 +111,26 @@ const appdata = [
   },
 ];
 
+
+app.get("/get-game", auth, (req, res) => {
+  console.log("User: " + req.user);
+  console.log(req.user);
+  console.log("Session: " + req.session);
+  console.log(req.session);
+  getUserFoods(req.session.email)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(400);
+    });
+});
+
 //getUser.loginUser({email: "bruhh",password: "something"})
 
 app.post("/login", async (req, res) => {
-  loginUser(req.body)
+  getUser.loginUser(req.body)
     .then((data, err) => {
       req.session.email = data.email;
       res.status(200);
