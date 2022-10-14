@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4285f4">
+    <meta name="description" content="Todo signup page">
+    <meta name="keywords" content="todo, express, mongo">
+    <title>Todo List Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="h-50 d-flex flex-column align-items-center justify-content-center">
+        <h2 class="mb-4">Signup</h2>
+        <p class="text-danger" id="status-message"></p>
+        <form id="signupForm" class="w-25" style="min-width: 12rem" onkeydown="return event.key != 'Enter';">
+            <!-- Username input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="signupUsername" class="form-control" />
+                <label class="form-label" for="signupUsername">Username</label>
+            </div>
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="signupPassword" class="form-control" />
+                <label class="form-label" for="signupPassword">Password</label>
+            </div>
+            <button class="btn btn-primary btn-block mb-3">Create</button>
+        </form>
+        <a href="/" class="link-secondary" role="button">back</a>
+    </div>
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+
+        const signupForm = document.getElementById('signupForm')
+
+        signupForm.addEventListener('submit', async e => {
+            e.preventDefault()
+            const statusMSG = document.getElementById('status-message')
+
+            const signupData = {
+                "username": signupForm.elements['signupUsername'].value,
+                "password": signupForm.elements['signupPassword'].value,
+                "userdata": JSON.stringify([])
+            }
+
+            const response = await fetch('/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(signupData)
+            })
+
+            const jsonResponse = await response.json()
+
+            statusMSG.innerHTML = jsonResponse.message;
+
+            if (jsonResponse.status == 'SUCCESS') {
+
+                window.location.replace('/')
+
+            } else {
+                console.error(jsonResponse.message)
+            }
+        })
+
+    </script>
+</body>
+
+</html>
