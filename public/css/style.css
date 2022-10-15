@@ -1,0 +1,56 @@
+body {
+  background-color: #6D6666;
+  text-align: center;
+}
+
+h1 {
+  color: #51E92C;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+h2 {
+  color: #44120f;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#login-button {
+  text-align: center;
+  font-family: "Georgia", serif;
+  margin-left: auto;
+  margin-right: auto;
+  left: 50%;
+}
+
+
+table {
+  text-align: center;
+  border: 3px solid #44120f;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 75%;
+   font-family: "Georgia", serif;
+}
+
+label {
+  color: #7EE3EE;
+  font-family: "Georgia", serif;
+}
+
+div {
+  color: #7EE3EE;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+   font-family: "Georgia", serif;
+}

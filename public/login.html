@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<style>
+body {
+  background-color: #6D6666;
+  text-align: center;
+}
+
+h1 {
+  color: #51E92C;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+h2 {
+  color: #44120f;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#login-button {
+  text-align: center;
+  font-family: "Georgia", serif;
+  margin-left: auto;
+  margin-right: auto;
+  left: 50%;
+}
+
+
+table {
+  text-align: center;
+  border: 3px solid #44120f;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  width: 75%;
+   font-family: "Georgia", serif;
+}
+
+label {
+  color: #7EE3EE;
+  font-family: "Georgia", serif;
+}
+
+div {
+  color: #7EE3EE;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 45%;
+   font-family: "Georgia", serif;
+}
+
+
+
+</style>
+<html lang="en">
+  <head>
+    
+    <link
+      rel="stylesheet"
+      href="http://fonts.googleapis.com/css?family=Lobster"
+    />
+
+    <script src="js/scripts.js"></script>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <h1>Welcome to the Gamers Den</h1>
+    <form>
+      <h2>Login</h2>
+      <div  id="email-input-box">
+        <label for="name_field">Username:</label>
+        <input type="email" id="email" placeholder="email">
+      </div>
+      <div></div>
+      <div  padding: 1rem;" id="password-input-box">
+        <label for="name_field">Password:</label>
+        <input type="password" id="password" placeholder="password">
+      </div>
+
+      <button id="login-button" onclick="login">Login</button>
+    </form>
+
+    <div>
+    </div>
+    <div></div>
+    <img
+    src="https://cdn.glitch.global/369afb72-abcf-4112-901c-e43b76263a6f/JJQLRs-outline-dragon-transparent.png?v=1665619718776"
+    width="150"
+    height="150"
+  />
+
+  <section>
+    <dialog id="dialog-default">
+      <form method="dialog">
+        <p id="alert-content-login-error"> generic missing field/created new account </p>
+        <menu class="dialog-menu">
+          <button>Okay</button>
+        </menu>
+      </form>
+    </dialog>
+  </section>
+  </body>
+</html>
+
+<script>
+  
+  const req_headers = new Headers();
+  req_headers.append("Content-Type", "application/json");
+
+  window.onload = function () {
+    const loginButton = document.getElementById("login-button");
+    loginButton.onclick = login;
+  };
+
+  const login = (e) => {
+    e.preventDefault();
+    const email = document.querySelector("#email").value;
+    const password = document.querySelector("#password").value;
+    if (email !== "" && password !== "") {
+      const data = {
+        email: email,
+        password: password,
+      };
+
+      fetch("/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: req_headers,
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          if (data.login === false) {
+            alert("Unknown email, created new account");
+          }
+          document.location.href = "/index";
+        })
+        .catch((err) => window.alert("Incorrect password!") );
+    } else {
+      window.alert("Fill out missing fields!");
+    }
+  };
+</script>
