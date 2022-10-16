@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Movie Watchlist</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Search movies and add them to your personal list.">
+    <link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./css/style.css"></noscript>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Work+Sans:wght@500&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <header>
+      <h1 id="page-title">
+        Movie Watchlist v2
+      </h1>
+    </header>  
+
+    <div class="login">
+      <div class="login-field">
+        <label>Username: <input id="username" type="text"/></label>
+      </div>
+      <div class="login-field">
+        <label>Password: <input id="password" type="password"/></label>
+      </div>
+      <div class="login-field">
+        <button class="pure-button" id="login">Login</button>
+        <button class="pure-button" id="register">Create Account</button>
+      </div>
+      <div class="login-field">
+        <p id="login-error"></p>
+      </div>
+    </div>
+
+    <div class="hidden content">
+      <div id="movie-list">
+        Loading...
+      </div>
+      <div id="create-entry">
+        <button type="button" id="new-movie" class="collapsible">+ New Movie</button>
+        <div id="new-entry" class="collapsible-content">
+          <div id="new-entry-box">
+            <label>>Search for a *<span class="scrambleable">great</span>* movie:
+            <input type="text" id="search-bar"/></label>
+            <button type="button" class="btn" id="search">Search</button>
+            <div id="search-results">
+              <div id="titles">
+                Use the search to find movies and add them to your list.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Ted Clifford (c) 2022
+    </footer>
+
+    <script src="./js/scripts.js"></script> 
+  </body>
+</html>
