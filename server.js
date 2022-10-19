@@ -118,10 +118,10 @@ function stopOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
-// app.listen( 3000  )
+app.listen( 3000 )
 
-port = process.env.PORT || 80
-app.listen(port)
+
+
 
 
 
