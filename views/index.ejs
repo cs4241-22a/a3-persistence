@@ -1,0 +1,68 @@
+<!-- index.ejs -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
+    <link rel="icon" href="favicon.ico?v=1.1">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- <script src="../public/client.js"></script> -->
+
+  </head>
+  <body>
+    <!-- <div class="grid-container">
+    <div class="description"> -->
+    <header>Digital Journal</header>
+
+    </div>
+
+      <form action="../add" id="formElem" method="post">
+      <table>
+      <tr>
+        <label for="locationCreate">Where am I:</label>
+        <td><input id="locationCreate" class="textBox" type='text' name="location_field" value="" placeholder="put location here!" required><td>
+      </tr>
+      <tr>
+        <label for="entryCreate">What am I up to:</label>
+      <td><input id="entryCreate" class="textBox" type='text' name="content" value="" placeholder="put entry here!" required></td>
+      </tr>
+      <td id="submit"><button>Submit Post</button></td>
+      </table>
+
+        </form>
+
+        <% for(var i = 0; i < dataFromMongo.length; i++) {%>
+          <form method="post" action="../update">
+            <input type="hidden" value='<%= dataFromMongo[i]._id %>' name="_id" id="something">
+            <header>Place: <%= dataFromMongo[i].location_field %></header>
+            <p><%= dataFromMongo[i].content %></p>
+            <label for="entryUpdate">What am I up to:</label>
+            <input id="entryUpdate"class="textBox" type='text' name="newContent" value="" placeholder='rewrite <%= dataFromMongo[i].location_field %> entry '   >
+
+            <button type="submit" formaction="../update">Modify Entry</button>
+            <button type="submit" formaction="../remove">Remove Entry</button>
+          </form>
+          <% } %>
+
+  </div>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
