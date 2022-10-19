@@ -15,8 +15,9 @@ the goal of the application:
 have a database of entries that you can modify/delete to create an online journal
 
 challenges you faced in realizing the application:
-mongoDB - connect string was wrong, using their API in general, I have never taken a database class and I have never worked with 
-anything like  mongo
+mongoDB - connect string was wrong, using their API in general was weird to  adjust to, I have never taken a database class and I have never worked with 
+anything like mongo
+
 
 what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
 when the user submits login string, it is posted to /login and then checked against my mongo database of users
