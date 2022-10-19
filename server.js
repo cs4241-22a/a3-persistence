@@ -118,7 +118,11 @@ function stopOnTimedout (req, res, next) {
   if (!req.timedout) next()
 }
 
-app.listen( 3000 )
+// https://stackoverflow.com/questions/28706180/setting-the-port-for-node-js-server-on-heroku
+
+const PORT = process.env.PORT || 80;
+
+app.listen(PORT)
 
 
 
