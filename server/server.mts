@@ -24,17 +24,6 @@ const app = express();
 app.use(morgan('tiny'));										// Logging
 app.use(express.static('src', {index: "login.html"}));	// Login page
 app.use(express.json());											// Json parsing
-
-// Express session middleware
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: true,
-	cookie: { secure: true }
-}));
-
-app.use(passport.initialize());										// Initialize Passport
 app.use(passport.session());										// Start passport session
 
 

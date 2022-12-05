@@ -5,7 +5,6 @@ import morgan from "morgan";
 import sha256 from 'crypto-js/sha256.js';
 import path, { dirname } from "path";
 import { fileURLToPath } from 'url';
-import session from "express-session";
 import passport from "passport";
 const port = '3000';
 // get mongodb credentials from mongodb.config.json
@@ -17,15 +16,6 @@ const app = express();
 app.use(morgan('tiny')); // Logging
 app.use(express.static('src', { index: "login.html" })); // Login page
 app.use(express.json()); // Json parsing
-// Express session middleware
-app.set('trust proxy', 1); // trust first proxy
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
-app.use(passport.initialize()); // Initialize Passport
 app.use(passport.session()); // Start passport session
 // Setup client and connection
 // @ts-ignore
