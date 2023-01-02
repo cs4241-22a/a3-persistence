@@ -1,13 +1,12 @@
 require('./models/mongodb');
+require('express-handlebars');
 
 const express = require('express')
 const app = express()
-//const port = 3000
 
 const path = require('path');
 const exphb = require('express-handlebars');
 const bodyparser = require('body-parser');
- 
 const courseController = require('./controllers/courseController');
  
 app.use(bodyparser.urlencoded({
@@ -21,14 +20,11 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
 app.use(bodyparser.json());
  
 //Configuring Express middleware for the handlebars
 app.set('views', path.join(__dirname, '/views/'));
-app.engine('hbs', exphb({ extname: 'hbs', defaultLayout: 'mainLayout', layoutDir: __dirname + 'views/layouts/' }));
+app.engine('hbs', exphb.engine({ extname: 'hbs', defaultLayout: 'mainLayout', layoutDir: __dirname + 'views/layouts/' }));
 app.set('view engine', 'hbs');
  
 //Establish the server connection
