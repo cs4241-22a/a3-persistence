@@ -72,11 +72,10 @@ why it was challenging, and how many points you think the achievement should be 
 ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
 
 *Technical*
-- (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). 
-*You must either use Github authenticaion or provide a username/password to access a dummy account*. 
-Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. 
-Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
-- (5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
+ 
+- I deployed the site on Digital Ocean. I preferred this method to using Glitch because Digital Ocean deployed my application straight from GitHub. Had I used Glitch, I would have had to import my files. The downside to Digital Ocean and other services like Heroku is that (1) they require a credit card to get started and (2) they're going to cost you once your free trial is up. In that sense, Glitch is a more budget/student-friendly option of deployment. Both Digital Ocean and Glitch can auto-update the deployment when changes are made. 
+
+(5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
 - (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
 
 *Design/UX*
