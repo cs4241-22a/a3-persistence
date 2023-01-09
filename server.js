@@ -1,8 +1,9 @@
 const express = require('express'); 
-//const response  = require('response-time' )
 const bodyParser = require('body-parser'); 
-//const cookie  = require('cookie-session' );
-//const timeout  = require('connect-timeout');
+const response  = require('response-time' );
+const cookie  = require('cookie-session' );
+var errorhandler = require('errorhandler');
+var notifier = require('node-notifier');
 const port = 8080; 
 const app = express(); 
 
@@ -12,11 +13,24 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
-// app.use(cookie({
-//   name: 'session',
-//   keys: ['3845829', '5456321']
-// }))
+app.use(cookie({
+  name: 'session',
+  keys: ['3845829', '5456321']
+}))
 
+if (process.env.NODE_ENV === 'development') {
+  // only use in development
+  app.use(errorhandler({ log: errorNotification }))
+}
+
+function errorNotification (err, str, req) {
+  var title = 'Error in ' + req.method + ' ' + req.url
+
+  notifier.notify({
+    title: title,
+    message: str
+  })
+}
 
 // MONGODB SET UP ------------------------------------------------------------------------------------------------
 const MongoClient = require('mongodb').MongoClient;
@@ -29,6 +43,7 @@ app.get('/', (req, res) => {
         if (err) return console.error(err);
         const db = client.db('A3-database');
         const collection = db.collection('book-collection');
+        // console.log("Response time: " + response);
         collection
           .find()
           .toArray()
