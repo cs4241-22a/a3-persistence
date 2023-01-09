@@ -50,32 +50,11 @@ General:
 using Google [Lighthouse](https://developers.google.com/web/tools/lighthouse) (don't worry about the PWA test, and don't worry about scores for mobile devices).
 Test early and often so that fixing problems doesn't lead to suffering at the end of the assignment. 
 
-Deliverables
----
 
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality.
-2. If you developed your project locally, deploy your project to Glitch (unless completing the alternative server technical acheivement described below), and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourfirstname-yourlastname` so we can find it.
-5. Fork this repository and modify the README to the specifications below.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-firstname-lastname`.
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the 
-assignment to your personal interests, for a maximum twenty additional points and a maximum grade of a 100%. 
-These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README, 
-why it was challenging, and how many points you think the achievement should be worth. 
-ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM.
 
 *Technical*
  
-- I deployed the site on Digital Ocean. I preferred this method to using Glitch because Digital Ocean deployed my application straight from GitHub. Had I used Glitch, I would have had to import my files. The downside to Digital Ocean and other services like Heroku is that (1) they require a credit card to get started and (2) they're going to cost you once your free trial is up. In that sense, Glitch is a more budget/student-friendly option of deployment. Both Digital Ocean and Glitch can auto-update the deployment when changes are made. 
 
-(5 points) Instead of Glitch, host your site on a different service like [Heroku](https://www.heroku.com) or [Digital Ocean](https://www.digitalocean.com). Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Glitch? What (if anything) was worse? 
 - (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
 
 *Design/UX*
@@ -84,6 +63,7 @@ For example, even though your page will most likely not have a captcha, you don'
 getting it "for free" without having to actively change anything about your site. 
 Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard. 
 List each tip that you followed and describe what you did to follow it in your site.
+
 - (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. 
 Which element received the most emphasis (contrast) on each page? 
 How did you use proximity to organize the visual information on your page? 
@@ -94,22 +74,36 @@ Write a paragraph of at least 125 words *for each of four principles* (four para
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+# BOOKish NOOK
+## (but now connected to MongoDB)
 
-your glitch (or alternative server) link e.g. http://a3-charlie-roberts.glitch.me
+https://coral-app-gxbph.ondigitalocean.app/
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
+I implemented my application from A2, BOOKish NOOK. Once again, users can log their reading but this time the data will persist between sessions. 
+
+I had the beginnings of a login system as part of my authentication strategy, but struggled to get it working. 
 
 - the goal of the application
 - challenges you faced in realizing the application
 - what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
+
 - what CSS framework you used and why
   - include any modifications to the CSS framework you made via custom CSS you authored
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function for *one* (and one alone) middleware please 
-add a little more detail about what it does.
+
+## CSS Framework
+I used Bootstrap as my CSS framework of choice. 
+
+## Express Middleware
+
+I used the following Express Middleware packages:
+- 1. ejs, which passes data from the database to the browser to display content.
+- 2. body-parser, which parses JSON data.
+- 3. response-time, which records the time it takes for a server to respond to an HTTP request.
+- 4. connect-timeout, which allows you to set a specific amount of time it should take a server to load before timing out.
+- 5. 
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
+- **1. Deployed App on Digital Ocean**: I deployed the site on Digital Ocean. I preferred this method to using Glitch because Digital Ocean deployed my application straight from GitHub. Had I used Glitch, I would have had to import my files. The downside to Digital Ocean and other services like Heroku is that (1) they require a credit card to get started and (2) they're going to cost you once your free trial is up. In that sense, Glitch is a more budget/student-friendly option of deployment. Both Digital Ocean and Glitch can auto-update the deployment when changes are made. 
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: I followed the following tips from the W3C Web Accessibility Initiative...
