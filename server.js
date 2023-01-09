@@ -1,8 +1,8 @@
 const express = require('express'); 
-const response  = require('response-time' )
+//const response  = require('response-time' )
 const bodyParser = require('body-parser'); 
-const cookie  = require('cookie-session' );
-const timeout  = require('connect-timeout');
+//const cookie  = require('cookie-session' );
+//const timeout  = require('connect-timeout');
 const port = 8080; 
 const app = express(); 
 
@@ -12,10 +12,10 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
-app.use(cookie({
-  name: 'session',
-  keys: ['3845829', '5456321']
-}))
+// app.use(cookie({
+//   name: 'session',
+//   keys: ['3845829', '5456321']
+// }))
 
 
 // MONGODB SET UP ------------------------------------------------------------------------------------------------
