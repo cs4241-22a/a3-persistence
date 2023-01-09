@@ -1,6 +1,3 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
-
 # BOOKish NOOK (now with MongoDB capabilities!)
 
 https://coral-app-gxbph.ondigitalocean.app/
@@ -23,7 +20,7 @@ I used the following Express Middleware packages:
 
 ## Technical Achievements
 - **I deployed the app on Digital Ocean**: I preferred this method to using Glitch because Digital Ocean deployed my application straight from GitHub. Had I used Glitch, I would have had to import my files. The downside to Digital Ocean and other services like Heroku is that (1) they require a credit card to get started and (2) they're going to cost you once your free trial is up. In that sense, Glitch is a more budget/student-friendly option of deployment. Both Digital Ocean and Glitch can auto-update the deployment when changes are made.  
-- **100% on Google Lighthouse**: The app scored 100% in all four lighthouse tests required for this assignment (see screenshot in the google_lighthouse folder).
+- **100% on Google Lighthouse**: The app scored 100% in all four lighthouse tests required for this assignment (see screenshot in lighthouse_test_screenshot.PNG).
 
 ## Design/Evaluation Achievements
 - **I followed the following tips from the W3C Web Accessibility Initiative**: 
