@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "63b3c5b30138b43eb762c235"
+  },
+  "courseName": "Heathens",
+  "courseId": "1",
+  "courseDuration": "semester",
+  "courseFee": "twenty five"
+},{
+  "_id": {
+    "$oid": "63b3c5ef0138b43eb762c237"
+  },
+  "courseName": "Toe breathing",
+  "courseId": "2",
+  "courseDuration": "semester",
+  "courseFee": "twenty five"
+},{
+  "_id": {
+    "$oid": "63b3e81ea3217d03c1f1c3f0"
+  },
+  "courseName": "Harriet",
+  "courseId": "10000",
+  "courseDuration": "17",
+  "courseFee": "100",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63b4e6f290c349f1120f71c8"
+  },
+  "courseName": "Advocacy In The Times Of Resistance",
+  "courseId": "10002",
+  "courseDuration": "14",
+  "courseFee": "525",
+  "__v": 0
+}]

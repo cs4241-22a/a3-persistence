@@ -1,6 +1,8 @@
 require('./models/mongodb');
 require('express-handlebars');
 
+
+///////////////////////////////////////////////////////////
 const express = require('express')
 const app = express()
 
@@ -17,7 +19,7 @@ extended: true
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('/course')
 })
 
 app.use(bodyparser.json());
